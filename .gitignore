@@ -1,9 +1,7 @@
-
-.*
-!.gitignore
-
 .idea/
 *.iml
 
-.web/node_modules/
-.web/public/
+client/node_modules/
+client/public/
+
+server/target
