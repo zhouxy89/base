@@ -29,8 +29,9 @@ public class Trip {
     // then construct the objects containing the response
     title = "Around the world!";
 
-    this.options = new Option("miles");destinations = new ArrayList<Place>();
+    this.options = new Option("miles");
 
+    destinations = new ArrayList<Place>();
     destinations.add( new Place("dnvr","Denver", "", ""));
     destinations.add( new Place("bldr","Boulder", "", ""));
     destinations.add( new Place("foco","Fort Collins", "", ""));
