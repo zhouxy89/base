@@ -1,3 +1,8 @@
+package com.tripco.t00;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import spark.Request;
 import java.util.ArrayList;
 
@@ -6,23 +11,32 @@ import java.util.ArrayList;
  */
 public class Trip {
 
-  String title = "";
-  Option options = null;
-  ArrayList<Place> destinations = null;
-  ArrayList<Integer> distances = null;
-  String map = "";
+  private String title = "";
+  private Option options = null;
+  private ArrayList<Place> destinations = null;
+  private ArrayList<Integer> distances = null;
+  private String map = "";
 
   /** The constructor create the plan from the request data.
    *
    * For now we just hardcoded some test data.
    *
-   * @param request the HTTP request containing the information for the plan.
+   * @param request the com.tripco.t00.HTTP request containing the information for the plan.
    */
-  Trip(Request request) {
+  public Trip(Request request) {
     // first print the request
     System.out.println(HTTP.echoRequest(request));
 
-    // extract the information from the body of the request.  Tanner?
+    // extract the information from the body of the request.
+    JsonParser jsonParser = new JsonParser();
+    JsonElement requestBody = jsonParser.parse(request.body());
+
+    // convert the body of the request to a Java class.
+    Gson gson = new Gson();
+    Trip requestedTrip = gson.fromJson(requestBody, Trip.class);
+
+    // each property of the json can now be read as a normal java class
+    // System.out.println(requestedTrip.title);
 
     // now do lots of computation.  this is left up to you.
 

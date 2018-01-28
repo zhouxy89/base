@@ -1,8 +1,10 @@
+package com.tripco.t00;
+
 public class Place {
-  String id;
-  String name;
-  String latitude;
-  String longitude;
+  private String id;
+  private String name;
+  private String latitude;
+  private String longitude;
 
   Place(String id, String name, String latitude, String longitude){
     this.id = id;

@@ -1,3 +1,5 @@
+package com.tripco.t00;
+
 import static spark.Spark.get;
 import static spark.Spark.init;
 import static spark.Spark.port;
@@ -81,6 +83,7 @@ public class MicroServer {
 
     response.type("application/json");
 
+    Gson gson = new Gson();
     /* wouldn't it be cool if this worked?  Alas, ...
     Gson gson = new Gson();
     return gson.toJson(request);
