@@ -36,7 +36,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>src/main/java</classpathPrefix>
-                            <mainClass>com.tripco.t00.MyServer</mainClass>
+                            <mainClass>com.tripco.t00.server.MyServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

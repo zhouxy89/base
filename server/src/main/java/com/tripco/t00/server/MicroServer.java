@@ -1,4 +1,4 @@
-package com.tripco.t00;
+package com.tripco.t00.server;
 
 import static spark.Spark.get;
 import static spark.Spark.init;
@@ -8,6 +8,7 @@ import static spark.Spark.staticFiles;
 
 import com.google.gson.Gson;
 
+import com.tripco.t00.planner.Trip;
 import spark.Request;
 import spark.Response;
 

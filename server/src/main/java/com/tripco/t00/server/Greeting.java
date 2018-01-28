@@ -1,4 +1,4 @@
-package com.tripco.t00;
+package com.tripco.t00.server;
 
 public class Greeting {
 

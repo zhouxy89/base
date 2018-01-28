@@ -1,8 +1,9 @@
-package com.tripco.t00;
+package com.tripco.t00.planner;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.tripco.t00.server.HTTP;
 import spark.Request;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class Trip {
    *
    * For now we just hardcoded some test data.
    *
-   * @param request the com.tripco.t00.HTTP request containing the information for the plan.
+   * @param request the com.tripco.t00.server.HTTP request containing the information for the plan.
    */
   public Trip(Request request) {
     // first print the request
