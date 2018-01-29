@@ -16,6 +16,7 @@
     <name>t00</name>
     <url>https://github.com/csu314sp18/repo-base</url>
     <build>
+        <directory>../target</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
