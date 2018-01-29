@@ -10,12 +10,13 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tripco.t00</groupId>
-    <artifactId>TripCo</artifactId>
+    <artifactId>server</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>t00</name>
     <url>https://github.com/csu314sp18/repo-base</url>
     <build>
+        <directory>../target</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
