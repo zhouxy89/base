@@ -14,6 +14,7 @@ app.use('/public', pathBundle)
 const pathIndex = path.join(__dirname, 'index.html')
 const open = require('open');
 const port = 8080; // Make dynamic later?
+// Open web browser
 let target_entry = 'http://localhost:' + port + '/';
 open(target_entry);
 app.get('/', function (req, res) {
@@ -21,4 +22,4 @@ app.get('/', function (req, res) {
   res.sendFile(pathIndex)
 });
 
-app.listen(8080);
+app.listen(port);
