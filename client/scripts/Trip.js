@@ -12,7 +12,7 @@ class Trip extends Component {
     super(props);
     this.state={
       map: '<svg width="1106" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --><g> <g id="svg_4"><svg id="svg_1" height="480" width="1106" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g id="svg_2"><title>Layer 1</title><rect fill="#ffffff" stroke="#000000" stroke-width="4" x="0" y="0" width="1106" height="480" id="svg_3"/></g></svg> </g></g></svg>',
-      itinerary: null
+      itinerary: [["Paris"], ["France"], [30]]
     }
   }
 
@@ -53,12 +53,12 @@ class Trip extends Component {
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
-              <span class="input-group-btn">
-              <button class="btn btn-primary " type="button">Plan</button>
+              <span className="input-group-btn">
+              <button className="btn btn-primary " type="button">Plan</button>
             </span>
-              <input type="text" class="form-control" placeholder="Trip title..."/>
-              <span class="input-group-btn">
-              <button class="btn btn-primary " type="button">Save</button>
+              <input type="text" className="form-control" placeholder="Trip title..."/>
+              <span className="input-group-btn">
+              <button className="btn btn-primary " type="button">Save</button>
             </span>
             </div>
             <Map map={this.state.map} options={this.props.options} />

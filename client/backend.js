@@ -12,6 +12,10 @@ app.use('/public', pathBundle)
 // Return the index page to the client
 // Since this is a single page web app, index.html is the only html page
 const pathIndex = path.join(__dirname, 'index.html')
+const open = require('open');
+const port = 8080; // Make dynamic later?
+let target_entry = 'http://localhost:' + port + '/';
+open(target_entry);
 app.get('/', function (req, res) {
   // Pass the html to the client
   res.sendFile(pathIndex)
