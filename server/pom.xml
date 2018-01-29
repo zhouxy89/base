@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tripco.t00</groupId>
-    <artifactId>TripCo</artifactId>
+    <artifactId>server</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>t00</name>
