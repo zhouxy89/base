@@ -1,3 +1,5 @@
+package com.tripco.t00.server;
+
 import static spark.Spark.get;
 import static spark.Spark.init;
 import static spark.Spark.port;
@@ -6,6 +8,7 @@ import static spark.Spark.staticFiles;
 
 import com.google.gson.Gson;
 
+import com.tripco.t00.planner.Trip;
 import spark.Request;
 import spark.Response;
 
@@ -81,6 +84,7 @@ public class MicroServer {
 
     response.type("application/json");
 
+    Gson gson = new Gson();
     /* wouldn't it be cool if this worked?  Alas, ...
     Gson gson = new Gson();
     return gson.toJson(request);

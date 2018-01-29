@@ -1,3 +1,5 @@
+package com.tripco.t00.server;
+
 /** The main class for the application.
  *
  * Command line arguments are of the form:

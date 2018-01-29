@@ -1,3 +1,5 @@
+package com.tripco.t00.server;
+
 public class Greeting {
 
   public static String html(String name) {

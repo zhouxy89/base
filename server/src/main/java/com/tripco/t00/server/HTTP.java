@@ -1,8 +1,12 @@
+package com.tripco.t00.server;
+
 import spark.Request;
 
 /**  Special type of class that you don't instantiate - forgot what it is called.
- *
+ * abstract or static? if you want to avoid instantiation entirely we could give it a private constructor
  */
+
+
 public class HTTP {
 
   /** Creates a text Json containing the request information.
