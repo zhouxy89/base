@@ -10,7 +10,7 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    './front-end/entry.jsx'
+    './entry.jsx'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -25,9 +25,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    rules: [
-      { test: /\.(js|jsx)/, loader: 'babel-loader',
-        include: path.join(__dirname, 'front-end'),
+    loaders: [
+      { 
+        test: /\.(js|jsx)/, loader: 'babel-loader',
+        include: path.join(__dirname, './', 'scripts'),
         query: { presets: ['react'] } // Still unfamiliar with the query instruction
       },
       { test: /\.css$/, loader: 'style!css' },

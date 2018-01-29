@@ -4,7 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   entry: [
     'babel-polyfill',
-    './front-end/entry.jsx'
+    './scripts/entry.jsx'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -18,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.(js|jsx)/, loader: 'babel-loader',
-        include: path.join(__dirname, 'front-end'),
+        include: path.join(__dirname, 'scripts'),
         query: { presets: ['react'] } // Still unfamiliar with the query instruction
       },
       { test: /\.css$/, loader: 'style!css' },

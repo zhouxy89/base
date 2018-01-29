@@ -15,7 +15,7 @@ class Map extends Component {
   render() {
     const svgData='data:image/svg+xml;charset=UTF-8,';
     return (
-          <figure class="figure" id="map">
+          <figure className="figure" id="map">
             <img src={svgData.concat(this.state.map)}/>
           </figure>
     )

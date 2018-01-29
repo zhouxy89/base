@@ -25,12 +25,12 @@ class Options extends Component{
           </div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <div class="btn-group" data-toggle="buttons">
+            <div className="btn-group" data-toggle="buttons">
               <label className="btn btn-outline-dark btn-sm active">
-                <input type="radio" checked autcomplete="off"/> Miles
+                <input type="radio" defaultChecked autcomplete="off"/> Miles
               </label>
               <label className="btn btn-outline-dark btn-sm ">
-                <input type="radio" checked autcomplete="off"/> Kilometers
+                <input type="radio" defaultChecked autcomplete="off"/> Kilometers
               </label>
             </div>
           </div>

@@ -27,8 +27,8 @@ class Destinations extends Component {
           <div className="card-body">
             <p>Load destinations from a file.</p>
             <div className="input-group" role="group">
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="file"
+              <span className="input-group-btn">
+                <button className="btn btn-primary" type="file"
                         onChange={(e) => this.loadFile(e.target.files)}> Load </button>
               </span>
               <p>## destinations. </p>

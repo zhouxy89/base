@@ -15,7 +15,7 @@ class Header extends Component{
     return(
         <div id="header" className="jumbotron">
           {this.title()}
-          <p class="lead">"Want to travel far and wide?"</p>
+          <p className="lead">"Want to travel far and wide?"</p>
             <ol >
               <li>
                 Choose options for trip planning, information to display about locations,
