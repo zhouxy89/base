@@ -42,7 +42,7 @@ public class MicroServer {
     get("/about", this::about);
     get("/echo", this::echo);
     get("/hello/:name", this::hello);
-    get("/plan", this::plan); // for testing with hardcoded return only
+    // client is sending data, so a post is used instead of a get
     post("/plan", this::plan);
 
     init();
