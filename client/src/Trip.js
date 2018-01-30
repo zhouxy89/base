@@ -26,6 +26,10 @@ class Trip extends Component {
     let body = {
         "type"    : "trip",
         "title"   : "PLANNING",
+        "options" : { 
+          "distance":"miles",
+          "optimization":"none"
+        },
         "places"  : [
           {"id":"dnvr", "name":"Denver", "latitude": "", "longitude": ""},
           {"id":"bldr", "name":"Boulder", "latitude": "", "longitude": ""},
