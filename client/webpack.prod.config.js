@@ -1,15 +1,18 @@
 const path = require('path')
 const webpack = require('webpack')
 
+const port = 33000;
+const url = "" + port;
+
 module.exports = {
   entry: [
     'babel-polyfill',
     './src/entry.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, '../public'),
     filename: 'bundle.js',
-    publicPath: '../public'
+    publicPath: 'public'
   },
   plugins: [
     new webpack.DefinePlugin({

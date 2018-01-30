@@ -1,9 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 
+const port = 33000;
+const url = "http://localhost:" + port;
+
 module.exports = {
   devtool: 'source-map',
   devServer: {
+    port: port,
     open: true,
     hot: true
   },
@@ -19,8 +23,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'SERVICE_PORT': 8080,
-      'SERVICE_URL': JSON.stringify("")
+      'SERVICE_URL': JSON.stringify(url)
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
