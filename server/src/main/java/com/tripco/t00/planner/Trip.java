@@ -12,57 +12,19 @@ import java.util.ArrayList;
  */
 public class Trip {
 
-  private String title = "";
-  private Option options = null;
-  private ArrayList<Place> destinations = null;
-  private ArrayList<Integer> distances = null;
-  private String map = "";
+  public String title = "";
+  public Option options = null;
+  public ArrayList<Place> destinations = null;
+  public ArrayList<Integer> distances = null;
+  public String map = "";
 
-  /** The constructor create the plan from the request data.
-   *
-   * For now we just hardcoded some test data.
-   *
-   * @param request the com.tripco.t00.server.HTTP request containing the information for the plan.
-   */
-  public Trip(Request request) {
-    // first print the request
-    System.out.println(HTTP.echoRequest(request));
-
-    // extract the information from the body of the request.
-    JsonParser jsonParser = new JsonParser();
-    JsonElement requestBody = jsonParser.parse(request.body());
-
-    // convert the body of the request to a Java class.
-    Gson gson = new Gson();
-    Trip requestedTrip = gson.fromJson(requestBody, Trip.class);
-
-    // each property of the json can now be read as a normal java class
-    // System.out.println(requestedTrip.title);
-
-    // now do lots of computation.  this is left up to you.
-
-    // then construct the objects containing the response
-    title = "Around the world!";
-
-    this.options = new Option("miles");
-
-    destinations = new ArrayList<Place>();
-    destinations.add( new Place("dnvr","Denver", "", ""));
-    destinations.add( new Place("bldr","Boulder", "", ""));
-    destinations.add( new Place("foco","Fort Collins", "", ""));
-    destinations.add( new Place("grly","Greeley", "", ""));
-    destinations.add( new Place("fomo","Fort Morgan", "", ""));
-    destinations.add( new Place("frst","Firestone", "", ""));
-
-    distances = new ArrayList<Integer>();
-    distances.add(12);
-    distances.add(23);
-    distances.add(34);
-    distances.add(45);
-    distances.add(65);
-    distances.add(19);
-
-    map = svg();
+  public Trip(String title, Option options, ArrayList<Place> destinations,
+              ArrayList<Integer> distances, String map) {
+    this.title = title;
+    this.options = options;
+    this.destinations = destinations;
+    this.distances = distances;
+    this.map = map;
   }
 
   private String svg() {

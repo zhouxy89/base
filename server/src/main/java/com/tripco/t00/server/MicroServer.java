@@ -2,6 +2,7 @@ package com.tripco.t00.server;
 
 import com.google.gson.Gson;
 
+import com.tripco.t00.planner.Plan;
 import com.tripco.t00.planner.Trip;
 import spark.Request;
 import spark.Response;
@@ -15,20 +16,25 @@ import static spark.Spark.*;
  */
 public class MicroServer {
 
-  private int    port = 0;
+  private int    port;
+  private String name;
   private String path = "/public";
-  private String name = "";
 
   /** Creates a micro-server to load static files and provide REST APIs.
    *
    * @param port
-   * @param path
    * @param name
    */
-  MicroServer(int port, String path, String name) {
+  MicroServer(int port, String name) {
+    this.port = port;
+    this.name = name;
+
+
     port(port);
-    System.out.println("\n\nServer running on port: " + port + "\n\n");
+
     Spark.staticFileLocation(this.path);
+
+    get("/", (req, res) -> {res.redirect("index.html"); return null;});
 
     // register all micro-services and the function that services them.
     get("/about", this::about);
@@ -36,6 +42,8 @@ public class MicroServer {
     get("/hello/:name", this::hello);
     // client is sending data, so a post is used instead of a get
     post("/plan", this::plan);
+
+    System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
 
   /** A REST API that describes the server.
@@ -95,6 +103,6 @@ public class MicroServer {
 
     response.type("application/json");
 
-    return gson.toJson(new Trip(request));
+    return gson.toJson((new Plan(request)).getTrip());
   }
 }

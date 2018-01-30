@@ -16,7 +16,7 @@ public class MyServer {
    */
   public static void main(String[] args) {
 
-    MicroServer server = new MicroServer(getPort(args), getPath(args), getName(args));
+    MicroServer server = new MicroServer(getPort(args), getName(args));
 
   }
 
@@ -31,19 +31,6 @@ public class MyServer {
       return Integer.parseInt(args[0]);
     else
       return 8088; // some default
-  }
-
-  /** Obtain the file path from the command line arguments.  Defaults if non-provided.
-   *
-   * @param args
-   * @return
-   */
-  private static String getPath(String[] args) {
-
-    if (args.length > 1)
-      return args[1];
-    else
-      return "./"; // some default
   }
 
   /** Obtain the name from the command line arguments.  Defaults to an empty string.

@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const port = 33000;
-const url = "" + port;
+const port = 8088;
+const url = "http://localhost:" + port;
 
 module.exports = {
   entry: [
@@ -16,7 +16,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'SERVICE_URL': JSON.stringify("")
+      'process.env': {
+        'SERVICE_URL': JSON.stringify(url)
+      }
     })
   ],
   module: {
