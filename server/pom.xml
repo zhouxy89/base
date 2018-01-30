@@ -17,6 +17,11 @@
     <url>https://github.com/csu314sp18/repo-base</url>
     <build>
         <directory>../target</directory>
+        <resources>
+            <resource>
+                <directory>../client_bundle</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
