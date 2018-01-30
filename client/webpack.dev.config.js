@@ -17,9 +17,8 @@ module.exports = {
     './src/entry.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, '/'),
     filename: 'bundle.js',
-    publicPath: 'public'
   },
   plugins: [
     new webpack.DefinePlugin({
