@@ -1,28 +1,17 @@
 # React-Spark-Starter
-## Starting the server
-Navigate to the server folder:
-
-    cd server
+## Starting the production server
+The easiest way to run the server and make sure everything works is to use the run script:
     
-Install Maven dependencies and create a .jar:
+    ./run [port]
+This will install all npm dependencies, bundle together all of the Javascript and Java code, and start running the server on the specified port. A default will be used if one is not specified. Note that if you change the default port, you'll need to change the `const port = 8088;` line near the top of `client/webpack.prod.config.js` before running the script.
 
-    mvn package
-    
-Run the jar. If you don't have static files, ./ works for path_to_static_files, server_name can be your team name:
+## Using the development server
+The Webpack dev server allows you to make changes to your Javascript code without repackaging it. To use it:
 
-    java -cp target/TripCo-0.0.1-SNAPSHOT-jar-with-dependencies.jar [port] [path_to_static_files] [server_name]
-    
-## Starting the client
-Navigate to the client folder:
-
-    cd client
-    
-Install npm dependencies:
-
-    npm install
-    
-Start the npm development server. This is for testing only. You will deploy your code through a different method:
-
-    npm run start:dev
-    
-This should automatically open the web page in your browser.
+    mvn package                             # Package Java code
+    java -jar target/server-0.1.jar [port]  # Start the Java server on the specified port
+    In another terminal:
+    # Adjust the const port = 33000; line in client/webpack.dev.config.js to match the specified port
+    npm --prefix client install             # Install npm dependencies (only necessary the first time and on dependency changes)
+    npm --prefix client run test            # Start the test server. It should automatically start a web browser with your page
+It's recommended you use a consistent port when starting the Java server, because you need to edit `client/webpack.dev.config.js` each time you change ports. 
