@@ -4,11 +4,12 @@ const webpack = require('webpack')
 module.exports = {
   entry: [
     'babel-polyfill',
-    './scripts/entry.jsx'
+    './src/entry.jsx'
   ],
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '../public'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -18,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.(js|jsx)/, loader: 'babel-loader',
-        include: path.join(__dirname, 'scripts'),
+        include: path.join(__dirname, 'src'),
         query: { presets: ['react'] } // Still unfamiliar with the query instruction
       },
       { test: /\.css$/, loader: 'style!css' },

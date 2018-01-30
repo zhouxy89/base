@@ -23,6 +23,6 @@ Install npm dependencies:
     
 Start the npm development server. This is for testing only. You will deploy your code through a different method:
 
-    npm start dev
+    npm run start:dev
     
 This should automatically open the web page in your browser.
