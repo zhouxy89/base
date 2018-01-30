@@ -12,7 +12,7 @@ app.use('/public', pathBundle)
 // Return the index page to the client
 // Since this is a single page web app, index.html is the only html page
 const pathIndex = path.join(__dirname, 'index.html')
-const port = 8080;
+const port = process.env.SERVICE_PORT;
 
 // Open web browser
 app.get('/', function (req, res) {
