@@ -1,15 +1,10 @@
 {
-  "name": "professional",
-  "version": "1.0.0",
-  "description": "A professional site to act as a defacto resume.",
   "scripts": {
-    "build": "cross-env webpack --config ./webpack.prod.config.js --progress --colors",
-    "start": "node backend.js",
-    "start:deploy": "cross-env webpack --config ./webpack.prod.config.js && node backend.js",
-    "start:dev": "cross-env webpack-dev-server --config ./webpack.dev.config.js"
+    "bundle":
+      "cross-env webpack --config ./webpack.prod.config.js --progress --colors && cp ./index.html ../client_bundle/public",
+    "test":
+      "cross-env webpack-dev-server --config ./webpack.dev.config.js"
   },
-  "author": "Christopher William Westerman",
-  "license": "ISC",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -17,8 +12,6 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.1",
-    "express": "^4.16.2",
-    "open": "^0.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "webpack": "^3.10.0"

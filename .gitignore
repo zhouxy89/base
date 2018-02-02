@@ -3,5 +3,7 @@
 
 client/node_modules/
 client/public/
+client/*.log
 
-server/target
+client_bundle/
+target/

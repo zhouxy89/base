@@ -1,24 +1,30 @@
 const path = require('path')
 const webpack = require('webpack')
 
+const port = 8088;
+const url = "http://localhost:" + port;
+
 module.exports = {
   entry: [
     'babel-polyfill',
-    './scripts/entry.jsx'
+    './src/entry.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, '../client_bundle/public'),
+    filename: 'bundle.js',
+    publicPath: 'public'
   },
   plugins: [
     new webpack.DefinePlugin({
-      'SERVICE_URL': JSON.stringify("")
+      'process.env': {
+        'SERVICE_URL': JSON.stringify(url)
+      }
     })
   ],
   module: {
     rules: [
       { test: /\.(js|jsx)/, loader: 'babel-loader',
-        include: path.join(__dirname, 'scripts'),
+        include: path.join(__dirname, 'src'),
         query: { presets: ['react'] } // Still unfamiliar with the query instruction
       },
       { test: /\.css$/, loader: 'style!css' },

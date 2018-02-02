@@ -14,6 +14,8 @@ class Trip extends Component {
       map: '<svg width="1106" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --><g> <g id="svg_4"><svg id="svg_1" height="480" width="1106" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g id="svg_2"><title>Layer 1</title><rect fill="#ffffff" stroke="#000000" stroke-width="4" x="0" y="0" width="1106" height="480" id="svg_3"/></g></svg> </g></g></svg>',
       itinerary: [["Paris"], ["France"], [30]]
     }
+
+    this.plan = this.plan.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -21,16 +23,37 @@ class Trip extends Component {
    * state for this object.
    */
   fetchResponse(){
-    return fetch("http://localhost:31400/plan", {
+    let body = {
+        "type"    : "trip",
+        "title"   : "PLANNING",
+        "options" : { 
+          "distance":"miles",
+          "optimization":"none"
+        },
+        "places"  : [
+          {"id":"dnvr", "name":"Denver", "latitude": "", "longitude": ""},
+          {"id":"bldr", "name":"Boulder", "latitude": "", "longitude": ""},
+          {"id":"foco", "name":"Fort Collins", "latitude": "", "longitude": ""},
+          {"id":"grly", "name":"Greeley", "latitude": "", "longitude": ""},
+          {"id":"fomo", "name":"Fort Morgan", "latitude": "", "longitude": ""},
+          {"id":"frst", "name":"Firestone", "latitude": "", "longitude": ""}
+          ]
+      };
+
+    console.log(process.env.SERVICE_URL);
+    console.log(body);
+
+    return fetch(process.env.SERVICE_URL + '/plan', {
       method:"POST",
-      body:null
+      body: JSON.stringify(body)
     });
   }
 
   async plan(){
     try {
       let resp = await this.fetchResponse();
-      console.log(resp);
+      let x = await resp.json();
+      console.log(x);
     } catch(err) {
       console.error(err);
     }
@@ -54,7 +77,7 @@ class Trip extends Component {
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
               <span className="input-group-btn">
-              <button className="btn btn-primary " type="button">Plan</button>
+              <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
             </span>
               <input type="text" className="form-control" placeholder="Trip title..."/>
               <span className="input-group-btn">
