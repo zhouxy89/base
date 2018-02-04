@@ -13,7 +13,7 @@ class Application extends Component {
       options: { // default options - hardcoded for now.
         units:"miles"
       },
-      trip: null // a tffi object
+      trip: null // a tffi object or null
     }
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);

@@ -4,4 +4,4 @@ npm install --prefix client && \
 npm run bundle --prefix client && \
 mvn package
 
-java -jar target/server-*.jar $1
+java -jar target/server-*.jar $*
