@@ -8,6 +8,9 @@ import React, {Component} from 'react';
 class Options extends Component{
   constructor(props) {
     super(props);
+    this.state = {
+      options:this.props.options
+    }
     this.changeOption = this.changeOption.bind(this);
   }
 
@@ -17,7 +20,7 @@ class Options extends Component{
   }
 
   render() {
-    //const optstring=JSON.stringify(this.props.options);
+    // @todo need to update the options when a button is pressed
     return(
         <div id="options" className="card">
           <div className="card-header bg-info text-white">
@@ -25,12 +28,12 @@ class Options extends Component{
           </div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <div className="btn-group" data-toggle="buttons">
-              <label className="btn btn-outline-dark btn-sm active">
-                <input type="radio" defaultChecked autcomplete="off"/> Miles
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <label className="btn btn-outline-dark active">
+                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked/> Miles
               </label>
-              <label className="btn btn-outline-dark btn-sm ">
-                <input type="radio" defaultChecked autcomplete="off"/> Kilometers
+              <label className="btn btn-outline-dark ">
+                <input type="radio" id="kilometers" name="distance" autcomplete="off"/> Kilometers
               </label>
             </div>
           </div>

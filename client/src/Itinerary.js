@@ -3,16 +3,21 @@ import React, {Component} from 'react';
 class Itinerary extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      itinerary: this.props.itinerary,
-      options: this.props.options
-    }
   }
 
   render() {
-    const distance=99;
-    const units="miles";
-    const names=[];
+    let units = this.props.options.units; // need to get from options
+    let itinerary = [];
+    if (this.props.trip != null)
+      itinerary = this.props.trip.places; // need to get this from trip
+    let distance = 0;  // need to sum this from real the trip
+    let dests = null;
+    let dists = null;
+    if (itinerary.length > 0) {
+      dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
+      dists = this.props.trip.distances.map((item) => <td>{item}</td>);
+    }
+    console.log(this.props.trip);
     return(
         <div id="itinerary">
           <h4>Round trip distance of {distance} {units}. </h4>
@@ -20,17 +25,13 @@ class Itinerary extends Component {
             <thead>
             <tr className="table-info">
               <th className="align-middle">Destination</th>
-              {this.state.itinerary[0].map((item) => <td>{item}</td>)}
+              {dests}
             </tr>
             </thead>
             <tbody>
             <tr>
-              <th className="table-info align-middle">Location</th>
-              {this.state.itinerary[1].map((item) => <td>{item}</td>)}
-            </tr>
-            <tr>
-              <th className="table-info align-middle">Miles</th>
-              {this.state.itinerary[2].map((item) => <td>{item}</td>)}
+              <th className="table-info align-middle">{units}</th>
+              {dists}
             </tr>
             </tbody>
           </table>

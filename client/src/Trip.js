@@ -10,12 +10,9 @@ import Itinerary from './Itinerary';
 class Trip extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      map: '<svg width="1106" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --><g> <g id="svg_4"><svg id="svg_1" height="480" width="1106" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g id="svg_2"><title>Layer 1</title><rect fill="#ffffff" stroke="#000000" stroke-width="4" x="0" y="0" width="1106" height="480" id="svg_3"/></g></svg> </g></g></svg>',
-      itinerary: [["Paris"], ["France"], [30]]
-    }
 
     this.plan = this.plan.bind(this);
+    this.saveTFFI = this.saveTFFI.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -23,7 +20,8 @@ class Trip extends Component {
    * state for this object.
    */
   fetchResponse(){
-    let body = {
+    // need to get the request body from the trip in state object.
+    let requestBody = {
         "type"    : "trip",
         "title"   : "PLANNING",
         "options" : { 
@@ -41,19 +39,20 @@ class Trip extends Component {
       };
 
     console.log(process.env.SERVICE_URL);
-    console.log(body);
+    console.log(requestBody);
 
     return fetch(process.env.SERVICE_URL + '/plan', {
       method:"POST",
-      body: JSON.stringify(body)
+      body: JSON.stringify(requestBody)
     });
   }
 
   async plan(){
     try {
-      let resp = await this.fetchResponse();
-      let x = await resp.json();
-      console.log(x);
+      let serverResponse = await this.fetchResponse();
+      let tffi = await serverResponse.json();
+      console.log(tffi);
+      this.props.updateTrip(tffi);
     } catch(err) {
       console.error(err);
     }
@@ -61,7 +60,7 @@ class Trip extends Component {
 
   /* Saves the map and itinerary to the local file system.
    */
-  save(){
+  saveTFFI(){
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -81,11 +80,11 @@ class Trip extends Component {
             </span>
               <input type="text" className="form-control" placeholder="Trip title..."/>
               <span className="input-group-btn">
-              <button className="btn btn-primary " type="button">Save</button>
+              <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
             </div>
-            <Map map={this.state.map} options={this.props.options} />
-            <Itinerary itinerary={this.state.itinerary} options={this.props.options} />
+            <Map trip={this.props.trip} options={this.props.options} />
+            <Itinerary trip={this.props.trip} options={this.props.options} />
           </div>
         </div>
     )
