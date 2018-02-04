@@ -8,9 +8,21 @@ import spark.Request;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles to the conversions of the trip request/resopnse,
+ * converting from the Json string in the request body to a Trip object,
+ * planning the Trip, and
+ * converting the resulting Trip object back to a Json string
+ * so it may returned as the response.
+ */
 public class Plan {
+
   private Trip trip;
 
+  /** Handles trip planning request, creating a new trip object from the trip request.
+   * Does the conversion from Json to a Java class before planning the trip.
+   * @param request
+   */
   public Plan (Request request) {
     // first print the request
     System.out.println(HTTP.echoRequest(request));
@@ -23,21 +35,16 @@ public class Plan {
     Gson gson = new Gson();
     trip = gson.fromJson(requestBody, Trip.class);
 
-    // Lots of computation here. We hardcoded the map and distances to get you started
-    trip.map = trip.svg();
-    trip.distances = new ArrayList<Integer>();
-    trip.distances.add(12);
-    trip.distances.add(23);
-    trip.distances.add(34);
-    trip.distances.add(45);
-    trip.distances.add(65);
-    trip.distances.add(19);
+    // plan the trip.
+    trip.plan();
 
-
-    // each property of the json can now be read as a normal java class
+    // log something.
     System.out.println(trip.title);
   }
 
+  /** Handles the response for a Trip object.
+   * Does the conversion from a Java class to a Json string.*
+   */
   public String getTrip () {
     Gson gson = new Gson();
     return gson.toJson(trip);
