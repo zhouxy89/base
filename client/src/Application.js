@@ -10,42 +10,40 @@ class Application extends Component {
   constructor(props){
     super(props);
     this.state = {
-      options: {
+      options: { // default options - hardcoded for now.
         units:"miles"
       },
-      destinations: null
+      trip: null // a tffi object
     }
-    this.updateDestinations = this.updateDestinations.bind(this);
+    this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
   }
 
-  updateDestinations(args){
-    console.log(args[0].name);
-    this.setState({destinations:args[0].name});
+  updateTrip(tffi){
+    console.log("updateTrip");
+    console.log(tffi);
+    this.setState({trip:tffi});
   }
 
-  updateOptions(args){
-    console.log(args);
-    this.setState({options: args});
+  updateOptions(tffi){
+    console.log(tffi);
+    this.setState({options: tffi}); // need to extract trip
   }
 
   render() {
-    const destTitle=(<h3>Destinations</h3>);
-    const optTitle=(<h3>Options</h3>);
-    const tripTitle=(<h3>Trip</h3>);
-    const options=this.state.options;
-    const destinations=this.state.destinations;
+    //const options=this.state.options;
+    //const trip=this.state.trip;
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-12">
-                <Options options={options} updateOptions={this.updateOptions}/>
+                <Options options={this.state.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-12">
-                <Destinations destinations={destinations} updateDestinations={this.updateDestinations}/>
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip options={options} destinations={destinations}/>
+                <Trip options={this.state.options} trip={this.state.trip} updateTrip={this.updateTrip} />
             </div>
           </div>
         </div>

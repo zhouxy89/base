@@ -38,7 +38,8 @@ public class Plan {
     System.out.println(trip.title);
   }
 
-  public Trip getTrip () {
-    return trip;
+  public String getTrip () {
+    Gson gson = new Gson();
+    return gson.toJson(trip);
   }
 }

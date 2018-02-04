@@ -1,13 +1,10 @@
 package com.tripco.t00.server;
 
-import com.google.gson.Gson;
-
 import com.tripco.t00.planner.Plan;
-import com.tripco.t00.planner.Trip;
+
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-
 import static spark.Spark.*;
 
 
@@ -82,12 +79,6 @@ public class MicroServer {
 
     response.type("application/json");
 
-    Gson gson = new Gson();
-    /* wouldn't it be cool if this worked?  Alas, ...
-    Gson gson = new Gson();
-    return gson.toJson(request);
-    */
-
     return HTTP.echoRequest(request);
   }
 
@@ -99,10 +90,9 @@ public class MicroServer {
    * @return
    */
   private String plan(Request request, Response response) {
-    Gson gson = new Gson();
 
     response.type("application/json");
 
-    return gson.toJson((new Plan(request)).getTrip());
+    return (new Plan(request)).getTrip();
   }
 }
