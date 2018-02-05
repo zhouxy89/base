@@ -10,9 +10,6 @@ import React, {Component} from 'react';
 class Destinations extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      trip:this.props.trip
-    }
     this.loadTFFI = this.loadTFFI.bind(this);
   }
 

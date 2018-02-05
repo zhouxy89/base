@@ -5,10 +5,6 @@ import React, {Component} from 'react';
 class Header extends Component{
   constructor(props) {
     super(props);
-    this.state = {
-      name: this.props.name,
-      number: this.props.number
-    }
   }
 
   render() {
@@ -33,7 +29,7 @@ class Header extends Component{
   }
 
   title() {
-    return( <h3>TripCo <small>t{this.state.number} {this.state.name}</small></h3> )
+    return( <h3>TripCo <small>t{this.props.number} {this.props.name}</small></h3> )
   }
 }
 
