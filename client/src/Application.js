@@ -10,10 +10,14 @@ class Application extends Component {
   constructor(props){
     super(props);
     this.state = {
-      options: { // default options - hardcoded for now.
-        units:"miles"
-      },
-      trip: null // a tffi object or null
+      trip: { // default TFFI
+        type: "trip",
+        title: "",
+        options : {distance: "miles"},
+        places: [],
+        distances: [],
+        map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+      }
     }
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
@@ -25,25 +29,23 @@ class Application extends Component {
     this.setState({trip:tffi});
   }
 
-  updateOptions(tffi){
-    console.log(tffi);
-    this.setState({options: tffi}); // need to extract trip
+  updateOptions(options){
+    console.log(options);
+    // update the options in the trip.
   }
 
   render() {
-    //const options=this.state.options;
-    //const trip=this.state.trip;
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-12">
-                <Options options={this.state.options} updateOptions={this.updateOptions}/>
+                <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-12">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip options={this.state.options} trip={this.state.trip} updateTrip={this.updateTrip} />
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} />
             </div>
           </div>
         </div>
