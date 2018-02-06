@@ -10,17 +10,17 @@ class Map extends Component {
   }
 
   render() {
-    let svgHeader='data:image/svg+xml;charset=UTF-8,';
-    let svgData =  "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>";
-    if (this.props.trip != null ) {
-      svgData = this.props.trip.map;
-    }; // need to extract the map component
-    return (
+   {
+      let svgHeader='data:image/svg+xml;charset=UTF-8,';
+      let svgData = this.props.trip.map;
+
+      return (
           <figure className="figure" id="map">
             <img className="figure-img img-fluid" alt="Map"
                  src={svgHeader.concat(svgData)}/>
           </figure>
-    )
+      )
+    }
   }
 }
 
