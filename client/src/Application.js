@@ -10,7 +10,7 @@ class Application extends Component {
   constructor(props){
     super(props);
     this.state = {
-      trip: { // default TFFI
+      trip: { // default TFFI, should always be fully initialized
         type: "trip",
         title: "",
         options : {distance: "miles"},
@@ -31,7 +31,7 @@ class Application extends Component {
 
   updateOptions(options){
     console.log(options);
-    // update the options in the trip.
+    // update the options in the trip TFFI.
   }
 
   render() {
