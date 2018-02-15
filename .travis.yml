@@ -1,6 +1,6 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=787a2f89b15c637323c7340d65ec17e898ac44480706b4b4122ea040c2a88f1d
+    - CC_TEST_REPORTER_ID=91d4a75c48cee35f0f5fc1ea73a13daa28330a3e788afe341fd3871f4360eb29
 sudo: required
 language: java
 jdk:
@@ -11,6 +11,7 @@ before_script:
   - mv ./cc-test-reporter ./server/cc-test-reporter
   - cd ./server
   - ./cc-test-reporter before-build  
+  - cd ..
 script:
   - mvn package
 after_script:
