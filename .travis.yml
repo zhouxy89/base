@@ -17,4 +17,4 @@ script:
 after_script:
   - mv ./target/site/jacoco/jacoco.xml ./server/jacoco.xml
   - cd ./server
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter --debug after-build --exit-code $TRAVIS_TEST_RESULT
