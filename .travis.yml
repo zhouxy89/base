@@ -18,5 +18,3 @@ after_script:
   - mv ./target/site/jacoco/jacoco.xml ./server/src/main/java/jacoco.xml
   - cd ./server/src/main/java
   - ./cc-test-reporter --debug after-build --exit-code $TRAVIS_TEST_RESULT
-  - ./cc-test-reporter --debug format-coverage
-  - ./cc-test-reporter --debug upload-coverage
