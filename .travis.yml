@@ -8,13 +8,8 @@ jdk:
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - mv ./cc-test-reporter ./server/src/main/java/cc-test-reporter
-  - cd ./server/src/main/java
-  - ./cc-test-reporter before-build  
-  - cd ../../../..
-script:
-  - mvn package
+  - ./cc-test-reporter before-build
 after_script:
-  - mv ./target/site/jacoco/jacoco.xml ./server/src/main/java/jacoco.xml
-  - cd ./server/src/main/java
+  - mv ./target/site/jacoco/jacoco.xml ./
+  - sed -i 's_com_server/src/main/java/com_g' jacoco.xml
   - ./cc-test-reporter --debug after-build --exit-code $TRAVIS_TEST_RESULT
