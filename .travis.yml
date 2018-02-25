@@ -8,6 +8,8 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - mvn prepare-package
+cache:
+  - $HOME/.m2
 after_script:
   - mv target/site/jacoco/jacoco.xml ./
   - sed -i 's_com_server/src/main/java/com_g' jacoco.xml
