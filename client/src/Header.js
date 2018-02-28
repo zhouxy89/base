@@ -29,7 +29,7 @@ class Header extends Component{
   }
 
   title() {
-    return( <h3>TripCo <small>t{this.props.number} {this.props.name}</small></h3> )
+    return( <h3>TripCo <small id='team-info'>t{this.props.number} {this.props.name}</small></h3> )
   }
 }
 
