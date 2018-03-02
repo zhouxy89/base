@@ -13,11 +13,12 @@ script:
 cache:
   directories:
   - $HOME/.m2
+  - client/node_modules
 after_script:
   - mv target/site/jacoco/jacoco.xml ./
   - sed -i 's_com_server/src/main/java/com_g' jacoco.xml
-  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
+  - ./cc-test-reporter --debug format-coverage --output coverage/codeclimate.$SUITE.json
   - mv client/coverage/lcov.info .
-  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
-  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
-  - ./cc-test-reporter upload-coverage
+  - ./cc-test-reporter --debug format-coverage --output coverage/codeclimate.$SUITE.json
+  - ./cc-test-reporter --debug sum-coverage coverage/codeclimate.*.json
+  - ./cc-test-reporter --debug upload-coverage
