@@ -21,6 +21,5 @@ after_script:
   - rm jacoco.xml
   - mv client/coverage/lcov.info ./coverage
   - ./cc-test-reporter format-coverage --output coverage/codeclimate.lcov.json
-  - ls coverage/*
   - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
   - ./cc-test-reporter upload-coverage
