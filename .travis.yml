@@ -2,16 +2,22 @@ sudo: required
 language: java
 jdk:
   - oraclejdk8
+install:
+  - npm install --prefix client
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 script:
   - mvn prepare-package
+  - npm test --prefix client
 cache:
   directories:
   - $HOME/.m2
 after_script:
   - mv target/site/jacoco/jacoco.xml ./
   - sed -i 's_com_server/src/main/java/com_g' jacoco.xml
-  - ./cc-test-reporter --debug after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
+  - mv client/coverage/lcov.info .
+  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
+  - ./cc-test-reporter upload-coverage
