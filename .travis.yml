@@ -19,7 +19,7 @@ after_script:
   - sed -i 's_com_server/src/main/java/com_g' jacoco.xml
   - ./cc-test-reporter --debug format-coverage --output coverage/codeclimate.$SUITE.json
   - rm jacoco.xml
-  - mv client/coverage/lcov.info ./
+  - mv client/coverage/lcov.info ./coverage
   - ./cc-test-reporter --debug format-coverage --output coverage/codeclimate.$SUITE.json
   - ./cc-test-reporter --debug sum-coverage coverage/codeclimate.*.json
   - ./cc-test-reporter --debug upload-coverage
