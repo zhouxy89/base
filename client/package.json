@@ -10,9 +10,12 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.1.1",
     "cross-env": "^5.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-transition-group": "^2.3.1",
+    "reactstrap": "^5.0.0",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
@@ -27,8 +30,10 @@
     "webpack-dev-server": "^2.9.7"
   },
   "jest": {
-    "collectCoverage" : true,
-    "collectCoverageFrom" : ["src/*.{js|jsx}"],
-    "coverageDirectory" : "coverage"
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/*.{js|jsx}"
+    ],
+    "coverageDirectory": "coverage"
   }
 }

@@ -1,8 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const port = 33000;
-const url = "http//localhost:" + port;
+const port = 31400;
 
 module.exports = {
   devtool: 'source-map',
@@ -21,11 +20,6 @@ module.exports = {
     filename: 'bundle.js',
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'SERVICE_URL': JSON.stringify(url)
-      }
-    }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
@@ -34,10 +28,9 @@ module.exports = {
       { 
         test: /\.(js|jsx)/, loader: 'babel-loader',
         include: path.join(__dirname, './', 'src'),
-        query: { presets: ['react'] } // Still unfamiliar with the query instruction
       },
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.scss&/, loaders: ["style-loader", "css-loader", "sass-loader"] }
+      { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] }
     ]
   }
 }
