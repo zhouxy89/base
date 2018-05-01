@@ -13,8 +13,6 @@ class Itinerary extends Component {
     let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
 
-    console.log(this.props.trip);
-
     return {distance, units, dests, dists};
   }
 

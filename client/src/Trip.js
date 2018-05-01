@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
-import Map from './Map';
-import Itinerary from './Itinerary';
+import React, {Component} from 'react'
+import { Card, CardHeader, CardBody } from 'reactstrap'
+import { InputGroup, Input, Button } from 'reactstrap'
+import Map from './Map'
+import Itinerary from './Itinerary'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -10,9 +12,12 @@ import Itinerary from './Itinerary';
 class Trip extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tripName: ''
+    };
 
     this.plan = this.plan.bind(this);
-    this.saveTFFI = this.saveTFFI.bind(this);
+    this.saveTrip = this.saveTrip.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -60,7 +65,8 @@ class Trip extends Component {
 
   /* Saves the map and itinerary to the local file system.
    */
-  saveTFFI(){
+  saveTrip(){
+    console.log('Save not implemented.');
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -68,25 +74,23 @@ class Trip extends Component {
    */
   render(){
     return(
-        <div id="trip" className="card">
-          <div className="card-header bg-info text-white">
-            Trip
-          </div>
-          <div className="card-body">
-            <p>Give your trip a title before planning or saving.</p>
-            <div className="input-group" role="group">
-              <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
-            </span>
-              <input type="text" className="form-control" placeholder="Trip title..."/>
-              <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
-            </span>
-            </div>
-            <Map trip={this.props.trip} />
-            <Itinerary trip={this.props.trip} />
-          </div>
-        </div>
+      <Card id={'Trip'}>
+        <CardHeader className={'bg-info text-white'}>
+          Trip
+        </CardHeader>
+        <CardBody>
+          <p>Give your trip a title before planning or saving.</p>
+          <InputGroup>
+            <Button color='primary' onClick={this.plan}>Plan</Button>
+            <Input placeholder={'Trip title...'}
+                   onChange={(event) => this.props.updateTrip('title', event.target.value)}
+            />
+            <Button color='primary' onClick={this.saveTrip}>Save</Button>
+          </InputGroup>
+          <Map trip={this.props.trip} />
+          <Itinerary trip={this.props.trip} />
+        </CardBody>
+      </Card>
     )
   }
 }

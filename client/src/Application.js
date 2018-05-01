@@ -14,7 +14,7 @@ class Application extends Component {
       type: "trip",
       title: "",
       options : {
-        distance: "miles"
+        distance: "Miles"
       },
       places: [],
       distances: [],
@@ -24,10 +24,8 @@ class Application extends Component {
     this.updateOptions = this.updateOptions.bind(this);
   }
 
-  updateTrip(tffi){
-    console.log("updateTrip");
-    console.log(tffi);
-    this.setState({trip:tffi});
+  updateTrip(field, value){
+    this.setState({[field]: value});
   }
 
   updateOptions(option, value){
@@ -41,7 +39,7 @@ class Application extends Component {
       <Container id="application">
         <Options options={this.state.options} updateOptions={this.updateOptions}/>
         <Destinations trip={this.state} updateTrip={this.updateTrip}/>
-        <Trip trip={this.state} updateTrip={this.updateTrip} />
+        <Trip trip={this.state} updateTrip={this.updateTrip}/>
       </Container>
     )
   }
