@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import { Card, CardHeader, CardBody } from 'reactstrap'
+import { ButtonGroup, Button } from 'reactstrap'
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -8,33 +10,33 @@ import React, {Component} from 'react';
 class Options extends Component{
   constructor(props) {
     super(props);
-    this.changeOption = this.changeOption.bind(this);
-  }
-
-  changeOption(arg) {
-    console.log(arg);
-    //this.props.updateOptions(arg);
   }
 
   render() {
-    // @todo need to update the options when a button is pressed
+    const buttons = ['Miles', 'Kilometers'].map((unit) =>
+      <Button
+        key={'distance_button_' + unit}
+        className='btn-outline-dark'
+        active={this.props.options.distance === unit}
+        value={unit}
+        onClick={(event) => this.props.updateOptions('distance', event.target.value)}
+      >
+        {unit}
+      </Button>
+    );
+
     return(
-        <div id="options" className="card">
-          <div className="card-header bg-info text-white">
-            Options
-          </div>
-          <div className="card-body">
-            <p>Highlight the options you wish to use.</p>
-            <div className="btn-group btn-group-toggle" data-toggle="buttons">
-              <label className="btn btn-outline-dark active">
-                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked/> Miles
-              </label>
-              <label className="btn btn-outline-dark ">
-                <input type="radio" id="kilometers" name="distance" autcomplete="off"/> Kilometers
-              </label>
-            </div>
-          </div>
-        </div>
+      <Card>
+        <CardHeader className="bg-info text-white">
+          Options
+        </CardHeader>
+        <CardBody>
+          <p>Highlight the options you wish to use.</p>
+          <ButtonGroup>
+            {buttons}
+          </ButtonGroup>
+        </CardBody>
+      </Card>
     )
   }
 }

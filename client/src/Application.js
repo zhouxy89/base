@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Container } from 'reactstrap';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
@@ -10,15 +11,15 @@ class Application extends Component {
   constructor(props){
     super(props);
     this.state = {
-      trip: { // default TFFI, should always be fully initialized
-        type: "trip",
-        title: "",
-        options : {distance: "miles"},
-        places: [],
-        distances: [],
-        map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
-      }
-    }
+      type: "trip",
+      title: "",
+      options : {
+        distance: "miles"
+      },
+      places: [],
+      distances: [],
+      map: '<svg width="1920" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><g></g></svg>'
+    };
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
   }
@@ -29,26 +30,19 @@ class Application extends Component {
     this.setState({trip:tffi});
   }
 
-  updateOptions(options){
-    console.log(options);
-    // update the options in the trip TFFI.
+  updateOptions(option, value){
+    let options = this.state.options;
+    options[option] = value;
+    this.setState(options);
   }
 
   render() {
     return(
-        <div id="application" className="container">
-          <div className="row">
-            <div className="col-12">
-                <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
-            </div>
-            <div className="col-12">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
-            </div>
-            <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} />
-            </div>
-          </div>
-        </div>
+      <Container id="application">
+        <Options options={this.state.options} updateOptions={this.updateOptions}/>
+        <Destinations trip={this.state} updateTrip={this.updateTrip}/>
+        <Trip trip={this.state} updateTrip={this.updateTrip} />
+      </Container>
     )
   }
 }
