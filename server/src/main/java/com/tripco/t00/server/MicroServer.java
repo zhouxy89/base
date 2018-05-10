@@ -5,6 +5,10 @@ import com.tripco.t00.planner.Plan;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import static spark.Spark.*;
 
 
@@ -93,6 +97,7 @@ public class MicroServer {
   private String plan(Request request, Response response) {
 
     response.type("application/json");
+    response.header("Access-Control-Allow-Origin", "*");
 
     return (new Plan(request)).getTrip();
   }

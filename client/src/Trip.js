@@ -43,10 +43,10 @@ class Trip extends Component {
           ]
       };
 
-    console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-    return fetch('http://' + location.host + '/plan', {
+    const host = location.hostname + ':' + ((!process.env.dev) ? location.port : process.env.dev);
+    return fetch('http://' + host + '/plan', {
       method:"POST",
       body: JSON.stringify(requestBody)
     });
@@ -57,7 +57,7 @@ class Trip extends Component {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
       console.log(tffi);
-      this.props.updateTrip(tffi);
+      this.props.updateBasedOnResponse(tffi);
     } catch(err) {
       console.error(err);
     }
@@ -74,8 +74,8 @@ class Trip extends Component {
    */
   render(){
     return(
-      <Card id={'Trip'}>
-        <CardHeader className={'bg-info text-white'}>
+      <Card id='Trip'>
+        <CardHeader className='bg-info text-white'>
           Trip
         </CardHeader>
         <CardBody>

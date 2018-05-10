@@ -1,12 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const port = 31400;
+const dev_port = 31401;
+const server_port = 31400;
 
 module.exports = {
   devtool: 'source-map',
   devServer: {
-    port: port,
+    port: dev_port,
     open: true,
     hot: true
   },
@@ -20,6 +21,9 @@ module.exports = {
     filename: 'bundle.js',
   },
   plugins: [
+    new webpack.DefinePlugin({
+        'process.env.dev': server_port
+      }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],

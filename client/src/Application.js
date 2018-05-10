@@ -21,11 +21,16 @@ class Application extends Component {
       map: '<svg width="1920" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><g></g></svg>'
     };
     this.updateTrip = this.updateTrip.bind(this);
+    this.updateBasedOnResponse = this.updateBasedOnResponse.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
   }
 
   updateTrip(field, value){
     this.setState({[field]: value});
+  }
+
+  updateBasedOnResponse(value) {
+    this.setState(value);
   }
 
   updateOptions(option, value){
@@ -36,10 +41,10 @@ class Application extends Component {
 
   render() {
     return(
-      <Container id="application">
+      <Container id="Application">
         <Options options={this.state.options} updateOptions={this.updateOptions}/>
         <Destinations trip={this.state} updateTrip={this.updateTrip}/>
-        <Trip trip={this.state} updateTrip={this.updateTrip}/>
+        <Trip trip={this.state} updateTrip={this.updateTrip} updateBasedOnResponse={this.updateBasedOnResponse}/>
       </Container>
     )
   }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Container, Media } from 'reactstrap';
 
 
 /* Map obtains and renders the map for the trip.
@@ -12,13 +13,10 @@ class Map extends Component {
   render() {
    {
       let svgHeader='data:image/svg+xml;charset=UTF-8,';
-      let svgData = this.props.trip.map;
+      let svg = svgHeader + this.props.trip.map;
 
       return (
-          <figure className="figure" id="map">
-            <img className="figure-img img-fluid" alt="Map"
-                 src={svgHeader.concat(svgData)}/>
-          </figure>
+        <Media className="img-fluid" object src={svg}/>
       )
     }
   }
