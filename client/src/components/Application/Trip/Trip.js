@@ -3,6 +3,7 @@ import { Container, Card, CardHeader, CardBody } from 'reactstrap'
 import { InputGroup, Input, Button } from 'reactstrap'
 import Map from './Map'
 import Itinerary from './Itinerary'
+import { plan } from '../../../api/api.js'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -16,7 +17,7 @@ class Trip extends Component {
       tripName: ''
     };
 
-    this.plan = this.plan.bind(this);
+    this.sendPlanRequest = this.sendPlanRequest.bind(this);
     this.saveTrip = this.saveTrip.bind(this);
   }
 
@@ -24,12 +25,21 @@ class Trip extends Component {
    * Receives a response containing the map and itinerary to update the
    * state for this object.
    */
-  fetchResponse(){
-    // need to get the request body from the trip in state object.
+
+  /* Saves the map and itinerary to the local file system.
+   */
+  saveTrip(){
+    console.log('Save not implemented.');
+  }
+
+  async sendPlanRequest() {
+    console.log("PLANNING");
+
+    // TODO need to get the request body from the trip in state object.
     let requestBody = {
         "type"    : "trip",
         "title"   : "PLANNING",
-        "options" : { 
+        "options" : {
           "distance":"miles",
           "optimization":"none"
         },
@@ -43,30 +53,13 @@ class Trip extends Component {
           ]
       };
 
-    console.log(requestBody);
-
-    const host = location.hostname + ':' + ((!process.env.dev) ? location.port : process.env.dev);
-    return fetch('http://' + host + '/plan', {
-      method:"POST",
-      body: JSON.stringify(requestBody)
-    });
-  }
-
-  async plan(){
     try {
-      let serverResponse = await this.fetchResponse();
-      let tffi = await serverResponse.json();
+      let tffi = await plan(requestBody);
       console.log(tffi);
       this.props.updateBasedOnResponse(tffi);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-  }
-
-  /* Saves the map and itinerary to the local file system.
-   */
-  saveTrip(){
-    console.log('Save not implemented.');
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -92,7 +85,7 @@ class Trip extends Component {
         <CardBody>
           <p>Give your trip a title before planning or saving.</p>
           <InputGroup>
-            <Button color='primary' onClick={this.plan}>Plan</Button>
+            <Button color='primary' onClick={this.sendPlanRequest}>Plan</Button>
             <Input placeholder={'Trip title...'}
                    onChange={(event) => this.props.updateTrip('title', event.target.value)}
             />
