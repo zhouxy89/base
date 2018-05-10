@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import { Container, Table } from 'reactstrap'
 
 class Itinerary extends Component {
   constructor(props) {
@@ -8,35 +9,44 @@ class Itinerary extends Component {
   }
 
   createTable () {
-    let distance = 0;  // need to sum this from real the trip
-    let units = this.props.trip.options.distance;
-    let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
-    let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
+    let totalDistance = 0;  // TODO Need to sum this from real the trip
+    const places = this.props.trip.places;
+    const distances = this.props.trip.distances;
 
-    return {distance, units, dests, dists};
+    let tableInfo = {headers: [], distances: []};
+    for(let index in places) {
+      tableInfo.headers.push(<td key={'headers_'+index}>{places[index].name}</td>);
+      tableInfo.distances.push(<td key={'distances_'+index}>{distances[index]}</td>);
+    }
+
+    const table = (
+      <Table responsive>
+        <thead>
+          <tr className="table-info">
+            <th className="align-middle">Destination</th>
+            {tableInfo.headers}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th className="table-info align-middle">{this.props.trip.options.distance}</th>
+            {tableInfo.distances}
+          </tr>
+        </tbody>
+      </Table>
+    )
+
+    return {totalDistance, table};
   }
 
   render() {
-    let table = this.createTable();
+    let parsed = this.createTable();
 
     return(
-        <div id="itinerary">
-          <h4>Round trip distance of {table.distance} {table.units}. </h4>
-          <table className="table table-responsive table-bordered">
-            <thead>
-            <tr className="table-info">
-              <th className="align-middle">Destination</th>
-              {table.dests}
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <th className="table-info align-middle">{table.units}</th>
-              {table.dists}
-            </tr>
-            </tbody>
-          </table>
-        </div>
+      <Container id="Itinerary">
+        <h4>Round trip distance of {parsed.totalDistance} {this.props.trip.options.distance}. </h4>
+        {parsed.table}
+      </Container>
     )
   }
 }

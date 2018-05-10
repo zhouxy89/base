@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Card, CardHeader, CardBody } from 'reactstrap'
+import { Container, Card, CardHeader, CardBody } from 'reactstrap'
 import { InputGroup, Input, Button } from 'reactstrap'
 import Map from './Map'
 import Itinerary from './Itinerary'
@@ -73,6 +73,17 @@ class Trip extends Component {
    * The title should be specified before the plan or save buttons are valid.
    */
   render(){
+    // Render the Map and Itinerary if there are locations or don't show anything.
+    let itinerary;
+    if(this.props.trip.places.length > 0) {
+      itinerary = (
+        <Container>
+          <Map trip={this.props.trip} />
+          <Itinerary trip={this.props.trip} />
+        </Container>
+      )
+    }
+
     return(
       <Card id='Trip'>
         <CardHeader className='bg-info text-white'>
@@ -87,8 +98,7 @@ class Trip extends Component {
             />
             <Button color='primary' onClick={this.saveTrip}>Save</Button>
           </InputGroup>
-          <Map trip={this.props.trip} />
-          <Itinerary trip={this.props.trip} />
+          {itinerary}
         </CardBody>
       </Card>
     )

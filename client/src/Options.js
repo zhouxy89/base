@@ -13,7 +13,7 @@ class Options extends Component{
   }
 
   render() {
-    const buttons = ['Miles', 'Kilometers'].map((unit) =>
+    const buttons = ['miles', 'kilometers'].map((unit) =>
       <Button
         key={'distance_button_' + unit}
         className='btn-outline-dark'
@@ -21,7 +21,7 @@ class Options extends Component{
         value={unit}
         onClick={(event) => this.props.updateOptions('distance', event.target.value)}
       >
-        {unit}
+        {unit.charAt(0).toUpperCase() + unit.slice(1)}
       </Button>
     );
 
