@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "bundle": "cross-env webpack --config ./webpack.prod.config.js --progress --colors && cp ./index.html ../client_bundle/public",
+    "bundle": "cross-env webpack --config ./webpack.prod.config.js --progress --colors && cp ./index.html ./dist/public",
     "test": "jest",
     "dev": "cross-env webpack-dev-server --config ./webpack.dev.config.js"
   },

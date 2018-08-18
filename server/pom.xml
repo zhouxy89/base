@@ -20,7 +20,7 @@
         <directory>../target</directory>
         <resources>
             <resource>
-                <directory>../client_bundle</directory>
+                <directory>../client/dist</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
