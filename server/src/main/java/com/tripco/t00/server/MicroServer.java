@@ -23,8 +23,8 @@ public class MicroServer {
 
   /** Creates a micro-server to load static files and provide REST APIs.
    *
-   * @param port
-   * @param name
+   * @param port Which port to start the server on
+   * @param name Name of the server
    */
   MicroServer(int port, String name) {
     this.port = port;
@@ -57,6 +57,7 @@ public class MicroServer {
   private String about(Request request, Response response) {
 
     response.type("text/html");
+    response.header("Access-Control-Allow-Origin", "*");
 
     return "<html><head></head><body><h1>"+name+" Micro-server on port "+port+"</h1></body></html>";
   }
@@ -70,6 +71,7 @@ public class MicroServer {
   private String echo(Request request, Response response) {
 
     response.type("application/json");
+    response.header("Access-Control-Allow-Origin", "*");
 
     return HTTP.echoRequest(request);
   }
@@ -83,6 +85,7 @@ public class MicroServer {
   private String hello(Request request, Response response) {
 
     response.type("text/html");
+    response.header("Access-Control-Allow-Origin", "*");
 
     return Greeting.html(request.params(":name"));
   }
@@ -111,6 +114,7 @@ public class MicroServer {
   private String team(Request request, Response response) {
 
     response.type("text/plain");
+    response.header("Access-Control-Allow-Origin", "*");
 
     return name;
   }

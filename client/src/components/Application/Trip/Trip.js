@@ -3,7 +3,7 @@ import { Container, Card, CardHeader, CardBody } from 'reactstrap'
 import { InputGroup, Input, Button } from 'reactstrap'
 import Map from './Map'
 import Itinerary from './Itinerary'
-import { plan } from '../../../api/api.js'
+import { request } from '../../../api/api.js'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -54,7 +54,7 @@ class Trip extends Component {
       };
 
     try {
-      let tffi = await plan(requestBody);
+      let tffi = await request(requestBody, "plan");
       console.log(tffi);
       this.props.updateBasedOnResponse(tffi);
     } catch (err) {
