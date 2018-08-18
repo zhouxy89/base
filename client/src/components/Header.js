@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Jumbotron, Media } from 'reactstrap';
 
 /* Renders a text heading above the application with useful information.
  */
@@ -9,7 +10,8 @@ class Header extends Component{
 
   render() {
     return(
-        <div id="header" className="jumbotron">
+      <div>
+        <Jumbotron fluid>
           {this.title()}
           <p className="lead">"Want to travel far and wide?"</p>
             <ol >
@@ -24,12 +26,17 @@ class Header extends Component{
                 Review and revise the trip origin and order.
                 Save the trip map and itinerary for future reference.</li>
             </ol>
-        </div>
+          </Jumbotron>
+      </div>
     )
   }
 
   title() {
-    return( <h3>TripCo <small id='team-info'>t{this.props.number} {this.props.name}</small></h3> )
+    return(
+      <h3>
+          <Media object src={require('./images/csu.png')}/>
+          TripCo <small id='team-info'>t{this.props.number} {this.props.name}</small>
+      </h3> )
   }
 }
 

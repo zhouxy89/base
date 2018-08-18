@@ -7,9 +7,8 @@ module.exports = {
     './src/entry.jsx'
   ],
   output: {
-    path: path.join(__dirname, './dist/public'),
+    path: path.join(__dirname, './dist/public/'),
     filename: 'bundle.js',
-    publicPath: 'public'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -22,7 +21,10 @@ module.exports = {
         include: path.join(__dirname, 'src'),
       },
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] }
+      { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] },
+      { test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: { name: '[path][name]-[hash:8].[ext]' }}
     ]
   }
 }

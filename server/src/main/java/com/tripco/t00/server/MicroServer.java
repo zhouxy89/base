@@ -19,7 +19,7 @@ public class MicroServer {
 
   private int    port;
   private String name;
-  private String path = "/public";
+  private String path = "/public/";
 
   /** Creates a micro-server to load static files and provide REST APIs.
    *
