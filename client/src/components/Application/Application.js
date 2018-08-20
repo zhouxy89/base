@@ -3,6 +3,7 @@ import { Container } from 'reactstrap';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip/Trip';
+import { get_config } from '../../api/api';
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -10,7 +11,9 @@ import Trip from './Trip/Trip';
 class Application extends Component {
   constructor(props){
     super(props);
+
     this.state = {
+      config: null,
       trip: {
         type: "trip",
         title: "",
@@ -25,6 +28,16 @@ class Application extends Component {
     this.updateTrip = this.updateTrip.bind(this);
     this.updateBasedOnResponse = this.updateBasedOnResponse.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
+  }
+
+  componentWillMount() {
+    get_config().then(
+      config => {
+        this.setState({
+          config:config
+        })
+      }
+    );
   }
 
   updateTrip(field, value){
@@ -44,6 +57,8 @@ class Application extends Component {
   }
 
   render() {
+    if(!this.state.config) { return <div/> }
+
     return(
       <Container id="Application">
         <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
