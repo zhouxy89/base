@@ -34,7 +34,12 @@ class Header extends Component{
   title() {
     return(
       <h3>
-          <Media object src={require('./images/csu.png')}/>
+          <Media object src={require('./images/csu.png')}
+                 style={{
+                   height: "10%",
+                   minHeight: "50px"
+                 }}
+          />
           TripCo <small id='team-info'>t{this.props.number} {this.props.name}</small>
       </h3> )
   }
