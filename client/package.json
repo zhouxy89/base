@@ -36,6 +36,9 @@
       "src/*.{js|jsx}"
     ],
     "testURL": "http://localhost/",
-    "coverageDirectory": "coverage"
+    "coverageDirectory": "coverage",
+    "moduleNameMapper": {
+      "\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/require_stub.js"
+    }
   }
 }
