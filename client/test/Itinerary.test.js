@@ -12,7 +12,7 @@
 import './enzyme.config.js'                   // (1)
 import React from 'react'
 import { shallow } from 'enzyme'              // (2)
-import Itinerary from '../src/Itinerary'
+import Itinerary from '../src/components/Application/Trip/Itinerary'
 
 /* Both of these tests are functionally identical although the standard way
  *  of writing tests uses lambda or anonymous functions. These are useful
