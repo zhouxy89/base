@@ -32,7 +32,7 @@ class Trip extends Component {
     console.log('Save not implemented.');
   }
 
-  async sendPlanRequest() {
+  sendPlanRequest() {
     console.log("PLANNING");
 
     // TODO need to get the request body from the trip in state object.
@@ -53,13 +53,9 @@ class Trip extends Component {
           ]
       };
 
-    try {
-      let tffi = await request(requestBody, "plan");
-      console.log(tffi);
-      this.props.updateBasedOnResponse(tffi);
-    } catch (err) {
-      console.error(err);
-    }
+    request(requestBody, "plan").then( trip => {
+      this.props.updateBasedOnResponse(trip);
+    }).catch(err => {console.error(err)});
   }
 
   /* Renders the buttons, map, and itinerary.
