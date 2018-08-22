@@ -15,20 +15,22 @@ class Itinerary extends Component {
 
     let tableInfo = {headers: [], distances: []};
     for(let index in places) {
-      tableInfo.headers.push(<td key={'headers_'+index}>{places[index].name}</td>);
-      tableInfo.distances.push(<td key={'distances_'+index}>{distances[index]}</td>);
+      let headerKey = 'headers_'+index;
+      let distanceKey = 'distance_'+index;
+      tableInfo.headers.push(<td key={headerKey} id={headerKey}>{places[index].name}</td>);
+      tableInfo.distances.push(<td key={distanceKey} id={distanceKey}>{distances[index]}</td>);
     }
 
     const table = (
       <Table responsive>
         <thead>
-          <tr className="table-info">
+          <tr id="destnames" className="table-info">
             <th className="align-middle">Destination</th>
             {tableInfo.headers}
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr id="distances">
             <th className="table-info align-middle">{this.props.trip.options.distance}</th>
             {tableInfo.distances}
           </tr>
