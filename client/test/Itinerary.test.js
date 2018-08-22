@@ -20,15 +20,20 @@ import Itinerary from '../src/components/Application/Trip/Itinerary'
  *  called multiple times by whatever they are passed to.
 */
 
+/* A test response for our client to use;
+ * this object represents the props that would be passed to the Itinerary
+ * component on construction.
+ */
+const startProps = {
+  'options': {
+    'distance': ""
+  },
+  'distances': [12, 23, 34, 45, 65, 19],
+  'places': ['foo', 'bar', 'baz', 'qux', 'quux', 'quuz']
+};
+
 /* Test example using a pre-defined function */
 function testExample() {
-  const startProps = {
-      'options': {
-        'distance': ""
-        },
-      'distances': [12, 23, 34, 45, 65, 19],
-      'places': []
-    };
   const itinerary = shallow((
       <Itinerary trip={startProps}/>
     ));
@@ -52,13 +57,6 @@ test('Check to see if table gets made correctly (Lambda)', () => {
    *  Itinerary component matches what we would expect (4).
   */
 
-  const startProps = {                        // (1)
-      'options': {
-        'distance': ""
-        },
-      'distances': [12, 23, 34, 45, 65, 19],
-      'places': []
-    };
   const itinerary = shallow((                 // (2)
       <Itinerary trip={startProps}/>
     ));
