@@ -29,6 +29,8 @@ const startProps = {
     'distance': ""
   },
   'distances': [12, 23, 34, 45, 65, 19],
+  // Note how the places array does not contain properly formatted values here
+  // (no JSON objects with fields like name, etc.)
   'places': ['foo', 'bar', 'baz', 'qux', 'quux', 'quuz']
 };
 
@@ -55,19 +57,25 @@ test('Check to see if table gets made correctly (Function)', testExample);
 
 /* Test example using an anonymous function */
 test('Check to see if table gets made correctly (Lambda)', () => {
-  /* First we create the props that normally would be passed to the component (1).
-   *  Afterwards, we create a shallow version of our Itinerary component (2). With our
-   *  new shallow component we can call ShallowComponent.instance() to gain access
-   *  to it's methods (3).  Lastly, we check to see if the table layout created by the
-   *  Itinerary component matches what we would expect (4).
+  /*  First, we create a shallow version of our Itinerary component, using the
+   *  startProps object defined above for its props (1). With our new shallow
+   *  component, we can call ShallowComponent.find() to extract a certain part
+   *  of the component and its children (2). Lastly, we check to see if the
+   *  table of distance values created by the component is what we expect,
+   *  given the example input (3).
   */
 
-  const itinerary = shallow((                 // (2)
+  const itinerary = shallow((                 // (1)
       <Itinerary trip={startProps}/>
     ));
 
-  const expected = startProps.distances.map((item) => <td>{item}</td>);
-  const actual = itinerary.instance().createTable();                      // (3)
+  // Here, '#distances' will refer to the <tr> tag with id 'distances', and
+  // all of its children. Then finding 'td' will return an array of all the
+  // <td> tags created within the '#distances' <tr> tag.
+  const actual = itinerary.find('#distances').find('td').map((dist) => { // (2)
+    // Need to convert text to numbers
+    return Number(dist.text());
+  });
 
-  expect(actual.dists).toEqual(expected);                                 // (4)
+  expect(actual).toEqual(startProps.distances); // (3)
 });
