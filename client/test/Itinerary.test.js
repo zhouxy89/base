@@ -38,10 +38,15 @@ function testExample() {
       <Itinerary trip={startProps}/>
     ));
 
-  const expected = startProps.distances.map((item) => <td>{item}</td>);
-  const actual = itinerary.instance().createTable();
+  // Extract the distances entries from the component under test,
+  // and convert their text to numbers
+  const actual = itinerary.find('#distances').find('td').map((dist) => {
+      return Number(dist.text());
+    });
 
-  expect(actual.dists).toEqual(expected);
+  // We expect the actual list of numbers that was rendered to be the same
+  // as what the example props contained
+  expect(actual).toEqual(startProps.distances);
 }
 
 test('Check to see if table gets made correctly (Function)', testExample);
