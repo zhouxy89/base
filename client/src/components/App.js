@@ -14,82 +14,30 @@ class App extends Component {
     super(props);
     this.state = {
       department: {},
-      site: {},
+      site: {
+      "name":"CS 001 Web Page Demonstration",
+        "department":"pages/department.json",
+        "pages": [
+          {"type":"page", "title":"CS 001 Web Pages", "menu":"CS001", "file":"pages/home.md"},
+          {"type":"text", "title":"site.json text contents", "menu":"Site", "file":"pages/site.json"},
+          {"type":"text", "title":"department.json text contents", "menu":"Dept", "file":"pages/department.json"},
+          {"type":"text", "title":"text contents markdown.md", "menu":"Text", "file":"pages/markdown.md"},
+          {"type":"page", "title":"page formatted markdown.md", "menu":"Page", "file":"pages/markdown.md"},
+          {"type":"card", "title":"card formatted markdown.md", "menu":"Card", "file":"pages/markdown.md"},
+          {"type":"card", "title":"Faculty Sample Page", "menu":"Faculty", "file":"pages/faculty.md"},
+          {"type":"card", "title":"Course Sample Page", "menu":"Course", "file":"pages/course.md"},
+          {"type":"page", "title":"Create your own site", "menu":"Download", "file":"pages/download.md"},
+          {"type":"link", "title":"Computer Science", "menu":"CS", "url":"http://www.cs.colostate.edu/"}
+        ]
+      }
     };
-  }
-
-  componentWillMount() {
-    let site = './pages/site.json';
-    let siteError = {
-      name: "Site configuration error",
-      pages: [{title: "Site configuration error"}]
-    };
-    let error = "";
-
-    fetch(site)
-      .then(response => {
-        if (response.ok)
-          return response.json();
-        error = site + " - unable to open (" + response.status + ").";
-        console.error(error);
-        console.log(response);
-        return siteError;
-      })
-      .then(data => {
-        this.setState({
-          site: data,
-        });
-        this.fetchDepartmentInfo(data.department, error, site);
-      })
-      .catch(err => {
-        error = site + " - file error.";
-        console.error(error);
-        console.log(err);
-        this.setState({site : siteError});
-      });
-  }
-
-  fetchDepartmentInfo(department, error, site) {
-    let departmentError = {
-      nameLong: "Department configuration error",
-      name: "Department configuration error"
-    };
-    if (!error) {
-      fetch(department)
-        .then(response => {
-          if (response.ok)
-            return response.json();
-          error = department + " - unable to open (" + response.status + ").";
-          console.error(error);
-          console.log(response);
-          return departmentError;
-        })
-        .then(data => {
-          this.setState({department : data});
-        })
-        .catch(err => {
-          error = "department.json - file error.";
-          console.error(error);
-          console.log(err);
-          this.setState({department : departmentError});
-        })
-    }
-    else {
-      error = "Unable to load department configuration from " + site;
-      departmentError = {
-        nameLong: "Department configuration error - Unable to load from " + site,
-        name: "Department configuration error - Unable to load from " + site
-      };
-      console.error(error);
-      this.setState({department: departmentError});
-    }
   }
 
   reactiveRouter(routes) {
     return (
       <Router>
         <div id="App">
-          <Header site={this.state.site} department={this.state.department}/>
+          <Header site={this.state.site}/>
           <Route render={({ location }) => (
             <TransitionGroup>
               <CSSTransition
@@ -104,7 +52,7 @@ class App extends Component {
               </CSSTransition>
             </TransitionGroup>
           )}/>
-          <Footer department={this.state.department}/>
+          <Footer/>
         </div>
       </Router>
     )

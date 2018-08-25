@@ -127,8 +127,7 @@ class Footer extends Component {
   }
 
   departmentName() {
-    if (this.props.department.nameLong !== undefined)
-      return ( " - "+this.props.department.nameLong );
+    return ("Computer Science");
   }
 
   footerCopyright() {

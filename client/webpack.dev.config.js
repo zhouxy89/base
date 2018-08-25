@@ -33,7 +33,7 @@ module.exports = {
         test: /\.(js|jsx)/, loader: 'babel-loader',
         include: path.join(__dirname, './', 'src'),
       },
-      { test: /\.(json)$, loader: 'file-loader', options: { name: 'pages/[name].[ext]' }},
+      { test: /\.json$/, loader: 'file-loader', options: { name: 'pages/[name].[ext]' }},
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] },
       { test: /\.(png|jpg|gif|svg)$/,

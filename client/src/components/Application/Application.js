@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { Container } from 'reactstrap';
+import Info from './Info'
 import Options from './Options';
-import Destinations from './Destinations';
-import Trip from './Trip/Trip';
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -46,9 +45,8 @@ class Application extends Component {
   render() {
     return(
       <Container id="Application">
+        <Info/>
         <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
-        <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
-        <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateBasedOnResponse={this.updateBasedOnResponse}/>
       </Container>
     )
   }

@@ -27,9 +27,6 @@ class Options extends Component{
 
     return(
       <Card>
-        <CardHeader className="bg-info text-white">
-          Options
-        </CardHeader>
         <CardBody>
           <p>Highlight the options you wish to use.</p>
           <ButtonGroup>
