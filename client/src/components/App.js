@@ -1,25 +1,48 @@
 import React, {Component} from 'react';
-import Header from './Header';
+import './format.css'
+import Header from './Marginals/Header';
 import Application from './Application/Application';
-import Footer from './Footer';
+import Footer from './Marginals/Footer';
+import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 class App extends Component {
   constructor (props){
     super(props);
-    this.state = {
-      number: "00",
-      name: "Double Aughts"
-    }
+  }
+
+  reactiveRouter(routes) {
+    return (
+      <Router>
+        <div id="App">
+          <Route render={({ location }) => (
+            <div>
+              <Header/>
+              <TransitionGroup>
+                <CSSTransition
+                  key={location.pathname}
+                  appear
+                  timeout={{enter:900, exit:0}}
+                  classNames='pagefade'
+                >
+                  <Switch location={location}>
+                    {routes}
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+              <Footer/>
+            </div>
+          )}/>
+        </div>
+      </Router>
+    )
   }
 
   render() {
-    return(
-        <div id="App">
-            <Header number={this.state.number} name={this.state.name}/>
-            <Application />
-            <Footer number={this.state.number} name={this.state.name}/>
-        </div>
-    );
+    const routes = [
+        <Route exact path={'/'} key="route_home" render={() => <Application page={'home'}/>} />
+    ]
+    return ( <div> { this.reactiveRouter(routes) } </div> )
   }
 }
 

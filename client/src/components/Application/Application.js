@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Container } from 'reactstrap';
+import Info from './Info'
 import Options from './Options';
-import Destinations from './Destinations';
-import Trip from './Trip/Trip';
+
 import { get_config } from '../../api/api';
 
 /* Renders the application.
@@ -11,9 +11,7 @@ import { get_config } from '../../api/api';
 class Application extends Component {
   constructor(props){
     super(props);
-
     this.state = {
-      config: null,
       trip: {
         type: "trip",
         title: "",
@@ -61,9 +59,8 @@ class Application extends Component {
 
     return(
       <Container id="Application">
+        <Info/>
         <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
-        <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
-        <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateBasedOnResponse={this.updateBasedOnResponse}/>
       </Container>
     )
   }
