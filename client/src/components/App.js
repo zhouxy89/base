@@ -39,11 +39,9 @@ class App extends Component {
   }
 
   render() {
-    const routes = (
-      <div>
-        <Route exact path={'/'} render={() => <Application page={'home'}/>} />
-      </div>
-    )
+    const routes = [
+        <Route exact path={'/'} key="route_home" render={() => <Application page={'home'}/>} />
+    ]
     return ( <div> { this.reactiveRouter(routes) } </div> )
   }
 }

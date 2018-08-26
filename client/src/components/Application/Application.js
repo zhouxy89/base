@@ -3,6 +3,8 @@ import { Container } from 'reactstrap';
 import Info from './Info'
 import Options from './Options';
 
+import { get_config } from '../../api/api';
+
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
  */
