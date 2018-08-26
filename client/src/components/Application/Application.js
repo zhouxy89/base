@@ -12,6 +12,7 @@ class Application extends Component {
   constructor(props){
     super(props);
     this.state = {
+      config: null,
       trip: {
         type: "trip",
         title: "",
@@ -60,7 +61,7 @@ class Application extends Component {
     return(
       <Container id="Application">
         <Info/>
-        <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
+        <Options options={this.state.trip.options} config={this.state.config} updateOptions={this.updateOptions}/>
       </Container>
     )
   }
