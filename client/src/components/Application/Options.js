@@ -13,7 +13,7 @@ class Options extends Component{
   }
 
   render() {
-    const buttons = ['miles', 'kilometers'].map((unit) =>
+    const buttons = this.props.config.units.map((unit) =>
       <Button
         key={'distance_button_' + unit}
         className='btn-outline-dark'
@@ -28,7 +28,7 @@ class Options extends Component{
     return(
       <Card>
         <CardBody>
-          <p>Highlight the options you wish to use.</p>
+          <p>Select the options you wish to use.</p>
           <ButtonGroup>
             {buttons}
           </ButtonGroup>
