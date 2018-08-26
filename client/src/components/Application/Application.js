@@ -26,6 +26,16 @@ class Application extends Component {
     this.updateOptions = this.updateOptions.bind(this);
   }
 
+  componentWillMount() {
+    get_config().then(
+      config => {
+        this.setState({
+          config:config
+        })
+      }
+    );
+  }
+
   updateTrip(field, value){
     let trip = this.state.trip;
     trip[field] = value;
@@ -43,6 +53,8 @@ class Application extends Component {
   }
 
   render() {
+    if(!this.state.config) { return <div/> }
+
     return(
       <Container id="Application">
         <Info/>

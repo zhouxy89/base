@@ -1,7 +1,7 @@
 import './enzyme.config.js'
 import React from 'react'
 import { shallow } from 'enzyme'
-import Header from '../src/Header'
+import Header from '../src/components/Header'
 
 /* First we recreate the expected state that we would usually pass to.
  *  the Header component. Next we create a shallow version on our Component (1).
