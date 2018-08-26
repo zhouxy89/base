@@ -16,8 +16,8 @@ class Options extends Component{
     const buttons = this.props.config.units.map((unit) =>
       <Button
         key={'distance_button_' + unit}
-        className='btn-outline-dark'
-        active={this.props.options.distance === unit}
+        className='btn-outline-dark unit-button'
+        active={this.props.options.unit === unit}
         value={unit}
         onClick={(event) => this.props.updateOptions('distance', event.target.value)}
       >
