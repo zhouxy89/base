@@ -53,13 +53,9 @@ class Navigation extends Component {
 
   collapsable(){
     let toggler = this.getToggler();
-    let navItems = this.props.site.pages.map((element, index) => {
-      // if no menu, create a name
-      let menu = element.menu !== undefined ? element.menu : "Unknown";
-      // if no title, default it to the menu
-      let title = element.title !== undefined ? element.title : menu;
-      return ( this.renderNavItem(element.url, element.type === "link", index, menu, title) );
-    });
+    const navItems = [
+      this.renderNavItem("", false, 0, "TripCo", "TripCo" )
+    ]
     return(
       <div>
         <Navbar className="nav_side_bar" light>
@@ -76,29 +72,15 @@ class Navigation extends Component {
 
   render() {
     let sidebar = this.collapsable();
-    let navItems = this.props.site.pages.slice(1).map((element) => {
-      // if no menu, create a name
-      let menu = element.menu !== undefined ? element.menu : "Unknown";
-      // if no title, default it to the menu
-      let title = element.title !== undefined ? element.title : menu;
-      if (element.type === "link")
-        return(
-          <ReactNavLink key={title} className="nav_item" href={element.url} target="_blank">{menu}</ReactNavLink>
-        );
-      else
-        return(
-          <NavLink to={(menu.replace(/\s+/g, '-').toLowerCase())} exact key={title} className="nav_item nav-link">
-            {menu}
-          </NavLink>
-        );
-    });
-    let menu = this.props.site.pages[0].menu !== undefined ? this.props.site.pages[0].menu : "Unknown";
+
+    const navItems = [];
+
     return(
       <div className="application-width">
         {sidebar}
         <Navbar className="nav_bar">
-            <NavbarBrand className="nav_title" href="">
-              {menu}
+            <NavbarBrand className="nav_title" href="/">
+              T00 TripCo
             </NavbarBrand>
             <div>
               {navItems.reverse()}

@@ -16,8 +16,6 @@ class Footer extends Component {
    * @returns {*}
    */
   departmentColumn(column, name) {
-    if (column === 2 && this.props.department.links === undefined)
-      return;
     let content = (column === 1) ? this.departmentWidget() : this.additionalWidget();
     return (
       <div className="col-xs-12 col-sm-6 col-md-4">
@@ -34,7 +32,7 @@ class Footer extends Component {
         <div className="add-company-footer">
           <div className="application-width">
             <div className="row">
-              {this.departmentColumn(1, this.props.department.nameLong)}
+              {this.departmentColumn(1, "Computer Science Department")}
               {this.departmentColumn(2, "Department")}
             </div>
           </div>
@@ -80,16 +78,19 @@ class Footer extends Component {
    * @returns {*}
    */
   additionalWidget() {
-    if (this.props.department.links !== undefined) {
-      let links = this.props.department.links.map((element, index) => this.parseLinks(element, index));
-      return (
-        <div className="company-sub-widget">
-          <ul className="widget-list">
-            {links}
-          </ul>
-        </div>
+    const links = [
+      {"name":"Courses","url":"http://www.cs.colostate.edu/cstop/csacademics/cscourses.php"},
+      {"name":"Degrees","url":"http://www.cs.colostate.edu/cstop/csacademics/csdegrees.php"},
+      {"name":"Faculty & Staff","url":"http://www.cs.colostate.edu/cstop/cspeople/csfacultyandstaff.php"},
+      {"name":"Prospective Students","url":"http://www.cs.colostate.edu/cstop/csprostudents.php"}
+    ].map((element, index) => this.parseLinks(element, index));
+    return (
+      <div className="company-sub-widget">
+        <ul className="widget-list">
+          {links}
+        </ul>
+      </div>
       );
-    }
     ;
   }
 
@@ -117,10 +118,10 @@ class Footer extends Component {
     return (
         <div className="company-sub-widget">
           <ul className="widget-list">
-            {this.multiLineAddress(this.props.department.address)}
-            {this.nameValue("Phone",this.props.department.phone)}
-            {this.nameValue("Fax",this.props.department.fax)}
-            {this.nameLink("Email",this.props.department.email)}
+            {this.multiLineAddress("279 Computer Science Building\n1100 Centre Avenue\nFort Collins, CO 80523")}
+            {this.nameValue("Phone", "(970) 491-5792")}
+            {this.nameValue("Fax", "(970) 491-2466")}
+            {this.nameLink("Email", "info@cs.colostate.edu")}
           </ul>
         </div>
     );
@@ -141,7 +142,7 @@ class Footer extends Component {
               <li><a href="http://www.colostate.edu/info-equalop.aspx" className="company-sub-widget">Equal Opportunity</a></li>
               <li><a href="http://www.colostate.edu/info-privacy.aspx" className="company-sub-widget">Privacy Statement</a></li>
               <br/>
-              <li><p>© {year} Colorado State University{this.departmentName()}, Fort Collins, CO 80523</p></li>
+              <li><p>© {year} Colorado State University - Computer Science Department, Fort Collins, CO 80523</p></li>
             </ul>
         </div>
     );
