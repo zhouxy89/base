@@ -11,11 +11,19 @@ class Navigation extends Component {
       isOpen: false,
     };
 
-    this.toggle = this.toggle.bind(this);
-    this.collapsable = this.collapsable.bind(this);
-    this.getToggler = this.getToggler.bind(this);
+    // List of supported pages on the website
+    this.nav_items = [
+      { title: 'T00 TripCo', link: '' },
+      { title: 'Options', link: 'options' },
+      { title: 'Calculator', link: 'calculator' }
+    ];
 
+    this.toggle = this.toggle.bind(this);
+    this.getToggler = this.getToggler.bind(this);
     this.renderNavItem = this.renderNavItem.bind(this);
+
+    this.static_links = this.static_links.bind(this);
+    this.collapsible_links = this.collapsible_links.bind(this);
   }
 
   toggle() {
@@ -32,37 +40,32 @@ class Navigation extends Component {
   /**
    * Renders the mobile navigation bar.  This will also update the webpage title
    *      to the correct heading.  The "homepage" has a different name than the
-   *      other items.  Hence the additional logic.
-   * @param href weblink to bind to the name.
-   * @param clickable link true if the link redirects to another site.
-   * @param index of the mapping
-   * @param menu menu name
    * @param title of the nav bar item.
+   * @param link web page to direct to
    * @returns {XML} of the nav bar item.
    */
-  renderNavItem(href, clickable, index, menu, title) {
-    const toLink = (index === 0) ? '/' : menu.replace(/\s+/g, '-').toLowerCase();
-    // true if link redirects user.
-    let navLink = (clickable)
-        ? (<ReactNavLink className="dropdown_item" href={href} target="_blank">{title}</ReactNavLink>)
-        : (<NavLink to={toLink} exact className="dropdown_item nav-link">
-               <div onClick={(e) => this.toggle()}>{title}</div>
-           </NavLink>);
-    return ( <NavItem key={title}>{ navLink }</NavItem> );
+  renderNavItem(info, type) {
+    const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
+
+    let navLink = (
+        <NavLink key={type.concat(info['title'])} to={info['link']} exact className={style.concat(" nav-link")}>
+                 <div onClick={(e) => this.toggle()}>{info['title']}</div>
+        </NavLink>
+      );
+    return ( navLink );
   }
 
-  collapsable(){
+  collapsible_links(){
     let toggler = this.getToggler();
-    const navItems = [
-      this.renderNavItem("", false, 0, "TripCo", "TripCo" )
-    ]
+    let links = this.nav_items.map((item) => this.renderNavItem(item, 'dropdown'));
+
     return(
       <div>
         <Navbar className="nav_side_bar" light>
           <Button className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {navItems}
+              {links}
             </Nav>
           </Collapse>
         </Navbar>
@@ -70,22 +73,29 @@ class Navigation extends Component {
     );
   }
 
-  render() {
-    let sidebar = this.collapsable();
+  static_links() {
+    const home = (
+        <NavLink key="static_home" className='nav_title' to=''>
+          {((this.nav_items) ? this.nav_items[0] : {title: 'Default Home', link: ''})['title']}
+        </NavLink>
+      )
+    const links = this.nav_items.slice(1).map((item) => this.renderNavItem(item, 'static'));
 
-    const navItems = [];
+    return (
+      <Navbar className="nav_bar">
+        {[home, links.reverse()]}
+      </Navbar>
+    )
+  }
+
+  render() {
+    const s_links = this.static_links();
+    const c_links = this.collapsible_links();
 
     return(
       <div className="application-width">
-        {sidebar}
-        <Navbar className="nav_bar">
-            <NavbarBrand className="nav_title" href="/">
-              T00 TripCo
-            </NavbarBrand>
-            <div>
-              {navItems.reverse()}
-            </div>
-        </Navbar>
+        {c_links}
+        {s_links}
       </div>
     )
   }

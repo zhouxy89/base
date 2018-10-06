@@ -40,7 +40,8 @@ class App extends Component {
 
   render() {
     const routes = [
-        <Route exact path={'/'} key="route_home" render={() => <Application page={'home'}/>} />
+        <Route exact path={'/'} key="route_home" render={() => <Application page={'home'}/>} />,
+        <Route exact path={'/calculator'} key="route_calc" render={() => <Application page={'calculator'}/>} />
     ]
     return ( <div> { this.reactiveRouter(routes) } </div> )
   }
