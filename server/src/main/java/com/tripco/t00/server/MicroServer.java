@@ -1,5 +1,6 @@
 package com.tripco.t00.server;
 
+import com.tripco.t00.planner.Distance;
 import com.tripco.t00.planner.Plan;
 
 import spark.Request;
@@ -15,7 +16,7 @@ import static spark.Spark.*;
 /** A simple micro-server for the web.  Just what we need, nothing more.
  *
  */
-public class MicroServer {
+class MicroServer {
 
   private int    port;
   private String name;
@@ -45,6 +46,7 @@ public class MicroServer {
     // client is sending data, so a HTTP POST is used instead of a GET
     get("/config", this::config);
     post("/plan", this::plan);
+    post("/distance", this::distance);
 
     System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
@@ -73,7 +75,7 @@ public class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
 
-    return Config.getConfig();
+    return Config.buildResponse();
   }
 
   /** A REST API that echos the client request.
@@ -117,6 +119,13 @@ public class MicroServer {
     response.header("Access-Control-Allow-Origin", "*");
 
     return "{}";
+  }
+
+  private String distance(Request request, Response response) {
+    response.type("application/json");
+    response.header("Access-Control-Allow-Origin", "*");
+
+    return Distance.buildResponse(request.toString());
   }
 
   /** A REST API that returns the team information associated with the server.
