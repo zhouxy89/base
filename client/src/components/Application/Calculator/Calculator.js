@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import { Card, CardHeader } from 'reactstrap'
 import { Input, InputGroup } from 'reactstrap'
 
@@ -9,34 +9,30 @@ export default class Calculator
     super(props);
   }
 
+  create_input_fields(title) {
+    return (
+        <Card>
+          <CardHeader >
+            {title}
+          </CardHeader>
+          <Input placeholder="Latitude"/>
+          <Input placeholder="Longitude"/>
+        </Card>
+      );
+  }
+
   render() {
     return (
-      <div>
+      <Container>
         <Row>
-          <Col md={{size: 4}} className='align-self-center'>
-            <Card>
-              <CardHeader>
-                First Location
-              </CardHeader>
-              <InputGroup>
-                <Input placeholder="Latitude"/>
-                <Input placeholder="Longitude"/>
-              </InputGroup>
-            </Card>
+          <Col md={{size: 4, offset: 2}} className='align-self-center'>
+            {this.create_input_fields('First Location')}
           </Col>
           <Col md={{size: 4}}>
-            <Card>
-              <CardHeader>
-                First Location
-              </CardHeader>
-              <InputGroup>
-                <Input placeholder="Latitude"/>
-                <Input placeholder="Longitude"/>
-              </InputGroup>
-            </Card>
+            {this.create_input_fields('Second Location')}
           </Col>
         </Row>
-      </div>
+      </Container>
     )
   }
 }

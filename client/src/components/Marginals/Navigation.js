@@ -13,14 +13,6 @@ class Navigation extends Component {
       window_width: window.innerWidth
     };
 
-    // List of supported pages on the website
-    this.nav_items = [
-      { title: 'T00 TripCo', link: '' },
-      { title: 'Options', link: 'options' },
-      { title: 'Calculator', link: 'calculator' }
-    ];
-
-
     this.toggle = this.toggle.bind(this);
     this.getToggler = this.getToggler.bind(this);
     this.renderNavItem = this.renderNavItem.bind(this);
@@ -73,7 +65,7 @@ class Navigation extends Component {
 
   collapsible_links(){
     let toggler = this.getToggler();
-    let links = this.nav_items.map((item) => this.renderNavItem(item, 'dropdown'));
+    let links = this.props.pages.map((item) => this.renderNavItem(item, 'dropdown'));
 
     return(
       <div>
@@ -92,16 +84,16 @@ class Navigation extends Component {
   static_links() {
     const home = (
         <NavLink id='bs-override' key="static_home" className='nav_title nav-link' to=''>
-          {((this.nav_items) ? this.nav_items[0] : {title: 'Default Home', link: ''})['title']}
+          {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
         </NavLink>
       )
-    const links = this.nav_items.slice(1).map((item) => this.renderNavItem(item, 'static'));
+    const links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
 
     return (
       <Navbar id='bs-override' className="nav_bar">
         {home}
         <div>
-          {links}
+          {links.reverse()}
         </div>
       </Navbar>
     )

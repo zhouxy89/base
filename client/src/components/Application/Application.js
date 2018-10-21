@@ -57,16 +57,19 @@ class Application extends Component {
   }
 
   render() {
-    if(!this.state.config) { return <div/> }
-    if(this.props.page === "calculator") { return <Calculator/> }
-    if(this.props.page === "home") {
-    return(
-      <Container id="Application">
-        <Info/>
-        <Options options={this.state.trip.options} config={this.state.config} updateOptions={this.updateOptions}/>
-      </Container>
-    )
-    }
+    if(this.state.config)
+      switch(this.props.page) {
+        case 'home':
+          return <Info/>;
+        case 'calc':
+          return <Calculator/>;
+        case 'options':
+          return <Options options={this.state.trip.options} config={this.state.config} updateOptions={this.updateOptions}/>
+        default:
+          return <div/>;
+      }
+
+    return <div/>
   }
 }
 
