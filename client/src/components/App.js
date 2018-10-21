@@ -14,10 +14,6 @@ class App extends Component {
       { title: 'Calculator', page: 'calc', link: '/calculator'},
       { title: 'Options', page: 'options', link: '/options' }
     ]
-
-    this.state = {
-      this.
-    }
   }
 
   reactiveRouter(routes) {
