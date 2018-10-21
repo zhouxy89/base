@@ -62,7 +62,7 @@ class Application extends Component {
         case 'home':
           return <Info/>;
         case 'calc':
-          return <Calculator/>;
+          return <Calculator unit={this.state.trip.options.unit}/>;
         case 'options':
           return <Options options={this.state.trip.options} config={this.state.config} updateOptions={this.updateOptions}/>
         default:
