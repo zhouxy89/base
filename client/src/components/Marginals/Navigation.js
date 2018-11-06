@@ -83,7 +83,8 @@ class Navigation extends Component {
 
   static_links() {
     const home = (
-        <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link' onClick={()=>this.props.page_handler('home')}>
+        <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
+                onClick={()=>this.props.page_handler('')}>
           {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
         </Button>
       )
