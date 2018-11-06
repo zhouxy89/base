@@ -34,7 +34,7 @@ class Application extends Component {
     get_config().then(
       config => {
         this.setState({
-          config:config
+          config: config
         })
       }
     );
@@ -59,17 +59,13 @@ class Application extends Component {
   render() {
     if(this.state.config)
       switch(this.props.page) {
-        case 'home':
-          return <Info/>;
         case 'calc':
           return <Calculator unit={this.state.trip.options.unit}/>;
         case 'options':
           return <Options options={this.state.trip.options} config={this.state.config} updateOptions={this.updateOptions}/>
-        default:
-          return <div/>;
       }
 
-    return <div/>
+    return <Info/>
   }
 }
 

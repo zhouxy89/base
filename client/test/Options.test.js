@@ -26,7 +26,7 @@ import Options from '../src/components/Application/Options'
  */
 const startProps = {
   'config': { 'units': ['miles', 'kilometers'] },
-  'options': { 'unit': 'miles' }
+  'options': { 'unit': 'miles' },
 };
 
 /* Test example using a pre-defined function */
@@ -62,4 +62,10 @@ test('Check to see if table gets made correctly (Lambda)', () => {
   options.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
 
   expect(actual).toEqual(startProps.config.units);  // (3)
+});
+
+test('TEST MY THING', () => {
+  const wrapper = mount(<Options config={startProps.config} options={startProps.options}/>);
+  console.log(wrapper.instance().calc2());
+
 });
