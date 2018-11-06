@@ -56,9 +56,9 @@ class Navigation extends Component {
     const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
 
     let navLink = (
-        <NavLink id='bs-override' key={type.concat(info['title'])} to={info['link']} exact className={style.concat(" nav-link")}>
-                 <div onClick={(e) => this.toggle()}>{info['title']}</div>
-        </NavLink>
+        <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style.concat(" nav-link")}>
+                 <div onClick={(e) => {this.toggle(); this.props.page_handler(info['page']);}}>{info['title']}</div>
+        </Button>
       );
     return ( navLink );
   }
@@ -83,9 +83,9 @@ class Navigation extends Component {
 
   static_links() {
     const home = (
-        <NavLink id='bs-override' key="static_home" className='nav_title nav-link' to=''>
+        <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link' onClick={()=>this.props.page_handler('home')}>
           {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
-        </NavLink>
+        </Button>
       )
     const links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
 

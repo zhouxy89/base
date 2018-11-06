@@ -14,11 +14,20 @@ class App extends Component {
       { title: 'Calculator', page: 'calc', link: '/calculator'},
       { title: 'Options', page: 'options', link: '/options' }
     ]
+
+    this.state = {
+      current_page: this.pages[0].page
+    }
+
+    this.page_handler = this.page_handler.bind(this);
+  }
+
+  page_handler (page) {
+    this.setState({current_page: page})
   }
 
   reactiveRouter(routes) {
     return (
-      <Router>
         <div id="App">
           <Route render={({ location }) => (
             <div>
@@ -39,7 +48,6 @@ class App extends Component {
             </div>
           )}/>
         </div>
-      </Router>
     )
   }
 
@@ -48,7 +56,13 @@ class App extends Component {
         <Route exact path={element['link']} key={"route_".concat(element['page'])}
           render={() => <Application page={element['page']}/>}/>
       );
-    return ( <div> { this.reactiveRouter(routes) } </div> )
+    return (
+      <div>
+        <Header pages={this.pages} page_handler={this.page_handler}/>
+        <Application page={this.state.current_page}/>
+        <Footer/>
+      </div>
+    );
   }
 }
 

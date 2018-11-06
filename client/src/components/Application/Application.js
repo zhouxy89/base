@@ -34,7 +34,7 @@ class Application extends Component {
     get_config().then(
       config => {
         this.setState({
-          config:config
+          config: config
         })
       }
     );

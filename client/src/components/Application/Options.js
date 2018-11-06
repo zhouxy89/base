@@ -12,6 +12,10 @@ class Options extends Component{
     super(props);
   }
 
+  calc2() {
+    return 2;
+  }
+
   render() {
     const buttons = this.props.config.units.map((unit) =>
       <Button
