@@ -63,9 +63,3 @@ test('Check to see if table gets made correctly (Lambda)', () => {
 
   expect(actual).toEqual(startProps.config.units);  // (3)
 });
-
-test('TEST MY THING', () => {
-  const wrapper = mount(<Options config={startProps.config} options={startProps.options}/>);
-  console.log(wrapper.instance().calc2());
-
-});
