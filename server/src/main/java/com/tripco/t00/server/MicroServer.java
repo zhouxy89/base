@@ -125,7 +125,7 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
 
-    return Distance.buildResponse(request.toString());
+    return Distance.buildResponse(request.body());
   }
 
   /** A REST API that returns the team information associated with the server.
