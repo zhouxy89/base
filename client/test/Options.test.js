@@ -12,7 +12,7 @@
 import './enzyme.config.js'                   // (1)
 import React from 'react'
 import { mount } from 'enzyme'              // (2)
-import Options from '../src/components/Application/Options'
+import Units from '../src/components/Application/Options/Units'
 
 /* Both of these tests are functionally identical although the standard way
  *  of writing tests uses lambda or anonymous functions. These are useful
@@ -21,22 +21,22 @@ import Options from '../src/components/Application/Options'
 */
 
 /* A test response for our client to use;
- * this object represents the props that would be passed to the Options
+ * this object represents the props that would be passed to the Units
  * component on construction.
  */
 const startProps = {
   'config': { 'units': ['miles', 'kilometers'] },
-  'options': { 'unit': 'miles' },
+  'units': { 'unit': 'miles' },
 };
 
 /* Test example using a pre-defined function */
 function testExample() {
-  const options = mount((
-      <Options config={startProps.config} options={startProps.options}/>
+  const units = mount((
+      <Units config={startProps.config} units={startProps.units}/>
     ));
 
   let actual = [];
-  options.find('Button').map((element) => actual.push(element.prop('value')));
+  units.find('Button').map((element) => actual.push(element.prop('value')));
 
   expect(actual).toEqual(startProps.config.units);
 }
@@ -47,19 +47,19 @@ test('Check to see if table gets made correctly (Function)', testExample);
 
 /* Test example using an anonymous function */
 test('Check to see if table gets made correctly (Lambda)', () => {
-  /*  First, we create a version of our Options component, using the
+  /*  First, we create a version of our Units component, using the
    *  startProps object defined above for its props (1). With our new unrendered
    *  component, we can call ReactWrapper.find() to extract a certain part
    *  of the component and its children (2). Lastly, we check to see if the
    *  value of the buttons created by the component is what we expect,
    *  given the example input (3).
   */
-  const options = mount((   // (1)
-      <Options config={startProps.config} options={startProps.options}/>
+  const units = mount((   // (1)
+      <Units config={startProps.config} units={startProps.units}/>
     ));
 
   let actual = [];
-  options.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
+  units.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
 
   expect(actual).toEqual(startProps.config.units);  // (3)
 });
