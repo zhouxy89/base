@@ -4,7 +4,7 @@ import Info from './Info'
 import Options from './Options/Options'
 import Calculator from './Calculator/Calculator'
 
-import { get_config } from '../../api/api'
+import { get_config, get_hostname } from '../../api/api'
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -15,20 +15,13 @@ class Application extends Component {
     this.state = {
       config: null,
       options: {
-        unit: 'miles'
+        unit: 'miles',
+        hostname: get_hostname()
       }
     };
 
     this.updateConfig = this.updateConfig.bind(this);
-    this.updateTrip = this.updateTrip.bind(this);
-    this.updateBasedOnResponse = this.updateBasedOnResponse.bind(this);
-    this.updateHost = this.updateHost.bind(this);
-    this.updateOptions = this.updateOptions.bind(this);
-
-    this.update_functions = {
-      updateHost: this.updateHost,
-      updateOptions: this.updateOptions
-    }
+    this.updateOption = this.updateOption.bind(this);
   }
 
   componentWillMount() {
@@ -36,8 +29,9 @@ class Application extends Component {
   }
 
   updateConfig() {
-    get_config(this.state.hostname).then(
+    get_config(this.state.options.hostname).then(
       config => {
+        console.log("Successfully retrieved config from", this.state.options.hostname);
         this.setState({
           config: config
         })
@@ -45,25 +39,13 @@ class Application extends Component {
     );
   }
 
-  updateHost(hostname) {
-    this.setState({hostname});
-  }
-
-  updateTrip(field, value){
-    let trip = this.state.trip;
-    trip[field] = value;
-    this.setState(trip);
-  }
-
-  updateBasedOnResponse(value) {
-    this.setState({'trip': value});
-  }
-
-  updateOptions(option, value){
-    let temp = this.state;
-    if(!temp['options']) { temp['options'] = {}; }   // Define options if undefined
-    temp['options']['unit'] = value;
-    this.setState(temp);
+  updateOption(key, value) {
+    let temp = Object.assign({}, this.state.options);
+    temp[key] = value;
+    if(key === 'hostname')
+      this.setState({'options': temp}, () => this.updateConfig());
+    else
+      this.setState({'options': temp});
   }
 
   render() {
@@ -71,11 +53,11 @@ class Application extends Component {
       switch(this.props.page) {
         case 'calc':
           return <Calculator options={this.state.options}/>;
-        case 'options':
-          return <Options options={(this.state['options'])?this.state.options:''}
-                    config={this.state.config} update_functions={this.update_functions}/>
       }
 
+    if(this.props.page === 'options')
+      return <Options options={this.state.options}
+                config={this.state.config} updateOption={this.updateOption}/>
     return <Info/>
   }
 }

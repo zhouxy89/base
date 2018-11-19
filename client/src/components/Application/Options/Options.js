@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Container, Card, CardHeader, CardBody} from 'reactstrap'
 import { ButtonGroup, Button } from 'reactstrap'
+import Units from './Units'
+import Interop from './Interop'
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -13,28 +15,14 @@ class Options extends Component{
   }
 
   render() {
-    const buttons = this.props.config.units.map((unit) =>
-      <Button
-        key={'distance_button_' + unit}
-        className='btn-outline-dark unit-button'
-        active={this.props.options.unit === unit}
-        value={unit}
-        onClick={(event) => this.props.update_functions.updateOptions('unit', event.target.value)}
-      >
-        {unit.charAt(0).toUpperCase() + unit.slice(1)}
-      </Button>
-    );
 
     return(
       <Container>
-        <Card>
-          <CardBody>
-            <p>Select the options you wish to use.</p>
-            <ButtonGroup>
-              {buttons}
-            </ButtonGroup>
-          </CardBody>
-        </Card>
+          {this.props.config != null &&
+            <Units config={this.props.config}
+              unit={this.props.options.unit} updateOption={this.props.updateOption}/>
+          }
+          <Interop hostname={this.props.options.hostname} updateOption={this.props.updateOption}/>
       </Container>
     )
   }

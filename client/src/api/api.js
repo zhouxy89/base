@@ -1,4 +1,4 @@
-function get_hostname() {
+export function get_hostname() {
   return location.hostname.concat(':').concat((!process.env.dev) ?
     location.port :
     process.env.dev)
