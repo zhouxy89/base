@@ -9,7 +9,7 @@ module.exports = {
   devServer: {
     port: dev_port,
     open: true,
-    hot: true
+    hot: true,
   },
   entry: [
     'babel-polyfill',
