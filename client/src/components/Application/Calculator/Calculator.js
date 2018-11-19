@@ -42,7 +42,7 @@ export default class Calculator
       'units'       : this.props.unit
     };
 
-    request(body, 'distance').then(
+    request(body, 'distance', this.props.options.hostname).then(
       (response) => {
         this.setState({distance: response.distance});
       }
@@ -81,7 +81,7 @@ export default class Calculator
                   <Button onClick={this.calculate_distance}>Calculate</Button>
                 </Col>
                 <Col md={6}>
-                  {this.state.distance} {this.props.unit}
+                  {this.state.distance} {this.props.options.unit}
                 </Col>
               </Row>
             </CardBody>
