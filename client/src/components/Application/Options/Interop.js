@@ -8,8 +8,6 @@ export default class Interop extends Component {
     this.state = {
       input_text: ''
     }
-
-    this.updateInput = this.updateInput.bind(this);
   }
 
   updateInput(e) {
@@ -21,15 +19,20 @@ export default class Interop extends Component {
       <Card>
         <CardBody>
           Change server
-          <Row>
+          <form onSubmit={(e) => {
+              e.preventDefault();
+              this.props.updateOption('hostname', this.state.input_text);
+            }}>
+            <Row>
               <Col sm='12' md='4'>
-                <Input onChange={this.updateInput} value={this.state.input_text}
+                <Input onChange={this.updateInput.bind(this)} value={this.state.input_text}
                   placeholder={this.props.hostname}/>
               </Col>
               <Col>
-                <Button onClick={() => this.props.updateOption('hostname', this.state.input_text)}>Update</Button>
+                <Button type='submit'>Update</Button>
               </Col>
             </Row>
+           </form>
           </CardBody>
         </Card>
       );

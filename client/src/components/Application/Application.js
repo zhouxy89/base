@@ -55,10 +55,13 @@ class Application extends Component {
           return <Calculator options={this.state.options}/>;
       }
 
-    if(this.props.page === 'options')
-      return <Options options={this.state.options}
-                config={this.state.config} updateOption={this.updateOption}/>
-    return <Info/>
+    switch(this.props.page) {
+      case 'options':
+        return <Options options={this.state.options}
+                  config={this.state.config} updateOption={this.updateOption}/>
+      default:
+        return <Info/>
+    }
   }
 }
 
