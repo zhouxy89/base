@@ -39,7 +39,6 @@ public class Distance extends TFFIResponse {
     Gson gson = new Gson();
     Distance obj = gson.fromJson(data, Distance.class);
     obj.distance = obj.calculateDistance();
-
     return gson.toJson(obj);
   }
 }
