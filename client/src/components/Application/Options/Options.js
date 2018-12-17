@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Container, Card, CardHeader, CardBody} from 'reactstrap'
+import {Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardHeader, CardBody} from 'reactstrap'
 import { ButtonGroup, Button } from 'reactstrap'
 import Units from './Units'
 import Interop from './Interop'
@@ -15,15 +15,38 @@ class Options extends Component{
   }
 
   render() {
-
     return(
-      <Container>
-          {this.props.config != null &&
-            <Units config={this.props.config}
-              unit={this.props.options.unit} updateOption={this.props.updateOption}/>
-          }
-          <Interop hostname={this.props.options.hostname} updateOption={this.props.updateOption}/>
-      </Container>
+        <Container>
+          <Row>
+            <Col xs="12">
+              <Card><CardHeader>Options</CardHeader><CardBody>Select ...</CardBody></Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12" sm="12" md="6" lg="4" xl="3">
+              {this.props.config != null &&
+              <Units config={this.props.config}
+                     unit={this.props.options.unit} updateOption={this.props.updateOption}/>
+              }
+            </Col>
+            <Col xs="12" sm="12" md="6" lg="4" xl="3">
+              {this.props.config != null &&
+              <Units config={this.props.config}
+                     unit={this.props.options.unit} updateOption={this.props.updateOption}/>
+              }
+            </Col>
+            <Col xs="12" sm="12" md="6" lg="4" xl="3">
+              {this.props.config != null &&
+              <Units config={this.props.config}
+                     unit={this.props.options.unit} updateOption={this.props.updateOption}/>
+              }
+            </Col>
+            <Col xs="12" sm="12" md="6" lg="4" xl="3">
+              <Interop hostname={this.props.options.hostname}
+                       updateOption={this.props.updateOption}/>
+            </Col>
+          </Row>
+        </Container>
     )
   }
 }
