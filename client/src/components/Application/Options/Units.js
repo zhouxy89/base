@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardBody } from 'reactstrap'
+import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Row, Col, Button, ButtonGroup } from 'reactstrap'
 
 export default class Units extends Component {
@@ -8,28 +8,24 @@ export default class Units extends Component {
   }
 
   render() {
-    const buttons = this.props.config.units.map((unit) =>
-      <Col md='3'
-        className='p-0'
-        key={'distance_button_' + unit}
-      >
+    const buttons = this.props.config.units.sort().map((unit) =>
         <Button
-          className='btn-outline-dark unit-button w-100'
+          className='btn-outline-dark unit-button w-100 text-left'
           active={this.props.unit === unit}
           value={unit}
           onClick={(event) => this.props.updateOption('unit', event.target.value)}
         >
           {unit.charAt(0).toUpperCase() + unit.slice(1)}
         </Button>
-      </Col>
+
     );
     return(
-      <Card>
+      <Card className='text-center'>
+        <CardHeader>Units</CardHeader>
         <CardBody>
-          <p>Select the options you wish to use.</p>
-          <Row>
+          <ButtonGroup vertical className='w100'>
             {buttons}
-          </Row>
+          </ButtonGroup>
         </CardBody>
       </Card>
     );
