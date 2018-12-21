@@ -1,14 +1,11 @@
 package com.tripco.t00.server;
 
+import com.tripco.t00.planner.Config;
 import com.tripco.t00.planner.Distance;
-import com.tripco.t00.planner.Plan;
 
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import static spark.Spark.*;
 
