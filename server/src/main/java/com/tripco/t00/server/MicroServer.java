@@ -1,5 +1,8 @@
 package com.tripco.t00.server;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.tripco.t00.planner.Config;
 import com.tripco.t00.planner.Distance;
 
@@ -72,7 +75,11 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
 
-    return Config.buildResponse();
+    Config config = new Config();
+    config.buildResponse();
+
+    Gson gson = new Gson();
+    return gson.toJson(config);
   }
 
   /** A REST API that echos the client request.

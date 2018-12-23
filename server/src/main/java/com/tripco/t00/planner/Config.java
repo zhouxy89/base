@@ -1,62 +1,46 @@
 package com.tripco.t00.planner;
 
-import com.tripco.t00.planner.TFFIResponse;
-
 import java.util.Arrays;
 import java.util.List;
 
-/** Defines the TIP config object.
+/** This class defines the Config response that provides the client
+ * with server specific configuration information.
  *  
- * For use with restful API services,
+ * When used with restful API services,
  * An object is created from the request JSON by the MicroServer using GSON.
  * The buildResponse method is called to set the configuration information.
  * The MicroServer constructs the response JSON from the object using GSON.
  *  
- * For unit testing purposes,
+ * When used for testing purposes,
  * An object is created using the constructor below.
  * The buildResponse method is called to set the configuration information.
  * The getDistance method is called to obtain the distance value for comparisons.
-
  */
-public class
-Config extends TFFIResponse {
+public class Config extends TFFIResponse {
+  private String serverName;
+  private List<String> placeAttributes;
 
-  /* Server configuration elements */
-  private String name;
-  private List<String> attributes;
 
-  /**  Create a config object for testing purposes.
-   */
   public Config() {
     this.type = "config";
     this.version = 1;
   }
 
-  /** Return name configuration.
-   * 
-   * @return
-   */
-  String getName() {
-    return this.name;
-  }
 
-  /** Return attribute configuration.
-   * 
-   * @return
-   */
-  List<String> getAttributes() {
-    return this.attributes;
-  }
-
-  /** Sets the server configuration information.
-   */
   public String buildResponse() {
-    this.name = "t00 Double Aughts";
-    this.attributes = Arrays.asList("latitude", "longitude", "name");
+    this.serverName = "t##...";
+    this.placeAttributes = Arrays.asList("latitude", "longitude", "serverName");
     return "";
   }
-  
-  /*
-   * @todo future sprints, update configuration features as TIP changes.
-   */
+
+
+  String getServerName() {
+    return this.serverName;
+  }
+
+
+  List<String> getPlaceAttributes() {
+    return this.placeAttributes;
+  }
+
 }
