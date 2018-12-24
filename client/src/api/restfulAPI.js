@@ -2,14 +2,18 @@
 export async function sendHttpGetRequest(type, serverPort=getOriginalServerPort()) {
     const restfulAPI = 'http://' + serverPort + '/api/' + type;
     const requestOptions = {method: "GET"};
-    return fetch(restfulAPI, requestOptions).then(response => {return response.json()}).catch(err => {console.error(err)});
+    return fetch(restfulAPI, requestOptions)
+        .then(response => {return response.json()})
+        .catch(err => {console.error(err)});
 }
 
 
 export async function sendHttpPostRequest(body, type, serverPort=getOriginalServerPort()) {
     const restfulAPI = 'http://' + serverPort + '/api/' + type;
     const requestOptions = {method: "POST", body: JSON.stringify(body)};
-    return fetch(restfulAPI, requestOptions).then(response => {return response.json()}).catch(err => {console.error(err)});
+    return fetch(restfulAPI, requestOptions)
+        .then(response => {return response.json()})
+        .catch(err => {console.error(err)});
 }
 
 export function getOriginalServerPort() {
