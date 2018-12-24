@@ -22,15 +22,15 @@ public class TIPConfig extends TIPHeader {
 
 
   public TIPConfig() {
-    this.type = "config";
-    this.version = 1;
+    this.requestType = "config";
+    this.requestVersion = 1;
   }
 
 
-  public String buildResponse() {
+  @Override
+  public void buildResponse() {
     this.serverName = "t##...";
     this.placeAttributes = Arrays.asList("latitude", "longitude", "serverName");
-    return "";
   }
 
 

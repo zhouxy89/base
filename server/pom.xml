@@ -33,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.tripco.t00.server.MyServer</mainClass>
+                            <mainClass>com.tripco.t00.server.WebApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -21,13 +21,13 @@ public class TestTIPConfig {
   @Test
   public void testType() {
     String type = "config"; //conf.getType();
-    assertEquals("config type", "config", type);
+    assertEquals("config requestType", "config", type);
   }
 
   @Test
   public void testVersion() {
     int version = 1; //conf.getVersion();
-    assertEquals("config version", 1, version);
+    assertEquals("config requestVersion", 1, version);
   }
 
   @Test
@@ -43,7 +43,7 @@ public class TestTIPConfig {
     // @todo Sprint 1 add asserts for the expected elements of the attribute list.
   }
 
-// @todo Base add getType, getVersion to the TFFIResponse type for testing purposes.
+// @todo Base add getType, getVersion to the TFFIResponse requestType for testing purposes.
 // @todo Sprints add tests cases for new server configuration items.
 
 }
