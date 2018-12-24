@@ -24,25 +24,25 @@ class Options extends Component{
           </Row>
           <Row>
             <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              {this.props.config != null &&
-              <Units config={this.props.config}
+              {
+              <Units options={this.props.options}
                      unit={this.props.options.unit} updateOption={this.props.updateOption}/>
               }
             </Col>
             <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              {this.props.config != null &&
-              <Units config={this.props.config}
+              {
+              <Units options={this.props.options}
                      unit={this.props.options.unit} updateOption={this.props.updateOption}/>
               }
             </Col>
             <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              {this.props.config != null &&
-              <Units config={this.props.config}
+              {
+              <Units options={this.props.options}
                      unit={this.props.options.unit} updateOption={this.props.updateOption}/>
               }
             </Col>
             <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              <Interop hostname={this.props.options.hostname}
+              <Interop hostname={this.props.options.serverPort}
                        updateOption={this.props.updateOption}/>
             </Col>
           </Row>
