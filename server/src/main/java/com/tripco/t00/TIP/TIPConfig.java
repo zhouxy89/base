@@ -1,4 +1,4 @@
-package com.tripco.t00.planner;
+package com.tripco.t00.TIP;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,12 +16,12 @@ import java.util.List;
  * The buildResponse method is called to set the configuration information.
  * The getDistance method is called to obtain the distance value for comparisons.
  */
-public class Config extends TFFIResponse {
+public class TIPConfig extends TIPHeader {
   private String serverName;
   private List<String> placeAttributes;
 
 
-  public Config() {
+  public TIPConfig() {
     this.type = "config";
     this.version = 1;
   }

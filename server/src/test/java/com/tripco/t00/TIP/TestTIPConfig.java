@@ -1,4 +1,4 @@
-package com.tripco.t00.planner;
+package com.tripco.t00.TIP;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import static org.junit.Assert.assertEquals;
 
 /** Verifies the operation of the TIP config class and its buildResponse method.
  */
-public class TestConfig {
-  private Config conf;
+public class TestTIPConfig {
+  private TIPConfig conf;
 
   @Before
   public void createConfigurationForTestCases(){
-    conf = new Config();
+    conf = new TIPConfig();
     conf.buildResponse();
   }
 

@@ -1,4 +1,4 @@
-package com.tripco.t00.planner;
+package com.tripco.t00.TIP;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import java.util.Map;
  * The getDistance method is called to obtain the distance value for comparisons.
  *
  */
-public class TIPDistance extends TFFIResponse {
+public class TIPDistance extends TIPHeader {
   private Map origin;
   private Map destination;
   private Double earthRadius;
