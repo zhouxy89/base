@@ -8,7 +8,7 @@ export async function sendHttpGetRequest(type, serverPort=getOriginalServerPort(
 }
 
 
-export async function sendHttpPostRequest(body, type, serverPort=getOriginalServerPort()) {
+export async function sendHttpPostRequest(type, body, serverPort=getOriginalServerPort()) {
     const restfulAPI = 'http://' + serverPort + '/api/' + type;
     const requestOptions = {method: "POST", body: JSON.stringify(body)};
     return fetch(restfulAPI, requestOptions)

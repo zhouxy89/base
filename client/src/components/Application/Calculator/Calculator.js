@@ -36,13 +36,14 @@ export default class Calculator
   calculate_distance() {
     const body = {
       'type'        : 'distance',
-      'version'     : '4',
+      'version'     : '1',
       'origin'      : this.parse_location_info(this.state.first),
       'destination' : this.parse_location_info(this.state.second),
-      'units'       : this.props.unit
+      'unitRadius'  : 3958.0
     };
+    // @todo lookup radius from units.
 
-    sendHttpPostRequest(body, 'distance', this.props.options.hostname).then(
+    sendHttpPostRequest('distance', body, this.props.options.hostname).then(
         (response) => {
           this.setState({distance: response.distance});
         }
