@@ -4,7 +4,7 @@ import Info from './Info'
 import Options from './Options/Options'
 import Calculator from './Calculator/Calculator'
 
-import {getOriginalServerPort, sendHttpGetRequest} from '../../api/api'
+import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI'
 
 
 /* Renders the application.

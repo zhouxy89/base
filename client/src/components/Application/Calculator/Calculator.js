@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
-import { sendHttpPostRequest } from '../../../api/api.js'
+import { sendHttpPostRequest } from '../../../api/restfulAPI'
 
 export default class Calculator
     extends Component {
