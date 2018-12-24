@@ -32,7 +32,7 @@ const startProps = {
 /* Test example using a pre-defined function */
 function testExample() {
   const units = mount((
-      <Units config={startProps.config} units={startProps.units}/>
+      <Units options={startProps.config} units={startProps.units}/>
     ));
 
   let actual = [];
@@ -55,7 +55,7 @@ test('Check to see if table gets made correctly (Lambda)', () => {
    *  given the example input (3).
   */
   const units = mount((   // (1)
-      <Units config={startProps.config} units={startProps.units}/>
+      <Units options={startProps.config} units={startProps.units}/>
     ));
 
   let actual = [];
