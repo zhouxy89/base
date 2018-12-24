@@ -21,7 +21,7 @@ export default class Interop extends Component {
           <CardBody>
             <form onSubmit={(e) => {
               e.preventDefault();
-              this.props.updateOption('hostname', this.state.input_text);
+              this.props.updateOption('serverPort', this.state.input_text);
             }}>
 
               <Input onChange={this.updateInput.bind(this)}
