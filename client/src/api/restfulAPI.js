@@ -16,7 +16,8 @@ export function getOriginalServerPort() {
     const serverHost = location.hostname;
     const serverPort = location.port;
     const alternatePort = process.env.dev;
-    return serverHost.concat(':').concat((!process.env.dev) ? serverPort : process.env.dev)
+    return serverHost.concat(':').concat((!alternatePort) ? serverPort : alternatePort)
 }
 
 //@todo BASE extract the fetch/json/catch to a separate function
+//@todo handle status codes 200,400,500
