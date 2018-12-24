@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
-import { request } from '../../../api/api.js'
+import { sendHttpPostRequest } from '../../../api/api.js'
 
 export default class Calculator
     extends Component {
@@ -42,7 +42,7 @@ export default class Calculator
       'units'       : this.props.unit
     };
 
-    request(body, 'distance', this.props.options.hostname).then(
+    sendHttpPostRequest(body, 'distance', this.props.options.hostname).then(
         (response) => {
           this.setState({distance: response.distance});
         }

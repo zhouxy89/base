@@ -1,18 +1,22 @@
-export function get_hostname() {
-  return location.hostname.concat(':').concat((!process.env.dev) ?
-    location.port :
-    process.env.dev)
+export function getOriginalServerPort() {
+    const serverHost = location.hostname;
+    const serverPort = location.port;
+    const alternatePort = process.env.dev;
+    return serverHost.concat(':').concat((!process.env.dev) ? serverPort : process.env.dev)
 }
 
-export async function request(body, type, hostname=get_hostname()) {
-  return fetch('http://' + hostname + '/api/' + type, {
-    method:"POST",
-    body: JSON.stringify(body)
-  }).then(response => {return response.json()}).catch(err => {console.error(err)});
+
+export async function sendHttpGetRequest(type, serverPort=getOriginalServerPort()) {
+    const restfulAPI = 'http://' + serverPort + '/api/' + type;
+    const options = {method: "GET"};
+    return fetch(restfulAPI, options).then(response => {return response.json()}).catch(err => {console.error(err)});
 }
 
-export async function get_config(hostname=get_hostname()) {
-  return fetch('http://' + hostname + '/api/config', {
-    method:"GET"
-  }).then(response => {return response.json()}).catch(err => {console.error(err)});
+
+export async function sendHttpPostRequest(body, type, serverPort=getOriginalServerPort()) {
+    const restfulAPI = 'http://' + serverPort + '/api/' + type;
+    const options = {method: "POST", body: JSON.stringify(body)};
+    return fetch(restfulAPI, options).then(response => {return response.json()}).catch(err => {console.error(err)});
 }
+
+//@todo BASE extract the fetch/json/catch to a separate function
