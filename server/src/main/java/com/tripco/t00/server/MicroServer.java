@@ -49,7 +49,19 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    return processTIPrequest(TIPConfig.class, request, response);
+    response.type("application/json");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.status(200);
+    try {
+      Gson jsonConverter = new Gson();
+      TIPConfig tipRequest = new TIPConfig();
+      tipRequest.buildResponse();
+      return jsonConverter.toJson(tipRequest);
+    } catch (Exception e) {
+      // @todo distinguish bad request 400 from server error 500
+      response.status(500);
+      return request.body();
+    }
   }
 
 

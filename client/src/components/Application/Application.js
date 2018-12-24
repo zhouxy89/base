@@ -4,7 +4,8 @@ import Info from './Info'
 import Options from './Options/Options'
 import Calculator from './Calculator/Calculator'
 
-import { sendHttpGetRequest, getOriginalServerPort } from '../../api/api'
+import {getOriginalServerPort, sendHttpGetRequest} from '../../api/api'
+
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -15,8 +16,9 @@ class Application extends Component {
     this.state = {
       config: null,
       options: {
+        units: ['kilometers','miles','nautical miles'],
         unit: 'miles',
-        hostname: getOriginalServerPort()
+        serverPort: getOriginalServerPort()
       }
     };
 
@@ -29,9 +31,10 @@ class Application extends Component {
   }
 
   updateConfig() {
-    sendHttpGetRequest('config', this.state.options.hostname).then(
+    sendHttpGetRequest('config', this.state.options.serverPort).then(
       config => {
-        console.log("Successfully retrieved config from", this.state.options.hostname);
+        console.log("Successfully retrieved config from", this.state.options.serverPort);
+        console.log(config);
         this.setState({
           config: config
         })
