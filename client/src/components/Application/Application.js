@@ -6,6 +6,7 @@ import Calculator from './Calculator/Calculator'
 
 import {getOriginalServerPort, sendHttpGetRequest} from '../../api/api'
 
+
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
  */
