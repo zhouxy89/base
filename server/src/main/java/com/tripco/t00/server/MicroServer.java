@@ -2,7 +2,8 @@ package com.tripco.t00.server;
 
 import com.google.gson.Gson;
 
-import com.tripco.t00.planner.TIPDistance;
+import com.tripco.t00.TIP.TIPConfig;
+import com.tripco.t00.TIP.TIPDistance;
 
 import spark.Request;
 import spark.Response;
@@ -53,7 +54,11 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
 
-    return Config.buildResponse();
+    TIPConfig config = new TIPConfig();
+    config.buildResponse();
+
+    Gson gson = new Gson();
+    return gson.toJson(config);
   }
 
 
