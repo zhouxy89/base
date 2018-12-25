@@ -16,7 +16,7 @@ class Application extends Component {
     this.state = {
       config: null,
       options: {
-        units: ['kilometers','miles','nautical miles'],
+        units: {'miles':3959},
         unit: 'miles',
         serverPort: getOriginalServerPort()
       }

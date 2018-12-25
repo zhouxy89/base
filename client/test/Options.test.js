@@ -25,7 +25,7 @@ import Units from '../src/components/Application/Options/Units'
  * component on construction.
  */
 const startProps = {
-  'config': { 'units': ['miles', 'kilometers'] },
+  'config': { 'units': {'miles':3959, 'kilometers':6371} },
   'units': { 'unit': 'miles' },
 };
 
@@ -38,7 +38,7 @@ function testExample() {
   let actual = [];
   units.find('Button').map((element) => actual.push(element.prop('value')));
 
-  expect(actual).toEqual(startProps.config.units);
+  expect(actual.sort()).toEqual(Object.keys(startProps.config.units).sort());
 }
 
 test('Check to see if table gets made correctly (Function)', testExample);
@@ -61,5 +61,5 @@ test('Check to see if table gets made correctly (Lambda)', () => {
   let actual = [];
   units.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
 
-  expect(actual).toEqual(startProps.config.units);  // (3)
+  expect(actual.sort()).toEqual(Object.keys(startProps.config.units).sort());  // (3)
 });
