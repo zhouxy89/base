@@ -25,7 +25,7 @@ import Units from '../src/components/Application/Options/Units'
  * component on construction.
  */
 const startProps = {
-  'config': { 'units': ['miles', 'kilometers'] },
+  'config': { 'units': {'miles':3959, 'kilometers':6371} },
   'units': { 'unit': 'miles' },
 };
 
