@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Container } from 'reactstrap'
-import Info from './Info'
+import Home from './Home'
 import Options from './Options/Options'
 import Calculator from './Calculator/Calculator'
 
@@ -63,7 +63,7 @@ class Application extends Component {
         return <Options options={this.state.options}
                   config={this.state.config} updateOption={this.updateOption}/>
       default:
-        return <Info/>
+        return <Home/>
     }
   }
 }
