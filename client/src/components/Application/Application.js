@@ -45,7 +45,7 @@ class Application extends Component {
   updateOption(key, value) {
     let temp = Object.assign({}, this.state.options);
     temp[key] = value;
-    if(key === 'hostname')
+    if(key === 'serverPort')
       this.setState({'options': temp}, () => this.updateConfig());
     else
       this.setState({'options': temp});
