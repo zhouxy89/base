@@ -49,6 +49,7 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
+    System.out.println(echoHTTPrequest(request,response));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -56,7 +57,8 @@ class MicroServer {
       Gson jsonConverter = new Gson();
       TIPConfig tipRequest = new TIPConfig();
       tipRequest.buildResponse();
-      return jsonConverter.toJson(tipRequest);
+      String responseBody = jsonConverter.toJson(tipRequest);
+      return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
       response.status(500);
@@ -71,6 +73,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
+    System.out.println(echoHTTPrequest(request,response));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -78,7 +81,8 @@ class MicroServer {
       Gson jsonConverter = new Gson();
       TIPHeader tipRequest = jsonConverter.fromJson(request.body(), tipType);
       tipRequest.buildResponse();
-      return jsonConverter.toJson(tipRequest);
+      String responseBody = jsonConverter.toJson(tipRequest);
+      return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
       response.status(500);
