@@ -7,6 +7,21 @@ import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
 export default class Info extends Component {
 
+  render() {
+    return (
+      <Container>
+        <Row>
+          <Col xs={12} sm={12} md={7} lg={8} xl={9}>
+            {this.renderMap()}
+          </Col>
+          <Col xs={12} sm={12} md={5} lg={4} xl={3}>
+            {this.renderIntro()}
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
+
   renderMap() {
     let coloradoBoundaries = L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
     let csuOval = [40.576179, -105.080773];
@@ -27,7 +42,6 @@ export default class Info extends Component {
     )
   }
 
-
   renderIntro() {
     return(
       <Card>
@@ -39,19 +53,4 @@ export default class Info extends Component {
     )
   }
 
-
-  render() {
-    return (
-      <Container>
-        <Row>
-          <Col xs={12} sm={12} md={7} lg={8} xl={9}>
-            {this.renderMap()}
-          </Col>
-          <Col xs={12} sm={12} md={5} lg={4} xl={3}>
-            {this.renderIntro()}
-          </Col>
-        </Row>
-      </Container>
-    )
-  }
 }

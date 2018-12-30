@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
 import './format.css'
 import Header from './Marginals/Header';
 import Application from './Application/Application';
 import Footer from './Marginals/Footer';
-import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-class App extends Component {
+export default class App extends Component {
   constructor (props){
     super(props);
     this.pages = [
@@ -19,22 +20,22 @@ class App extends Component {
       current_page: this.pages[0].page
     }
 
-    this.page_handler = this.page_handler.bind(this);
-  }
-
-  page_handler (page) {
-    this.setState({current_page: page})
+    this.setAppPage = this.setAppPage.bind(this);
   }
 
   render() {
     return (
       <div>
-        <Header pages={this.pages} page_handler={this.page_handler}/>
+        <Header pages={this.pages} setAppPage={this.setAppPage}/>
         <Application page={this.state.current_page}/>
         <Footer/>
       </div>
     );
   }
+
+  setAppPage (page) {
+    this.setState({current_page: page})
+  }
+
 }
 
-export default App;

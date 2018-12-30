@@ -57,7 +57,7 @@ class Navigation extends Component {
 
     let navLink = (
         <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style.concat(" nav-link")}>
-                 <div onClick={(e) => {this.toggle(); this.props.page_handler(info['page']);}}>{info['title']}</div>
+                 <div onClick={(e) => {this.toggle(); this.props.setAppPage(info['page']);}}>{info['title']}</div>
         </Button>
       );
     return ( navLink );
@@ -84,7 +84,7 @@ class Navigation extends Component {
   static_links() {
     const home = (
         <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
-                onClick={()=>this.props.page_handler('')}>
+                onClick={()=>this.props.setAppPage('')}>
           {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
         </Button>
       )
