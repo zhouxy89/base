@@ -22,48 +22,47 @@ class Application extends Component {
       }
     };
 
-    this.updateConfig = this.updateConfig.bind(this);
     this.updateOption = this.updateOption.bind(this);
+    this.updateConfig = this.updateConfig.bind(this);
   }
 
   componentWillMount() {
     this.updateConfig();
   }
 
+  updateOption(option, value) {
+    let optionsCopy = Object.assign({}, this.state.options);
+    optionsCopy[option] = value;
+    if(option === 'serverPort')
+      this.setState({'options': optionsCopy}, () => this.updateConfig());
+    else
+      this.setState({'options': optionsCopy});
+  }
+
   updateConfig() {
     sendHttpGetRequest('config', this.state.options.serverPort).then(
       config => {
-        console.log("Successfully retrieved config from", this.state.options.serverPort);
+        console.log("Switch to server ", this.state.options.serverPort);
         console.log(config);
-        this.setState({
-          config: config
-        })
+        this.setState({config: config});
       }
     );
   }
 
-  updateOption(key, value) {
-    let temp = Object.assign({}, this.state.options);
-    temp[key] = value;
-    if(key === 'serverPort')
-      this.setState({'options': temp}, () => this.updateConfig());
-    else
-      this.setState({'options': temp});
-  }
-
   render() {
-    if(this.state.config)
-      switch(this.props.page) {
-        case 'calc':
-          return <Calculator options={this.state.options}/>;
-      }
+    console.log(this.state.config);
+    console.log(this.props.page);
+    var pageToRender = !this.state.config ? '' : this.props.page;
 
-    switch(this.props.page) {
+    switch(pageToRender) {
+      case 'calc':
+        return <Calculator options={this.state.options}/>;
       case 'options':
         return <Options options={this.state.options}
-                  config={this.state.config} updateOption={this.updateOption}/>
+                        config={this.state.config}
+                        updateOption={this.updateOption}/>;
       default:
-        return <Home/>
+        return <Home/>;
     }
   }
 }

@@ -19,17 +19,17 @@ class App extends Component {
       current_page: this.pages[0].page
     }
 
-    this.page_handler = this.page_handler.bind(this);
+    this.setAppPage = this.setAppPage.bind(this);
   }
 
-  page_handler (page) {
+  setAppPage (page) {
     this.setState({current_page: page})
   }
 
   render() {
     return (
       <div>
-        <Header pages={this.pages} page_handler={this.page_handler}/>
+        <Header pages={this.pages} setAppPage={this.setAppPage}/>
         <Application page={this.state.current_page}/>
         <Footer/>
       </div>
