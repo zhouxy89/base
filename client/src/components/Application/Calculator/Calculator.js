@@ -29,10 +29,10 @@ export default class Calculator extends Component {
         </Row>
         <Row>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('from', 'origin')}
+            {this.create_input_fields('origin')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('to', 'destination')}
+            {this.create_input_fields('destination')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
             {this.create_distance()}
@@ -45,18 +45,20 @@ export default class Calculator extends Component {
   create_header() {
     return (
       <Card>
-        <CardHeader>
-          Calculator:  The distance...
-        </CardHeader>
+        <CardHeader>Calculator</CardHeader>
+        <CardBody>
+          Determine the distance between the origin and destination.
+          Change the units on the <b>Options</b> page.
+        </CardBody>
       </Card>
     )
   }
 
-  create_input_fields(cardTitle, stateVar) {
+  create_input_fields(stateVar) {
     let updateOnChange = (e) => {this.updateLocationOnChange(stateVar, e.target.name, e.target.value)};
     return (
       <Card>
-        <CardHeader>{cardTitle}</CardHeader>
+        <CardHeader>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
         <CardBody>
           <Form >
             <Input name='latitude' onChange={updateOnChange} value={this.state[stateVar]['latitude']}
@@ -72,7 +74,7 @@ export default class Calculator extends Component {
   create_distance() {
     return(
       <Card>
-        <CardHeader>is</CardHeader>
+        <CardHeader>Distance</CardHeader>
         <CardBody>
           <h5>{this.state.distance} {this.props.options.unit}</h5>
           <Button onClick={this.calculate_distance}>Calculate</Button>
