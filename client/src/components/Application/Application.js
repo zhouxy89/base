@@ -17,10 +17,11 @@ export default class Application extends Component {
     this.updateOption = this.updateOption.bind(this);
     this.updateConfig = this.updateConfig.bind(this);
 
+    // @todo which units should we provide?
     this.state = {
       config: null,
       options: {
-        units: {'miles':3959},
+        units: {'miles':3959, 'kilometers':6371},
         unit: 'miles',
         serverPort: getOriginalServerPort()
       }

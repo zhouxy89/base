@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardHeader, CardBody} from 'reactstrap'
-import { ButtonGroup, Button } from 'reactstrap'
+import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
+
 import Units from './Units'
 import Interop from './Interop'
 
@@ -9,7 +9,7 @@ import Interop from './Interop'
  * The options reside in the parent object so they may be shared with the Distance object.
  * Allows the user to set the options used by the application via a set of buttons.
  */
-class Options extends Component{
+export default class Options extends Component{
   constructor(props) {
     super(props);
   }
@@ -29,7 +29,7 @@ class Options extends Component{
                      updateOption={this.props.updateOption}/>
             </Col>
             <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              <Interop hostname={this.props.options.serverPort}
+              <Interop serverPort={this.props.options.serverPort}
                        updateOption={this.props.updateOption}/>
             </Col>
           </Row>
@@ -37,5 +37,3 @@ class Options extends Component{
     )
   }
 }
-
-export default Options;

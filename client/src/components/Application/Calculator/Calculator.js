@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
+
 import { sendHttpPostRequest } from '../../../api/restfulAPI'
 
 export default class Calculator extends Component {
@@ -55,16 +56,21 @@ export default class Calculator extends Component {
   }
 
   create_input_fields(stateVar) {
-    let updateOnChange = (e) => {this.updateLocationOnChange(stateVar, e.target.name, e.target.value)};
+    let updateStateVarOnChange = (event) => {
+      this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
     return (
       <Card>
         <CardHeader>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
         <CardBody>
           <Form >
-            <Input name='latitude' onChange={updateOnChange} value={this.state[stateVar]['latitude']}
-                   style={{width: "100%"}} placeholder="Latitude"/>
-            <Input name='longitude' onChange={updateOnChange} value={this.state[stateVar]['longitude']}
-                   style={{width: "100%"}} placeholder="Longitude"/>
+            <Input name='latitude' placeholder="Latitude"
+                   value={this.state[stateVar]['latitude']}
+                   onChange={updateStateVarOnChange}
+                   style={{width: "100%"}} />
+            <Input name='longitude' placeholder="Longitude"
+                   value={this.state[stateVar]['longitude']}
+                   onChange={updateStateVarOnChange}
+                   style={{width: "100%"}}/>
           </Form>
         </CardBody>
       </Card>
