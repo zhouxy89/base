@@ -20,8 +20,8 @@ public class TestTIPDistance {
   @Before
   public void createLocationsForTestCases() {
     csu = new HashMap<>();
-    csu.put("latitude", 40.576179);
-    csu.put("longitude", -105.080773);
+    csu.put("latitude", "40.576179");
+    csu.put("longitude", "-105.080773");
     csu.put("name", "Oval, Colorado State University, Fort Collins, Colorado, USA");
   }
 

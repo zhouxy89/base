@@ -1,6 +1,8 @@
 package com.tripco.t00.TIP;
 
+import com.tripco.t00.server.misc.GreatCircleDistance;
 import java.util.Map;
+
 
 /** Defines the TIP distance object.
  *
@@ -19,7 +21,7 @@ public class TIPDistance extends TIPHeader {
   private Map origin;
   private Map destination;
   private Double earthRadius;
-  private int distance;
+  private long distance;
 
 
   TIPDistance(int version, Map origin, Map destination, Double earthRadius) {
@@ -38,11 +40,18 @@ public class TIPDistance extends TIPHeader {
 
 
   public void buildResponse() {
-    this.distance = 0;
+
+    GreatCircleDistance gcd = new GreatCircleDistance(earthRadius);
+    this.distance = gcd.distanceBetween(
+        Double.parseDouble((String) this.origin.get("latitude")),
+        Double.parseDouble((String) this.origin.get("longitude")),
+        Double.parseDouble((String) this.destination.get("latitude")),
+        Double.parseDouble((String) this.destination.get("longitude"))
+    );
   }
 
 
-  int getDistance() {
+  long getDistance() {
     return distance;
   }
 
