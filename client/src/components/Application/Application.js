@@ -13,6 +13,10 @@ import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI'
 export default class Application extends Component {
   constructor(props){
     super(props);
+
+    this.updateOption = this.updateOption.bind(this);
+    this.updateConfig = this.updateConfig.bind(this);
+
     this.state = {
       config: null,
       options: {
@@ -22,17 +26,11 @@ export default class Application extends Component {
       }
     };
 
-    this.updateOption = this.updateOption.bind(this);
-    this.updateConfig = this.updateConfig.bind(this);
-  }
-
-  componentWillMount() {
-    // @todo https://reactjs.org/docs/react-component.html#unsafe_componentwillmount
     this.updateConfig();
   }
 
   render() {
-    var pageToRender = !this.state.config ? '' : this.props.page;
+    let pageToRender = !this.state.config ? '' : this.props.page;
 
     switch(pageToRender) {
       case 'calc':
