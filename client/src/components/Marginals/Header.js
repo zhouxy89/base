@@ -5,9 +5,19 @@ import {HeaderLogoLarge, HeaderLogoMedium, HeaderLogoSmall} from './HeaderLogo';
 
 /* Renders a text heading above the application with useful information.
  */
-class Header extends Component{
+export default class Header extends Component{
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    return(
+      <div>
+        {this.topLevelHeader()}
+        <Navigation pages={this.props.pages} setAppPage={this.props.setAppPage}/>
+        <div className="add-title"/> {/* Background box to header */}
+      </div>
+    );
   }
 
   topLevelHeader() {
@@ -15,7 +25,6 @@ class Header extends Component{
       <div className="add-header-height">
         <div className="application-width">
           <div id="responsiveHeaderContainer">
-
             <a href="http://colostate.edu" id="csuHeaderLink" target="_blank">
               <HeaderLogoLarge/>
               <HeaderLogoMedium/>
@@ -34,20 +43,4 @@ class Header extends Component{
     );
   }
 
-  /**
-   *
-   * @returns {XML}
-   */
-  render() {
-    return(
-      <div>
-        {this.topLevelHeader()}
-        <Navigation pages={this.props.pages} setAppPage={this.props.setAppPage}/>
-        <div className="add-title"/> {/* Background box to header */}
-      </div>
-    );
-  }
-
 }
-
-export default Header;

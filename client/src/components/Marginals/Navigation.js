@@ -4,35 +4,73 @@ import { NavLink } from 'react-router-dom'
 import './css/navbar.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
-class Navigation extends Component {
+export default class Navigation extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      window_width: window.innerWidth
+      currentWindowWidth: window.innerWidth
     };
 
     this.toggle = this.toggle.bind(this);
     this.getToggler = this.getToggler.bind(this);
     this.renderNavItem = this.renderNavItem.bind(this);
 
-    this.static_links = this.static_links.bind(this);
-    this.collapsible_links = this.collapsible_links.bind(this);
+    this.staticHorizontalLinks = this.staticHorizontalLinks.bind(this);
+    this.collapsibleVerticalLinks = this.collapsibleVerticalLinks.bind(this);
     this.windowSizeChange = this.windowSizeChange.bind(this);
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.windowSizeChange);
+  render() {
+    let windowWidth = this.state.currentWindowWidth;
+    let mediumScreenWidth = 768;
+    let pageLinks = (windowWidth < mediumScreenWidth) ?
+      this.collapsibleVerticalLinks() : this.staticHorizontalLinks();
+    return (
+      <div className="application-width">
+        {pageLinks}
+      </div>
+    )
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.windowSizeChange);
+  collapsibleVerticalLinks(){
+    let toggler = this.getToggler();
+    let links = this.props.pages.map((item) => this.renderNavItem(item, 'dropdown'));
+
+    return(
+      <div>
+        <Navbar className="nav_side_bar" light>
+          <Button id="bs-override" className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav navbar>
+              {links}
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
   }
 
-  windowSizeChange() {
-    this.setState({window_width:window.innerWidth});
-  };
+  staticHorizontalLinks() {
+    let home = (
+      <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
+              onClick={()=>this.props.setAppPage('')}>
+        {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
+      </Button>
+    )
+    let links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
+
+    return (
+      <Navbar id='bs-override' className="nav_bar">
+        {home}
+        <div>
+          {links.reverse()}
+        </div>
+      </Navbar>
+    )
+  }
+
 
   toggle() {
     this.setState({
@@ -41,8 +79,9 @@ class Navigation extends Component {
   }
 
   getToggler(){
-    if (!this.state.isOpen)return (<div>&#x2630;</div>);
-    else return (<div>&#x268A;</div>);
+    let unCollapseMenuSymbol = <div>&#x2630;</div>;
+    let collapseMenuSymbol = <div>&#x268A;</div>;
+    return (this.state.isOpen) ? collapseMenuSymbol : unCollapseMenuSymbol;
   }
 
   /**
@@ -63,63 +102,16 @@ class Navigation extends Component {
     return ( navLink );
   }
 
-  collapsible_links(){
-    let toggler = this.getToggler();
-    let links = this.props.pages.map((item) => this.renderNavItem(item, 'dropdown'));
-
-    return(
-      <div>
-        <Navbar className="nav_side_bar" light>
-          <Button id="bs-override" className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav navbar>
-              {links}
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    );
+  componentWillMount() {
+    window.addEventListener('resize', this.windowSizeChange);
   }
 
-  static_links() {
-    const home = (
-        <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
-                onClick={()=>this.props.setAppPage('')}>
-          {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
-        </Button>
-      )
-    const links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
-
-    return (
-      <Navbar id='bs-override' className="nav_bar">
-        {home}
-        <div>
-          {links.reverse()}
-        </div>
-      </Navbar>
-    )
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.windowSizeChange);
   }
 
-  render() {
-    let width = this.state.window_width;
-    if (width < 768 ) {
-      const c_links = this.collapsible_links();
-      return (
-      <div className="application-width">
-        {c_links}
-      </div>
-      )
-    }
-    else {
-      const s_links = this.static_links();
-      return(
-        <div className="application-width">
-          {s_links}
-        </div>
-      )
-    }
-  }
+  windowSizeChange() {
+    this.setState({currentWindowWidth: window.innerWidth});
+  };
 
 }
-
-export default Navigation;

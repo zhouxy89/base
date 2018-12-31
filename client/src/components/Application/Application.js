@@ -31,7 +31,7 @@ export default class Application extends Component {
   }
 
   render() {
-    let pageToRender = !this.state.config ? '' : this.props.page;
+    let pageToRender = (!this.state.config) ? '' : this.props.page;
 
     switch(pageToRender) {
       case 'calc':
