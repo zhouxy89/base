@@ -1,17 +1,13 @@
 import React, {Component} from 'react'
-import { Card, CardHeader, CardBody, Col, Row } from 'reactstrap'
+import { Card, CardHeader, CardBody} from 'reactstrap'
 import { Button, Input } from 'reactstrap'
 
 export default class Interop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input_text: ''
+      inputText: ''
     }
-  }
-
-  updateInput(e) {
-    this.setState({input_text: e.target.value})
   }
 
   render() {
@@ -19,20 +15,26 @@ export default class Interop extends Component {
         <Card className='text-center'>
           <CardHeader>Server</CardHeader>
           <CardBody>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              this.props.updateOption('serverPort', this.state.input_text);
-            }}>
-
-              <Input onChange={this.updateInput.bind(this)}
-                     value={this.state.input_text}
-                     placeholder={this.props.hostname}/>
+            <form onSubmit={this.updateServerPort.bind(this)}>
+              <Input onChange={this.updateInputText.bind(this)}
+                     value={this.state.inputText}
+                     placeholder={this.props.serverPort}/>
               <br/>
               <Button type='submit' className='btn-dark w-100'>Configure</Button>
-
             </form>
           </CardBody>
         </Card>
     );
   }
+
+  updateInputText(event) {
+    this.setState({inputText: event.target.value})
+  }
+
+  updateServerPort(serverPort) {
+    serverPort.preventDefault();
+    // @todo needs some error checking, like a http://host:port parse
+    this.props.updateOption('serverPort', this.state.inputText);
+  }
+
 }
