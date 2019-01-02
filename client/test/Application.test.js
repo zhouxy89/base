@@ -21,9 +21,3 @@ function testInitialState() {
 }
 
 test("Testing Application's initial state", testInitialState);
-
-function testTrue() {
-    expect(true).toEqual(true);
-}
-
-test("Testing basic boolean equivalency", testTrue);
