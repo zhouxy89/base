@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'              // (2)
 import Application from '../src/components/Application/Application'
 
-function testConstructor() {
+function testInitialState() {
     const app = shallow(<Application/>);
 
     let actualConfig = app.state().config;
@@ -20,7 +20,7 @@ function testConstructor() {
     expect(actualConfig).toEqual(expectedConfig);
 }
 
-test("Testing Application's constructor", testConstructor);
+test("Testing Application's initial state", testInitialState);
 
 function testTrue() {
     expect(true).toEqual(true);
