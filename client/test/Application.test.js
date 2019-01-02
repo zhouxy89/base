@@ -3,12 +3,11 @@ import React from 'react'
 import { shallow } from 'enzyme' // For shallow mounting a component without the sub-components rendered.
 import Application from '../src/components/Application/Application'
 
-/*
- * Tests Application's initial state after it has been shallow-mounted.
- */
-function testInitialState() {
-    const app = shallow(<Application/>);
 
+function testInitialState() {
+    const app = shallow(<Application/>); // Returns a shallow wrapper for the Application component.
+
+    /* Get the initial properties of the rendered component (app) and compare them to expected values. */
     let actualConfig = app.state().config;
     let expectedConfig = null;
     expect(actualConfig).toEqual(expectedConfig);
@@ -28,7 +27,7 @@ test("Testing Application's initial state", testInitialState);
 function testUpdateOption() {
     const app = shallow(<Application/>);
 
-    app.instance().updateOption("unit", "kilometers");
+    app.instance().updateOption("unit", "kilometers"); // Calls the rendered component's instance function.
 
     let actualUnit = app.state().options.unit;
     let expectedUnit = "kilometers";
