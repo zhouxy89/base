@@ -49,7 +49,7 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    System.out.println(echoHTTPrequest(request,response));
+    System.out.println(HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -73,7 +73,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
-    System.out.println(echoHTTPrequest(request,response));
+    System.out.println(HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
