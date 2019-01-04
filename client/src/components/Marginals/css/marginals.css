@@ -11,10 +11,10 @@
 .add-header-height{
   background-color: #1E4D2B;
   height: 90px;
-  line-height: 90px;
 }
 
 /* CSU Header Styles */
+/* Only show one of the three logos depending on what the size of the screen is. */
 @media only screen{
   #csuLargeLogo{
     display: inline-block;
@@ -41,15 +41,6 @@
   #csuLargeLogo{
     display: none;
   }
-  /* Look into the A tag being 123px wide... this is the only case of the 3 that has that additional 10px */
-  #csuHeaderLink{
-    margin-right: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-#csuHeaderLink{
-  z-index: 1000;
-  line-height: 0;
 }
 
 /* CS Header Styles */
