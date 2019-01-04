@@ -4,7 +4,6 @@
 #responsiveHeaderContainer{
   display: flex;
   align-items: center;
-  vertical-align: center;
   height: 100%;
 }
 
@@ -46,16 +45,10 @@
 /* CS Header Styles */
 #responsiveLogoSubsystem{
   align-items: center;
-  vertical-align: baseline;
   box-sizing: border-box;
-  color: rgb(108, 108, 108);
   display: flex;
-  font-family: Lato, sans-serif;
-  font-size: 0;
+  font-family: sans-serif;
   height: 42.0469px;
-  line-height: 0;
-  margin-left: 0;
-  margin-right: 0;
   padding-left: 32px;
   position: relative;
   text-size-adjust: 100%; /* ms & moz */
@@ -69,19 +62,16 @@
   box-sizing: border-box;
   content: "";
   display: block;
-  height:42.0469px;
   left: 0;
   margin-left: 15px;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 999;
 }
 #csHeaderLink{
   display: block;
   color: #FFFFFF;
-  z-index: 1000;
-  text-decoration: none !important; /* Don't Underline COMPUTER SCIENCE */
+  text-decoration: none; /* Don't Underline COMPUTER SCIENCE */
 }
 #csHeaderLink h1{
   margin: .1em 0 0;
