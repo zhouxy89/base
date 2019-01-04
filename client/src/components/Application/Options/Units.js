@@ -24,6 +24,7 @@ export default class Units extends Component {
     return names.sort().map((unit) =>
       <Button
         className='btn-outline-dark unit-button w-100 text-left'
+        key={"button_"+unit}
         active={this.props.unit === unit}
         value={unit}
         onClick={(event) => this.props.updateOption('unit', event.target.value)}
