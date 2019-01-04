@@ -110,8 +110,6 @@
 }
 
 .footer-copyright{
-  float:left;
-  -moz-opacity: 80;
   opacity: .90;
 }
 .footer-copyright ul{
@@ -120,7 +118,7 @@
   line-height: 160%;
 }
 .footer-copyright li{
-  float: left !important;
+  float: left;
   margin-left: 0;
   margin-right: 20px;
 }
@@ -129,22 +127,17 @@
 }
 .footer-copyright a:hover{
   text-decoration: underline;
-}
-.footer-copyright br{
-  line-height: 160%;
+  color: #FFFFFF;
 }
 .copyright-text{
-  font-family: 'prox-light', sans-serif !important;
+  font-family: 'prox-light', sans-serif;
   line-height: 1em;
   letter-spacing: .1em;
   font-size: 11px;
   color: #dddddd;
 }
 
-
-
 /* COMPANY FOOTER */
-
 .add-company-footer{
   padding: 35px 15px 10px 15px;
   background-color: #255f35;
