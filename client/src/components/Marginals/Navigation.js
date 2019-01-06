@@ -94,9 +94,17 @@ export default class Navigation extends Component {
   renderNavItem(info, type) {
     const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
 
+    // Decalare the anonymous function used to update the page selected for rendering
+    let updatePage = (e) => {
+      this.toggle();
+      this.props.setAppPage(info['page']);
+    };
+
     let navLink = (
-        <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style.concat(" nav-link")}>
-                 <div onClick={(e) => {this.toggle(); this.props.setAppPage(info['page']);}}>{info['title']}</div>
+        <Button onClick={ updatePage } color='link' id='bs-override'
+                key={type.concat(info['title'])} to={info['link']}
+                className={style.concat(" nav-link")}>
+          {info['title']}
         </Button>
       );
     return ( navLink );
