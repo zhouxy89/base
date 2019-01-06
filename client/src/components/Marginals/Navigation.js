@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink as ReactNavLink, Button} from 'reactstrap';
 import { NavLink } from 'react-router-dom'
 import './css/navbar.css'
-import 'bootstrap/dist/css/bootstrap.css'
 
 export default class Navigation extends Component {
 

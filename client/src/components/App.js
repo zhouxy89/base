@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
+import 'bootstrap/dist/css/bootstrap.css'
 import './format.css'
 import Header from './Marginals/Header';
 import Application from './Application/Application';
