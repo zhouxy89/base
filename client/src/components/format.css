@@ -1,11 +1,18 @@
 /* Text stylings according to the CSU branding guide */
 /* (http://brand.colostate.edu/d/sLlipb6y2ZT4/colorado-state-university-style-guide#/style-guide/web-guidelines) */
 
-/* csu-branding represents the global container for main content */
+/* csu-branding represents the global container for main content.
+   That is, this is the class of the the main container of the main application content.
+   Note that all other global tag definitions (e.g., a, p, h1) may reference variables defined
+   in this CSS class, since they all are expected to be contained within the main container. */
 /* Other top-level items may be otherwise defined by bootstrap */
 .csu-branding {
+  /* Variable declarations */
+  --text-gray: #4e4e50;
+
+  /* Stylings, using variables */
   font-family: 'prox-regular', sans-serif;
-  color: #4e4e50;
+  color: var(--text-gray);
 }
 
 /* These are other CSU style definitions that are not currently leveraged,
