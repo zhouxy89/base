@@ -8,12 +8,14 @@
   color: #4e4e50;
 }
 
+/* These are other CSU style definitions that are not currently leveraged,
+   but may be useful in the future. */
 .csu-text-small{
   font-size: 13px;
 }
 
 .csu-text-body{
-  font-size: 1rem !important;
+  font-size: 1rem;
 }
 
 .csu-text-header{
@@ -32,18 +34,9 @@
   text-transform: uppercase;
 }
 
-/* markdown improvements */
-a:link {
-  font-weight: 600;
-  color: #105456;
-}
-
-a:visited {
-  font-weight: 600;
-  color: #105456;
-}
-
-a:active {
+/* Global general tag stylings, originally from CS152.
+   These will override bootstrap defaults. */
+a:link, a:visited, a:hover, a:active {
   font-weight: 600;
   color: #105456;
 }
@@ -66,27 +59,4 @@ th {
 
 img {
   max-width: 100%;
-}
-
-blockquote {
-  background: #f7f7f7;
-  border-left: 10px solid #e0e0e0;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-}
-
-pre {
-  margin: 1.5em 10px;
-  padding: 5px 10px;
-  background: #f0f0f0;
-  border: 1px solid #e0e0e0;
-  white-space: pre-wrap;
-  border-radius: 5px;
-}
-
-code {
-  background: #f0f0f0;
-  color: #000000;
-  font-weight: 600;
-  padding: 0px 2px;
 }
