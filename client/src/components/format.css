@@ -1,15 +1,3 @@
-body {
-  background-color:#fff;
-}
-
-/* WIDTH OF APPLICATION COMPONENTS */
-
-.application-width{
-  margin: auto !important;
-  max-width: 1200px !important;
-  padding: 0 15px 0 15px;
-}
-
 /* FONTS */
 
 body {

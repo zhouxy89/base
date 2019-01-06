@@ -1,3 +1,10 @@
+/* Width of marginal components */
+.application-width{
+  margin: auto;
+  max-width: 1200px;
+  padding: 0 15px 0 15px;
+}
+
 /* HEADER STYLES */
 /* CSU Unit Identifier Font */
 .add-header-height{
