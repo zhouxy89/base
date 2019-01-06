@@ -25,7 +25,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="csu-branding">
         <Header pages={this.pages} setAppPage={this.setAppPage}/>
         <Application page={this.state.current_page}/>
         <Footer/>

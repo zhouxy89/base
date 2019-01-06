@@ -1,27 +1,19 @@
-/* FONTS */
+/* Text stylings according to the CSU branding guide */
+/* (http://brand.colostate.edu/d/sLlipb6y2ZT4/colorado-state-university-style-guide#/style-guide/web-guidelines) */
 
-body {
-  font-family: sans-serif;
-  color: #212529;
+/* csu-branding represents the global container for main content */
+/* Other top-level items may be otherwise defined by bootstrap */
+.csu-branding {
+  font-family: 'prox-regular', sans-serif;
+  color: #4e4e50;
 }
 
 .csu-text-small{
-  font-size: 13px !important;
-  color: #212529;
-}
-
-.csu-text-small:hover{
-  color: #4d4d4d;
+  font-size: 13px;
 }
 
 .csu-text-body{
-  font-family: sans-serif !important;
   font-size: 1rem !important;
-  color: #212529;
-}
-
-.csu-text-body:hover{
-  color: #4d4d4d;
 }
 
 .csu-text-header{
@@ -40,9 +32,7 @@ body {
   text-transform: uppercase;
 }
 
-
 /* markdown improvements */
-
 a:link {
   font-weight: 600;
   color: #105456;
@@ -99,47 +89,4 @@ code {
   color: #000000;
   font-weight: 600;
   padding: 0px 2px;
-}
-
-.csu-markdown-text a{
-  font-family: 'prox-light', sans-serif !important;
-  line-height: 1em;
-  font-size: 16px;
-  color: #4d4d4d;
-}
-
-.csu-markdown-text a:hover{
-  color: #666666;
-}
-
-.csu-modal-header{
-  margin-top: .3em;
-  font-weight: 700;
-  letter-spacing: .10em;
-  font-size: 16px;
-  text-transform: uppercase;
-}
-
-.pagefade-enter, .pagefade-appear {
-    opacity:0;
-}
-.pagefade-enter.pagefade-enter-active,
-.pagefade-appear.pagefade-appear-active {
-    opacity:1;
-    transition:opacity 350ms ease-in;
-    -webkit-transition: opacity 350ms ease-in;
-    -moz-transition: opacity 350ms ease-in;
-    -o-transition: opacity 350ms ease-in;
-}
-.pagefade-enter.pagefade-enter-active {
-    transition-delay: 200ms;
-    -webkit-transition-delay: 200ms;
-    -moz-transition-delay: 200ms;
-    -o-transition-delay: 200ms;
-}
-.pagefade-exit {
-    opacity:0;
-}
-.pagefade-exit.pagefade-exit-active {
-    opacity:0;
 }
