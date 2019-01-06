@@ -38,12 +38,12 @@ export default class Footer extends Component {
     return (
       <div className="add-footer">
         <div className="application-width">
-          <div className="footer-copyright wrapper">
-            <div className="copyright-text wrapper-left">
+          <div className="footer-copyright">
+            <div className="copyright-text">
               {this.footerCopyright()}
             </div>
-            <div className="wrapper-right">
-              <a href="http://www.colostate.edu/" className="company-sub-widget">
+            <div className="footer-logo-wrapper">
+              <a href="http://www.colostate.edu/" className="company-sub-widget" target="_blank">
                 <FooterLogo/>
               </a>
             </div>
