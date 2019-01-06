@@ -77,20 +77,6 @@ export default class Footer extends Component {
     );
   }
 
-  linkWidget() {
-    // links of the form
-    // {"name":"Courses","url":"http://www.cs.colostate.edu/cstop/csacademics/cscourses.php"},
-    const links = [].map((element, index) => this.parseLinks(element, index));
-    return (
-      <div className="company-sub-widget">
-        <ul className="widget-list">
-          {links}
-        </ul>
-      </div>
-    );
-    ;
-  }
-
   footerCopyright() {
     const year = new Date().getFullYear();
     return (
@@ -129,15 +115,6 @@ export default class Footer extends Component {
         </li>
       );
     }
-  }
-
-  parseLinks(element, index) {
-    if (element !== undefined && element.url !== undefined && element.name !== undefined)
-      return (
-        <li className="widget-list" key={index}>
-          <a className="widget-link" target="_blank" href={element.url}>{element.name}</a>
-        </li>
-      );
   }
 
   nameValue(name, value) {
