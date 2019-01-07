@@ -53,7 +53,7 @@ export default class Navigation extends Component {
 
   staticHorizontalLinks() {
     let home = (
-      <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
+      <Button color="link" key="static_home" className='nav_title nav-link'
               onClick={()=>this.props.setAppPage('')}>
         {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
       </Button>
@@ -61,7 +61,7 @@ export default class Navigation extends Component {
     let links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
 
     return (
-      <Navbar id='bs-override' className="nav_bar">
+      <Navbar className="nav_bar">
         {home}
         <div>
           {links.reverse()}
@@ -100,7 +100,7 @@ export default class Navigation extends Component {
     };
 
     let navLink = (
-        <Button onClick={ updatePage } color='link' id='bs-override'
+        <Button onClick={ updatePage } color='link'
                 key={type.concat(info['title'])} to={info['link']}
                 className={style.concat(" nav-link")}>
           {info['title']}

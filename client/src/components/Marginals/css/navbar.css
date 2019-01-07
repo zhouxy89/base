@@ -1,4 +1,4 @@
-#bs-override.nav_item{
+.nav_item{
     color: #105456;
     float: right;
     font-weight: 600;
@@ -14,12 +14,12 @@
     margin-left:1em;
 }
 
-#bs-override.nav_item:hover{
+.nav_item:hover{
     color:#716F71;
     border-bottom: 1px solid #716F71;
 }
 
-#bs-override.nav_title{
+.nav_title{
     color: #105456;
     font-weight: 700;
     font-family: sans-serif;
@@ -29,23 +29,23 @@
     text-transform:uppercase;
 }
 
-#bs-override.nav_title:hover{
+.nav_title:hover{
     color: #716F71;
 }
 
 
-#bs-override.nav_bar{
+.nav_bar{
     align-items:stretch;
     margin: 1em 0;
     padding: 0;
 
 }
 
-#bs-override.nav_side_bar{
+.nav_side_bar{
     color:white;
 }
 
-#bs-override.dropdown_icon{
+.dropdown_icon{
     margin: 0 auto;
     color: #444444;
     background-color: white;
@@ -55,21 +55,21 @@
     cursor: pointer;
 }
 
-#bs-override.dropdown_icon:hover{
+.dropdown_icon:hover{
     color: #444444;
     background-color: white;
 }
 
-#bs-override.dropdown_icon:focus{
+.dropdown_icon:focus{
     box-shadow: none;
 }
 
-#bs-override.dropdown_icon:active{
+.dropdown_icon:active{
     color: #444444;
     background-color: white;
 }
 
-#bs-override.dropdown_item{
+.dropdown_item{
     float:left;
     font-weight: 600;
     letter-spacing: .11em;
@@ -82,7 +82,7 @@
     padding-bottom: .2em;
 }
 
-#bs-override.dropdown_item:hover{
+.dropdown_item:hover{
     color:#716F71;
     border-bottom: 1px solid #716F71;
 }
