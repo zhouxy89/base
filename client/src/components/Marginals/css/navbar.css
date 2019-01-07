@@ -1,5 +1,5 @@
-.nav_item{
-    color: #105456;
+.nav_item {
+    color: var(--link-green-blue);
     float: right;
     font-weight: 600;
     font-family: sans-serif;
@@ -7,20 +7,18 @@
     line-height: 1.1em;
     font-size: 13px;
     text-transform:uppercase;
-    padding-bottom:0;
-    padding-right:0;
-    padding-left:0;
+    padding: 0;
     margin-right:1em;
     margin-left:1em;
 }
 
-.nav_item:hover{
-    color:#716F71;
-    border-bottom: 1px solid #716F71;
+.nav_item:hover {
+    color: var(--link-hover-gray);
+    border-bottom: 1px solid var(--link-green-blue);
 }
 
-.nav_title{
-    color: #105456;
+.nav_title {
+    color: var(--link-green-blue);
     font-weight: 700;
     font-family: sans-serif;
     letter-spacing: .11em;
@@ -29,25 +27,20 @@
     text-transform:uppercase;
 }
 
-.nav_title:hover{
-    color: #716F71;
+.nav_title:hover {
+    color: var(--link-hover-gray);
 }
 
 
-.nav_bar{
-    align-items:stretch;
+.nav_bar {
     margin: 1em 0;
     padding: 0;
 
 }
 
-.nav_side_bar{
-    color:white;
-}
-
-.dropdown_icon{
-    margin: 0 auto;
-    color: #444444;
+.dropdown_icon, .dropdown_icon:hover, .dropdown_icon:active {
+    margin: auto;
+    color: var(--link-hover-gray);
     background-color: white;
     border: none;
     -webkit-transition-duration: 0.2s; /* Safari */
@@ -55,34 +48,22 @@
     cursor: pointer;
 }
 
-.dropdown_icon:hover{
-    color: #444444;
-    background-color: white;
-}
-
 .dropdown_icon:focus{
     box-shadow: none;
 }
 
-.dropdown_icon:active{
-    color: #444444;
-    background-color: white;
-}
-
 .dropdown_item{
-    float:left;
     font-weight: 600;
     letter-spacing: .11em;
     line-height: 1.5em;
     font-size: 13px;
     font-family: sans-serif;
-    border-bottom: 1px solid white;
     text-transform:uppercase;
-    color:#444444;
+    color: var(--link-hover-gray);
     padding-bottom: .2em;
 }
 
 .dropdown_item:hover{
-    color:#716F71;
-    border-bottom: 1px solid #716F71;
+    color: var(--link-hover-gray);
+    text-decoration: underline;
 }

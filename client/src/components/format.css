@@ -10,6 +10,7 @@
   /* Variable declarations */
   --text-gray: #4e4e50;
   --link-green-blue: #105456;
+  --link-hover-gray: #716F71;
 
   /* Stylings, using variables */
   font-family: 'prox-regular', sans-serif;
@@ -42,7 +43,7 @@
   text-transform: uppercase;
 }
 
-/* Global general tag stylings, originally from CS152.
+/* Global general tag stylings, originally from CSROO.
    These will override bootstrap defaults. */
 a:link, a:visited, a:hover, a:active {
   font-weight: 600;

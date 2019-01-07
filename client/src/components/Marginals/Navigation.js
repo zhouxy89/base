@@ -39,8 +39,8 @@ export default class Navigation extends Component {
 
     return(
       <div>
-        <Navbar className="nav_side_bar" light>
-          <Button id="bs-override" className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
+        <Navbar>
+          <Button className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               {links}
