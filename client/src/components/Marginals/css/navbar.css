@@ -14,7 +14,7 @@
 
 .nav_item:hover {
     color: var(--link-hover-gray);
-    border-bottom: 1px solid var(--link-green-blue);
+    border-bottom: 1px solid var(--link-hover-gray);
 }
 
 .nav_title {
