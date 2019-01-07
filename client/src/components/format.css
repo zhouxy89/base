@@ -9,6 +9,7 @@
 .csu-branding {
   /* Variable declarations */
   --text-gray: #4e4e50;
+  --link-green-blue: #105456;
 
   /* Stylings, using variables */
   font-family: 'prox-regular', sans-serif;
@@ -45,7 +46,7 @@
    These will override bootstrap defaults. */
 a:link, a:visited, a:hover, a:active {
   font-weight: 600;
-  color: #105456;
+  color: var(--link-green-blue);
 }
 
 table {
