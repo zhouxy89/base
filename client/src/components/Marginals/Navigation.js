@@ -65,10 +65,7 @@ export default class Navigation extends Component {
       <Navbar id='bs-override' className="nav_bar">
         {home}
         <div>
-          {links.reverse()}
-          <Button id="bs-override" color="link" className="nav_item" onClick={ (e) => {
-              this.props.setAppPage('settings');
-          } }>&#x2699;</Button>
+          {links}
         </div>
       </Navbar>
     )

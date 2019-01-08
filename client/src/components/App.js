@@ -13,7 +13,8 @@ export default class App extends Component {
     this.pages = [
       { title: 'T00 TripCo', page: '', link: '/'},
       { title: 'Calculator', page: 'calc', link: '/calculator'},
-      { title: 'Options', page: 'options', link: '/options' }
+      { title: 'Options', page: 'options', link: '/options' },
+      { title: '\u2699', page: 'settings' }
     ]
 
     this.state = {
