@@ -39,7 +39,7 @@ export default class Application extends Component {
 
     switch(pageToRender) {
       case 'calc':
-        return <Calculator options={this.state.options}/>;
+        return <Calculator options={this.state.options} settings={this.state.settings}/>;
       case 'options':
         return <Options options={this.state.options}
                         config={this.state.config}

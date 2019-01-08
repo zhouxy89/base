@@ -98,7 +98,7 @@ export default class Calculator extends Component {
       'earthRadius' : this.props.options.units[this.props.options.unit]
     };
 
-    sendHttpPostRequest('distance', tipConfigRequest, this.props.options.serverPort)
+    sendHttpPostRequest('distance', tipConfigRequest, this.props.settings.serverPort)
         .then((response) => {this.setState({distance: response.distance}); }
     );
   }
