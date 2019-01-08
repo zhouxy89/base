@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap';
-import Interop from '../Options/Interop';
+import Interop from './Interop';
 
 /**
  * The Settings component.
