@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
-import { Container } from 'reactstrap'
+import React, {Component} from 'react';
+import { Container } from 'reactstrap';
 
-import Home from './Home'
-import Options from './Options/Options'
-import Calculator from './Calculator/Calculator'
-import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI'
+import Home from './Home';
+import Options from './Options/Options';
+import Calculator from './Calculator/Calculator';
+import Settings from './Settings/Settings';
+import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI';
 
 
 /* Renders the application.
@@ -40,6 +41,8 @@ export default class Application extends Component {
         return <Options options={this.state.options}
                         config={this.state.config}
                         updateOption={this.updateOption}/>;
+      case 'settings':
+        return <Settings />;
       default:
         return <Home/>;
     }
