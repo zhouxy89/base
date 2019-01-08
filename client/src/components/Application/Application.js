@@ -16,6 +16,7 @@ export default class Application extends Component {
     super(props);
 
     this.updateOption = this.updateOption.bind(this);
+    this.updateSetting = this.updateSetting.bind(this);
     this.updateConfig = this.updateConfig.bind(this);
 
     // @todo which units should we provide?
@@ -44,7 +45,8 @@ export default class Application extends Component {
                         config={this.state.config}
                         updateOption={this.updateOption}/>;
       case 'settings':
-        return <Settings settings={this.state.settings}/>;
+        return <Settings settings={this.state.settings}
+                         updateSetting={this.updateSetting}/>;
       default:
         return <Home/>;
     }
