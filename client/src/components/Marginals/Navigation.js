@@ -66,6 +66,9 @@ export default class Navigation extends Component {
         {home}
         <div>
           {links.reverse()}
+          <Button id="bs-override" color="link" className="nav_item" onClick={ (e) => {
+              this.props.setAppPage('settings');
+          } }>&#x2699;</Button>
         </div>
       </Navbar>
     )
@@ -95,7 +98,7 @@ export default class Navigation extends Component {
     const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
 
     let navLink = (
-        <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style.concat(" nav-link")}>
+        <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style}>
                  <div onClick={(e) => {this.toggle(); this.props.setAppPage(info['page']);}}>{info['title']}</div>
         </Button>
       );

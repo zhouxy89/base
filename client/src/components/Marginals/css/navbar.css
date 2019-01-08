@@ -1,15 +1,12 @@
 #bs-override.nav_item{
     color: #105456;
-    float: right;
     font-weight: 600;
     font-family: sans-serif;
     letter-spacing: .11em;
     line-height: 1.1em;
     font-size: 13px;
     text-transform:uppercase;
-    padding-bottom:0;
-    padding-right:0;
-    padding-left:0;
+    padding:0;
     margin-right:1em;
     margin-left:1em;
 }
@@ -35,7 +32,7 @@
 
 
 #bs-override.nav_bar{
-    align-items:stretch;
+    align-items:center;
     margin: 1em 0;
     padding: 0;
 
