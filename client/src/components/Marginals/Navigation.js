@@ -64,7 +64,7 @@ export default class Navigation extends Component {
       <Navbar className="nav_bar">
         {home}
         <div>
-          {links.reverse()}
+          {links}
         </div>
       </Navbar>
     )
@@ -102,7 +102,7 @@ export default class Navigation extends Component {
     let navLink = (
         <Button onClick={ updatePage } color='link'
                 key={type.concat(info['title'])} to={info['link']}
-                className={style.concat(" nav-link")}>
+                className={style}>
           {info['title']}
         </Button>
       );

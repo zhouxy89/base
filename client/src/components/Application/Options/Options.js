@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
 
 import Units from './Units'
-import Interop from './Interop'
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -27,10 +26,6 @@ export default class Options extends Component{
               <Units options={this.props.options}
                      unit={this.props.options.unit}
                      updateOption={this.props.updateOption}/>
-            </Col>
-            <Col xs="12" sm="12" md="6" lg="4" xl="3">
-              <Interop serverPort={this.props.options.serverPort}
-                       updateOption={this.props.updateOption}/>
             </Col>
           </Row>
         </Container>
