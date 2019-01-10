@@ -1,27 +1,18 @@
-/*
-  DO NOT TOUCH THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING.
-  I DON'T EVEN UNDERSTAND IT AND I MADE THE THING!
-*/
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
 import App from './components/App.js';
 
-const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component />
-    </AppContainer>,
-    document.getElementById('root')
-  )
-}
+/* Calling render() will render the React element (App) into the DOM in the
+ * supplied container [root] found in index.html. ReactDOM.render() controls the
+ * contents of the container node you pass in. Any existing DOM elements inside
+ * are replaced when first called.
+ *
+ * A link to ReactDOM's official documentation can be found at:
+ * https://reactjs.org/docs/react-dom.html
+ */
 
-render(App);
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+);
 
-if (module.hot) {
-  module.hot.accept('./components/App.js', () => {
-      render(App)
-      render(require('./components/App.js'))
-  })
-}

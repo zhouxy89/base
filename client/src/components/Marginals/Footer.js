@@ -38,12 +38,12 @@ export default class Footer extends Component {
     return (
       <div className="add-footer">
         <div className="application-width">
-          <div className="footer-copyright wrapper">
-            <div className="copyright-text wrapper-left">
+          <div className="footer-copyright">
+            <div className="copyright-text">
               {this.footerCopyright()}
             </div>
-            <div className="wrapper-right">
-              <a href="http://www.colostate.edu/" className="company-sub-widget">
+            <div className="footer-logo-wrapper">
+              <a href="http://www.colostate.edu/" className="company-sub-widget" target="_blank">
                 <FooterLogo/>
               </a>
             </div>
@@ -75,20 +75,6 @@ export default class Footer extends Component {
         </ul>
       </div>
     );
-  }
-
-  linkWidget() {
-    // links of the form
-    // {"name":"Courses","url":"http://www.cs.colostate.edu/cstop/csacademics/cscourses.php"},
-    const links = [].map((element, index) => this.parseLinks(element, index));
-    return (
-      <div className="company-sub-widget">
-        <ul className="widget-list">
-          {links}
-        </ul>
-      </div>
-    );
-    ;
   }
 
   footerCopyright() {
@@ -129,15 +115,6 @@ export default class Footer extends Component {
         </li>
       );
     }
-  }
-
-  parseLinks(element, index) {
-    if (element !== undefined && element.url !== undefined && element.name !== undefined)
-      return (
-        <li className="widget-list" key={index}>
-          <a className="widget-link" target="_blank" href={element.url}>{element.name}</a>
-        </li>
-      );
   }
 
   nameValue(name, value) {

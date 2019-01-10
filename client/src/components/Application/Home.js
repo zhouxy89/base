@@ -1,7 +1,9 @@
-import React, {Component} from 'react'
-import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
+import React, {Component} from 'react';
+import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap';
 
-import L from 'leaflet';
+import Leaflet from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
@@ -19,27 +21,34 @@ export default class Info extends Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 
   renderMap() {
     let coloradoBoundaries = L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
     let csuOval = [40.576179, -105.080773];
+    // react-leaflet does not currently pull default marker icons correctly, so this must
+    // be done manually
+    let markerIcon = L.icon({
+      iconUrl: icon,
+      shadowUrl: iconShadow
+    });
 
     return (
       <Card>
         <CardHeader>Where's Waldo?</CardHeader>
         <CardBody>
-          <Map center={csuOval} zoom={5} >
+          <Map center={csuOval} zoom={5}
+               style={{height: 500, maxwidth: 800}} >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
-            <Marker position={csuOval}><Popup>CSU Oval</Popup></Marker>
+            <Marker position={csuOval} icon={markerIcon}><Popup>CSU Oval</Popup></Marker>
           </Map>
         </CardBody>
       </Card>
-    )
+    );
   }
 
   renderIntro() {
@@ -50,7 +59,6 @@ export default class Info extends Component {
           Let us help you plan your next trip.
         </CardBody>
       </Card>
-    )
+    );
   }
-
 }

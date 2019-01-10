@@ -1,39 +1,30 @@
-body {
-  background-color:#fff;
+/* Text stylings according to the CSU branding guide */
+/* (http://brand.colostate.edu/d/sLlipb6y2ZT4/colorado-state-university-style-guide#/style-guide/web-guidelines) */
+
+/* csu-branding represents the global container for main content.
+   That is, this is the class of the the main container of the main application content.
+   Note that all other global tag definitions (e.g., a, p, h1) may reference variables defined
+   in this CSS class, since they all are expected to be contained within the main container. */
+/* Other top-level items may be otherwise defined by bootstrap */
+.csu-branding {
+  /* Variable declarations */
+  --text-gray: #4e4e50;
+  --link-green-blue: #105456;
+  --link-hover-gray: #716F71;
+
+  /* Stylings, using variables */
+  font-family: 'prox-regular', sans-serif;
+  color: var(--text-gray);
 }
 
-/* WIDTH OF APPLICATION COMPONENTS */
-
-.application-width{
-  margin: auto !important;
-  max-width: 1200px !important;
-  padding: 0 15px 0 15px;
-}
-
-/* FONTS */
-
-body {
-  font-family: sans-serif;
-  color: #212529;
-}
-
+/* These are other CSU style definitions that are not currently leveraged,
+   but may be useful in the future. */
 .csu-text-small{
-  font-size: 13px !important;
-  color: #212529;
-}
-
-.csu-text-small:hover{
-  color: #4d4d4d;
+  font-size: 13px;
 }
 
 .csu-text-body{
-  font-family: sans-serif !important;
-  font-size: 1rem !important;
-  color: #212529;
-}
-
-.csu-text-body:hover{
-  color: #4d4d4d;
+  font-size: 1rem;
 }
 
 .csu-text-header{
@@ -52,22 +43,11 @@ body {
   text-transform: uppercase;
 }
 
-
-/* markdown improvements */
-
-a:link {
+/* Global general tag stylings, originally from CSROO.
+   These will override bootstrap defaults. */
+a:link, a:visited, a:hover, a:active {
   font-weight: 600;
-  color: #105456;
-}
-
-a:visited {
-  font-weight: 600;
-  color: #105456;
-}
-
-a:active {
-  font-weight: 600;
-  color: #105456;
+  color: var(--link-green-blue);
 }
 
 table {
@@ -88,70 +68,4 @@ th {
 
 img {
   max-width: 100%;
-}
-
-blockquote {
-  background: #f7f7f7;
-  border-left: 10px solid #e0e0e0;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-}
-
-pre {
-  margin: 1.5em 10px;
-  padding: 5px 10px;
-  background: #f0f0f0;
-  border: 1px solid #e0e0e0;
-  white-space: pre-wrap;
-  border-radius: 5px;
-}
-
-code {
-  background: #f0f0f0;
-  color: #000000;
-  font-weight: 600;
-  padding: 0px 2px;
-}
-
-.csu-markdown-text a{
-  font-family: 'prox-light', sans-serif !important;
-  line-height: 1em;
-  font-size: 16px;
-  color: #4d4d4d;
-}
-
-.csu-markdown-text a:hover{
-  color: #666666;
-}
-
-.csu-modal-header{
-  margin-top: .3em;
-  font-weight: 700;
-  letter-spacing: .10em;
-  font-size: 16px;
-  text-transform: uppercase;
-}
-
-.pagefade-enter, .pagefade-appear {
-    opacity:0;
-}
-.pagefade-enter.pagefade-enter-active,
-.pagefade-appear.pagefade-appear-active {
-    opacity:1;
-    transition:opacity 350ms ease-in;
-    -webkit-transition: opacity 350ms ease-in;
-    -moz-transition: opacity 350ms ease-in;
-    -o-transition: opacity 350ms ease-in;
-}
-.pagefade-enter.pagefade-enter-active {
-    transition-delay: 200ms;
-    -webkit-transition-delay: 200ms;
-    -moz-transition-delay: 200ms;
-    -o-transition-delay: 200ms;
-}
-.pagefade-exit {
-    opacity:0;
-}
-.pagefade-exit.pagefade-exit-active {
-    opacity:0;
 }
