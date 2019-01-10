@@ -8,15 +8,14 @@ function testInitialState() {
     const app = shallow(<Application/>); // Returns a shallow wrapper for the Application component.
 
     /* Get the initial properties of the rendered component (app) and compare them to expected values. */
-    let actualConfig = app.state().config;
+    let actualConfig = app.state().serverConfig;
     let expectedConfig = null;
     expect(actualConfig).toEqual(expectedConfig);
 
     let actualOptions = app.state().options;
     let expectedOptions = {
         units: { miles: 3959, kilometers: 6371 },
-        unit: 'miles',
-        serverPort: 'localhost:'
+        unit: 'miles'
     };
 
     expect(actualOptions).toEqual(expectedOptions);
