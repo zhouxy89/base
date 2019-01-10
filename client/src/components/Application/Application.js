@@ -21,7 +21,7 @@ export default class Application extends Component {
 
     // @todo which units should we provide?
     this.state = {
-      config: null,
+      serverConfig: null,
       options: {
         units: {'miles':3959, 'kilometers':6371},
         unit: 'miles'
@@ -35,14 +35,14 @@ export default class Application extends Component {
   }
 
   render() {
-    let pageToRender = (!this.state.config) ? '' : this.props.page;
+    let pageToRender = (!this.state.serverConfig) ? '' : this.props.page;
 
     switch(pageToRender) {
       case 'calc':
         return <Calculator options={this.state.options} settings={this.state.settings}/>;
       case 'options':
         return <Options options={this.state.options}
-                        config={this.state.config}
+                        config={this.state.serverConfig}
                         updateOption={this.updateOption}/>;
       case 'settings':
         return <Settings settings={this.state.settings}
@@ -73,7 +73,7 @@ export default class Application extends Component {
       .then(config => {
           console.log("Switch to server ", this.state.settings.serverPort);
           console.log(config);
-          this.setState({config: config});
+          this.setState({serverConfig: config});
         }
       );
   }
