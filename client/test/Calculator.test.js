@@ -2,7 +2,6 @@ import './enzyme.config.js';
 import React from 'react';
 import {mount} from 'enzyme';
 import Calculator from '../src/components/Application/Calculator/Calculator';
-import {getOriginalServerPort} from "../src/api/restfulAPI";
 import {Card, CardBody, CardHeader} from "reactstrap";
 
 // Fake starting props to mount Calculator
