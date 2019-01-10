@@ -11,9 +11,9 @@ export default class App extends Component {
   constructor (props){
     super(props);
     this.pages = [
-      { title: 'T00 TripCo', page: '', link: '/'},
-      { title: 'Calculator', page: 'calc', link: '/calculator'},
-      { title: 'Options', page: 'options', link: '/options' },
+      { title: 'T00 TripCo', page: ''},
+      { title: 'Calculator', page: 'calc'},
+      { title: 'Options', page: 'options'},
       { title: '\u2699', page: 'settings' }
     ]
 
