@@ -34,7 +34,7 @@ export default class Interop extends Component {
   updateServerPort(serverPort) {
     serverPort.preventDefault();
     // @todo needs some error checking, like a http://host:port parse
-    this.props.updateOption('serverPort', this.state.inputText);
+    this.props.updateSetting('serverPort', this.state.inputText);
   }
 
 }

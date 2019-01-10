@@ -19,7 +19,7 @@ function testInitialState() {
         serverPort: 'localhost:'
     };
 
-    expect(actualConfig).toEqual(expectedConfig);
+    expect(actualOptions).toEqual(expectedOptions);
 }
 
 test("Testing Application's initial state", testInitialState);
