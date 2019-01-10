@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink as ReactNavLink, Button} from 'reactstrap';
 import { NavLink } from 'react-router-dom'
 import './css/navbar.css'
-import 'bootstrap/dist/css/bootstrap.css'
 
 export default class Navigation extends Component {
 
@@ -40,8 +39,8 @@ export default class Navigation extends Component {
 
     return(
       <div>
-        <Navbar className="nav_side_bar" light>
-          <Button id="bs-override" className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
+        <Navbar>
+          <Button className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               {links}
@@ -54,7 +53,7 @@ export default class Navigation extends Component {
 
   staticHorizontalLinks() {
     let home = (
-      <Button color="link" id='bs-override' key="static_home" className='nav_title nav-link'
+      <Button color="link" key="static_home" className='nav_title nav-link'
               onClick={()=>this.props.setAppPage('')}>
         {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
       </Button>
@@ -62,7 +61,7 @@ export default class Navigation extends Component {
     let links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
 
     return (
-      <Navbar id='bs-override' className="nav_bar">
+      <Navbar className="nav_bar">
         {home}
         <div>
           {links.reverse()}
@@ -94,9 +93,17 @@ export default class Navigation extends Component {
   renderNavItem(info, type) {
     const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
 
+    // Decalare the anonymous function used to update the page selected for rendering
+    let updatePage = (e) => {
+      this.toggle();
+      this.props.setAppPage(info['page']);
+    };
+
     let navLink = (
-        <Button color='link' id='bs-override' key={type.concat(info['title'])} to={info['link']} className={style.concat(" nav-link")}>
-                 <div onClick={(e) => {this.toggle(); this.props.setAppPage(info['page']);}}>{info['title']}</div>
+        <Button onClick={ updatePage } color='link'
+                key={type.concat(info['title'])} to={info['link']}
+                className={style.concat(" nav-link")}>
+          {info['title']}
         </Button>
       );
     return ( navLink );
