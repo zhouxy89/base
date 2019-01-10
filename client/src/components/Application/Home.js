@@ -25,26 +25,19 @@ export default class Info extends Component {
   }
 
   renderMap() {
-    let coloradoBoundaries = L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
-    let csuOval = [40.576179, -105.080773];
-    // react-leaflet does not currently pull default marker icons correctly, so this must
-    // be done manually
-    let markerIcon = L.icon({
-      iconUrl: icon,
-      shadowUrl: iconShadow
-    });
-
     return (
       <Card>
         <CardHeader>Where's Waldo?</CardHeader>
         <CardBody>
-          <Map center={csuOval} zoom={5}
-               style={{height: 500, maxwidth: 800}} >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          <Map bounds={this.coloradoGeographicBoundaries()}
+               style={{height: 500, maxwidth: 700}}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
-            <Marker position={csuOval} icon={markerIcon}><Popup>CSU Oval</Popup></Marker>
+            <Marker position={this.csuOvalGeographicCoordinates()}
+                    icon={this.markerIcon()}>
+              <Popup>Colorado State University</Popup>
+            </Marker>
           </Map>
         </CardBody>
       </Card>
@@ -60,5 +53,23 @@ export default class Info extends Component {
         </CardBody>
       </Card>
     );
+  }
+
+  coloradoGeographicBoundaries() {
+    return L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
+  }
+
+  csuOvalGeographicCoordinates() {
+    return L.latLng(40.576179, -105.080773);
+  }
+
+  markerIcon() {
+    // react-leaflet does not currently pull default marker icons correctly,
+    // so this must be done manually
+    return L.icon({
+      iconUrl: icon,
+      shadowUrl: iconShadow,
+      iconAnchor: [12,40]  // for proper placement
+    })
   }
 }
