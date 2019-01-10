@@ -37,7 +37,7 @@ function testExample() {
 
   let actual = [];
   units.find('Button').map((element) => actual.push(element.prop('value')));
-  let expected = Object.keys(startProps.config.units)
+  let expected = Object.keys(startProps.config.units);
 
   expect(actual.sort()).toEqual(expected.sort());
 }
@@ -61,7 +61,7 @@ test('Check to see if table gets made correctly (Lambda)', () => {
 
   let actual = [];
   units.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
-  let expected = Object.keys(startProps.config.units)
+  let expected = Object.keys(startProps.config.units);
 
   expect(actual.sort()).toEqual(expected.sort());  // (3)
 });
