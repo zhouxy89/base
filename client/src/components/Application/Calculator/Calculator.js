@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
 
-import { sendHttpPostRequest } from '../../../api/restfulAPI'
+import { sendServerRequestWithBody } from '../../../api/restfulAPI'
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -98,7 +98,7 @@ export default class Calculator extends Component {
       'earthRadius' : this.props.options.units[this.props.options.unit]
     };
 
-    sendHttpPostRequest('distance', tipConfigRequest, this.props.settings.serverPort)
+    sendServerRequestWithBody('distance', tipConfigRequest, this.props.settings.serverPort)
         .then((response) => {this.setState({distance: response.distance}); }
     );
   }

@@ -5,7 +5,7 @@ import Home from './Home';
 import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI';
+import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
 
 
 /* Renders the application.
@@ -70,7 +70,7 @@ export default class Application extends Component {
   }
 
   updateServerConfig() {
-    sendHttpGetRequest('config', this.state.clientSettings.serverPort)
+    sendServerRequest('config', this.state.clientSettings.serverPort)
       .then(config => {
           console.log("Switch to server ", this.state.clientSettings.serverPort);
           console.log(config);
