@@ -19,12 +19,13 @@ export default class Navigation extends Component {
     this.staticHorizontalLinks = this.staticHorizontalLinks.bind(this);
     this.collapsibleVerticalLinks = this.collapsibleVerticalLinks.bind(this);
     this.windowSizeChange = this.windowSizeChange.bind(this);
+
+    window.addEventListener('resize', this.windowSizeChange)
   }
 
   render() {
-    let windowWidth = this.state.currentWindowWidth;
     let mediumScreenWidth = 768;
-    let pageLinks = (windowWidth < mediumScreenWidth) ?
+    let pageLinks = (this.state.currentWindowWidth < mediumScreenWidth) ?
       this.collapsibleVerticalLinks() : this.staticHorizontalLinks();
     return (
       <div className="application-width">
@@ -109,16 +110,13 @@ export default class Navigation extends Component {
     return ( navLink );
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.windowSizeChange);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.windowSizeChange);
-  }
 
   windowSizeChange() {
     this.setState({currentWindowWidth: window.innerWidth});
   };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.windowSizeChange);
+  }
 
 }
