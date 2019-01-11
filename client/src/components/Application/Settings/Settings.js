@@ -5,7 +5,7 @@ import Interop from './Interop';
 /**
  * The Settings component.
  * This component is responsible for managing global client settings, such as
- * interop server and default settings.
+ * the server and default options.
  */
 export default class Settings extends Component {
   constructor(props) {
@@ -17,10 +17,7 @@ export default class Settings extends Component {
       <Container>
         <Row>
           <Col xs="12">
-            <Card>
-              <CardHeader>Settings</CardHeader>
-              <CardBody>Change global client settings...</CardBody>
-            </Card>
+            {this.heading()}
           </Col>
         </Row>
         <Row>
@@ -32,4 +29,15 @@ export default class Settings extends Component {
       </Container>
     );
   }
+
+
+  heading() {
+    return (
+        <Card>
+          <CardHeader>Settings</CardHeader>
+          <CardBody>Change global client settings...</CardBody>
+        </Card>
+    )
+  }
+
 }
