@@ -26,7 +26,7 @@ test("Testing Application's initial state", testInitialState);
 function testUpdateOption() {
     const app = shallow(<Application/>);
 
-    app.instance().updateOption("unit", "kilometers"); // Calls the rendered component's instance function.
+    app.instance().updatePlanOption("unit", "kilometers"); // Calls the rendered component's instance function.
 
     let actualUnit = app.state().planOptions.unit;
     let expectedUnit = "kilometers";
