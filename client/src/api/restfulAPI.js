@@ -1,4 +1,7 @@
 
+/* functions to support server interactions via restful APIs.
+ */
+
 export function sendServerRequest(
     requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `http://${serverPort}/api/${requestType}`;
@@ -30,9 +33,9 @@ export function getOriginalServerPort() {
   const serverPort = location.port;
   const alternatePort = process.env.dev;
   return `${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
-  //return serverHost.concat(':').concat((!alternatePort) ? serverPort : alternatePort);
 }
 
 
 //@todo handle status codes 200,400,500?
+//@todo serialize/timeout async requests to prevent multiple clicks
 //@todo should we only use post reqeuests to simplify? for consistency?
