@@ -17,6 +17,10 @@
     text-decoration: none;
 }
 
+.nav_item:focus {
+    text-decoration: none;
+}
+
 .nav_title {
     color: var(--link-green-blue);
     font-weight: 700;
