@@ -38,7 +38,8 @@ export default class Options extends Component{
         <Card>
           <CardHeader>Options</CardHeader>
           <CardBody>Select ...</CardBody>
-        </Card>)
+        </Card>
+    );
   }
 
 }

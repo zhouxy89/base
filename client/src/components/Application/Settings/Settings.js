@@ -37,7 +37,7 @@ export default class Settings extends Component {
           <CardHeader>Settings</CardHeader>
           <CardBody>Change global client settings...</CardBody>
         </Card>
-    )
+    );
   }
 
 }
