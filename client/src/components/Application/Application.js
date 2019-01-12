@@ -5,7 +5,7 @@ import Home from './Home';
 import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendHttpGetRequest} from '../../api/restfulAPI';
+import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
 
 
 /* Renders the application.
@@ -15,23 +15,23 @@ export default class Application extends Component {
   constructor(props){
     super(props);
 
-    this.updateOption = this.updateOption.bind(this);
-    this.updateSetting = this.updateSetting.bind(this);
-    this.updateConfig = this.updateConfig.bind(this);
+    this.updatePlanOption = this.updatePlanOption.bind(this);
+    this.updateClientSetting = this.updateClientSetting.bind(this);
+    this.updateServerConfig = this.updateServerConfig.bind(this);
 
     // @todo which units should we provide?
     this.state = {
       serverConfig: null,
-      options: {
+      planOptions: {
         units: {'miles':3959, 'kilometers':6371},
         unit: 'miles'
       },
-      settings: {
+      clientSettings: {
         serverPort: getOriginalServerPort()
       }
     };
 
-    this.updateConfig();
+    this.updateServerConfig();
   }
 
   render() {
@@ -39,39 +39,40 @@ export default class Application extends Component {
 
     switch(pageToRender) {
       case 'calc':
-        return <Calculator options={this.state.options} settings={this.state.settings}/>;
+        return <Calculator options={this.state.planOptions}
+                           settings={this.state.clientSettings}/>;
       case 'options':
-        return <Options options={this.state.options}
+        return <Options options={this.state.planOptions}
                         config={this.state.serverConfig}
-                        updateOption={this.updateOption}/>;
+                        updateOption={this.updatePlanOption}/>;
       case 'settings':
-        return <Settings settings={this.state.settings}
-                         updateSetting={this.updateSetting}/>;
+        return <Settings settings={this.state.clientSettings}
+                         updateSetting={this.updateClientSetting}/>;
       default:
         return <Home/>;
     }
   }
 
-  updateSetting(field, value) {
+  updateClientSetting(field, value) {
     if(field === 'serverPort')
-      this.setState({settings: {serverPort: value}}, this.updateConfig);
+      this.setState({clientSettings: {serverPort: value}}, this.updateServerConfig);
     else {
-      let newSettings = Object.assign({}, this.state.options);
+      let newSettings = Object.assign({}, this.state.planOptions);
       newSettings[field] = value;
-      this.setState({settings: newSettings});
+      this.setState({clientSettings: newSettings});
     }
   }
 
-  updateOption(option, value) {
-    let optionsCopy = Object.assign({}, this.state.options);
+  updatePlanOption(option, value) {
+    let optionsCopy = Object.assign({}, this.state.planOptions);
     optionsCopy[option] = value;
-    this.setState({'options': optionsCopy});
+    this.setState({'planOptions': optionsCopy});
   }
 
-  updateConfig() {
-    sendHttpGetRequest('config', this.state.settings.serverPort)
+  updateServerConfig() {
+    sendServerRequest('config', this.state.clientSettings.serverPort)
       .then(config => {
-          console.log("Switch to server ", this.state.settings.serverPort);
+          console.log("Switch to server ", this.state.clientSettings.serverPort);
           console.log(config);
           this.setState({serverConfig: config});
         }

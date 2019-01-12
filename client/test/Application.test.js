@@ -12,7 +12,7 @@ function testInitialState() {
     let expectedConfig = null;
     expect(actualConfig).toEqual(expectedConfig);
 
-    let actualOptions = app.state().options;
+    let actualOptions = app.state().planOptions;
     let expectedOptions = {
         units: { miles: 3959, kilometers: 6371 },
         unit: 'miles'
@@ -26,9 +26,9 @@ test("Testing Application's initial state", testInitialState);
 function testUpdateOption() {
     const app = shallow(<Application/>);
 
-    app.instance().updateOption("unit", "kilometers"); // Calls the rendered component's instance function.
+    app.instance().updatePlanOption("unit", "kilometers"); // Calls the rendered component's instance function.
 
-    let actualUnit = app.state().options.unit;
+    let actualUnit = app.state().planOptions.unit;
     let expectedUnit = "kilometers";
     expect(actualUnit).toEqual(expectedUnit);
 }

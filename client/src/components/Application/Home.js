@@ -7,7 +7,10 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
-export default class Info extends Component {
+/*
+ * Renders the home page.
+ */
+export default class Home extends Component {
 
   render() {
     return (
@@ -28,20 +31,27 @@ export default class Info extends Component {
     return (
       <Card>
         <CardHeader>Where's Waldo?</CardHeader>
-        <CardBody>
-          <Map bounds={this.coloradoGeographicBoundaries()}
-               style={{height: 500, maxwidth: 700}}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-            />
-            <Marker position={this.csuOvalGeographicCoordinates()}
-                    icon={this.markerIcon()}>
-              <Popup>Colorado State University</Popup>
-            </Marker>
-          </Map>
-        </CardBody>
+        <CardBody>{this.renderLeafletMap()}</CardBody>
       </Card>
     );
+  }
+
+  renderLeafletMap() {
+    // initial map placement can use either of these approaches:
+    // 1: bounds={this.coloradoGeographicBoundaries()}
+    // 2: center={this.csuOvalGeographicCoordinates()} zoom={10}
+    return (
+      <Map center={this.csuOvalGeographicCoordinates()} zoom={10}
+           style={{height: 500, maxwidth: 700}}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                   attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        />
+        <Marker position={this.csuOvalGeographicCoordinates()}
+                icon={this.markerIcon()}>
+          <Popup>Colorado State University</Popup>
+        </Marker>
+      </Map>
+    )
   }
 
   renderIntro() {
@@ -56,6 +66,7 @@ export default class Info extends Component {
   }
 
   coloradoGeographicBoundaries() {
+    // northwest and southeast corners of the state of Colorado
     return L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
   }
 
@@ -64,8 +75,8 @@ export default class Info extends Component {
   }
 
   markerIcon() {
-    // react-leaflet does not currently pull default marker icons correctly,
-    // so this must be done manually
+    // react-leaflet does not currently handle default marker icons correctly,
+    // so we must create our own
     return L.icon({
       iconUrl: icon,
       shadowUrl: iconShadow,
