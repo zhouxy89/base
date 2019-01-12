@@ -18,7 +18,7 @@ export default class Options extends Component{
         <Container>
           <Row>
             <Col xs="12">
-              <Card><CardHeader>Options</CardHeader><CardBody>Select ...</CardBody></Card>
+              {this.heading()}
             </Col>
           </Row>
           <Row>
@@ -31,4 +31,15 @@ export default class Options extends Component{
         </Container>
     )
   }
+
+
+  heading() {
+    return (
+        <Card>
+          <CardHeader>Options</CardHeader>
+          <CardBody>Select ...</CardBody>
+        </Card>
+    );
+  }
+
 }
