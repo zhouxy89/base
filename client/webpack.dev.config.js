@@ -34,7 +34,7 @@ module.exports = {
       },
       { test: /\.json$/, loader: 'file-loader', options: { name: 'pages/[name].[ext]' }},
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] },
+      { test: /\.scss$/, loaders: ["style-loader", "css-loader"] },
       { test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: { name: 'images/[name]-[hash:8].[ext]' }}
