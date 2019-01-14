@@ -20,10 +20,6 @@ module.exports = {
         test: /\.(js|jsx)/, use: 'babel-loader',
         include: path.join(__dirname, 'src'),
       },
-      { test: /\.json$/, use: {
-        loader: 'file-loader',
-        options: { name: 'pages/[name].[ext]' } },
-      },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.(png|jpg|gif|svg)$/, use: {
         loader: 'file-loader',
