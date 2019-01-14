@@ -13,6 +13,10 @@ client/node_modules/
 client/dist/
 client/*.log
 
+# package-lock.json. It is recommended that this be checked in, but does not
+# create very nice commits in practice.
+client/package-lock.json
+
 # Client Jest coverage reports
 client/coverage/
 
