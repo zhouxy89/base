@@ -37,29 +37,30 @@ export default class Application extends Component {
 
   render() {
     let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
+    let componentToRender = null;
 
     switch(pageToRender) {
       case 'calc':
-        pageToRender = <Calculator options={this.state.planOptions}
+        componentToRender = <Calculator options={this.state.planOptions}
                                    settings={this.state.clientSettings}/>;
         break;
       case 'options':
-        pageToRender = <Options options={this.state.planOptions}
+        componentToRender = <Options options={this.state.planOptions}
                                 config={this.state.serverConfig}
                                 updateOption={this.updatePlanOption}/>;
         break;
       case 'settings':
-        pageToRender = <Settings settings={this.state.clientSettings}
+        componentToRender = <Settings settings={this.state.clientSettings}
                                  updateSetting={this.updateClientSetting}/>;
         break;
       default:
-        pageToRender = <Home/>;
+        componentToRender = <Home/>;
     }
 
     return (
       <div className='application-width'>
         { this.state.errorMessage }
-        { pageToRender }
+        { componentToRender }
       </div>
     );
   }
