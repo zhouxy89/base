@@ -98,8 +98,12 @@ export default class Application extends Component {
     else {
       this.setState({
         serverConfig: null,
-        errorMessage: <ErrorBanner title='Error fetching config: '
-        message={ `Status code: ${ config.statusCode }. Please connect to a valid REST server.` } />
+        errorMessage: (
+          <Container>
+            <ErrorBanner title='Error fetching config: '
+                         message={ `Status code: ${ config.statusCode }. Please connect to a valid REST server.` } />
+          </Container>
+        )
       });
     }
   }
