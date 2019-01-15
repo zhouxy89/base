@@ -11,7 +11,7 @@ export default class ErrorBanner extends Component {
     return (
       <Alert color="danger">
         <b>
-          { `Error (${ this.props.statusCode }): ` }
+          { `${ this.props.statusText } (${ this.props.statusCode }): ` }
         </b>
         { this.props.message }
       </Alert>

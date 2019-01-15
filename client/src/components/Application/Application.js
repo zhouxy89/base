@@ -101,7 +101,8 @@ export default class Application extends Component {
         serverConfig: null,
         errorMessage: (
           <Container>
-            <ErrorBanner statusCode={ config.statusCode }
+            <ErrorBanner statusText={ config.statusText }
+                         statusCode={ config.statusCode }
                          message={ `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.` } />
           </Container>
         )

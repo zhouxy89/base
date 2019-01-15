@@ -111,7 +111,9 @@ export default class Calculator extends Component {
         }
         else {
           this.setState({
-            errorMessage: <ErrorBanner statusCode={ response.statusCode }/>
+            errorMessage: <ErrorBanner statusText={ response.statusText }
+                                       statusCode={ response.statusCode }
+                                       message={ `Request to ${ this.props.settings.serverPort } failed.` }/>
           });
         }
       });
