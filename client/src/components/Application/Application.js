@@ -18,7 +18,6 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
-    this.updateServerConfig = this.updateServerConfig.bind(this);
 
     // @todo which units should we provide?
     this.state = {
@@ -84,21 +83,24 @@ export default class Application extends Component {
   updateServerConfig() {
     sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
       console.log(config);
-      if(config.statusCode >= 200 && config.statusCode <= 299) {
-        console.log("Switching to server ", this.state.clientSettings.serverPort);
-        console.log(config);
-        this.setState({
-          serverConfig: config.body,
-          errorMessage: null
-        });
-      }
-      else {
-        this.setState({
-          serverConfig: null,
-          errorMessage: <ErrorBanner title={ `Error fetching config:  ` }
-          message={ `Status code: ${ config.statusCode }` } />
-        });
-      }
+      this.processConfigResponse(config);
     });
+  }
+
+  processConfigResponse(config) {
+    if(config.statusCode >= 200 && config.statusCode <= 299) {
+      console.log("Switching to server ", this.state.clientSettings.serverPort);
+      this.setState({
+        serverConfig: config.body,
+        errorMessage: null
+      });
+    }
+    else {
+      this.setState({
+        serverConfig: null,
+        errorMessage: <ErrorBanner title={ `Error fetching config:  ` }
+        message={ `Status code: ${ config.statusCode }` } />
+      });
+    }
   }
 }
