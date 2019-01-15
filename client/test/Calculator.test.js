@@ -8,7 +8,7 @@ import {Card, CardBody, CardHeader} from "reactstrap";
 const startProps = {
   'options': {
     'units': {'miles': 3959, 'kilometers': 6371},
-    'unit': 'miles',
+    'activeUnit': 'miles',
     'serverPort': 'black-bottle.cs.colostate.edu:31400'
   }
 };

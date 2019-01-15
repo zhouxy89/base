@@ -82,7 +82,7 @@ export default class Calculator extends Component {
       <Card>
         <CardHeader>Distance</CardHeader>
         <CardBody>
-          <h5>{this.state.distance} {this.props.options.unit}</h5>
+          <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
           <Button onClick={this.calculate_distance}>Calculate</Button>
         </CardBody>
       </Card>
@@ -95,7 +95,7 @@ export default class Calculator extends Component {
       'version'     : 1,
       'origin'      : this.state.origin,
       'destination' : this.state.destination,
-      'earthRadius' : this.props.options.units[this.props.options.unit]
+      'earthRadius' : this.props.options.units[this.props.options.activeUnit]
     };
 
     sendHttpPostRequest('distance', tipConfigRequest, this.props.settings.serverPort)
