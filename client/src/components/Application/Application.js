@@ -6,6 +6,7 @@ import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
 import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
+import ErrorBanner from './ErrorBanner';
 
 
 /* Renders the application.
@@ -28,29 +29,40 @@ export default class Application extends Component {
       },
       clientSettings: {
         serverPort: getOriginalServerPort()
-      }
+      },
+      errorMessage: null
     };
 
     this.updateServerConfig();
   }
 
   render() {
-    let pageToRender = (!this.state.serverConfig) ? '' : this.props.page;
+    let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
 
     switch(pageToRender) {
       case 'calc':
-        return <Calculator options={this.state.planOptions}
-                           settings={this.state.clientSettings}/>;
+        pageToRender = <Calculator options={this.state.planOptions}
+                                   settings={this.state.clientSettings}/>;
+        break;
       case 'options':
-        return <Options options={this.state.planOptions}
-                        config={this.state.serverConfig}
-                        updateOption={this.updatePlanOption}/>;
+        pageToRender = <Options options={this.state.planOptions}
+                                config={this.state.serverConfig}
+                                updateOption={this.updatePlanOption}/>;
+        break;
       case 'settings':
-        return <Settings settings={this.state.clientSettings}
-                         updateSetting={this.updateClientSetting}/>;
+        pageToRender = <Settings settings={this.state.clientSettings}
+                                 updateSetting={this.updateClientSetting}/>;
+        break;
       default:
-        return <Home/>;
+        pageToRender = <Home/>;
     }
+
+    return (
+      <div className='application-width'>
+        { this.state.errorMessage }
+        { pageToRender }
+      </div>
+    );
   }
 
   updateClientSetting(field, value) {
@@ -70,13 +82,23 @@ export default class Application extends Component {
   }
 
   updateServerConfig() {
-    sendServerRequest('config', this.state.clientSettings.serverPort)
-      .then(config => {
-          console.log("Switch to server ", this.state.clientSettings.serverPort);
-          console.log(config);
-          this.setState({serverConfig: config});
-        }
-      );
+    sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
+      console.log(config);
+      if(config.statusCode >= 200 && config.statusCode <= 299) {
+        console.log("Switching to server ", this.state.clientSettings.serverPort);
+        console.log(config);
+        this.setState({
+          serverConfig: config.body,
+          errorMessage: null
+        });
+      }
+      else {
+        this.setState({
+          serverConfig: null,
+          errorMessage: <ErrorBanner title={ `Error fetching config:  ` }
+          message={ `Status code: ${ config.statusCode }` } />
+        });
+      }
+    });
   }
-
 }
