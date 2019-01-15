@@ -22,9 +22,18 @@ export function sendServerRequestWithBody(
 
 
 async function processRestfulAPI(restfulAPI, requestOptions) {
-  return fetch(restfulAPI, requestOptions)
-  .then(response => {return response.json()})
-  .catch(err => {console.error(err)});
+  try {
+    let response = await fetch(restfulAPI, requestOptions);
+    return {
+      statusCode: response.status,
+      statusText: response.statusText,
+      body: await response.json()
+    };
+  }
+  catch(err) {
+    console.error(err);
+    return { statusCode: 0, statusText: 'Client failure', body: null };
+  }
 }
 
 
