@@ -5,6 +5,7 @@ import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
 
 import { sendServerRequestWithBody } from '../../../api/restfulAPI'
+import ErrorBanner from '../ErrorBanner';
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -16,13 +17,15 @@ export default class Calculator extends Component {
     this.state = {
       origin: {latitude: '', longitude: ''},
       destination: {latitude: '', longitude: ''},
-      distance: 0
+      distance: 0,
+      errorMessage: null
     };
   }
 
   render() {
     return (
       <Container>
+        { this.state.errorMessage }
         <Row>
           <Col>
             {this.create_header()}
@@ -99,8 +102,20 @@ export default class Calculator extends Component {
     };
 
     sendServerRequestWithBody('distance', tipConfigRequest, this.props.settings.serverPort)
-        .then((response) => {this.setState({distance: response.distance}); }
-    );
+      .then((response) => {
+        if(response.statusCode >= 200 && response.statusCode <= 299) {
+          this.setState({
+            distance: response.body.distance,
+            errorMessage: null
+          });
+        }
+        else {
+          this.setState({
+            errorMessage: <ErrorBanner title='Error retrieving result: '
+                                       message={ `Status code: ${ response.statusCode }` }/>
+          });
+        }
+      });
   }
 
   updateLocationOnChange(stateVar, field, value) {

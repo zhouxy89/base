@@ -98,7 +98,7 @@ export default class Application extends Component {
     else {
       this.setState({
         serverConfig: null,
-        errorMessage: <ErrorBanner title={ `Error fetching config:  ` }
+        errorMessage: <ErrorBanner title='Error fetching config: '
         message={ `Status code: ${ config.statusCode }` } />
       });
     }
