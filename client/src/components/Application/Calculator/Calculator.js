@@ -9,10 +9,10 @@ import { sendServerRequestWithBody } from '../../../api/restfulAPI'
 export default class Calculator extends Component {
   constructor(props) {
     super(props);
-  
+
     this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
-    this.calculate_distance = this.calculate_distance.bind(this);
-  
+    this.calculateDistance = this.calculateDistance.bind(this);
+
     this.state = {
       origin: {latitude: '', longitude: ''},
       destination: {latitude: '', longitude: ''},
@@ -83,13 +83,13 @@ export default class Calculator extends Component {
         <CardHeader>Distance</CardHeader>
         <CardBody>
           <h5>{this.state.distance} {this.props.options.unit}</h5>
-          <Button onClick={this.calculate_distance}>Calculate</Button>
+          <Button onClick={this.calculateDistance}>Calculate</Button>
         </CardBody>
       </Card>
     )
   }
 
-  calculate_distance() {
+  calculateDistance() {
     const tipConfigRequest = {
       'type'        : 'distance',
       'version'     : 1,
@@ -108,5 +108,4 @@ export default class Calculator extends Component {
     location[field] = value;
     this.setState({[stateVar]: location});
   }
-  
 }
