@@ -111,8 +111,7 @@ export default class Calculator extends Component {
         }
         else {
           this.setState({
-            errorMessage: <ErrorBanner title='Error retrieving result: '
-                                       message={ `Status code: ${ response.statusCode }` }/>
+            errorMessage: <ErrorBanner statusCode={ response.statusCode }/>
           });
         }
       });

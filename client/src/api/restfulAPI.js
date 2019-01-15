@@ -28,7 +28,7 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
   }
   catch(err) {
     console.error(err);
-    return { statusCode: 404, body: null };
+    return { statusCode: 0, body: null };
   }
 }
 
