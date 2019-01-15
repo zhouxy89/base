@@ -6,6 +6,7 @@ import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
 import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
+import ErrorBanner from './ErrorBanner';
 
 
 /* Renders the application.
@@ -17,7 +18,6 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
-    this.updateServerConfig = this.updateServerConfig.bind(this);
 
     // @todo which units should we provide?
     this.state = {
@@ -28,29 +28,41 @@ export default class Application extends Component {
       },
       clientSettings: {
         serverPort: getOriginalServerPort()
-      }
+      },
+      errorMessage: null
     };
 
     this.updateServerConfig();
   }
 
   render() {
-    let pageToRender = (!this.state.serverConfig) ? '' : this.props.page;
+    let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
+    let componentToRender = null;
 
     switch(pageToRender) {
       case 'calc':
-        return <Calculator options={this.state.planOptions}
-                           settings={this.state.clientSettings}/>;
+        componentToRender = <Calculator options={this.state.planOptions}
+                                   settings={this.state.clientSettings}/>;
+        break;
       case 'options':
-        return <Options options={this.state.planOptions}
-                        config={this.state.serverConfig}
-                        updateOption={this.updatePlanOption}/>;
+        componentToRender = <Options options={this.state.planOptions}
+                                config={this.state.serverConfig}
+                                updateOption={this.updatePlanOption}/>;
+        break;
       case 'settings':
-        return <Settings settings={this.state.clientSettings}
-                         updateSetting={this.updateClientSetting}/>;
+        componentToRender = <Settings settings={this.state.clientSettings}
+                                 updateSetting={this.updateClientSetting}/>;
+        break;
       default:
-        return <Home/>;
+        componentToRender = <Home/>;
     }
+
+    return (
+      <div className='application-width'>
+        { this.state.errorMessage }
+        { componentToRender }
+      </div>
+    );
   }
 
   updateClientSetting(field, value) {
@@ -70,13 +82,31 @@ export default class Application extends Component {
   }
 
   updateServerConfig() {
-    sendServerRequest('config', this.state.clientSettings.serverPort)
-      .then(config => {
-          console.log("Switch to server ", this.state.clientSettings.serverPort);
-          console.log(config);
-          this.setState({serverConfig: config});
-        }
-      );
+    sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
+      console.log(config);
+      this.processConfigResponse(config);
+    });
   }
 
+  processConfigResponse(config) {
+    if(config.statusCode >= 200 && config.statusCode <= 299) {
+      console.log("Switching to server ", this.state.clientSettings.serverPort);
+      this.setState({
+        serverConfig: config.body,
+        errorMessage: null
+      });
+    }
+    else {
+      this.setState({
+        serverConfig: null,
+        errorMessage: (
+          <Container>
+            <ErrorBanner statusText={ config.statusText }
+                         statusCode={ config.statusCode }
+                         message={ `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.` } />
+          </Container>
+        )
+      });
+    }
+  }
 }
