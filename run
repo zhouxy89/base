@@ -1,7 +1,12 @@
 #!/bin/bash
+LOGLEVEL=info
 
 npm install --prefix client && \
 npm run bundle --prefix client && \
 mvn package
 
-java -jar target/server-*.jar $*
+if [ ! -z "$1" ]
+then
+  $LOGLEVEL=$1
+fi
+java -Dorg.slf4j.simpleLogger.defaultLogLevel=$LOGLEVEL -jar target/server-*.jar $*

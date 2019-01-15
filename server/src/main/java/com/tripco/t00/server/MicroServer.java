@@ -12,19 +12,24 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /** A micro server for a single page web application that serves the static files
  * and processes restful API requests.
  */
 class MicroServer {
 
+  private final Logger log = LoggerFactory.getLogger(MicroServer.class);
+
+
   MicroServer(int serverPort) {
     configureServer(serverPort);
     serveStaticPages();
     processRestfulAPIrequests();
 
-    // @todo use a logging mechanism rather than print to stdout
-    System.out.println("\n\nServer running on serverPort: " + serverPort + "\n\n");
+    log.info("Server running on serverPort: " + serverPort);
   }
 
 
@@ -49,7 +54,7 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    System.out.println(HTTPrequestToJson(request));
+    log.info(HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -73,7 +78,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
-    System.out.println(HTTPrequestToJson(request));
+    log.info(HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
