@@ -1,67 +1,28 @@
 // Note the name of this file has X.test.js. Jest looks for any files with this pattern.
 
-/*  First we import our Enzyme configuration (1), this is defined in a different
- *    file and is require to use Enzyme for components. In addition to the standard
- *    imports you've seen before, we are using Enzyme.shallow (2), this "renders"
- *    your component but only for the first layer in the DOM (ie. <Itinerary/> will
- *    just render <Itinerary/> even though it may have more components under it.).
- *    Shallow rendering prevents problems with lower components from showing up in
- *    the tests of parent components.
-*/
-
-import './enzyme.config.js'                   // (1)
+import './enzyme.config.js'
 import React from 'react'
-import { mount } from 'enzyme'              // (2)
+import { mount } from 'enzyme'
 import Units from '../src/components/Application/Options/Units'
 
-/* Both of these tests are functionally identical although the standard way
- *  of writing tests uses lambda or anonymous functions. These are useful
- *  for defining functions that will only be in your code once but may be
- *  called multiple times by whatever they are passed to.
-*/
-
-/* A test response for our client to use;
- * this object represents the props that would be passed to the Units
- * component on construction.
- */
-const startProps = {
+const startProperties = {
   'config': { 'units': {'miles':3959, 'kilometers':6371} },
   'units': { 'unit': 'miles' },
 };
 
-/* Test example using a pre-defined function */
-function testExample() {
+function testButtonValues() {
   const units = mount((
-      <Units options={startProps.config} units={startProps.units}/>
+      <Units options={startProperties.config} units={startProperties.units}/>
     ));
 
   let actual = [];
   units.find('Button').map((element) => actual.push(element.prop('value')));
-  let expected = Object.keys(startProps.config.units);
+  let expected = Object.keys(startProperties.config.units);
 
   expect(actual.sort()).toEqual(expected.sort());
 }
 
-test('Check to see if table gets made correctly (Function)', testExample);
-
-/*--------------------------------------------------------------------------*/
-
-/* Test example using an anonymous function */
-test('Check to see if table gets made correctly (Lambda)', () => {
-  /*  First, we create a version of our Units component, using the
-   *  startProps object defined above for its props (1). With our new unrendered
-   *  component, we can call ReactWrapper.find() to extract a certain part
-   *  of the component and its children (2). Lastly, we check to see if the
-   *  value of the buttons created by the component is what we expect,
-   *  given the example input (3).
-  */
-  const units = mount((   // (1)
-      <Units options={startProps.config} units={startProps.units}/>
-    ));
-
-  let actual = [];
-  units.find('Button').map((element) => actual.push(element.prop('value')));  // (2)
-  let expected = Object.keys(startProps.config.units);
-
-  expect(actual.sort()).toEqual(expected.sort());  // (3)
-});
+/* Deep render (mount) Units to be able to test the properties of the Buttons
+ * that get rendered inside of it.
+ */
+test('Check to see if a Button is rendered for each unit', testButtonValues);
