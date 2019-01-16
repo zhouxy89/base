@@ -4,25 +4,28 @@ import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
 
-import { sendHttpPostRequest } from '../../../api/restfulAPI'
+import { sendServerRequestWithBody } from '../../../api/restfulAPI'
+import ErrorBanner from '../ErrorBanner';
 
 export default class Calculator extends Component {
   constructor(props) {
     super(props);
-  
+
     this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
-    this.calculate_distance = this.calculate_distance.bind(this);
-  
+    this.calculateDistance = this.calculateDistance.bind(this);
+
     this.state = {
       origin: {latitude: '', longitude: ''},
       destination: {latitude: '', longitude: ''},
-      distance: 0
+      distance: 0,
+      errorMessage: null
     };
   }
 
   render() {
     return (
       <Container>
+        { this.state.errorMessage }
         <Row>
           <Col>
             {this.create_header()}
@@ -89,7 +92,7 @@ export default class Calculator extends Component {
     )
   }
 
-  calculate_distance() {
+  calculateDistance() {
     const tipConfigRequest = {
       'type'        : 'distance',
       'version'     : 1,
@@ -98,9 +101,22 @@ export default class Calculator extends Component {
       'earthRadius' : this.props.options.units[this.props.options.activeUnit]
     };
 
-    sendHttpPostRequest('distance', tipConfigRequest, this.props.settings.serverPort)
-        .then((response) => {this.setState({distance: response.distance}); }
-    );
+    sendServerRequestWithBody('distance', tipConfigRequest, this.props.settings.serverPort)
+      .then((response) => {
+        if(response.statusCode >= 200 && response.statusCode <= 299) {
+          this.setState({
+            distance: response.body.distance,
+            errorMessage: null
+          });
+        }
+        else {
+          this.setState({
+            errorMessage: <ErrorBanner statusText={ response.statusText }
+                                       statusCode={ response.statusCode }
+                                       message={ `Request to ${ this.props.settings.serverPort } failed.` }/>
+          });
+        }
+      });
   }
 
   updateLocationOnChange(stateVar, field, value) {
@@ -108,5 +124,4 @@ export default class Calculator extends Component {
     location[field] = value;
     this.setState({[stateVar]: location});
   }
-  
 }

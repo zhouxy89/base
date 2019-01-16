@@ -11,7 +11,7 @@ function testInitialState() {
     let expectedConfig = null;
     expect(actualConfig).toEqual(expectedConfig);
 
-    let actualOptions = app.state().options;
+    let actualOptions = app.state().planOptions;
     let expectedOptions = {
         units: { miles: 3959, kilometers: 6371 },
         activeUnit: 'miles'

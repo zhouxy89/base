@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink as ReactNavLink, Button} from 'reactstrap';
-import { NavLink } from 'react-router-dom'
+import {Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink, Button} from 'reactstrap';
 import './css/navbar.css'
 
 export default class Navigation extends Component {
@@ -13,18 +12,21 @@ export default class Navigation extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
-    this.getToggler = this.getToggler.bind(this);
     this.renderNavItem = this.renderNavItem.bind(this);
 
     this.staticHorizontalLinks = this.staticHorizontalLinks.bind(this);
     this.collapsibleVerticalLinks = this.collapsibleVerticalLinks.bind(this);
+    this.collapseIcon = this.collapseIcon.bind(this);
+    this.homeLink = this.homeLink.bind(this);
     this.windowSizeChange = this.windowSizeChange.bind(this);
+
+    window.addEventListener('resize', this.windowSizeChange)
   }
 
+
   render() {
-    let windowWidth = this.state.currentWindowWidth;
     let mediumScreenWidth = 768;
-    let pageLinks = (windowWidth < mediumScreenWidth) ?
+    let pageLinks = (this.state.currentWindowWidth < mediumScreenWidth) ?
       this.collapsibleVerticalLinks() : this.staticHorizontalLinks();
     return (
       <div className="application-width">
@@ -33,14 +35,14 @@ export default class Navigation extends Component {
     )
   }
 
+
   collapsibleVerticalLinks(){
-    let toggler = this.getToggler();
     let links = this.props.pages.map((item) => this.renderNavItem(item, 'dropdown'));
 
     return(
       <div>
         <Navbar>
-          <Button className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
+          {this.collapseIcon()}
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               {links}
@@ -51,22 +53,15 @@ export default class Navigation extends Component {
     );
   }
 
-  staticHorizontalLinks() {
-    let home = (
-      <Button color="link" key="static_home" className='nav_title nav-link'
-              onClick={()=>this.props.setAppPage('')}>
-        {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
-      </Button>
-    )
-    let links = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'static'));
 
-    return (
-      <Navbar className="nav_bar">
-        {home}
-        <div>
-          {links}
-        </div>
-      </Navbar>
+  collapseIcon() {
+    let unCollapseMenuSymbol = <div>&#x2630;</div>;
+    let collapseMenuSymbol = <div>&#x268A;</div>;
+
+    return (<Button className="dropdown_icon"
+                    onClick={this.toggle}>
+      {(this.state.isOpen) ? collapseMenuSymbol : unCollapseMenuSymbol}
+    </Button>
     )
   }
 
@@ -77,48 +72,55 @@ export default class Navigation extends Component {
     });
   }
 
-  getToggler(){
-    let unCollapseMenuSymbol = <div>&#x2630;</div>;
-    let collapseMenuSymbol = <div>&#x268A;</div>;
-    return (this.state.isOpen) ? collapseMenuSymbol : unCollapseMenuSymbol;
+
+  staticHorizontalLinks() {
+    let otherLinks = this.props.pages.slice(1).map((item) => this.renderNavItem(item, 'nav'));
+
+    return (
+      <Navbar className="nav_bar">
+        {this.homeLink()}
+        <div>{otherLinks}</div>
+      </Navbar>
+    )
   }
 
-  /**
-   * Renders the mobile navigation bar.  This will also update the webpage title
-   *      to the correct heading.  The "homepage" has a different name than the
-   * @param title of the nav bar item.
-   * @param link web page to direct to
-   * @returns {XML} of the nav bar item.
-   */
-  renderNavItem(info, type) {
-    const style = (type === 'static') ? 'nav_item' : 'dropdown_item';
 
-    // Decalare the anonymous function used to update the page selected for rendering
-    let updatePage = (e) => {
+  homeLink() {
+    return (
+      <Button color="link"
+              key="static_home"
+              className='nav_title nav-link'
+              onClick={()=>this.props.setAppPage('')}>
+        {((this.props.pages) ? this.props.pages[0] : {title: 'Default Home', link: ''})['title']}
+      </Button>
+    )
+  }
+
+
+  renderNavItem(info, type) {
+    // Create an anonymous function used to update the page selected for rendering
+    let updatePage = (event) => {
       this.toggle();
       this.props.setAppPage(info['page']);
     };
 
-    let navLink = (
-        <Button onClick={ updatePage } color='link'
-                key={type.concat(info['title'])} to={info['link']}
-                className={style}>
-          {info['title']}
-        </Button>
-      );
-    return ( navLink );
+    return (
+      <Button onClick={ updatePage }
+              color='link'
+              key={type.concat(info['title'])}
+              className={type.concat('_item')}>
+        {info['title']}
+      </Button>
+    );
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.windowSizeChange);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.windowSizeChange);
-  }
 
   windowSizeChange() {
     this.setState({currentWindowWidth: window.innerWidth});
   };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.windowSizeChange);
+  }
 
 }

@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
+  mode: 'production',
   entry: [
     'babel-polyfill',
     './src/entry.jsx'
@@ -11,21 +12,19 @@ module.exports = {
     filename: 'bundle.js',
   },
   plugins: [
-    new webpack.DefinePlugin({
-    })
+    new webpack.DefinePlugin({ })
   ],
   module: {
     rules: [
       {
-        test: /\.(js|jsx)/, loader: 'babel-loader',
+        test: /\.(js|jsx)/, use: 'babel-loader',
         include: path.join(__dirname, 'src'),
       },
-      { test: /\.json$/, loader: 'file-loader', options: { name: 'pages/[name].[ext]' }},
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] },
-      { test: /\.(png|jpg|gif|svg)$/,
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.(png|jpg|gif|svg)$/, use: {
         loader: 'file-loader',
-        options: { name: '[path][name]-[hash:8].[ext]' }}
+        options: { name: '[path][name]-[hash:8].[ext]' } }
+      }
     ]
   }
 }
