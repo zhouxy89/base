@@ -29,14 +29,14 @@ class MicroServer {
     serveStaticPages();
     processRestfulAPIrequests();
 
-    log.info("Server running on serverPort: " + serverPort);
+    log.info("MicroServer running on port: {}", serverPort);
   }
 
 
   private void configureServer(int serverPort) {
     Spark.port(serverPort);
     // @todo secure, others
-    log.debug("Port configuration complete");
+    log.trace("Server configuration complete");
   }
 
 
@@ -44,7 +44,7 @@ class MicroServer {
     String path = "/public/";
     Spark.staticFileLocation(path);
     Spark.get("/", (req, res) -> { res.redirect("index.html"); return null; });
-    log.debug("Static file configuration complete");
+    log.trace("Static file configuration complete");
   }
 
 
@@ -52,12 +52,12 @@ class MicroServer {
     Spark.get("/api/config", this::processTIPconfigRequest);
     Spark.post("/api/distance", this::processTIPdistanceRequest);
     Spark.get("/api/echo", this::echoHTTPrequest);
-    log.debug("Restful configuration complete");
+    log.trace("Restful configuration complete");
   }
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    log.info(HTTPrequestToJson(request));
+    log.info("TIP Config request: {}", HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -66,11 +66,11 @@ class MicroServer {
       TIPConfig tipRequest = new TIPConfig();
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
-      log.debug("Response - "+responseBody);
+      log.info("TIP Config response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
-      log.debug("Exception - "+e.toString());
+      log.error("Exception - "+e.toString());
       response.status(500);
       return request.body();
     }
@@ -83,7 +83,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
-    log.info("Request - "+HTTPrequestToJson(request));
+    log.info("TIP Request: {}", HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -92,11 +92,11 @@ class MicroServer {
       TIPHeader tipRequest = jsonConverter.fromJson(request.body(), tipType);
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
-      log.debug("Response - "+responseBody);
+      log.info("TIP Response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
-      log.debug("Exception - "+e.toString());
+      log.error("Exception - "+e.toString());
       response.status(500);
       return request.body();
     }

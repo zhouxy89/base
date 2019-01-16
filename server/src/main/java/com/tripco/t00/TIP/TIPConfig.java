@@ -23,7 +23,7 @@ public class TIPConfig extends TIPHeader {
   private String serverName;
   private List<String> placeAttributes;
 
-  private final Logger log = LoggerFactory.getLogger(TIPConfig.class);
+  private final transient Logger log = LoggerFactory.getLogger(TIPConfig.class);
 
 
   public TIPConfig() {
@@ -36,7 +36,7 @@ public class TIPConfig extends TIPHeader {
   public void buildResponse() {
     this.serverName = "t##...";
     this.placeAttributes = Arrays.asList("latitude", "longitude", "serverName");
-    log.debug("TipConfig.buildResponse()");
+    log.trace("buildResponse -> {}", this);
   }
 
 

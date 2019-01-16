@@ -26,7 +26,7 @@ public class TIPDistance extends TIPHeader {
   private float earthRadius;
   private int distance;
 
-  private final Logger log = LoggerFactory.getLogger(TIPDistance.class);
+  private final transient Logger log = LoggerFactory.getLogger(TIPDistance.class);
 
 
   TIPDistance(int version, Map origin, Map destination, float earthRadius) {
@@ -46,7 +46,7 @@ public class TIPDistance extends TIPHeader {
 
   public void buildResponse() {
     this.distance = 0;
-    log.debug("TIPDistance.buildResponse()");
+    log.trace("buildResponse -> {}", this);
   }
 
 
