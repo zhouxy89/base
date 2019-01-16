@@ -66,7 +66,7 @@ class MicroServer {
       TIPConfig tipRequest = new TIPConfig();
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
-      log.info("TIP Config response: {}", responseBody);
+      log.trace("TIP Config response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
@@ -92,7 +92,7 @@ class MicroServer {
       TIPHeader tipRequest = jsonConverter.fromJson(request.body(), tipType);
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
-      log.info("TIP Response: {}", responseBody);
+      log.trace("TIP Response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
