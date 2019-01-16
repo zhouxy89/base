@@ -1,8 +1,5 @@
 #!/bin/bash
 
-if [ ! -d "./client/node_modules" ]; then
-  ./install_dependencies.sh
-  ./webpack.sh
-fi
-./build_jar.sh
-./start_server.sh
+./build_client.sh
+./build_server.sh
+./run_server.sh
