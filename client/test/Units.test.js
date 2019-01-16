@@ -27,7 +27,7 @@ function testButtonValues() {
 /* Deep render (mount) Units to be able to test the properties of the Buttons
  * that get rendered inside of it.
  */
-test('Check to see if a Button is rendered for each activeUnit', testButtonValues);
+test('Check to see if a Button is rendered for each unit', testButtonValues);
 
 
 function testInitialActiveButton() {
