@@ -1,7 +1,21 @@
 #!/bin/bash
+DEBUG=info
+PORT=8088
+
+if [ "$#" -gt 2 ]; then
+    echo "Error, too many arguments"
+    echo "Usage: run [PORT [DEBUG]]"
+    exit 1
+fi
 
 npm install --prefix client && \
 npm run bundle --prefix client && \
 mvn package
 
-java -jar target/server-*.jar $*
+if [ ! -z "$1" ]; then
+  PORT=$1
+fi
+if [ ! -z "$2" ]; then
+  DEBUG=$2
+fi
+java -Dorg.slf4j.simpleLogger.log.com.tripco=$DEBUG -jar target/server-*.jar $PORT
