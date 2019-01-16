@@ -1,5 +1,8 @@
 package com.tripco.t00.TIP;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class TIPConfig extends TIPHeader {
   private String serverName;
   private List<String> placeAttributes;
 
+  private final transient Logger log = LoggerFactory.getLogger(TIPConfig.class);
+
 
   public TIPConfig() {
     this.requestType = "config";
@@ -31,6 +36,7 @@ public class TIPConfig extends TIPHeader {
   public void buildResponse() {
     this.serverName = "t##...";
     this.placeAttributes = Arrays.asList("latitude", "longitude", "serverName");
+    log.trace("buildResponse -> {}", this);
   }
 
 
