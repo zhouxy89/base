@@ -1,12 +1,21 @@
 #!/bin/bash
-LOGLEVEL=info
+DEBUG=info
+PORT=8088
+
+if [ "$#" -gt 2 ]; then
+    echo "Error, too many arguments"
+    echo "Usage: run [PORT [DEBUG]]"
+    exit 1
+fi
 
 npm install --prefix client && \
 npm run bundle --prefix client && \
 mvn package
 
-if [ ! -z "$1" ]
-then
-  $LOGLEVEL=$1
+if [ ! -z "$1" ]; then
+  PORT=$1
 fi
-java -Dorg.slf4j.simpleLogger.defaultLogLevel=$LOGLEVEL -jar target/server-*.jar $*
+if [ ! -z "$2" ]; then
+  DEBUG=$2
+fi
+java -Dorg.slf4j.simpleLogger.defaultLogLevel=$DEBUG -jar target/server-*.jar $PORT
