@@ -1,6 +1,9 @@
 package com.tripco.t00.TIP;
 
 import com.tripco.t00.misc.GreatCircleDistance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 
@@ -23,6 +26,8 @@ public class TIPDistance extends TIPHeader {
   private float earthRadius;
   private int distance;
 
+  private final Logger log = LoggerFactory.getLogger(TIPDistance.class);
+
 
   TIPDistance(int version, Map origin, Map destination, float earthRadius) {
     this();
@@ -41,6 +46,7 @@ public class TIPDistance extends TIPHeader {
 
   public void buildResponse() {
     this.distance = 0;
+    log.debug("TIPDistance.buildResponse()");
   }
 
 
