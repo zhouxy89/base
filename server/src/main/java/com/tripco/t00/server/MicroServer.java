@@ -70,7 +70,7 @@ class MicroServer {
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
-      log.error("Exception - "+e.toString());
+      log.error("Exception: {}", e);
       response.status(500);
       return request.body();
     }
@@ -96,7 +96,7 @@ class MicroServer {
       return responseBody;
     } catch (Exception e) {
       // @todo distinguish bad request 400 from server error 500
-      log.error("Exception - "+e.toString());
+      log.error("Exception: {}", e);
       response.status(500);
       return request.body();
     }
