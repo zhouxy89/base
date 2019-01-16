@@ -18,4 +18,4 @@ fi
 if [ ! -z "$2" ]; then
   DEBUG=$2
 fi
-java -Dorg.slf4j.simpleLogger.defaultLogLevel=$DEBUG -jar target/server-*.jar $PORT
+java -Dorg.slf4j.simpleLogger.log.com.tripco=$DEBUG -jar target/server-*.jar $PORT
