@@ -25,11 +25,11 @@ test("Testing Application's initial state", testInitialState);
 function testUpdateOption() {
     const app = shallow(<Application/>);
 
-    app.instance().updateOption("activeUnit", "kilometers");
+    app.instance().updatePlanOption("activeUnit", "kilometers");
 
-    let actualUnit = app.state().options.activeUnit;
+    let actualUnit = app.state().planOptions.activeUnit;
     let expectedUnit = "kilometers";
     expect(actualUnit).toEqual(expectedUnit);
 }
 
-test("Testing Application's updateOption function", testUpdateOption);
+test("Testing Application's updatePlanOption function", testUpdateOption);
