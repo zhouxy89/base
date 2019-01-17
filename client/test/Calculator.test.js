@@ -2,7 +2,6 @@ import './enzyme.config.js';
 import React from 'react';
 import {mount} from 'enzyme';
 import Calculator from '../src/components/Application/Calculator/Calculator';
-import {Card, CardBody, CardHeader} from "reactstrap";
 
 const startProperties = {
   'options': {
@@ -11,26 +10,6 @@ const startProperties = {
     'serverPort': 'black-bottle.cs.colostate.edu:31400'
   }
 };
-
-function testCreateHeader() {
-  const calculator = mount((
-      <Calculator options={startProperties.options}/>
-  ));
-
-  let actual = calculator.instance().createHeader();
-  let expected = (
-      <Card>
-        <CardHeader>Calculator</CardHeader>
-        <CardBody>
-          Determine the distance between the origin and destination.
-          Change the units on the <b>Options</b> page.
-        </CardBody>
-      </Card>);
-
-  expect(actual).toEqual(expected);
-}
-
-test('Testing the createHeader() function in Calculator', testCreateHeader);
 
 function testCreateInputFields() {
   const calculator = mount((
