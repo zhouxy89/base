@@ -40,6 +40,10 @@
     "moduleNameMapper": {
       "\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/require_stub.js",
       "\\.(css)$": "<rootDir>/test/require_stub.js"
-    }
+    },
+    "automock": false,
+    "setupFiles": [
+      "<rootDir>/test/setupJest.js"
+    ]
   }
 }

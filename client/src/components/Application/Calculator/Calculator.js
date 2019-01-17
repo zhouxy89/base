@@ -28,25 +28,25 @@ export default class Calculator extends Component {
         { this.state.errorMessage }
         <Row>
           <Col>
-            {this.create_header()}
+            {this.createHeader()}
           </Col>
         </Row>
         <Row>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('origin')}
+            {this.createInputFields('origin')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('destination')}
+            {this.createInputFields('destination')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_distance()}
+            {this.createDistance()}
           </Col>
         </Row>
       </Container>
     );
   }
 
-  create_header() {
+  createHeader() {
     return (
       <Card>
         <CardHeader>Calculator</CardHeader>
@@ -58,7 +58,7 @@ export default class Calculator extends Component {
     )
   }
 
-  create_input_fields(stateVar) {
+  createInputFields(stateVar) {
     let updateStateVarOnChange = (event) => {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
     return (
@@ -80,13 +80,13 @@ export default class Calculator extends Component {
     );
   }
 
-  create_distance() {
+  createDistance() {
     return(
       <Card>
         <CardHeader>Distance</CardHeader>
         <CardBody>
           <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
-          <Button onClick={this.calculate_distance}>Calculate</Button>
+          <Button onClick={this.calculateDistance}>Calculate</Button>
         </CardBody>
       </Card>
     )

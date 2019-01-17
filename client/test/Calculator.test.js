@@ -17,7 +17,7 @@ function testCreateHeader() {
       <Calculator options={startProperties.options}/>
   ));
 
-  let actual = calculator.instance().create_header();
+  let actual = calculator.instance().createHeader();
   let expected = (
       <Card>
         <CardHeader>Calculator</CardHeader>
@@ -51,10 +51,10 @@ function testCreateInputFields() {
   expect(actualInputs).toEqual(expectedInputs);
 }
 
-/* Tests that create_input_fields() correctly renders 4 Input components
+/* Tests that createInputFields() correctly renders 4 Input components
  * with the corresponding names of latitude and longitude
  */
-test('Testing the create_input_fields() function in Calculator', testCreateInputFields);
+test('Testing the createInputFields() function in Calculator', testCreateInputFields);
 
 function testInputOnChange() {
   const calculator = mount((
