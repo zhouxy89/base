@@ -16,7 +16,7 @@ function testApiCall() {
           'placeAttributes': ["latitude", "longitude", "serverName"],
           'requestType': "config",
           'requestVersion': 1,
-          'serverName': "t##..."},
+          'serverName': "t00"},
         type: 'basic',
         url: 'http://localhost:8088/api/config',
         redirected: false,

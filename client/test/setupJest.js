@@ -6,7 +6,7 @@
  * the jest testing environment, asynchronous calls such as fetch need to be
  * mocked with a 'fake' response from the server.
  *
- * Documentation: https://github.com/jefflau/jest-fetch-mock
+ * Documentation: https://www.npmjs.com/package/jest-fetch-mock
  */
 
 global.fetch = require('jest-fetch-mock');

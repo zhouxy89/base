@@ -3,11 +3,15 @@ import { Card, CardHeader, CardBody} from 'reactstrap'
 import { Button, Input } from 'reactstrap'
 
 export default class Interop extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       inputText: ''
-    }
+    };
+
+    this.updateServerPort = this.updateServerPort.bind(this);
+    this.updateInputText = this.updateInputText.bind(this);
   }
 
   render() {
@@ -15,8 +19,8 @@ export default class Interop extends Component {
         <Card className='text-center'>
           <CardHeader>Server</CardHeader>
           <CardBody>
-            <form onSubmit={this.updateServerPort.bind(this)}>
-              <Input onChange={this.updateInputText.bind(this)}
+            <form onSubmit={this.updateServerPort}>
+              <Input onChange={this.updateInputText}
                      value={this.state.inputText}
                      placeholder={this.props.serverPort}/>
               <br/>
