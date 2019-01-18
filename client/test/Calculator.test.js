@@ -3,6 +3,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import Calculator from '../src/components/Application/Calculator/Calculator';
 
+
 const startProperties = {
   'options': {
     'units': {'miles': 3959, 'kilometers': 6371},

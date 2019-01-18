@@ -1,5 +1,4 @@
 // Note the name of this file has X.test.js. Jest looks for any files with this pattern.
-
 import './enzyme.config.js'
 import React from 'react'
 import { mount } from 'enzyme'

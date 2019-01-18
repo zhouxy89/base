@@ -5,6 +5,7 @@ import {mount, shallow} from 'enzyme';
 import Application from '../src/components/Application/Application';
 import Interop from '../src/components/Application/Settings/Interop';
 
+
 const startProperties = {
   'serverPort': 'black-bottle.cs.colostate.edu:31400',
   'updateSetting': () => {

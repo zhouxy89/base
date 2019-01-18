@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Settings from '../src/components/Application/Settings/Settings'
 import Interop from '../src/components/Application/Settings/Interop'
-import Units from "./Options.test";
+
 
 const startProperties = {
   'settings': { 'serverPort': 'black-bottle.cs.colostate.edu:31400' },
