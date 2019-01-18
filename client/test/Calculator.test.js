@@ -17,8 +17,10 @@ function testCreateInputFields() {
       <Calculator options={startProperties.options}/>
   ));
 
-  let actualInputs = [];
+  let numberOfInputs = calculator.find('Input').length;
+  expect(numberOfInputs).toEqual(4);
 
+  let actualInputs = [];
   calculator.find('Input').map((input) => actualInputs.push(input.prop('name')));
 
   let expectedInputs = [
