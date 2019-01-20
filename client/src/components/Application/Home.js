@@ -30,7 +30,7 @@ export default class Home extends Component {
   renderMap() {
     return (
       <Card>
-        <CardHeader className='bg-csu-green text-white font-weight-bold'>Where's Waldo?</CardHeader>
+        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Where's Waldo?</CardHeader>
         <CardBody>{this.renderLeafletMap()}</CardBody>
       </Card>
     );
@@ -57,7 +57,7 @@ export default class Home extends Component {
   renderIntro() {
     return(
       <Card>
-        <CardHeader className='bg-csu-green text-white font-weight-bold'>Bon Voyage!</CardHeader>
+        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Bon Voyage!</CardHeader>
         <CardBody>
           Let us help you plan your next trip.
         </CardBody>
