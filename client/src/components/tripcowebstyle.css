@@ -35,7 +35,7 @@
     color: white;
 }
 
-.btn-csu:hover {
+.btn-csu:not(.disabled):hover {
     background-color: #D9782D;
     color: white;
 }
