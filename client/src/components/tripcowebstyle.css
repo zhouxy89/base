@@ -87,32 +87,6 @@
     font-weight: 600;
 }
 
-/* These are other CSU style definitions that are not currently leveraged,
-   but may be useful in the future. */
-.csu-text-small{
-  font-size: 13px;
-}
-
-.csu-text-body{
-  font-size: 1rem;
-}
-
-.csu-text-header{
-  font-weight: 700;
-  letter-spacing: .11em;
-  line-height: 1.1em;
-  font-size: 16px;
-  text-transform: uppercase;
-}
-
-.csu-text-header-thin{
-  font-weight: 400;
-  letter-spacing: .11em;
-  line-height: 1.1em;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-
 /* Global general tag stylings, originally from CSOO1.
    These will override bootstrap defaults. */
 a:link, a:visited, a:hover, a:active {
@@ -138,4 +112,30 @@ th {
 
 img {
   max-width: 100%;
+}
+
+/* These are other CSU style definitions that are not currently leveraged,
+   but may be useful in the future. */
+.csu-text-small{
+  font-size: 13px;
+}
+
+.csu-text-body{
+  font-size: 1rem;
+}
+
+.csu-text-header{
+  font-weight: 700;
+  letter-spacing: .11em;
+  line-height: 1.1em;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.csu-text-header-thin{
+  font-weight: 400;
+  letter-spacing: .11em;
+  line-height: 1.1em;
+  font-size: 20px;
+  text-transform: uppercase;
 }
