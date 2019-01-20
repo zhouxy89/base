@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './css/marginals.css';
+import './marginals.css';
 import {HeaderLogoLarge, HeaderLogoMedium, HeaderLogoSmall} from './HeaderLogo';
 
 /* Renders a text heading above the application with useful information.

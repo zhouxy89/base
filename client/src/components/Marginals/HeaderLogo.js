@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './css/marginals.css';
+import './marginals.css';
 
 /* These classes render the logos for the CSU header.
  */
