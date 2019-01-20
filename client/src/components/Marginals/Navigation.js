@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink, Button} from 'reactstrap';
-import './navbar.css'
+import './colostatewebstyle.css'
 
 export default class Navigation extends Component {
 

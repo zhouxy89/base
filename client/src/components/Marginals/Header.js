@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './marginals.css';
+import './colostatewebstyle.css';
 import {HeaderLogoLarge, HeaderLogoMedium, HeaderLogoSmall} from './HeaderLogo';
 
 /* Renders a text heading above the application with useful information.

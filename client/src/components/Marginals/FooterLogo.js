@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './marginals.css';
+import './colostatewebstyle.css';
 
 /* Renders a text footer below the application with copyright
  * and other useful information.
