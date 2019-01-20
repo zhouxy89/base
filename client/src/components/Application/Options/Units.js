@@ -23,7 +23,7 @@ export default class Units extends Component {
   renderUnitButtons(names) {
     return names.sort().map((unit) =>
       <Button
-        className='btn-outline-dark btn-light unit-button w-100 text-left'
+        className='btn-csu w-100 text-left'
         key={"button_"+unit}
         active={this.props.unit === unit}
         value={unit}

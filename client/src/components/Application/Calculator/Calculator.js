@@ -86,7 +86,7 @@ export default class Calculator extends Component {
         <CardHeader className='bg-csu-green text-white font-weight-bold'>Distance</CardHeader>
         <CardBody>
           <h5>{this.state.distance} {this.props.options.unit}</h5>
-          <Button onClick={this.calculateDistance}>Calculate</Button>
+          <Button className='btn-csu' onClick={this.calculateDistance}>Calculate</Button>
         </CardBody>
       </Card>
     )

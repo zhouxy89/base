@@ -20,7 +20,7 @@ export default class Interop extends Component {
                      value={this.state.inputText}
                      placeholder={this.props.serverPort}/>
               <br/>
-              <Button type='submit' className='btn-dark w-100'>Configure</Button>
+              <Button type='submit' className='btn-csu w-100'>Configure</Button>
             </form>
           </CardBody>
         </Card>
