@@ -13,7 +13,7 @@ export default class Interop extends Component {
   render() {
     return (
         <Card className='text-center'>
-          <CardHeader>Server</CardHeader>
+          <CardHeader className='bg-csu-green text-white font-weight-bold'>Server</CardHeader>
           <CardBody>
             <form onSubmit={this.updateServerPort.bind(this)}>
               <Input onChange={this.updateInputText.bind(this)}

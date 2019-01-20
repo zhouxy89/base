@@ -36,7 +36,7 @@ export default class Options extends Component{
   heading() {
     return (
         <Card>
-          <CardHeader>Options</CardHeader>
+          <CardHeader className='bg-csu-green text-white font-weight-bold'>Options</CardHeader>
           <CardBody>Select ...</CardBody>
         </Card>
     );

@@ -34,7 +34,7 @@ export default class Settings extends Component {
   heading() {
     return (
         <Card>
-          <CardHeader>Settings</CardHeader>
+          <CardHeader className='bg-csu-green text-white font-weight-bold'>Settings</CardHeader>
           <CardBody>Change global client settings...</CardBody>
         </Card>
     );
