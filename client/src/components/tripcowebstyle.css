@@ -84,7 +84,7 @@
 
 /* Bootstrap-esque classes for text. */
 .font-weight-semibold {
-    font-weight: 600;
+    font-family: 'proxima-semibold', sans-serif;
 }
 
 /* Global general tag stylings, originally from CSOO1.
