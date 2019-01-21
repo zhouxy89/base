@@ -9,10 +9,8 @@ export default class ErrorBanner extends Component {
 
   render() {
     return (
-      <Alert className='bg-csu-canyon text-white'>
-        <b>
+      <Alert className='bg-csu-canyon text-white font-weight-extrabold'>
           { `${ this.props.statusText } (${ this.props.statusCode }): ` }
-        </b>
         { this.props.message }
       </Alert>
     );
