@@ -49,7 +49,7 @@ export default class Calculator extends Component {
   create_header() {
     return (
       <Card>
-        <CardHeader>Calculator</CardHeader>
+        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Calculator</CardHeader>
         <CardBody>
           Determine the distance between the origin and destination.
           Change the units on the <b>Options</b> page.
@@ -63,7 +63,7 @@ export default class Calculator extends Component {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
     return (
       <Card>
-        <CardHeader>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
+        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
         <CardBody>
           <Form >
             <Input name='latitude' placeholder="Latitude"
@@ -83,10 +83,10 @@ export default class Calculator extends Component {
   create_distance() {
     return(
       <Card>
-        <CardHeader>Distance</CardHeader>
+        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Distance</CardHeader>
         <CardBody>
           <h5>{this.state.distance} {this.props.options.unit}</h5>
-          <Button onClick={this.calculateDistance}>Calculate</Button>
+          <Button className='btn-csu' onClick={this.calculateDistance}>Calculate</Button>
         </CardBody>
       </Card>
     )

@@ -9,7 +9,7 @@ export default class ErrorBanner extends Component {
 
   render() {
     return (
-      <Alert color="danger">
+      <Alert className='bg-csu-canyon text-white'>
         <b>
           { `${ this.props.statusText } (${ this.props.statusCode }): ` }
         </b>
