@@ -10,8 +10,7 @@ import java.lang.reflect.Type;
 
 import spark.Request;
 import spark.Response;
-import spark.Spark;
-import static spark.Spark.secure;
+import spark.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,8 @@ import org.slf4j.LoggerFactory;
 class MicroServer {
 
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
+  private Service http;
+  private Service https;
 
 
   MicroServer(int serverPort) {
@@ -34,25 +35,32 @@ class MicroServer {
 
 
   private void configureServer(int serverPort) {
-    Spark.port(serverPort);
     // @todo secure, others
-    secure("server/deploy/clientkeystore", "password", null, null);
+    http = Service.ignite().port(7088);
+    https = Service.ignite()
+            .port(serverPort)
+            .secure("server/deploy/clientkeystore", "password", null, null);
     log.trace("Server configuration complete");
   }
 
 
   private void serveStaticPages() {
+    // these redirects shouldn't really have 'localhost', since the client will then try to browse to localhost
+    // which may be different.  But these are coming out of the final pull request.
+    // Keeping this here in a commit, for the sake of a working example running/browsing on the dev server.
+    http.get("/", (req, res) -> {res.redirect("https://localhost:8088"); return null; });
+    http.get("/*", (req, res) -> {res.redirect("https://localhost:8088/" + req.splat()[0]); return null; });
     String path = "/public/";
-    Spark.staticFileLocation(path);
-    Spark.get("/", (req, res) -> { res.redirect("index.html"); return null; });
+    https.staticFileLocation(path);
+    https.get("/", (req, res) -> { res.redirect("index.html"); return null; });
     log.trace("Static file configuration complete");
   }
 
 
   private void processRestfulAPIrequests() {
-    Spark.get("/api/config", this::processTIPconfigRequest);
-    Spark.post("/api/distance", this::processTIPdistanceRequest);
-    Spark.get("/api/echo", this::echoHTTPrequest);
+    https.get("/api/config", this::processTIPconfigRequest);
+    https.post("/api/distance", this::processTIPdistanceRequest);
+    https.get("/api/echo", this::echoHTTPrequest);
     log.trace("Restful configuration complete");
   }
 
