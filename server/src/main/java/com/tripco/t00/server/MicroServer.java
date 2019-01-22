@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import static spark.Spark.secure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,6 @@ class MicroServer {
     configureServer(serverPort);
     serveStaticPages();
     processRestfulAPIrequests();
-
     log.info("MicroServer running on port: {}", serverPort);
   }
 
@@ -36,6 +36,7 @@ class MicroServer {
   private void configureServer(int serverPort) {
     Spark.port(serverPort);
     // @todo secure, others
+    secure("server/deploy/clientkeystore", "password", null, null);
     log.trace("Server configuration complete");
   }
 
