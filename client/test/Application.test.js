@@ -1,36 +1,55 @@
 import './enzyme.config.js'
 import React from 'react'
-import { shallow } from 'enzyme' // For shallow mounting a component without the sub-components rendered.
+import {shallow} from 'enzyme'
 import Application from '../src/components/Application/Application'
 
 
 function testInitialState() {
-    const app = shallow(<Application/>); // Returns a shallow wrapper for the Application component.
+  mockConfigResponse();
 
-    /* Get the initial properties of the rendered component (app) and compare them to expected values. */
-    let actualConfig = app.state().serverConfig;
-    let expectedConfig = null;
-    expect(actualConfig).toEqual(expectedConfig);
+  const app = shallow(<Application/>);
 
-    let actualOptions = app.state().planOptions;
-    let expectedOptions = {
-        units: { miles: 3959, kilometers: 6371 },
-        unit: 'miles'
-    };
+  let actualConfig = app.state().serverConfig;
+  let expectedConfig = null;
+  expect(actualConfig).toEqual(expectedConfig);
 
-    expect(actualOptions).toEqual(expectedOptions);
+  let actualOptions = app.state().planOptions;
+  let expectedOptions = {
+    units: {miles: 3959, kilometers: 6371},
+    activeUnit: 'miles'
+  };
+
+  expect(actualOptions).toEqual(expectedOptions);
+}
+
+function mockConfigResponse() {
+  fetch.mockResponse(JSON.stringify(
+      {
+        status: 200,
+        statusText: 'OK',
+        body: {
+          'placeAttributes': ["latitude", "longitude", "serverName"],
+          'requestType': "config",
+          'requestVersion': 1,
+          'serverName': "t00"
+        },
+        type: 'basic',
+        url: 'http://localhost:8088/api/config',
+        redirected: false,
+        ok: true
+      }));
 }
 
 test("Testing Application's initial state", testInitialState);
 
 function testUpdateOption() {
-    const app = shallow(<Application/>);
+  const app = shallow(<Application/>);
 
-    app.instance().updatePlanOption("unit", "kilometers"); // Calls the rendered component's instance function.
+  app.instance().updatePlanOption("activeUnit", "kilometers");
 
-    let actualUnit = app.state().planOptions.unit;
-    let expectedUnit = "kilometers";
-    expect(actualUnit).toEqual(expectedUnit);
+  let actualUnit = app.state().planOptions.activeUnit;
+  let expectedUnit = "kilometers";
+  expect(actualUnit).toEqual(expectedUnit);
 }
 
-test("Testing Application's updateOption function", testUpdateOption);
+test("Testing Application's updatePlanOption function", testUpdateOption);

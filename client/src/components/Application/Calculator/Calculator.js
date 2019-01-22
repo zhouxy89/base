@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'reactstrap'
 import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
-
 import { sendServerRequestWithBody } from '../../../api/restfulAPI'
 import ErrorBanner from '../ErrorBanner';
 
@@ -28,25 +27,25 @@ export default class Calculator extends Component {
         { this.state.errorMessage }
         <Row>
           <Col>
-            {this.create_header()}
+            {this.createHeader()}
           </Col>
         </Row>
         <Row>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('origin')}
+            {this.createInputFields('origin')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_input_fields('destination')}
+            {this.createInputFields('destination')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.create_distance()}
+            {this.createDistance()}
           </Col>
         </Row>
       </Container>
     );
   }
 
-  create_header() {
+  createHeader() {
     return (
       <Card>
         <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Calculator</CardHeader>
@@ -58,7 +57,7 @@ export default class Calculator extends Component {
     )
   }
 
-  create_input_fields(stateVar) {
+  createInputFields(stateVar) {
     let updateStateVarOnChange = (event) => {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
     return (
@@ -67,10 +66,12 @@ export default class Calculator extends Component {
         <CardBody>
           <Form >
             <Input name='latitude' placeholder="Latitude"
+                   id={stateVar+'Latitude'}
                    value={this.state[stateVar]['latitude']}
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}} />
             <Input name='longitude' placeholder="Longitude"
+                   id={stateVar+'Latitude'}
                    value={this.state[stateVar]['longitude']}
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}}/>
@@ -80,13 +81,13 @@ export default class Calculator extends Component {
     );
   }
 
-  create_distance() {
+  createDistance() {
     return(
       <Card>
         <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Distance</CardHeader>
         <CardBody>
-          <h5>{this.state.distance} {this.props.options.unit}</h5>
-          <Button className='btn-csu' onClick={this.calculateDistance}>Calculate</Button>
+          <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
+          <Button onClick={this.calculateDistance}>Calculate</Button>
         </CardBody>
       </Card>
     )
@@ -98,7 +99,7 @@ export default class Calculator extends Component {
       'version'     : 1,
       'origin'      : this.state.origin,
       'destination' : this.state.destination,
-      'earthRadius' : this.props.options.units[this.props.options.unit]
+      'earthRadius' : this.props.options.units[this.props.options.activeUnit]
     };
 
     sendServerRequestWithBody('distance', tipConfigRequest, this.props.settings.serverPort)

@@ -24,7 +24,7 @@ export default class Application extends Component {
       serverConfig: null,
       planOptions: {
         units: {'miles':3959, 'kilometers':6371},
-        unit: 'miles'
+        activeUnit: 'miles'
       },
       clientSettings: {
         serverPort: getOriginalServerPort()
