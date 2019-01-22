@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 /** The server for the single page web application. */
 public class WebApplication {
 
-  public static void main(String[] args) {
+  final Logger log = LoggerFactory.getLogger(WebApplication.class);
 
-    final Logger log = LoggerFactory.getLogger(WebApplication.class);
+  public static void main(String[] args) {
 
     Integer serverPort = getServerPort(args);
     String keystoreFile = getKeystoreFile(args);
@@ -26,8 +26,6 @@ public class WebApplication {
 
   private static int getServerPort(String[] args) {
 
-    final Logger log = LoggerFactory.getLogger(WebApplication.class);
-
     Integer serverPort = 8088;
     if (args.length > 0) {
       try {
@@ -42,8 +40,6 @@ public class WebApplication {
 
   private static String getKeystoreFile(String[] args) {
 
-    final Logger log = LoggerFactory.getLogger(WebApplication.class);
-
     if (args.length == 3) {
       String keystoreFile = args[1];
       log.info("Keystore file: {}", keystoreFile);
@@ -55,8 +51,6 @@ public class WebApplication {
   }
 
   private static String getKeystorePassword(String[] args) {
-
-    final Logger log = LoggerFactory.getLogger(WebApplication.class);
 
     if (args.length == 3) {
       String keystorePassword = args[2];
