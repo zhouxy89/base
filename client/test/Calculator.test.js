@@ -33,9 +33,7 @@ function testCreateInputFields() {
   expect(actualInputs).toEqual(expectedInputs);
 }
 
-/* Tests that createInputFields() correctly renders 4 Input components
- * with the corresponding names of latitude and longitude
- */
+/* Tests that createInputFields() correctly renders 4 Input components */
 test('Testing the createInputFields() function in Calculator', testCreateInputFields);
 
 function testInputOnChange() {
