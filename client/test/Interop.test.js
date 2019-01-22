@@ -23,7 +23,7 @@ function testInputExists() {
 
 test('Testing that an Input is rendered', testInputExists);
 
-function testupdateInputText() {
+function testUpdateInputText() {
   const interop = mount(<Interop serverPort={startProperties.serverPort}
                                  updateSetting={startProperties.updateSetting}/>);
 
@@ -41,7 +41,7 @@ function simulateOnChangeEvent(inputText, reactWrapper) {
 }
 
 test('Testing that the onChange event for Input updates the inputText field in'
-    + 'state', testupdateInputText);
+    + 'state', testUpdateInputText);
 
 function testUpdateServerPort() {
   mockConfigResponse();
@@ -59,12 +59,8 @@ function testUpdateServerPort() {
   interop.find('form').simulate('submit', { target: interop.find('Input') } );
 
   let actualAfterServerPort = application.state().clientSettings.serverPort;
-  let expectedAfterServerPort = inputText;
-  expect(actualAfterServerPort).toEqual(expectedAfterServerPort);
+  expect(actualAfterServerPort).toEqual(inputText);
 }
-
-test('Testing that the onClick event for the form updates the serverPort field '
-    + 'in Application', testUpdateServerPort);
 
 function mockConfigResponse() {
   fetch.mockResponse(JSON.stringify(
@@ -83,3 +79,7 @@ function mockConfigResponse() {
         ok: true
       }));
 }
+
+test('Testing that the onClick event for the form updates the serverPort field '
+    + 'in Application', testUpdateServerPort);
+

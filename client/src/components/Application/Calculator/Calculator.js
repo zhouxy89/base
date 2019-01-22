@@ -71,7 +71,7 @@ export default class Calculator extends Component {
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}} />
             <Input name='longitude' placeholder="Longitude"
-                   id={stateVar+'Latitude'}
+                   id={stateVar+'Longitude'}
                    value={this.state[stateVar]['longitude']}
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}}/>
