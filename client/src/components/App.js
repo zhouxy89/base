@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './format.css';
-import Header from './Marginals/Header';
-import Navigation from './Marginals/Navigation';
+import './tripcowebstyle.css';
+import Header from './Margins/Header';
+import Navigation from './Margins/Navigation';
 import Application from './Application/Application';
-import Footer from './Marginals/Footer';
+import Footer from './Margins/Footer';
 
 export default class App extends Component {
   constructor (props){

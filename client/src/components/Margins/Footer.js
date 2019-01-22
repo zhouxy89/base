@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './css/marginals.css';
+import './colostatewebstyle.css';
 import FooterLogo from './FooterLogo';
 
 /* Renders a text footer below the application with department,copyright,
