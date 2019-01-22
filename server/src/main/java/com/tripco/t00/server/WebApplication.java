@@ -11,9 +11,11 @@ public class WebApplication {
     final Logger log = LoggerFactory.getLogger(WebApplication.class);
 
     Integer serverPort = getServerPort(args);
+    String keystoreFile = getKeystoreFile(args);
+    String keystorePassword = getKeystorePassword(args);
 
     if ( validTcpIpPortNumber(serverPort) ) {
-      MicroServer server = new MicroServer(serverPort);
+      MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);
       // never returns
     }
     else {
@@ -36,6 +38,34 @@ public class WebApplication {
     }
     log.info("Server port: {}", serverPort);
     return serverPort;
+  }
+
+  private static String getKeystoreFile(String[] args) {
+
+    final Logger log = LoggerFactory.getLogger(WebApplication.class);
+
+    if (args.length == 3) {
+      String keystoreFile = args[1];
+      log.info("Keystore file: {}", keystoreFile);
+      return keystoreFile;
+    }
+    else {
+      return null;
+    }
+  }
+
+  private static String getKeystorePassword(String[] args) {
+
+    final Logger log = LoggerFactory.getLogger(WebApplication.class);
+
+    if (args.length == 3) {
+      String keystorePassword = args[2];
+      log.info("Keystore password: {}", keystorePassword);
+      return keystorePassword;
+    }
+    else {
+      return null;
+    }
   }
 
   private static boolean validTcpIpPortNumber(int portNumber) {

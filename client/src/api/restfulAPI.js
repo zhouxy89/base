@@ -4,7 +4,7 @@
 
 export function sendServerRequest(
     requestType, serverPort=getOriginalServerPort()) {
-  const restfulAPI = `https://${serverPort}/api/${requestType}`;
+  const restfulAPI = `${serverPort}/api/${requestType}`;
   const requestOptions = {
     method: "GET"};
   return processRestfulAPI(restfulAPI, requestOptions);
@@ -13,7 +13,7 @@ export function sendServerRequest(
 
 export function sendServerRequestWithBody(
     requestType, requestBody, serverPort=getOriginalServerPort()) {
-  const restfulAPI = `https://${serverPort}/api/${requestType}`;
+  const restfulAPI = `${serverPort}/api/${requestType}`;
   const requestOptions = {
     method: "POST",
     body: JSON.stringify(requestBody)};
@@ -38,10 +38,11 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
 
 
 export function getOriginalServerPort() {
+  const serverProtocol = location.protocol;
   const serverHost = location.hostname;
   const serverPort = location.port;
   const alternatePort = process.env.dev;
-  return `${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
+  return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
 
 

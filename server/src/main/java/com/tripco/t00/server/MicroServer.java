@@ -22,45 +22,43 @@ import org.slf4j.LoggerFactory;
 class MicroServer {
 
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
-  private Service http;
-  private Service https;
+  private Service service;
 
 
-  MicroServer(int serverPort) {
-    configureServer(serverPort);
+  MicroServer(int serverPort, String keystoreFile, String keystorePassword) {
+    configureServer(serverPort, keystoreFile, keystorePassword);
     serveStaticPages();
     processRestfulAPIrequests();
     log.info("MicroServer running on port: {}", serverPort);
   }
 
 
-  private void configureServer(int serverPort) {
+  private void configureServer(int serverPort, String keystoreFile, String keystorePassword) {
     // @todo secure, others
-    http = Service.ignite().port(7088);
-    https = Service.ignite()
-            .port(serverPort)
-            .secure("server/deploy/clientkeystore", "password", null, null);
+    service = Service.ignite().port(serverPort);
+    if (keystoreFile != null && keystorePassword != null) {
+      service.secure(keystoreFile, keystorePassword, null, null);
+      log.info("MicroServer using HTTPS.");
+    }
+    else {
+      log.info("MicroServer using HTTP.");
+    }
     log.trace("Server configuration complete");
   }
 
 
   private void serveStaticPages() {
-    // these redirects shouldn't really have 'localhost', since the client will then try to browse to localhost
-    // which may be different.  But these are coming out of the final pull request.
-    // Keeping this here in a commit, for the sake of a working example running/browsing on the dev server.
-    http.get("/", (req, res) -> {res.redirect("https://localhost:8088"); return null; });
-    http.get("/*", (req, res) -> {res.redirect("https://localhost:8088/" + req.splat()[0]); return null; });
     String path = "/public/";
-    https.staticFileLocation(path);
-    https.get("/", (req, res) -> { res.redirect("index.html"); return null; });
+    service.staticFileLocation(path);
+    service.get("/", (req, res) -> { res.redirect("index.html"); return null; });
     log.trace("Static file configuration complete");
   }
 
 
   private void processRestfulAPIrequests() {
-    https.get("/api/config", this::processTIPconfigRequest);
-    https.post("/api/distance", this::processTIPdistanceRequest);
-    https.get("/api/echo", this::echoHTTPrequest);
+    service.get("/api/config", this::processTIPconfigRequest);
+    service.post("/api/distance", this::processTIPdistanceRequest);
+    service.get("/api/echo", this::echoHTTPrequest);
     log.trace("Restful configuration complete");
   }
 
