@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import static spark.Spark.secure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,18 +25,24 @@ class MicroServer {
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
 
 
-  MicroServer(int serverPort) {
-    configureServer(serverPort);
+  MicroServer(int serverPort, String keystoreFile, String keystorePassword) {
+    configureServer(serverPort, keystoreFile, keystorePassword);
     serveStaticPages();
     processRestfulAPIrequests();
-
     log.info("MicroServer running on port: {}", serverPort);
   }
 
 
-  private void configureServer(int serverPort) {
-    Spark.port(serverPort);
+  private void configureServer(int serverPort, String keystoreFile, String keystorePassword) {
     // @todo secure, others
+    Spark.port(serverPort);
+    if (keystoreFile != null && keystorePassword != null) {
+      secure(keystoreFile, keystorePassword, null, null);
+      log.info("MicroServer using HTTPS.");
+    }
+    else {
+      log.info("MicroServer using HTTP.");
+    }
     log.trace("Server configuration complete");
   }
 
