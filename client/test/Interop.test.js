@@ -49,12 +49,12 @@ function testUpdateServerPort() {
   const application = mount(<Application/>);
 
   let actualBeforeServerPort = application.state().clientSettings.serverPort;
-  let expectedBeforeServerPort = location.hostname + ':';
+  let expectedBeforeServerPort = `http://${location.hostname}:`;
   expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
 
   const interop = application.find('Interop');
 
-  let inputText = 'black-bottle.cs.colostate.edu:31400';
+  let inputText = 'https://black-bottle.cs.colostate.edu:31400';
   simulateOnChangeEvent(inputText, interop);
   interop.find('form').simulate('submit', { target: interop.find('Input') } );
 
