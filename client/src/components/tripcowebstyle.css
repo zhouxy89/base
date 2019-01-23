@@ -82,9 +82,40 @@
     background-color: #D9782D;
 }
 
-/* Bootstrap-esque classes for text. */
+/* Proxima font weights. */
+.font-weight-thin {
+    font-family: prox-thin, sans-serif;
+    font-weight: normal;
+}
+
+.font-weight-light {
+    font-family: prox-light, sans-serif;
+    font-weight: normal;
+}
+
+.font-weight-normal {
+    font-family: prox-regular, sans-serif;
+    font-weight: normal;
+}
+
 .font-weight-semibold {
-    font-family: 'proxima-semibold', sans-serif;
+    font-family: prox-semibold, sans-serif;
+    font-weight: normal;
+}
+
+.font-weight-bold {
+    font-family: prox-regular, sans-serif;
+    font-weight: normal;
+}
+
+.font-weight-extrabold {
+    font-family: prox-extra-bold, sans-serif;
+    font-weight: normal;
+}
+
+.font-weight-black {
+    font-family: prox-black, sans-serif;
+    font-weight: normal;
 }
 
 /* Global general tag stylings, originally from CSOO1.

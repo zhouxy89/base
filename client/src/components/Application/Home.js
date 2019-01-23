@@ -48,7 +48,7 @@ export default class Home extends Component {
         />
         <Marker position={this.csuOvalGeographicCoordinates()}
                 icon={this.markerIcon()}>
-          <Popup>Colorado State University</Popup>
+          <Popup className="font-weight-extrabold">Colorado State University</Popup>
         </Marker>
       </Map>
     )
