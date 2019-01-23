@@ -10,12 +10,17 @@ public class WebApplication {
 
   public static void main(String[] commandLineArguments) {
 
+    if (commandLineArguments.length > 1) {
+      log.error("Too many command line arguments given. Expected 1 but found {}.", commandLineArguments.length);
+      System.exit(1);
+    }
+
     Integer serverPort = getServerPort(commandLineArguments);
     String keystoreFile = getKeystoreFile();
     String keystorePassword = getKeystorePassword();
 
     if ( validTcpIpPortNumber(serverPort) ) {
-      MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);
+      MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);  // constructor never returns
     }
     else {
       log.error("Port number argument {} not a valid TCP/IP port.", serverPort);
