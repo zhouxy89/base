@@ -64,8 +64,10 @@ function simulateOnChangeEvent(inputIndex, reactWrapper) {
     case 2:
       reactWrapper.find('#destinationLatitude').at(0).simulate('change', event);
       break;
-    default:
+    case 3:
       reactWrapper.find('#destinationLongitude').at(0).simulate('change', event);
+      break;
+    default:
   }
   reactWrapper.update();
 }
