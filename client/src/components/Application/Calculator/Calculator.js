@@ -66,12 +66,12 @@ export default class Calculator extends Component {
         <CardBody>
           <Form >
             <Input name='latitude' placeholder="Latitude"
-                   id={stateVar+'Latitude'}
+                   id={`${stateVar}Latitude`}
                    value={this.state[stateVar]['latitude']}
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}} />
             <Input name='longitude' placeholder="Longitude"
-                   id={stateVar+'Longitude'}
+                   id={`${stateVar}Longitude`}
                    value={this.state[stateVar]['longitude']}
                    onChange={updateStateVarOnChange}
                    style={{width: "100%"}}/>
