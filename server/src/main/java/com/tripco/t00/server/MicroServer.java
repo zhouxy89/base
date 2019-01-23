@@ -10,7 +10,8 @@ import java.lang.reflect.Type;
 
 import spark.Request;
 import spark.Response;
-import spark.Service;
+import spark.Spark;
+import static spark.Spark.secure;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,6 @@ import org.slf4j.LoggerFactory;
 class MicroServer {
 
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
-  private Service service;
 
 
   MicroServer(int serverPort, String keystoreFile, String keystorePassword) {
@@ -35,9 +35,9 @@ class MicroServer {
 
   private void configureServer(int serverPort, String keystoreFile, String keystorePassword) {
     // @todo secure, others
-    service = Service.ignite().port(serverPort);
+    Spark.port(serverPort);
     if (keystoreFile != null && keystorePassword != null) {
-      service.secure(keystoreFile, keystorePassword, null, null);
+      secure(keystoreFile, keystorePassword, null, null);
       log.info("MicroServer using HTTPS.");
     }
     else {
@@ -49,16 +49,16 @@ class MicroServer {
 
   private void serveStaticPages() {
     String path = "/public/";
-    service.staticFileLocation(path);
-    service.get("/", (req, res) -> { res.redirect("index.html"); return null; });
+    Spark.staticFileLocation(path);
+    Spark.get("/", (req, res) -> { res.redirect("index.html"); return null; });
     log.trace("Static file configuration complete");
   }
 
 
   private void processRestfulAPIrequests() {
-    service.get("/api/config", this::processTIPconfigRequest);
-    service.post("/api/distance", this::processTIPdistanceRequest);
-    service.get("/api/echo", this::echoHTTPrequest);
+    Spark.get("/api/config", this::processTIPconfigRequest);
+    Spark.post("/api/distance", this::processTIPdistanceRequest);
+    Spark.get("/api/echo", this::echoHTTPrequest);
     log.trace("Restful configuration complete");
   }
 
