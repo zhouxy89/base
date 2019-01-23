@@ -2,6 +2,7 @@ package com.tripco.t00.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.HashMap;
 
 /** The server for the single page web application. */
 public class WebApplication {
@@ -16,8 +17,12 @@ public class WebApplication {
     }
 
     Integer serverPort = getServerPort(commandLineArguments);
-    String keystoreFile = getKeystoreFile();
-    String keystorePassword = getKeystorePassword();
+    HashMap<String, String> keystoreData = getKeystoreFromEnvironment();
+    String keystoreFile = keystoreData.get("filePath");
+    String keystorePassword = keystoreData.get("password");
+
+    if (keystoreFile != null) { log.info("Keystore file: {}", keystoreFile); }
+    if (keystorePassword != null) { log.info("Keystore password: {}", keystorePassword); }
 
     if ( validTcpIpPortNumber(serverPort) ) {
       MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);  // constructor never returns
@@ -42,20 +47,11 @@ public class WebApplication {
     return serverPort;
   }
 
-  private static String getKeystoreFile() {
-    String keystoreFile = System.getenv("KEYSTORE_FILE");
-    if (keystoreFile != null) {
-      log.info("Keystore file: {}", keystoreFile);
-    }
-    return keystoreFile;
-  }
-
-  private static String getKeystorePassword() {
-    String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
-    if (keystorePassword != null) {
-      log.info("Keystore password: {}", keystorePassword);
-    }
-    return keystorePassword;
+  private static HashMap<String, String> getKeystoreFromEnvironment() {
+    HashMap<String, String> keystoreData = new HashMap<>();
+    keystoreData.put("filePath", System.getenv("KEYSTORE_FILE"));
+    keystoreData.put("password", System.getenv("KEYSTORE_PASSWORD"));
+    return keystoreData;
   }
 
   private static boolean validTcpIpPortNumber(int portNumber) {
