@@ -16,7 +16,6 @@ public class WebApplication {
 
     if ( validTcpIpPortNumber(serverPort) ) {
       MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);
-      // never returns
     }
     else {
       log.error("Port number argument {} not a valid TCP/IP port.", serverPort);
