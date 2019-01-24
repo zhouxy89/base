@@ -13,7 +13,6 @@ export default class Settings extends Component {
   }
 
   render() {
-    //console.log('settings.js RENDER -->');
     return (
       <Container>
         <Row>
