@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
 import { sendServerRequestWithBody } from '../../../api/restfulAPI'
-import ErrorBanner from '../ErrorBanner';
+import Pane from '../Pane';
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -48,14 +48,10 @@ export default class Calculator extends Component {
 
   createHeader() {
     return (
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Calculator</CardHeader>
-        <CardBody>
-          Determine the distance between the origin and destination.
-          Change the units on the <b>Options</b> page.
-        </CardBody>
-      </Card>
-    )
+        <Pane header={'Calculator'}
+              bodyJSX={<div>Determine the distance between the origin and destination.
+                Change the units on the <b>Options</b> page.</div>}/>
+    );
   }
 
   createInputField(stateVar, coordinate) {
@@ -76,28 +72,22 @@ export default class Calculator extends Component {
   createForm(stateVar) {
 
     return (
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
-        <CardBody>
-          <Form >
-            {this.createInputField(stateVar, 'latitude')}
-            {this.createInputField(stateVar, 'longitude')}
-          </Form>
-        </CardBody>
-      </Card>
+      <Pane header={stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}
+            bodyJSX={<Form >
+                {this.createInputField(stateVar, 'latitude')}
+                {this.createInputField(stateVar, 'longitude')}
+              </Form>}/>
     );
   }
 
   createDistance() {
     return(
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Distance</CardHeader>
-        <CardBody>
-          <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
-          <Button onClick={this.calculateDistance}>Calculate</Button>
-        </CardBody>
-      </Card>
-    )
+      <Pane header={'Distance'}
+            bodyJSX={<div>
+              <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
+              <Button onClick={this.calculateDistance}>Calculate</Button>
+            </div>}/>
+    );
   }
 
   calculateDistance() {

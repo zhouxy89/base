@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container } from 'reactstrap';
+import {Card, CardBody, CardHeader, Container} from 'reactstrap';
 
 import Home from './Home';
 import Options from './Options/Options';
@@ -81,15 +81,15 @@ export default class Application extends Component {
     switch(pageToRender) {
       case 'calc':
         return <Calculator options={this.state.planOptions}
-                                        settings={this.state.clientSettings}
-                                        createErrorBanner={this.createErrorBanner}/>;
+                           settings={this.state.clientSettings}
+                           createErrorBanner={this.createErrorBanner}/>;
       case 'options':
         return <Options options={this.state.planOptions}
-                                     config={this.state.serverConfig}
-                                     updateOption={this.updatePlanOption}/>;
+                        config={this.state.serverConfig}
+                        updateOption={this.updatePlanOption}/>;
       case 'settings':
         return <Settings settings={this.state.clientSettings}
-                                      updateSetting={this.updateClientSetting}/>;
+                         updateSetting={this.updateClientSetting}/>;
       default:
         return <Home/>;
     }
