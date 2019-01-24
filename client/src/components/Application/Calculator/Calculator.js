@@ -63,7 +63,6 @@ export default class Calculator extends Component {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
 
     let capitalizedCoordinate = coordinate.charAt(0).toUpperCase() + coordinate.slice(1);
-    console.log(capitalizedCoordinate);
     return (
       <Input name={coordinate} placeholder={capitalizedCoordinate}
              id={`${stateVar}${capitalizedCoordinate}`}
