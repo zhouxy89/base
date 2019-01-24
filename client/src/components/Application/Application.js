@@ -51,6 +51,7 @@ export default class Application extends Component {
         break;
       case 'settings':
         componentToRender = <Settings settings={this.state.clientSettings}
+                                 serverConfig={this.state.serverConfig}
                                  updateSetting={this.updateClientSetting}/>;
         break;
       default:
