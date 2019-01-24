@@ -22,7 +22,8 @@ export default class Interop extends Component {
         <Card>
           <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Server</CardHeader>
           <CardBody>
-            <p>Current server name: {currentServerName}</p>
+            <p>Current server name:</p>
+            <p className='font-weight-bold'>{currentServerName}</p>
             <p>Configure new server:</p>
             <form onSubmit={this.updateServerPort}>
               <Input onChange={this.updateInputText}
