@@ -42,7 +42,7 @@ export default class Application extends Component {
     switch(pageToRender) {
       case 'calc':
         componentToRender = <Calculator options={this.state.planOptions}
-                                   settings={this.state.clientSettings}
+                                        settings={this.state.clientSettings}
                                    generateErrorBanner={this.createErrorBanner}/>;
         break;
       case 'options':
@@ -60,8 +60,7 @@ export default class Application extends Component {
 
     return (
       <div className='application-width'>
-        { this.state.errorMessage }
-        { componentToRender }
+        { this.state.errorMessage }{ componentToRender }
       </div>
     );
   }
