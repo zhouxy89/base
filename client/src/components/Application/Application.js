@@ -43,7 +43,7 @@ export default class Application extends Component {
       case 'calc':
         componentToRender = <Calculator options={this.state.planOptions}
                                         settings={this.state.clientSettings}
-                                   generateErrorBanner={this.createErrorBanner}/>;
+                                        createErrorBanner={this.createErrorBanner}/>;
         break;
       case 'options':
         componentToRender = <Options options={this.state.planOptions}
