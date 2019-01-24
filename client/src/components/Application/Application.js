@@ -43,7 +43,7 @@ export default class Application extends Component {
       case 'calc':
         componentToRender = <Calculator options={this.state.planOptions}
                                    settings={this.state.clientSettings}
-                                   generateErrorBanner={this.generateErrorBanner}/>;
+                                   generateErrorBanner={this.createErrorBanner}/>;
         break;
       case 'options':
         componentToRender = <Options options={this.state.planOptions}
@@ -89,7 +89,7 @@ export default class Application extends Component {
     });
   }
 
-  generateErrorBanner(statusText, statusCode, message) {
+  createErrorBanner(statusText, statusCode, message) {
     return (
       <ErrorBanner statusText={statusText}
                    statusCode={statusCode}
@@ -110,7 +110,7 @@ export default class Application extends Component {
         serverConfig: null,
         errorMessage:
           <Container>
-            {this.generateErrorBanner(config.statusText, config.statusCode,
+            {this.createErrorBanner(config.statusText, config.statusCode,
             `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
           </Container>
       });

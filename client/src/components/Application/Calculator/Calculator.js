@@ -12,6 +12,7 @@ export default class Calculator extends Component {
 
     this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
     this.calculateDistance = this.calculateDistance.bind(this);
+    this.createInputField = this.createInputField.bind(this);
 
     this.state = {
       origin: {latitude: '', longitude: ''},
@@ -32,10 +33,10 @@ export default class Calculator extends Component {
         </Row>
         <Row>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.createInputFields('origin')}
+            {this.createForm('origin')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.createInputFields('destination')}
+            {this.createForm('destination')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
             {this.createDistance()}
@@ -57,24 +58,31 @@ export default class Calculator extends Component {
     )
   }
 
-  createInputFields(stateVar) {
+  createInputField(stateVar, coordinate) {
     let updateStateVarOnChange = (event) => {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
+
+    let capitalizedCoordinate = coordinate.charAt(0).toUpperCase() + coordinate.slice(1);
+    console.log(capitalizedCoordinate);
+    return (
+      <Input name={coordinate} placeholder={capitalizedCoordinate}
+             id={`${stateVar}${capitalizedCoordinate}`}
+             value={this.state[stateVar][coordinate]}
+             onChange={updateStateVarOnChange}
+             style={{width: "100%"}} />
+    );
+
+  }
+
+  createForm(stateVar) {
+
     return (
       <Card>
         <CardHeader className='bg-csu-gold text-white font-weight-semibold'>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
         <CardBody>
           <Form >
-            <Input name='latitude' placeholder="Latitude"
-                   id={`${stateVar}Latitude`}
-                   value={this.state[stateVar]['latitude']}
-                   onChange={updateStateVarOnChange}
-                   style={{width: "100%"}} />
-            <Input name='longitude' placeholder="Longitude"
-                   id={`${stateVar}Longitude`}
-                   value={this.state[stateVar]['longitude']}
-                   onChange={updateStateVarOnChange}
-                   style={{width: "100%"}}/>
+            {this.createInputField(stateVar, 'latitude')}
+            {this.createInputField(stateVar, 'longitude')}
           </Form>
         </CardBody>
       </Card>
@@ -112,7 +120,7 @@ export default class Calculator extends Component {
         }
         else {
           this.setState({
-            errorMessage: this.props.generateErrorBanner(
+            errorMessage: this.props.createErrorBanner(
                 response.statusText,
                 response.statusCode,
                 `Request to ${ this.props.settings.serverPort } failed.`

@@ -33,8 +33,8 @@ function testCreateInputFields() {
   expect(actualInputs).toEqual(expectedInputs);
 }
 
-/* Tests that createInputFields() correctly renders 4 Input components */
-test('Testing the createInputFields() function in Calculator', testCreateInputFields);
+/* Tests that createForm() correctly renders 4 Input components */
+test('Testing the createForm() function in Calculator', testCreateInputFields);
 
 function testInputsOnChange() {
   const calculator = mount((
