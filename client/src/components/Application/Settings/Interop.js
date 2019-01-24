@@ -15,10 +15,15 @@ export default class Interop extends Component {
   }
 
   render() {
+    if (this.props.serverConfig) {
+      var currentServerName = this.props.serverConfig.serverName;
+    }
     return (
-        <Card className='text-center'>
+        <Card>
           <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Server</CardHeader>
           <CardBody>
+            <p> Current server name: {currentServerName} </p>
+            <p>Configure new server:</p>
             <form onSubmit={this.updateServerPort}>
               <Input onChange={this.updateInputText}
                      value={this.state.inputText}
