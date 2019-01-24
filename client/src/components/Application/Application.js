@@ -18,6 +18,7 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
+    this.createApplicationPage = this.createApplicationPage.bind(this);
 
     // @todo which units should we provide?
     this.state = {
@@ -37,30 +38,10 @@ export default class Application extends Component {
 
   render() {
     let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
-    let componentToRender = null;
-
-    switch(pageToRender) {
-      case 'calc':
-        componentToRender = <Calculator options={this.state.planOptions}
-                                        settings={this.state.clientSettings}
-                                        createErrorBanner={this.createErrorBanner}/>;
-        break;
-      case 'options':
-        componentToRender = <Options options={this.state.planOptions}
-                                config={this.state.serverConfig}
-                                updateOption={this.updatePlanOption}/>;
-        break;
-      case 'settings':
-        componentToRender = <Settings settings={this.state.clientSettings}
-                                 updateSetting={this.updateClientSetting}/>;
-        break;
-      default:
-        componentToRender = <Home/>;
-    }
 
     return (
       <div className='application-width'>
-        { this.state.errorMessage }{ componentToRender }
+        { this.state.errorMessage }{ this.createApplicationPage(pageToRender) }
       </div>
     );
   }
@@ -94,6 +75,24 @@ export default class Application extends Component {
                    statusCode={statusCode}
                    message={message}/>
     );
+  }
+
+  createApplicationPage(pageToRender) {
+    switch(pageToRender) {
+      case 'calc':
+        return <Calculator options={this.state.planOptions}
+                                        settings={this.state.clientSettings}
+                                        createErrorBanner={this.createErrorBanner}/>;
+      case 'options':
+        return <Options options={this.state.planOptions}
+                                     config={this.state.serverConfig}
+                                     updateOption={this.updatePlanOption}/>;
+      case 'settings':
+        return <Settings settings={this.state.clientSettings}
+                                      updateSetting={this.updateClientSetting}/>;
+      default:
+        return <Home/>;
+    }
   }
 
   processConfigResponse(config) {
