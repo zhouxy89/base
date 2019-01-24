@@ -17,15 +17,8 @@ public class WebApplication {
     }
 
     Integer serverPort = getServerPort(commandLineArguments);
-    HashMap<String, String> keystoreData = getKeystoreFromEnvironment();
-    String keystoreFile = keystoreData.get("filePath");
-    String keystorePassword = keystoreData.get("password");
-
-    if (keystoreFile != null) { log.info("Keystore file: {}", keystoreFile); }
-    if (keystorePassword != null) { log.info("Keystore password: {}", keystorePassword); }
-
     if ( validTcpIpPortNumber(serverPort) ) {
-      MicroServer server = new MicroServer(serverPort, keystoreFile, keystorePassword);  // constructor never returns
+      MicroServer server = new MicroServer(serverPort);  // constructor never returns
     }
     else {
       log.error("Port number argument {} not a valid TCP/IP port.", serverPort);
@@ -47,12 +40,6 @@ public class WebApplication {
     return serverPort;
   }
 
-  private static HashMap<String, String> getKeystoreFromEnvironment() {
-    HashMap<String, String> keystoreData = new HashMap<>();
-    keystoreData.put("filePath", System.getenv("KEYSTORE_FILE"));
-    keystoreData.put("password", System.getenv("KEYSTORE_PASSWORD"));
-    return keystoreData;
-  }
 
   private static boolean validTcpIpPortNumber(int portNumber) {
     return (portNumber >= 0 & portNumber <= 65535);
