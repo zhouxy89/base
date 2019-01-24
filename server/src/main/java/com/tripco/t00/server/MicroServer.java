@@ -25,19 +25,23 @@ class MicroServer {
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
 
 
-  MicroServer(int serverPort, String keystoreFile, String keystorePassword) {
-    configureServer(serverPort, keystoreFile, keystorePassword);
+  MicroServer(int serverPort) {
+    configureServer(serverPort);
     serveStaticPages();
     processRestfulAPIrequests();
     log.info("MicroServer running on port: {}", serverPort);
   }
 
 
-  private void configureServer(int serverPort, String keystoreFile, String keystorePassword) {
+  private void configureServer(int serverPort) {
     // @todo secure, others
     Spark.port(serverPort);
+    String keystoreFile = System.getenv("KEYSTORE_FILE");
+    String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
     if (keystoreFile != null && keystorePassword != null) {
       secure(keystoreFile, keystorePassword, null, null);
+      log.info("Keystore file: {}", keystoreFile);
+      log.info("Keystore password: {}", keystorePassword);
       log.info("MicroServer using HTTPS.");
     }
     else {
