@@ -42,7 +42,8 @@ export default class Application extends Component {
     switch(pageToRender) {
       case 'calc':
         componentToRender = <Calculator options={this.state.planOptions}
-                                   settings={this.state.clientSettings}/>;
+                                   settings={this.state.clientSettings}
+                                   generateErrorBanner={this.generateErrorBanner}/>;
         break;
       case 'options':
         componentToRender = <Options options={this.state.planOptions}
@@ -88,6 +89,14 @@ export default class Application extends Component {
     });
   }
 
+  generateErrorBanner(statusText, statusCode, message) {
+    return (
+      <ErrorBanner statusText={statusText}
+                   statusCode={statusCode}
+                   message={message}/>
+    );
+  }
+
   processConfigResponse(config) {
     if(config.statusCode >= 200 && config.statusCode <= 299) {
       console.log("Switching to server ", this.state.clientSettings.serverPort);
@@ -99,13 +108,11 @@ export default class Application extends Component {
     else {
       this.setState({
         serverConfig: null,
-        errorMessage: (
+        errorMessage:
           <Container>
-            <ErrorBanner statusText={ config.statusText }
-                         statusCode={ config.statusCode }
-                         message={ `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.` } />
+            {this.generateErrorBanner(config.statusText, config.statusCode,
+            `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
           </Container>
-        )
       });
     }
   }
