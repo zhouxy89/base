@@ -23,6 +23,7 @@ export default class Settings extends Component {
         <Row>
           <Col xs="12" sm="12" md="6" lg="4" xl="3">
             <Interop serverPort={this.props.settings.serverPort}
+                     serverConfig={this.props.serverConfig}
                      updateSetting={this.props.updateSetting}/>
           </Col>
         </Row>
