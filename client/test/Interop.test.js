@@ -1,7 +1,7 @@
 import './enzyme.config.js';
 import React from 'react';
 import {Input} from 'reactstrap';
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import Application from '../src/components/Application/Application';
 import Interop from '../src/components/Application/Settings/Interop';
 
@@ -13,7 +13,7 @@ const startProperties = {
 };
 
 function testInputExists() {
-  const interop = shallow(<Interop serverPort={startProperties.serverPort}
+  const interop = mount(<Interop serverPort={startProperties.serverPort}
                                    updateSetting={startProperties.updateSetting}/>);
 
   expect(interop.contains(<Input onChange={interop.instance().updateInputText}
@@ -56,7 +56,7 @@ function testUpdateServerPort() {
 
   let inputText = 'https://black-bottle.cs.colostate.edu:31400';
   simulateOnChangeEvent(inputText, interop);
-  interop.find('form').at(1).simulate('submit', { target: interop.find('Input') } );
+  interop.find('form').simulate('submit', { target: interop.find('Input') } );
 
   let actualAfterServerPort = application.state().clientSettings.serverPort;
   expect(actualAfterServerPort).toEqual(inputText);
