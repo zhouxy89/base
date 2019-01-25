@@ -36,7 +36,7 @@ function testUpdateInputText() {
 
 function simulateOnChangeEvent(inputText, reactWrapper) {
   let event = {target: {value: inputText}};
-  reactWrapper.find('Input').simulate('change', event);
+  reactWrapper.find('Input').at(1).simulate('change', event);
   reactWrapper.update();
 }
 
@@ -56,7 +56,7 @@ function testUpdateServerPort() {
 
   let inputText = 'https://black-bottle.cs.colostate.edu:31400';
   simulateOnChangeEvent(inputText, interop);
-  interop.find('form').simulate('submit', { target: interop.find('Input') } );
+  interop.find('form').at(1).simulate('submit', { target: interop.find('Input') } );
 
   let actualAfterServerPort = application.state().clientSettings.serverPort;
   expect(actualAfterServerPort).toEqual(inputText);
