@@ -70,7 +70,6 @@ export default class Calculator extends Component {
   }
 
   createForm(stateVar) {
-
     return (
       <Pane header={stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}
             bodyJSX={<Form >
