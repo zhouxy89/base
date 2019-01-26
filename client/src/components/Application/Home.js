@@ -6,6 +6,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import Pane from './Pane'
 
 /*
  * Renders the home page.
@@ -29,10 +30,8 @@ export default class Home extends Component {
 
   renderMap() {
     return (
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Where's Waldo?</CardHeader>
-        <CardBody>{this.renderLeafletMap()}</CardBody>
-      </Card>
+      <Pane header={'Where Am I?'}
+            bodyJSX={this.renderLeafletMap()}/>
     );
   }
 
@@ -56,12 +55,8 @@ export default class Home extends Component {
 
   renderIntro() {
     return(
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Bon Voyage!</CardHeader>
-        <CardBody>
-          Let us help you plan your next trip.
-        </CardBody>
-      </Card>
+      <Pane header={'Bon Voyage!'}
+            bodyJSX={'Let us help you plan your next trip.'}/>
     );
   }
 

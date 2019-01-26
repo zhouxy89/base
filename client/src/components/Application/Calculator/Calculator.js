@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { Card, CardHeader, CardBody } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
 import { sendServerRequestWithBody } from '../../../api/restfulAPI'
-import ErrorBanner from '../ErrorBanner';
+import Pane from '../Pane';
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -12,6 +11,7 @@ export default class Calculator extends Component {
 
     this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
     this.calculateDistance = this.calculateDistance.bind(this);
+    this.createInputField = this.createInputField.bind(this);
 
     this.state = {
       origin: {latitude: '', longitude: ''},
@@ -32,10 +32,10 @@ export default class Calculator extends Component {
         </Row>
         <Row>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.createInputFields('origin')}
+            {this.createForm('origin')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
-            {this.createInputFields('destination')}
+            {this.createForm('destination')}
           </Col>
           <Col xs={12} sm={6} md={4} lg={3}>
             {this.createDistance()}
@@ -47,50 +47,49 @@ export default class Calculator extends Component {
 
   createHeader() {
     return (
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Calculator</CardHeader>
-        <CardBody>
-          Determine the distance between the origin and destination.
-          Change the units on the <b>Options</b> page.
-        </CardBody>
-      </Card>
-    )
+        <Pane header={'Calculator'}
+              bodyJSX={<div>Determine the distance between the origin and destination.
+                Change the units on the <b>Options</b> page.</div>}/>
+    );
   }
 
-  createInputFields(stateVar) {
+  createInputField(stateVar, coordinate) {
     let updateStateVarOnChange = (event) => {
       this.updateLocationOnChange(stateVar, event.target.name, event.target.value)};
+
+    let capitalizedCoordinate = coordinate.charAt(0).toUpperCase() + coordinate.slice(1);
     return (
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>{stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}</CardHeader>
-        <CardBody>
-          <Form >
-            <Input name='latitude' placeholder="Latitude"
-                   id={`${stateVar}Latitude`}
-                   value={this.state[stateVar]['latitude']}
-                   onChange={updateStateVarOnChange}
-                   style={{width: "100%"}} />
-            <Input name='longitude' placeholder="Longitude"
-                   id={`${stateVar}Longitude`}
-                   value={this.state[stateVar]['longitude']}
-                   onChange={updateStateVarOnChange}
-                   style={{width: "100%"}}/>
-          </Form>
-        </CardBody>
-      </Card>
+      <Input name={coordinate} placeholder={capitalizedCoordinate}
+             id={`${stateVar}${capitalizedCoordinate}`}
+             value={this.state[stateVar][coordinate]}
+             onChange={updateStateVarOnChange}
+             style={{width: "100%"}} />
     );
+
+  }
+
+  createForm(stateVar) {
+    return (
+      <Pane header={stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}
+            bodyJSX={
+              <Form >
+                {this.createInputField(stateVar, 'latitude')}
+                {this.createInputField(stateVar, 'longitude')}
+              </Form>
+            }
+      />);
   }
 
   createDistance() {
     return(
-      <Card>
-        <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Distance</CardHeader>
-        <CardBody>
-          <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
-          <Button onClick={this.calculateDistance}>Calculate</Button>
-        </CardBody>
-      </Card>
-    )
+      <Pane header={'Distance'}
+            bodyJSX={
+              <div>
+              <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
+              <Button onClick={this.calculateDistance}>Calculate</Button>
+            </div>}
+      />
+    );
   }
 
   calculateDistance() {
@@ -112,9 +111,11 @@ export default class Calculator extends Component {
         }
         else {
           this.setState({
-            errorMessage: <ErrorBanner statusText={ response.statusText }
-                                       statusCode={ response.statusCode }
-                                       message={ `Request to ${ this.props.settings.serverPort } failed.` }/>
+            errorMessage: this.props.createErrorBanner(
+                response.statusText,
+                response.statusCode,
+                `Request to ${ this.props.settings.serverPort } failed.`
+            )
           });
         }
       });

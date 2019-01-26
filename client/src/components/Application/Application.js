@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container } from 'reactstrap';
+import {Card, CardBody, CardHeader, Container} from 'reactstrap';
 
 import Home from './Home';
 import Options from './Options/Options';
@@ -18,6 +18,7 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
+    this.createApplicationPage = this.createApplicationPage.bind(this);
 
     // @todo which units should we provide?
     this.state = {
@@ -37,31 +38,10 @@ export default class Application extends Component {
 
   render() {
     let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
-    let componentToRender = null;
-
-    switch(pageToRender) {
-      case 'calc':
-        componentToRender = <Calculator options={this.state.planOptions}
-                                   settings={this.state.clientSettings}/>;
-        break;
-      case 'options':
-        componentToRender = <Options options={this.state.planOptions}
-                                config={this.state.serverConfig}
-                                updateOption={this.updatePlanOption}/>;
-        break;
-      case 'settings':
-        componentToRender = <Settings settings={this.state.clientSettings}
-                                 serverConfig={this.state.serverConfig}
-                                 updateSetting={this.updateClientSetting}/>;
-        break;
-      default:
-        componentToRender = <Home/>;
-    }
 
     return (
       <div className='application-width'>
-        { this.state.errorMessage }
-        { componentToRender }
+        { this.state.errorMessage }{ this.createApplicationPage(pageToRender) }
       </div>
     );
   }
@@ -89,6 +69,33 @@ export default class Application extends Component {
     });
   }
 
+  createErrorBanner(statusText, statusCode, message) {
+    return (
+      <ErrorBanner statusText={statusText}
+                   statusCode={statusCode}
+                   message={message}/>
+    );
+  }
+
+  createApplicationPage(pageToRender) {
+    switch(pageToRender) {
+      case 'calc':
+        return <Calculator options={this.state.planOptions}
+                           settings={this.state.clientSettings}
+                           createErrorBanner={this.createErrorBanner}/>;
+      case 'options':
+        return <Options options={this.state.planOptions}
+                        config={this.state.serverConfig}
+                        updateOption={this.updatePlanOption}/>;
+      case 'settings':
+        return <Settings settings={this.state.clientSettings}
+                         serverConfig={this.state.serverConfig}
+                         updateSetting={this.updateClientSetting}/>;
+      default:
+        return <Home/>;
+    }
+  }
+
   processConfigResponse(config) {
     if(config.statusCode >= 200 && config.statusCode <= 299) {
       console.log("Switching to server ", this.state.clientSettings.serverPort);
@@ -100,13 +107,11 @@ export default class Application extends Component {
     else {
       this.setState({
         serverConfig: null,
-        errorMessage: (
+        errorMessage:
           <Container>
-            <ErrorBanner statusText={ config.statusText }
-                         statusCode={ config.statusCode }
-                         message={ `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.` } />
+            {this.createErrorBanner(config.statusText, config.statusCode,
+            `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
           </Container>
-        )
       });
     }
   }

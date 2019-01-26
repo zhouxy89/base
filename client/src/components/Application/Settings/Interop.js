@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { Card, CardHeader, CardBody} from 'reactstrap'
 import { Button, Input } from 'reactstrap'
+import Pane from '../Pane'
 
 export default class Interop extends Component {
 
@@ -19,23 +19,21 @@ export default class Interop extends Component {
       var currentServerName = this.props.serverConfig.serverName;
     }
     return (
-        <Card>
-          <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Server</CardHeader>
-          <CardBody>
-            <p>Current server name:</p>
-            <form>
-              <Input value={currentServerName} disabled='disabled' className='font-weight-semibold'/>
-            </form>
-            <p>Configure new server:</p>
-            <form onSubmit={this.updateServerPort}>
-              <Input onChange={this.updateInputText}
-                     value={this.state.inputText}
-                     placeholder={this.props.serverPort}/>
-              <br/>
-              <Button type='submit' className='btn-csu w-100'>Configure</Button>
-            </form>
-          </CardBody>
-        </Card>
+        <Pane header={'Server'}
+              bodyJSX={
+                <div>
+                  <p>Current server name:</p>
+                    <Input value={currentServerName} disabled='disabled' className='font-weight-semibold'/>
+                  <p>Configure new server:</p>
+                  <form onSubmit={this.updateServerPort}>
+                    <Input onChange={this.updateInputText}
+                           value={this.state.inputText}
+                           placeholder={this.props.serverPort}/>
+                    <br/>
+                    <Button type='submit' className='btn-csu w-100'>Configure</Button>
+                  </form>
+                </div>
+              }/>
     );
   }
 
