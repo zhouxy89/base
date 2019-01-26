@@ -71,20 +71,24 @@ export default class Calculator extends Component {
   createForm(stateVar) {
     return (
       <Pane header={stateVar.charAt(0).toUpperCase() + stateVar.slice(1)}
-            bodyJSX={<Form >
+            bodyJSX={
+              <Form >
                 {this.createInputField(stateVar, 'latitude')}
                 {this.createInputField(stateVar, 'longitude')}
-              </Form>}/>
-    );
+              </Form>
+            }
+      />);
   }
 
   createDistance() {
     return(
       <Pane header={'Distance'}
-            bodyJSX={<div>
+            bodyJSX={
+              <div>
               <h5>{this.state.distance} {this.props.options.activeUnit}</h5>
               <Button onClick={this.calculateDistance}>Calculate</Button>
-            </div>}/>
+            </div>}
+      />
     );
   }
 
