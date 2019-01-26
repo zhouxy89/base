@@ -7,3 +7,4 @@ fi
 
 # compile and bundle client side JavaScript into a single distribution
 npm run bundle --prefix client
+exit $?
