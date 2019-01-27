@@ -40,10 +40,5 @@ public class TestTIPConfig {
   public void testPlaceAttributes() {
     List<String> attr = conf.getPlaceAttributes();
     assertEquals("config attribute size", 3, attr.size());
-    // @todo Sprint 1 add asserts for the expected elements of the attribute list.
   }
-
-// @todo Base add getType, getVersion to the TFFIResponse requestType for testing purposes.
-// @todo Sprints add tests cases for new server configuration items.
-
 }
