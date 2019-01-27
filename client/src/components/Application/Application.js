@@ -20,7 +20,6 @@ export default class Application extends Component {
     this.updateClientSetting = this.updateClientSetting.bind(this);
     this.createApplicationPage = this.createApplicationPage.bind(this);
 
-    // @todo which units should we provide?
     this.state = {
       serverConfig: null,
       planOptions: {
