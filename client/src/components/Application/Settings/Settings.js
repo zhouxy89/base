@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap';
+import {Container, Row, Col} from 'reactstrap';
 import Interop from './Interop';
+import Pane from '../Pane';
 
 /**
  * The Settings component.
@@ -34,10 +35,8 @@ export default class Settings extends Component {
 
   heading() {
     return (
-        <Card>
-          <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Settings</CardHeader>
-          <CardBody>Change global client settings...</CardBody>
-        </Card>
+        <Pane header={'Settings'}
+              bodyJSX={'Change global client settings...'}/>
     );
   }
 

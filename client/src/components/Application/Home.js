@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap';
-
-import Leaflet from 'leaflet';
+import {Container, Row, Col} from 'reactstrap';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';

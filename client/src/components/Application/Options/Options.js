@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Container, Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
-
+import {Container, Row, Col} from 'reactstrap'
+import Pane from '../Pane';
 import Units from './Units'
 
 /* Options allows the user to change the parameters for planning
@@ -35,10 +35,8 @@ export default class Options extends Component{
 
   heading() {
     return (
-        <Card>
-          <CardHeader className='bg-csu-gold text-white font-weight-semibold'>Options</CardHeader>
-          <CardBody>Select ...</CardBody>
-        </Card>
+        <Pane header={'Options'}
+              bodyJSX={'Select ...'}/>
     );
   }
 
