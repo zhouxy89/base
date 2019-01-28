@@ -20,11 +20,10 @@ export default class Application extends Component {
     this.updateClientSetting = this.updateClientSetting.bind(this);
     this.createApplicationPage = this.createApplicationPage.bind(this);
 
-    // @todo which units should we provide?
     this.state = {
       serverConfig: null,
       planOptions: {
-        units: {'miles':3959, 'kilometers':6371},
+        units: {'miles':3959},
         activeUnit: 'miles'
       },
       clientSettings: {

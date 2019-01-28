@@ -34,7 +34,6 @@ class MicroServer {
 
 
   private void configureServer(int serverPort) {
-    // @todo secure, others
     Spark.port(serverPort);
     String keystoreFile = System.getenv("KEYSTORE_FILE");
     String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
@@ -80,7 +79,6 @@ class MicroServer {
       log.trace("TIP Config response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
-      // @todo distinguish bad request 400 from server error 500
       log.error("Exception: {}", e);
       response.status(500);
       return request.body();
@@ -106,7 +104,6 @@ class MicroServer {
       log.trace("TIP Response: {}", responseBody);
       return responseBody;
     } catch (Exception e) {
-      // @todo distinguish bad request 400 from server error 500
       log.error("Exception: {}", e);
       response.status(500);
       return request.body();

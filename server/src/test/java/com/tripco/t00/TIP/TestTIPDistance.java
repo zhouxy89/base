@@ -33,12 +33,4 @@ public class TestTIPDistance {
     int actual = trip.getDistance();
     assertEquals("origin and destination are the same", expect, actual);
   }
-
-  /* @todo Sprint 1 create additional test case methods
-   * @todo Base nuke the short!
-   * @todo Base longs in test cases?  worksheet/activity on precision used in course.
-   * @todo Base radius as double (8 digits) or integer (4 digits - 3959)?
-   * @todo Base build a worksheet so the team can figure out additional tests (radius,locations) during class.
-   */
-
 }

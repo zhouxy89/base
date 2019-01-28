@@ -7,7 +7,7 @@ import java.util.HashMap;
 /** The server for the single page web application. */
 public class WebApplication {
 
-  final static Logger log = LoggerFactory.getLogger(WebApplication.class);
+  private final static Logger log = LoggerFactory.getLogger(WebApplication.class);
 
   public static void main(String[] commandLineArguments) {
 

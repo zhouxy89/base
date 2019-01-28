@@ -23,8 +23,8 @@ import java.util.Map;
 public class TIPDistance extends TIPHeader {
   private Map origin;
   private Map destination;
-  private float earthRadius;
-  private int distance;
+  private Float earthRadius;
+  private Integer distance;
 
   private final transient Logger log = LoggerFactory.getLogger(TIPDistance.class);
 
@@ -44,6 +44,7 @@ public class TIPDistance extends TIPHeader {
   }
 
 
+  @Override
   public void buildResponse() {
     this.distance = 0;
     log.trace("buildResponse -> {}", this);
@@ -53,8 +54,4 @@ public class TIPDistance extends TIPHeader {
   int getDistance() {
     return distance;
   }
-
-  // @todo Sprint 1, compute the Great Circle Distance between the origin and destination.
-  // @todo BASE need to change page, remove GSON handling.  Eliminate buildResponse parameter/return values.
-  // @todo BASE change int to Integer,long,Long, or Double to double,float,Float or let students figure it out?
 }

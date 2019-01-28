@@ -44,8 +44,3 @@ export function getOriginalServerPort() {
   const alternatePort = process.env.dev;
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
-
-
-//@todo handle status codes 200,400,500?
-//@todo serialize/timeout async requests to prevent multiple clicks
-//@todo should we only use post reqeuests to simplify? for consistency?
