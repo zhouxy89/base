@@ -103,7 +103,7 @@ export default class Application extends Component {
         serverConfig: null,
         errorMessage:
             <Container>
-              {this.createErrorBanner(config.statusText, 400,
+              {this.createErrorBanner("INVALID_RESPONSE", 400,
                   `Configuration response not valid`)}
             </Container>
       });
