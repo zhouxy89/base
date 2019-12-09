@@ -6,4 +6,3 @@ export function isValid(object, schema) {
   let validate = ajv.compile(schema);
   return validate(object);
 }
-
