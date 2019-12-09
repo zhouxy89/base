@@ -24,6 +24,7 @@
     "webpack-cli": "^3.2.1"
   },
   "devDependencies": {
+    "ajv": "^6.10.2",
     "babel-jest": "^22.2.2",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
