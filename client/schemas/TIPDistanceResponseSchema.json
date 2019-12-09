@@ -21,9 +21,9 @@
       "properties": {
         "name":{"type":"string"},
         "latitude":{"type":"string",
-          "pattern":"^[-+]?(?:90(?:(?:\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]+)?))$"},
+          "pattern":"^[-+]?\\d+\\.?\\d*$"},
         "longitude":{"type":"string",
-          "pattern":"^[-+]?(?:180(?:(?:\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]+)?))$"}
+          "pattern":"^[-+]?\\d+\\.?\\d*$"}
       },
       "required":["latitude","longitude"],
       "additionalProperties":true
@@ -34,9 +34,9 @@
       "properties": {
         "name":{"type":"string"},
         "latitude":{"type":"string",
-          "pattern":"^[-+]?(?:90(?:(?:\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]+)?))$"},
+          "pattern":"^[-+]?\\d+\\.?\\d*$"},
         "longitude":{"type":"string",
-          "pattern":"^[-+]?(?:180(?:(?:\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]+)?))$"}
+          "pattern":"^[-+]?\\d+\\.?\\d*$"}
       },
       "required":["latitude","longitude"],
       "additionalProperties":true
