@@ -26,22 +26,11 @@
       "items": {
         "type":"string"
       },
-      "minItems":7,
+      "minItems":3,
       "uniqueItems": true,
-      "required":["name", "latitude", "longitude", "id", "altitude", "municipality", "type"]
-    },
-    "optimizations": {
-      "description":"list of optimization levels available from the server",
-      "type":"array",
-      "items": {
-        "type":"string",
-        "enum":["none", "short", "shorter"]
-      },
-      "minItems":2,
-      "uniqueItems": true,
-      "required":["none"]
+      "required":["name", "latitude", "longitude"]
     }
   },
-  "required":["requestVersion","requestType","serverName","placeAttributes","optimizations"],
+  "required":["requestVersion","requestType","serverName","placeAttributes"],
   "additionalProperties": false
 }
