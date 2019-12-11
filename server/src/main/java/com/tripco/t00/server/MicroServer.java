@@ -6,13 +6,14 @@ import com.tripco.t00.TIP.TIPConfig;
 import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
 import org.everit.json.schema.SchemaException;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
 import org.everit.json.schema.ValidationException;
 import org.json.JSONException;
 import spark.Request;
@@ -20,8 +21,6 @@ import spark.Response;
 import spark.Spark;
 import static spark.Spark.secure;
 
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -163,6 +162,7 @@ class MicroServer {
         + "\"userAgent\":\"" + request.userAgent() + "\"\n"
         + "}";
   }
+
   private void validateRequest(Type tipType, String request){
     //Currently applies only to TIPDistance request
     try (InputStream inputStream = getClass().getResourceAsStream("/"+"TIPDistance"+"RequestSchema.json")) {
@@ -174,16 +174,9 @@ class MicroServer {
       e.printStackTrace();
       throw e;
     } catch (ValidationException e) {
-      log.error("Caught validation exception when validating schema! Root message: {}", e.getErrorMessage());
-      log.error("All messages from errors (including nested):");
-      List<String> allMessages = e.getAllMessages();
-      for (String message : allMessages) {
-        log.error(message);
-      }
-      throw e;
+      log.error("Caught validation exception when validating schema! Root message: {}", e.getMessage());
     } catch (JSONException e) {
       log.error("Malformed JSON!");
-      throw e;
     } catch (IOException e) {
       e.printStackTrace();
     }
