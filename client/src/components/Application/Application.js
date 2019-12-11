@@ -5,7 +5,7 @@ import Home from './Home';
 import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
+import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
 import ErrorBanner from './ErrorBanner';
 
 
