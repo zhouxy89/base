@@ -9,7 +9,6 @@ import com.tripco.t00.TIP.TIPHeader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.List;
 
 import org.everit.json.schema.SchemaException;
 import org.everit.json.schema.Schema;
@@ -165,7 +164,7 @@ class MicroServer {
 
   private void validateRequest(Type tipType, String request){
     //Currently applies only to TIPDistance request
-    try (InputStream inputStream = getClass().getResourceAsStream("/"+"TIPDistance"+"RequestSchema.json")) {
+    try (InputStream inputStream = getClass().getResourceAsStream("/TIPDistanceRequestSchema.json")) {
       JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
       Schema schema = SchemaLoader.load(rawSchema);
       schema.validate(new JSONObject(request)); // throws a ValidationException if this object is invalid

@@ -44,7 +44,8 @@
     "earthRadius":{
       "description":"the radius of the earth in some unit of measure",
       "type":"number",
-      "exclusiveMinimum":0
+      "minimum":0,
+      "exclusiveMinimum":true
     },
     "distance":{
       "description":"the great circle distance between the origin and destination using the radius measure",
