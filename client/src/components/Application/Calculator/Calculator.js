@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
-import { sendServerRequestWithBody } from '../../../api/restfulAPI'
+import { sendServerRequestWithBody } from '../../../utils/restfulAPI'
 import Pane from '../Pane';
+import * as distanceResponseSchema from '../../../../schemas/TIPDistanceResponseSchema'
+import {isValid} from '../../../api/Utils'
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -93,7 +95,7 @@ export default class Calculator extends Component {
   }
 
   calculateDistance() {
-    const tipConfigRequest = {
+    const tipDistanceRequest = {
       'type'        : 'distance',
       'version'     : 1,
       'origin'      : this.state.origin,
@@ -101,9 +103,18 @@ export default class Calculator extends Component {
       'earthRadius' : this.props.options.units[this.props.options.activeUnit]
     };
 
-    sendServerRequestWithBody('distance', tipConfigRequest, this.props.settings.serverPort)
+    sendServerRequestWithBody('distance', tipDistanceRequest, this.props.settings.serverPort)
       .then((response) => {
-        if(response.statusCode >= 200 && response.statusCode <= 299) {
+        if (!isValid(response.body, distanceResponseSchema)) {
+          this.setState({
+            errorMessage:
+                <Container>
+                  {this.props.createErrorBanner("INVALID_RESPONSE", 400,
+                      `Distance response not valid`)}
+                </Container>
+          });
+        }
+        else if(response.statusCode >= 200 && response.statusCode <= 299) {
           this.setState({
             distance: response.body.distance,
             errorMessage: null

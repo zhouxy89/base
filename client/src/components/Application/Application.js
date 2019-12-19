@@ -5,8 +5,10 @@ import Home from './Home';
 import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
 import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendServerRequest} from '../../api/restfulAPI';
+import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
 import ErrorBanner from './ErrorBanner';
+import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
+import {isValid} from '../../api/Utils'
 
 
 /* Renders the application.
@@ -96,7 +98,17 @@ export default class Application extends Component {
   }
 
   processConfigResponse(config) {
-    if(config.statusCode >= 200 && config.statusCode <= 299) {
+    if (!isValid(config.body, configSchema)) {
+      this.setState({
+        serverConfig: null,
+        errorMessage:
+            <Container>
+              {this.createErrorBanner("INVALID_RESPONSE", 400,
+                  `Configuration response not valid`)}
+            </Container>
+      });
+    }
+    else if(config.statusCode >= 200 && config.statusCode <= 299) {
       console.log("Switching to server ", this.state.clientSettings.serverPort);
       this.setState({
         serverConfig: config.body,
