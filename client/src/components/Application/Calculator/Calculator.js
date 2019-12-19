@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { Form, Label, Input } from 'reactstrap'
-import { sendServerRequestWithBody } from '../../../api/restfulAPI'
+import { sendServerRequestWithBody } from '../../../utils/restfulAPI'
 import Pane from '../Pane';
 import * as distanceResponseSchema from '../../../../schemas/TIPDistanceResponseSchema'
 import {isValid} from '../../../api/Utils'
