@@ -12,18 +12,10 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 import java.nio.file.Path;
-import org.everit.json.schema.SchemaException;
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.everit.json.schema.ValidationException;
-import org.json.JSONException;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 import static spark.Spark.secure;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,7 +93,7 @@ class MicroServer {
 
   private String processTIPdistanceRequest(Request request, Response response) {
     File requestSchema = new File(this.getClass().getResource("/TIPDistanceRequestSchema.json").getFile());
-    return processTIPrequest(TIPDistance.class, request, response, );
+    return processTIPrequest(TIPDistance.class, request, response);
   }
 
 
@@ -171,6 +163,7 @@ class MicroServer {
 
   private void validateRequest(Type tipType, String request){
     //Currently applies only to TIPDistance request
+    /*
     try (InputStream inputStream = getClass().getResourceAsStream("/TIPDistanceRequestSchema.json")) {
       JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
       Schema schema = SchemaLoader.load(rawSchema);
@@ -186,6 +179,7 @@ class MicroServer {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    */
   }
 
 }
