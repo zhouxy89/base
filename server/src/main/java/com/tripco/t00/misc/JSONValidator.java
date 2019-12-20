@@ -6,7 +6,6 @@ import com.tripco.t00.TIP.TIPHeader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InvalidClassException;
 import java.lang.reflect.Type;
 import org.everit.json.schema.SchemaException;
 import org.everit.json.schema.Schema;
@@ -48,12 +47,24 @@ public class JSONValidator {
     try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
       JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
       loadedSchema = SchemaLoader.load(rawSchema);
-    } catch (SchemaException | ValidationException | IOException e) {
+    } catch (SchemaException | JSONException | ValidationException | IOException e) {
       log.error("Unable to create schema. Root message: {}", e.getMessage());
       e.printStackTrace();
     }
 
     return loadedSchema;
+  }
+
+  // Validates the JSON request against the schema instance.
+  public boolean isValid(String request) {
+    try {
+      this.schema.validate(request);
+    } catch (ValidationException e) {
+      log.error("Invalid request {}", request);
+      e.printStackTrace();
+      return false;
+    }
+    return true;
   }
 
 }
