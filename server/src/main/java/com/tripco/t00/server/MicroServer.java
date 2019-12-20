@@ -6,10 +6,12 @@ import com.tripco.t00.TIP.TIPConfig;
 import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
+import java.nio.file.Path;
 import org.everit.json.schema.SchemaException;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
@@ -98,7 +100,8 @@ class MicroServer {
 
 
   private String processTIPdistanceRequest(Request request, Response response) {
-    return processTIPrequest(TIPDistance.class, request, response);
+    File requestSchema = new File(this.getClass().getResource("/TIPDistanceRequestSchema.json").getFile());
+    return processTIPrequest(TIPDistance.class, request, response, );
   }
 
 
@@ -160,6 +163,10 @@ class MicroServer {
         + "\"url()\":\"" + request.url() + "\",\n"
         + "\"userAgent\":\"" + request.userAgent() + "\"\n"
         + "}";
+  }
+
+  public TIPHeader createTIPInstance(Type classType, Request request, Path schemaPath) {
+    return null;
   }
 
   private void validateRequest(Type tipType, String request){
