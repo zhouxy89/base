@@ -67,4 +67,10 @@ public class JSONValidator {
     return true;
   }
 
+  @Override
+  public String toString() {
+    return "JSONValidator{" +
+        "schema=" + schema +
+        '}';
+  }
 }

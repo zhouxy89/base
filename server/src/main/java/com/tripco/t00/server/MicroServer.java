@@ -6,6 +6,7 @@ import com.tripco.t00.TIP.TIPConfig;
 import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
 
+import com.tripco.t00.misc.JSONValidator;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,7 +93,6 @@ class MicroServer {
 
 
   private String processTIPdistanceRequest(Request request, Response response) {
-    File requestSchema = new File(this.getClass().getResource("/TIPDistanceRequestSchema.json").getFile());
     return processTIPrequest(TIPDistance.class, request, response);
   }
 
@@ -102,20 +102,21 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
-    try {
-      validateRequest(tipType, request.body());
-    }catch(Exception e){
-      log.error("Exception: {}", e);
-      response.status(400);
-      return request.body();
-    }
+
     try {
       Gson jsonConverter = new Gson();
-      TIPHeader tipRequest = jsonConverter.fromJson(request.body(), tipType);
-      tipRequest.buildResponse();
-      String responseBody = jsonConverter.toJson(tipRequest);
+      TIPHeader tipInstance = createTIPInstance(tipType, request);
+
+      if (tipInstance == null) {
+        log.error("TIP request failed validation: {}", request);
+        response.status(400);
+        return null;
+      }
+      tipInstance.buildResponse();
+      String responseBody = jsonConverter.toJson(tipInstance);
       log.trace("TIP Response: {}", responseBody);
       return responseBody;
+
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
@@ -157,29 +158,12 @@ class MicroServer {
         + "}";
   }
 
-  public TIPHeader createTIPInstance(Type classType, Request request, Path schemaPath) {
+  public TIPHeader createTIPInstance(Type classType, Request request) {
+    JSONValidator schemaValidator = new JSONValidator(classType);
+    if (schemaValidator.isValid(request.body())) {
+      Gson jsonConverter = new Gson();
+      return jsonConverter.fromJson(request.body(), classType);
+    }
     return null;
   }
-
-  private void validateRequest(Type tipType, String request){
-    //Currently applies only to TIPDistance request
-    /*
-    try (InputStream inputStream = getClass().getResourceAsStream("/TIPDistanceRequestSchema.json")) {
-      JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
-      Schema schema = SchemaLoader.load(rawSchema);
-      schema.validate(new JSONObject(request)); // throws a ValidationException if this object is invalid
-    }catch (SchemaException e) {
-      log.error("Caught a schema exception!");
-      e.printStackTrace();
-      throw e;
-    } catch (ValidationException e) {
-      log.error("Caught validation exception when validating schema! Root message: {}", e.getMessage());
-    } catch (JSONException e) {
-      log.error("Malformed JSON!");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    */
-  }
-
 }
