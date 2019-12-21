@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 import java.nio.file.Path;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -108,7 +109,7 @@ class MicroServer {
       TIPHeader tipInstance = createTIPInstance(tipType, request);
 
       if (tipInstance == null) {
-        log.error("TIP request failed validation: {}", request);
+        log.error("TIP request failed validation: {}", request.body());
         response.status(400);
         return null;
       }

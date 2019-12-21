@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import org.mockito.internal.matchers.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public class JSONValidator {
     String resourcePath = "";
 
     switch (requestType.getTypeName()) {
-      case "TIPDistance":
+      case "com.tripco.t00.TIP.TIPDistance":
         resourcePath = "/TIPDistanceRequestSchema.json"; break;
       default:
         log.info("Unknown class {} specified for schema validation", requestType.getTypeName());
@@ -56,15 +57,21 @@ public class JSONValidator {
   }
 
   // Validates the JSON request against the schema instance.
-  public boolean isValid(String request) {
-    try {
-      this.schema.validate(request);
-    } catch (ValidationException e) {
-      log.error("Invalid request {}", request);
-      e.printStackTrace();
+  public boolean isValid(String requestBody) {
+    if (this.schema != null) {
+      try {
+        JSONObject request = new JSONObject(requestBody);
+        this.schema.validate(request);
+      } catch (ValidationException e) {
+        log.error("Invalid request {}", requestBody);
+        e.printStackTrace();
+        return false;
+      }
+      return true;
+    }
+    else {
       return false;
     }
-    return true;
   }
 
   @Override
