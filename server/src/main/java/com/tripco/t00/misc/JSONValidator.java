@@ -51,7 +51,6 @@ public class JSONValidator {
     } catch (ValidationException e) {
       throw new IOException(e.getMessage());
     }
-
   }
 
   @Override
