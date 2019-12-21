@@ -7,6 +7,7 @@ import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
 import com.tripco.t00.misc.JSONValidator;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import spark.Request;
 import spark.Response;
@@ -101,17 +102,16 @@ class MicroServer {
     try {
       Gson jsonConverter = new Gson();
       TIPHeader tipInstance = createTIPInstance(tipType, request);
-
-      if (tipInstance == null) {
-        log.error("TIP request failed validation: {}", request.body());
-        response.status(400);
-        return null;
-      }
       tipInstance.buildResponse();
       String responseBody = jsonConverter.toJson(tipInstance);
       log.trace("TIP Response: {}", responseBody);
       return responseBody;
 
+    } catch (IOException e) {
+      log.error("TIP request failed validation: {}", request.body());
+      log.error("Reason for failure: {}", e.getMessage());
+      response.status(400);
+      return null;
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
@@ -153,14 +153,12 @@ class MicroServer {
         + "}";
   }
 
-
-  private TIPHeader createTIPInstance(Type classType, Request request) {
+  // Throws an IOException if something went wrong with loading the schema or validating the request.
+  private TIPHeader createTIPInstance(Type classType, Request request) throws IOException {
     JSONValidator schemaValidator = new JSONValidator(classType);
-    if (schemaValidator.isValid(request.body())) {
-      Gson jsonConverter = new Gson();
-      return jsonConverter.fromJson(request.body(), classType);
-    }
-    return null;
+    schemaValidator.validate(request.body()); // Validates request against JSON schema
+    Gson jsonConverter = new Gson();
+    return jsonConverter.fromJson(request.body(), classType);
   }
 
 }

@@ -24,49 +24,29 @@ public class JSONValidator {
 
   private Schema schema;
 
-  public JSONValidator(Type requestType) {
-    this.schema = getSchemaFromType(requestType);
+  public JSONValidator(Type requestType) throws IOException {
+    this.schema = getSchema(requestType.getTypeName());
   }
 
-  private Schema getSchemaFromType(Type requestType) {
-    String resourcePath = "";
+  // Returns the schema matching the TIP class name, i.e. "/schemas/TIPDistance.json".
+  private Schema getSchema(String className) throws IOException {
+    String schemaPath = String.format("/schemas/%s.json",
+        className.substring(className.lastIndexOf(".") + 1));
 
-    switch (requestType.getTypeName()) {
-      case "com.tripco.t00.TIP.TIPDistance":
-        resourcePath = "/schemas/TIPDistance.json"; break;
-      default:
-        log.info("Unknown class {} specified for schema validation", requestType.getTypeName());
-        return null;
-    }
-
-    Schema loadedSchema = null;
-    try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
+    try (InputStream inputStream = getClass().getResourceAsStream(schemaPath)) {
       JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
-      loadedSchema = SchemaLoader.load(rawSchema);
-    } catch (SchemaException | JSONException | ValidationException | IOException e) {
-      log.error("Unable to create schema. Root message: {}", e.getMessage());
-      e.printStackTrace();
+      return SchemaLoader.load(rawSchema);
+    } catch (NullPointerException e) {
+      throw new IOException(String.format("No schema %s exists for type %s", schemaPath, className));
+    } catch (SchemaException | JSONException e) {
+      throw new IOException(String.format("Invalid schema format. Root message: %s", e.getMessage()));
     }
-
-    return loadedSchema;
   }
 
   // Validates the JSON request against the schema instance.
-  public boolean isValid(String requestBody) {
-    if (this.schema != null) {
-      try {
-        JSONObject request = new JSONObject(requestBody);
-        this.schema.validate(request);
-      } catch (ValidationException e) {
-        log.error("Invalid request {}", requestBody);
-        e.printStackTrace();
-        return false;
-      }
-      return true;
-    }
-    else {
-      return false;
-    }
+  public void validate(String requestBody) throws ValidationException {
+    JSONObject request = new JSONObject(requestBody);
+    this.schema.validate(request);
   }
 
   @Override
