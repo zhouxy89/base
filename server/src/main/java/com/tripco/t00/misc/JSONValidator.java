@@ -44,9 +44,14 @@ public class JSONValidator {
   }
 
   // Validates the JSON request against the schema instance.
-  public void validate(String requestBody) throws ValidationException {
-    JSONObject request = new JSONObject(requestBody);
-    this.schema.validate(request);
+  public void validate(String requestBody) throws IOException {
+    try {
+      JSONObject request = new JSONObject(requestBody);
+      this.schema.validate(request);
+    } catch (ValidationException e) {
+      throw new IOException(e.getMessage());
+    }
+
   }
 
   @Override
