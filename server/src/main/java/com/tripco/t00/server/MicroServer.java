@@ -158,7 +158,7 @@ class MicroServer {
         + "}";
   }
 
-  public TIPHeader createTIPInstance(Type classType, Request request) {
+  private TIPHeader createTIPInstance(Type classType, Request request) {
     JSONValidator schemaValidator = new JSONValidator(classType);
     if (schemaValidator.isValid(request.body())) {
       Gson jsonConverter = new Gson();
