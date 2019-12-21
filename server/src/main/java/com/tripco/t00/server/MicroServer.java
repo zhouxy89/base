@@ -97,7 +97,7 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
-
+    
     try {
       Gson jsonConverter = new Gson();
       TIPHeader tipInstance = createTIPInstance(tipType, request);
@@ -153,6 +153,7 @@ class MicroServer {
         + "}";
   }
 
+
   private TIPHeader createTIPInstance(Type classType, Request request) {
     JSONValidator schemaValidator = new JSONValidator(classType);
     if (schemaValidator.isValid(request.body())) {
@@ -161,4 +162,5 @@ class MicroServer {
     }
     return null;
   }
+
 }
