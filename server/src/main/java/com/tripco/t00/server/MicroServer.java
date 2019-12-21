@@ -7,13 +7,11 @@ import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
 
 import com.tripco.t00.misc.JSONValidator;
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
-import java.nio.file.Path;
-import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -105,6 +103,13 @@ class MicroServer {
     response.status(200);
 
     try {
+      validateRequest(tipType, request.body());
+    }catch(Exception e){
+      log.error("Exception: {}", e);
+      response.status(400);
+      return request.body();
+    }
+    try {
       Gson jsonConverter = new Gson();
       TIPHeader tipInstance = createTIPInstance(tipType, request);
 
@@ -159,6 +164,7 @@ class MicroServer {
         + "}";
   }
 
+
   private TIPHeader createTIPInstance(Type classType, Request request) {
     JSONValidator schemaValidator = new JSONValidator(classType);
     if (schemaValidator.isValid(request.body())) {
@@ -167,4 +173,5 @@ class MicroServer {
     }
     return null;
   }
+
 }
