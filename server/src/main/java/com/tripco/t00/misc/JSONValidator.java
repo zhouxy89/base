@@ -1,9 +1,5 @@
 package com.tripco.t00.misc;
 
-import com.tripco.t00.TIP.TIPConfig;
-import com.tripco.t00.TIP.TIPDistance;
-import com.tripco.t00.TIP.TIPHeader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -16,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import org.mockito.internal.matchers.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

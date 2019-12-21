@@ -97,7 +97,7 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
-    
+
     try {
       Gson jsonConverter = new Gson();
       TIPHeader tipInstance = createTIPInstance(tipType, request);
