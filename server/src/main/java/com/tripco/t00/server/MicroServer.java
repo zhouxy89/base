@@ -5,15 +5,9 @@ import com.google.gson.Gson;
 import com.tripco.t00.TIP.TIPConfig;
 import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
-
 import com.tripco.t00.misc.JSONValidator;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
 
-import java.nio.file.Path;
-import org.json.JSONObject;
+import java.lang.reflect.Type;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
