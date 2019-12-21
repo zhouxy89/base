@@ -33,7 +33,7 @@ public class JSONValidator {
 
     switch (requestType.getTypeName()) {
       case "com.tripco.t00.TIP.TIPDistance":
-        resourcePath = "/TIPDistanceRequestSchema.json"; break;
+        resourcePath = "/distance.json"; break;
       default:
         log.info("Unknown class {} specified for schema validation", requestType.getTypeName());
         return null;
