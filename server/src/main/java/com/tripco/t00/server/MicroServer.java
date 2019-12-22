@@ -5,23 +5,14 @@ import com.google.gson.Gson;
 import com.tripco.t00.TIP.TIPConfig;
 import com.tripco.t00.TIP.TIPDistance;
 import com.tripco.t00.TIP.TIPHeader;
+import com.tripco.t00.misc.JSONValidator;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
-
-import org.everit.json.schema.SchemaException;
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.everit.json.schema.ValidationException;
-import org.json.JSONException;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 import static spark.Spark.secure;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,20 +98,20 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
-    try {
-      validateRequest(tipType, request.body());
-    }catch(Exception e){
-      log.error("Exception: {}", e);
-      response.status(400);
-      return request.body();
-    }
+
     try {
       Gson jsonConverter = new Gson();
-      TIPHeader tipRequest = jsonConverter.fromJson(request.body(), tipType);
-      tipRequest.buildResponse();
-      String responseBody = jsonConverter.toJson(tipRequest);
+      TIPHeader tipInstance = createTIPInstance(tipType, request);
+      tipInstance.buildResponse();
+      String responseBody = jsonConverter.toJson(tipInstance);
       log.trace("TIP Response: {}", responseBody);
       return responseBody;
+
+    } catch (IOException e) {
+      log.error("TIP request failed validation: {}", request.body());
+      log.error("Reason for failure: {}", e.getMessage());
+      response.status(400);
+      return null;
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
@@ -162,23 +153,11 @@ class MicroServer {
         + "}";
   }
 
-  private void validateRequest(Type tipType, String request){
-    //Currently applies only to TIPDistance request
-    try (InputStream inputStream = getClass().getResourceAsStream("/TIPDistanceRequestSchema.json")) {
-      JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
-      Schema schema = SchemaLoader.load(rawSchema);
-      schema.validate(new JSONObject(request)); // throws a ValidationException if this object is invalid
-    }catch (SchemaException e) {
-      log.error("Caught a schema exception!");
-      e.printStackTrace();
-      throw e;
-    } catch (ValidationException e) {
-      log.error("Caught validation exception when validating schema! Root message: {}", e.getMessage());
-    } catch (JSONException e) {
-      log.error("Malformed JSON!");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  // Throws an IOException if something went wrong with loading the schema or validating the request.
+  private TIPHeader createTIPInstance(Type classType, Request request) throws IOException {
+    JSONValidator.validate(classType, request.body()); // Validates request against JSON schema
+    Gson jsonConverter = new Gson();
+    return jsonConverter.fromJson(request.body(), classType);
   }
 
 }
