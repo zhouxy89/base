@@ -155,8 +155,7 @@ class MicroServer {
 
   // Throws an IOException if something went wrong with loading the schema or validating the request.
   private TIPHeader createTIPInstance(Type classType, Request request) throws IOException {
-    JSONValidator schemaValidator = new JSONValidator(classType);
-    schemaValidator.validate(request.body()); // Validates request against JSON schema
+    JSONValidator.validate(classType, request.body()); // Validates request against JSON schema
     Gson jsonConverter = new Gson();
     return jsonConverter.fromJson(request.body(), classType);
   }

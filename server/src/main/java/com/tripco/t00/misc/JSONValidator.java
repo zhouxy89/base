@@ -22,18 +22,13 @@ public class JSONValidator {
 
   private final Logger log = LoggerFactory.getLogger(JSONValidator.class);
 
-  private Schema schema;
-
-  public JSONValidator(Type requestType) throws IOException {
-    this.schema = getSchema(requestType.getTypeName());
-  }
 
   // Returns the schema matching the TIP class name, i.e. "/schemas/TIPDistance.json".
-  private Schema getSchema(String className) throws IOException {
+  private static Schema getSchema(String className) throws IOException {
     String schemaPath = String.format("/schemas/%s.json",
         className.substring(className.lastIndexOf(".") + 1));
 
-    try (InputStream inputStream = getClass().getResourceAsStream(schemaPath)) {
+    try (InputStream inputStream = JSONValidator.class.getResourceAsStream(schemaPath)) {
       JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
       return SchemaLoader.load(rawSchema);
     } catch (NullPointerException e) {
@@ -43,20 +38,16 @@ public class JSONValidator {
     }
   }
 
-  // Validates the JSON request against the schema instance.
-  public void validate(String requestBody) throws IOException {
+  // Validates the JSON request against the corresponding schema.
+  public static void validate(Type requestType, String requestBody) throws IOException {
+    Schema schema = getSchema(requestType.getTypeName());
+
     try {
       JSONObject request = new JSONObject(requestBody);
-      this.schema.validate(request);
+      schema.validate(request);
     } catch (ValidationException e) {
       throw new IOException(e.getMessage());
     }
   }
 
-  @Override
-  public String toString() {
-    return "JSONValidator{" +
-        "schema=" + schema +
-        '}';
-  }
 }
