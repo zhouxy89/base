@@ -9,11 +9,11 @@
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.tripco.t00</groupId>
+    <groupId>com.tco</groupId>
     <artifactId>server</artifactId>
     <packaging>jar</packaging>
     <version>0.1</version>
-    <name>t00</name>
+    <name>tco</name>
     <url>https://github.com/csu314sp18/repo-base</url>
 
     <build>
