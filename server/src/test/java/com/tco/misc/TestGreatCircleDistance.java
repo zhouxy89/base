@@ -1,4 +1,4 @@
-package com.tripco.t00.misc;
+package com.tco.misc;
 
 
 public class TestGreatCircleDistance {

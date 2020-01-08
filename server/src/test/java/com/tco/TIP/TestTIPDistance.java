@@ -1,4 +1,4 @@
-package com.tripco.t00.TIP;
+package com.tco.TIP;
 
 import org.junit.Before;
 import org.junit.Test;
