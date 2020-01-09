@@ -17,6 +17,9 @@ import static spark.Spark.secure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 
 
 /** A micro server for a single page web application that serves the static files
@@ -25,6 +28,7 @@ import org.slf4j.LoggerFactory;
 class MicroServer {
 
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
+  private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 
   MicroServer(int serverPort) {
@@ -69,7 +73,6 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    log.info("TIP Config request: {}", HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -78,11 +81,12 @@ class MicroServer {
       TIPConfig tipRequest = new TIPConfig();
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
-      log.trace("TIP Config response: {}", responseBody);
+      logAccess(request, response);
       return responseBody;
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
+      logAccess(request, response);
       return request.body();
     }
   }
@@ -94,7 +98,6 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
-    log.info("TIP Request: {}", HTTPrequestToJson(request));
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -104,17 +107,19 @@ class MicroServer {
       TIPHeader tipInstance = createTIPInstance(tipType, request);
       tipInstance.buildResponse();
       String responseBody = jsonConverter.toJson(tipInstance);
-      log.trace("TIP Response: {}", responseBody);
+      logAccess(request, response);
       return responseBody;
 
     } catch (IOException e) {
       log.error("TIP request failed validation: {}", request.body());
       log.error("Reason for failure: {}", e.getMessage());
       response.status(400);
+      logAccess(request, response);
       return null;
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
+      logAccess(request, response);
       return request.body();
     }
   }
@@ -123,7 +128,19 @@ class MicroServer {
   private String echoHTTPrequest(Request request, Response response) {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
+    logAccess(request, response);
     return HTTPrequestToJson(request);
+  }
+
+
+  private void logAccess(Request request, Response response) {
+    String message = "[" + dtf.format(LocalDateTime.now()) + "] "
+            + request.ip() + " "
+            + "\"" + request.requestMethod() + " "
+            + request.pathInfo() + " "
+            + request.protocol() + "\" "
+            + response.status();
+    log.info(message);
   }
 
 
