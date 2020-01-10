@@ -71,7 +71,7 @@ function mockConfigResponse() {
           'placeAttributes': ["latitude", "longitude", "serverName"],
           'requestType': "config",
           'requestVersion': 1,
-          'serverName': "tco"
+          'serverName': "t00"
         },
         type: 'basic',
         url: 'http://localhost:8088/api/config',
