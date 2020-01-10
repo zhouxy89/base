@@ -1,4 +1,4 @@
-package com.tripco.t00.misc;
+package com.tco.misc;
 
 import java.io.IOException;
 import java.io.InputStream;

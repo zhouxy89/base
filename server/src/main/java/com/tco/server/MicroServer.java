@@ -1,11 +1,11 @@
-package com.tripco.t00.server;
+package com.tco.server;
 
 import com.google.gson.Gson;
 
-import com.tripco.t00.TIP.TIPConfig;
-import com.tripco.t00.TIP.TIPDistance;
-import com.tripco.t00.TIP.TIPHeader;
-import com.tripco.t00.misc.JSONValidator;
+import com.tco.TIP.TIPConfig;
+import com.tco.TIP.TIPDistance;
+import com.tco.TIP.TIPHeader;
+import com.tco.misc.JSONValidator;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

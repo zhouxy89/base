@@ -1,4 +1,4 @@
-package com.tripco.t00.TIP;
+package com.tco.TIP;
 
 import java.util.List;
 
