@@ -1,4 +1,4 @@
-package com.tripco.t00.TIP;
+package com.tco.TIP;
 
 public abstract class TIPHeader {
   protected Integer requestVersion;

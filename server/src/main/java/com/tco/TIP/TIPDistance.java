@@ -1,6 +1,6 @@
-package com.tripco.t00.TIP;
+package com.tco.TIP;
 
-import com.tripco.t00.misc.GreatCircleDistance;
+import com.tco.misc.GreatCircleDistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
