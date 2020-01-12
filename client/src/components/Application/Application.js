@@ -8,7 +8,8 @@ import Settings from './Settings/Settings';
 import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
 import ErrorBanner from './ErrorBanner';
 import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
-import {isValid} from '../../api/Utils'
+import {isValid} from '../../api/Utils';
+import log from '../../utils/globals';
 
 
 /* Renders the application.
@@ -65,7 +66,7 @@ export default class Application extends Component {
 
   updateServerConfig() {
     sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
-      console.log(config);
+      log.info("Server Config: ",config);
       this.processConfigResponse(config);
     });
   }
@@ -109,7 +110,7 @@ export default class Application extends Component {
       });
     }
     else if(config.statusCode >= 200 && config.statusCode <= 299) {
-      console.log("Switching to server ", this.state.clientSettings.serverPort);
+      log.info("Switching to server ", this.state.clientSettings.serverPort);
       this.setState({
         serverConfig: config.body,
         errorMessage: null
