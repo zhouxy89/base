@@ -32,7 +32,7 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
     };
   }
   catch(err) {
-    log.error("request to the server has been failed ", err);
+    log.error("Server request failed ", err);
     return { statusCode: 0, statusText: 'Client failure', body: null };
   }
 }
