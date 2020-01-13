@@ -17,6 +17,8 @@ import static spark.Spark.secure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 /** A micro server for a single page web application that serves the static files
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 class MicroServer {
 
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
+  private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 
   MicroServer(int serverPort) {
@@ -69,7 +72,7 @@ class MicroServer {
 
 
   private String processTIPconfigRequest(Request request, Response response) {
-    log.info("TIP Config request: {}", HTTPrequestToJson(request));
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -94,7 +97,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
-    log.info("TIP Request: {}", HTTPrequestToJson(request));
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -121,6 +124,7 @@ class MicroServer {
 
 
   private String echoHTTPrequest(Request request, Response response) {
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     return HTTPrequestToJson(request);
@@ -152,6 +156,19 @@ class MicroServer {
         + "\"userAgent\":\"" + request.userAgent() + "\"\n"
         + "}";
   }
+
+
+  private void logRequest(Request request) {
+    String message = "TIP Request - "
+            + "[" + dateTimeFormat.format(LocalDateTime.now()) + "] "
+            + request.ip() + " "
+            + "\"" + request.requestMethod() + " "
+            + request.pathInfo() + " "
+            + request.protocol() + "\" "
+            + "[" + request.body() + "]";
+    log.error(message);
+  }
+
 
   // Throws an IOException if something went wrong with loading the schema or validating the request.
   private TIPHeader createTIPInstance(Type classType, Request request) throws IOException {
