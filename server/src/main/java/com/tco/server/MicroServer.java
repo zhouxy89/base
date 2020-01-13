@@ -64,27 +64,15 @@ class MicroServer {
 
 
   private void processRestfulAPIrequests() {
-    Spark.get("/api/config", this::processRequest);
-    Spark.post("/api/distance", this::processRequest);
-    Spark.get("/api/echo", this::processRequest);
+    Spark.get("/api/config", this::processTIPconfigRequest);
+    Spark.post("/api/distance", this::processTIPdistanceRequest);
+    Spark.get("/api/echo", this::echoHTTPrequest);
     log.trace("Restful configuration complete");
   }
 
 
-  private String processRequest(Request request, Response response) {
-    logRequest(request);
-    switch (request.pathInfo()) {
-      case "/api/config": return processTIPconfigRequest(request, response);
-      case "/api/distance": return processTIPdistanceRequest(request, response);
-      case "/api/echo": return echoHTTPrequest(request, response);
-      default:
-        response.status(500);
-        return request.body();
-    }
-  }
-
-
   private String processTIPconfigRequest(Request request, Response response) {
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -109,6 +97,7 @@ class MicroServer {
 
 
   private String processTIPrequest(Type tipType, Request request, Response response) {
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
@@ -135,6 +124,7 @@ class MicroServer {
 
 
   private String echoHTTPrequest(Request request, Response response) {
+    logRequest(request);
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     return HTTPrequestToJson(request);
@@ -174,7 +164,8 @@ class MicroServer {
             + request.ip() + " "
             + "\"" + request.requestMethod() + " "
             + request.pathInfo() + " "
-            + request.protocol() + "\"";
+            + request.protocol() + "\" "
+            + "[" + request.body() + "]";
     log.error(message);
   }
 
