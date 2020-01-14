@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card, Input} from 'reactstrap';
+import {Container, Row, Col, Card} from 'reactstrap';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import Pane from './Pane'
 
 /*
  * Renders the home page.
@@ -28,7 +27,7 @@ export default class Home extends Component {
     return (
       <Container>
         <Row>
-          <Col xs="12">
+          <Col xs={12} sm={12} md={7} lg={8} xl={9}>
             {this.renderMap()}
           </Col>
         </Row>
@@ -89,7 +88,7 @@ export default class Home extends Component {
   handleMapMouseUp(e) {
     if (this.state.mouseDownTime) {
       var elapsedMilliseconds = new Date() - this.state.mouseDownTime;
-      if (elapsedMilliseconds > 500) {
+      if (elapsedMilliseconds > 250) {
         this.setState({clickedPosition: e.latlng});
       } else {
         this.setState({mapCenter: e.latlng, mapZoom: 15})
