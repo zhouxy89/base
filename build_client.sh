@@ -6,5 +6,9 @@ if [ ! -d "./client/node_modules" ]; then
 fi
 
 # compile and bundle client side JavaScript into a single distribution
-npm run bundle --prefix client
+if [[ "$ENV" == "dev" ]]; then
+  npm run dev --prefix client
+else
+  npm run bundle --prefix client
+fi
 exit $?
