@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Row, Col} from 'reactstrap';
+import {Container, Row, Col, Card, Input} from 'reactstrap';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
@@ -11,15 +11,25 @@ import Pane from './Pane'
  */
 export default class Home extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      clickedPosition: null
+    };
+    this.handleMapClick = this.handleMapClick.bind(this);
+  }
+
   render() {
     return (
       <Container>
         <Row>
-          <Col xs={12} sm={12} md={7} lg={8} xl={9}>
+          <Col xs="12">
             {this.renderMap()}
           </Col>
-          <Col xs={12} sm={12} md={5} lg={4} xl={3}>
-            {this.renderIntro()}
+        </Row>
+        <Row>
+          <Col xs="6">
+            {this.renderItinerary()}
           </Col>
         </Row>
       </Container>
@@ -28,8 +38,9 @@ export default class Home extends Component {
 
   renderMap() {
     return (
-      <Pane header={'Where Am I?'}
-            bodyJSX={this.renderLeafletMap()}/>
+      <Card>
+        {this.renderLeafletMap()}
+      </Card>
     );
   }
 
@@ -39,16 +50,29 @@ export default class Home extends Component {
     // 2: center={this.csuOvalGeographicCoordinates()} zoom={10}
     return (
       <Map center={this.csuOvalGeographicCoordinates()} zoom={10}
-           style={{height: 500, maxwidth: 700}}>
+           style={{height: 500, maxwidth: 700}}
+           onClick={this.handleMapClick}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
-        <Marker position={this.csuOvalGeographicCoordinates()}
-                icon={this.markerIcon()}>
-          <Popup className="font-weight-extrabold">Colorado State University</Popup>
-        </Marker>
+        {this.getMarker('Colorado State University', this.csuOvalGeographicCoordinates())}
+        {this.getMarker('You clicked here!', this.state.clickedPosition)}
+
       </Map>
     )
+  }
+
+  renderItinerary() {
+    // disabled='disabled'
+    var clickedPosition = '';
+    if (this.state.clickedPosition) {
+      clickedPosition = this.state.clickedPosition.lat.toFixed(2) + ', ' + this.state.clickedPosition.lng.toFixed(2);
+    }
+    return(
+        <Card>
+          <Input value={clickedPosition} className='font-weight-semibold'/>
+        </Card>
+  );
   }
 
   renderIntro() {
@@ -58,13 +82,23 @@ export default class Home extends Component {
     );
   }
 
-  coloradoGeographicBoundaries() {
-    // northwest and southeast corners of the state of Colorado
-    return L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
-  }
-
   csuOvalGeographicCoordinates() {
     return L.latLng(40.576179, -105.080773);
+  }
+
+
+  getMarker(bodyJSX, position) {
+    if (position) {
+      return (
+          <Marker position={position} icon={this.markerIcon()}>
+            <Popup className="font-weight-bold">{bodyJSX}</Popup>
+          </Marker>
+      );
+    }
+  }
+
+  handleMapClick(e) {
+    this.setState({clickedPosition: e.latlng});
   }
 
   markerIcon() {
