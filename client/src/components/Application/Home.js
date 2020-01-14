@@ -27,7 +27,7 @@ export default class Home extends Component {
     return (
       <Container>
         <Row>
-          <Col xs={12} sm={12} md={7} lg={8} xl={9}>
+          <Col xs="12">
             {this.renderMap()}
           </Col>
         </Row>
