@@ -2,14 +2,18 @@ import React, {Component} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './tripcowebstyle.css';
+
 import Header from './Margins/Header';
-import Navigation from './Margins/Navigation';
 import Application from './Application/Application';
-import Footer from './Margins/Footer';
+import Footer from './Margins/Footer/Footer';
+
+import {getOriginalServerPort} from "../utils/restfulAPI";
 
 export default class App extends Component {
-  constructor (props){
+
+  constructor(props) {
     super(props);
+
     this.pages = [
       { title: 't## team name', page: ''},
       { title: 'Calculator', page: 'calc'},
@@ -18,28 +22,32 @@ export default class App extends Component {
     ];
 
     this.state = {
-      current_page: this.pages[0].page
+      current_page: this.pages[0].page,
+      serverConfig: null,
+      clientSettings: {serverPort: getOriginalServerPort()},
     };
-
-    this.setAppPage = this.setAppPage.bind(this);
   }
-
 
   render() {
     return (
       <div className="csu-branding">
-        <Header pages={this.pages} setAppPage={this.setAppPage}/>
-        <Navigation pages={this.pages} setAppPage={this.setAppPage}/>
-        <Application page={this.state.current_page}/>
-        <Footer/>
+        <Header
+            pages={this.pages}
+            setAppPage={(page) => this.setState({current_page: page})
+            }
+        />
+        <Application
+            page={this.state.current_page}
+            serverConfig={this.state.serverConfig}
+            clientSettings={this.state.clientSettings}
+            modify={(state, value) => this.setState({[state]: value})}
+        />
+        <Footer
+          serverConfig={this.state.serverConfig}
+          clientSettings={this.state.clientSettings}
+        />
       </div>
     );
   }
-
-
-  setAppPage (page) {
-    this.setState({current_page: page})
-  }
-
 }
 

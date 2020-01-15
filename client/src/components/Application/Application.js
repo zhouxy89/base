@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardHeader, Container} from 'reactstrap';
+import {Container} from 'reactstrap';
 
 import Home from './Home';
 import Options from './Options/Options';
 import Calculator from './Calculator/Calculator';
-import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
+import {sendServerRequest} from '../../utils/restfulAPI';
 import ErrorBanner from './ErrorBanner';
 import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
 import {isValid} from '../../api/Utils'
@@ -23,14 +22,7 @@ export default class Application extends Component {
     this.createApplicationPage = this.createApplicationPage.bind(this);
 
     this.state = {
-      serverConfig: null,
-      planOptions: {
-        units: {'miles':3959},
-        activeUnit: 'miles'
-      },
-      clientSettings: {
-        serverPort: getOriginalServerPort()
-      },
+      planOptions: {units: {'miles': 3959}, activeUnit: 'miles'},
       errorMessage: null
     };
 
@@ -48,12 +40,14 @@ export default class Application extends Component {
   }
 
   updateClientSetting(field, value) {
-    if(field === 'serverPort')
-      this.setState({clientSettings: {serverPort: value}}, this.updateServerConfig);
+    if(field === 'serverPort') {
+      this.props.modify('clientSettings', {serverPort: value});
+      this.updateServerConfig();
+    }
     else {
       let newSettings = Object.assign({}, this.state.planOptions);
       newSettings[field] = value;
-      this.setState({clientSettings: newSettings});
+      this.props.modify('clientSettings', newSettings);
     }
   }
 
@@ -64,7 +58,7 @@ export default class Application extends Component {
   }
 
   updateServerConfig() {
-    sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
+    sendServerRequest('config', this.props.clientSettings.serverPort).then(config => {
       console.log(config);
       this.processConfigResponse(config);
     });
@@ -88,10 +82,6 @@ export default class Application extends Component {
         return <Options options={this.state.planOptions}
                         config={this.state.serverConfig}
                         updateOption={this.updatePlanOption}/>;
-      case 'settings':
-        return <Settings settings={this.state.clientSettings}
-                         serverConfig={this.state.serverConfig}
-                         updateSetting={this.updateClientSetting}/>;
       default:
         return <Home/>;
     }
@@ -99,29 +89,23 @@ export default class Application extends Component {
 
   processConfigResponse(config) {
     if (!isValid(config.body, configSchema)) {
+      this.props.modify('serverConfig', null);
       this.setState({
-        serverConfig: null,
         errorMessage:
             <Container>
-              {this.createErrorBanner("INVALID_RESPONSE", 400,
-                  `Configuration response not valid`)}
+              {this.createErrorBanner("INVALID_RESPONSE", 400, `Configuration response not valid`)}
             </Container>
       });
-    }
-    else if(config.statusCode >= 200 && config.statusCode <= 299) {
-      console.log("Switching to server ", this.state.clientSettings.serverPort);
+    } else if(config.statusCode >= 200 && config.statusCode <= 299) {
+      console.log("Switching to server ", this.props.clientSettings.serverPort);
+      this.props.modify('serverConfig', config.body);
+      this.setState({errorMessage: null});
+    } else {
+      this.props.modify('serverConfig', null);
       this.setState({
-        serverConfig: config.body,
-        errorMessage: null
-      });
-    }
-    else {
-      this.setState({
-        serverConfig: null,
         errorMessage:
           <Container>
-            {this.createErrorBanner(config.statusText, config.statusCode,
-            `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
+            {this.createErrorBanner(config.statusText, config.statusCode, `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
           </Container>
       });
     }
