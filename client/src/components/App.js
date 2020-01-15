@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './tripcowebstyle.css';
+import './tcowebstyle.css';
 import Header from './Margins/Header';
 import Navigation from './Margins/Navigation';
 import Application from './Application/Application';
