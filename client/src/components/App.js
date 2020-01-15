@@ -8,12 +8,13 @@ import Navigation from './Margins/Navigation';
 import About from './About/About.js';
 import Application from './Application/Application';
 import Footer from './Margins/Footer';
+import {teamName} from "./Constants";
 
 export default class App extends Component {
   constructor (props){
     super(props);
     this.pages = [
-      { title: 't## team name', page: ''},
+      { title: teamName, page: ''},
       { title: 'Calculator', page: 'calc'},
       { title: 'Options', page: 'options'},
       { title: '\u2699', page: 'settings' }

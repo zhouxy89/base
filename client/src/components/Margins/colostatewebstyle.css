@@ -29,8 +29,10 @@
 
 /* Department Identifier Logo */
 #responsiveLogoSubsystem::before{
+  /*
   border-left-color: rgb(255, 255, 255);
   border-left-style: solid;
+  */
   border-left-width: 2px;
   bottom: 0;
   box-sizing: border-box;
