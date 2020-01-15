@@ -40,7 +40,6 @@ export default class Footer extends Component {
                 <div className={"footer-wrapper"}>
                     (
                     <Button color="link"
-                            size="lg"
                             onClick={() => this.setState({modalOpen: true})}
                     >
                         {this.props.clientSettings.serverPort}

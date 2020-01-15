@@ -14,28 +14,30 @@ export default class ServerSettingsModal extends Component {
             inputText: this.props.clientSettings.serverPort,
             validServer: true,
             validSave: false,
-            config: ''
+            config: false
         }
     }
 
     render() {
-        let currentServerName = 'Unknown';
-        if (this.props.serverConfig) {
-            currentServerName = this.props.serverConfig.serverName;
+        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : 'Unknown';
+        if (this.state.config) {
+            currentServerName = this.state.config.body.serverName;
         }
         return (
             <div>
                 <Modal isOpen={this.props.modalOpen} toggle={() => this.props.toggleModal()}>
-                    <ModalHeader toggle={() => this.props.toggleModal()}>Interop Settings</ModalHeader>
+                    <ModalHeader toggle={() => this.props.toggleModal()}>Server Connection</ModalHeader>
                     <ModalBody>
-                        <p>Current server name: {currentServerName}</p>
-                        <p>Configure new server:</p>
-                        <Input onChange={(e) => this.updateInput(e.target.value)}
-                               value={this.state.inputText}
-                               placeholder={this.props.serverPort}
-                               valid={this.state.validServer}
-                               invalid={!this.state.validServer}
-                        />
+                        <p>Name: {currentServerName}</p>
+                        <p style={{float: "left"}}>URL:</p>
+                        <div style={{overflow: "hidden", "paddingLeft": ".5em"}}>
+                            <Input onChange={(e) => this.updateInput(e.target.value)}
+                                   value={this.state.inputText}
+                                   placeholder={this.props.serverPort}
+                                   valid={this.state.validServer}
+                                   invalid={!this.state.validServer}
+                            />
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={() => this.props.toggleModal()}>Cancel</Button>
@@ -64,8 +66,7 @@ export default class ServerSettingsModal extends Component {
 
     processConfigResponse(config) {
         if (!isValid(config.body, configSchema) || !(config.statusCode >= 200 && config.statusCode <= 299)) {
-            this.setState({validServer: false});
-            this.setState({validSave: false})
+            this.setState({validServer: false, validSave: false, config: false});
         } else {
             this.setState({validServer: true, validSave: true, config: config})
         }
