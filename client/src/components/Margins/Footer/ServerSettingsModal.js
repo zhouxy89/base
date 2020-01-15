@@ -44,6 +44,12 @@ export default class ServerSettingsModal extends Component {
                         <Button onClick={() => {
                             this.props.updateServerConfig(this.state.inputText, this.state.config);
                             this.props.toggleModal();
+                            this.setState({
+                                inputText: this.props.clientSettings.serverPort,
+                                validServer: true,
+                                validSave: false,
+                                config: false
+                            });
                         }}
                                 disabled={!this.state.validSave}
                         >
