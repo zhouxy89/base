@@ -13,21 +13,21 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickedPosition: null,
+      markerPosition: null,
       mouseDownTime: null,
-      mapCenter: L.latLng(0,0),
+      mapCenter: [0, 0],
       mapZoom: 1
     };
-    this.handleMapMouseDown = this.handleMapMouseDown.bind(this);
-    this.handleMapMouseUp = this.handleMapMouseUp.bind(this);
-    this.handleMapMove = this.handleMapMove.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.addMarkerOrCenter = this.addMarkerOrCenter.bind(this);
+    this.clearTimer = this.clearTimer.bind(this);
   }
 
   render() {
     return (
       <Container>
         <Row>
-          <Col xs="12">
+          <Col>
             {this.renderMap()}
           </Col>
         </Row>
@@ -44,24 +44,23 @@ export default class Home extends Component {
   }
 
   renderLeafletMap() {
-    // initial map placement can use either of these approaches:
-    // 1: bounds={this.coloradoGeographicBoundaries()}
-    // 2: center={this.csuOvalGeographicCoordinates()} zoom={10}
-    var clickedPosition = '';
-    if (this.state.clickedPosition) {
-      clickedPosition = this.state.clickedPosition.lat.toFixed(2) + ', ' + this.state.clickedPosition.lng.toFixed(2);
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
     }
     return (
       <Map center={this.state.mapCenter}
            zoom={this.state.mapZoom}
-           onMousedown={this.handleMapMouseDown}
-           onMouseup={this.handleMapMouseUp}
-           onMove={this.handleMapMove}
-           style={{height: 400, maxwidth: 800}}>
+           minZoom={1}
+           maxBounds={[[-90, -180], [90, 180]]}
+           onMousedown={this.startTimer}
+           onMouseup={this.addMarkerOrCenter}
+           onMove={this.clearTimer}
+           style={{height: 500, maxWidth: 500}}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
-        {this.getMarker(clickedPosition, this.state.clickedPosition)}
+        {this.getMarker(markerPosition, this.state.markerPosition)}
       </Map>
     )
   }
@@ -80,24 +79,24 @@ export default class Home extends Component {
   }
 
 
-  handleMapMouseDown(e) {
+  startTimer(e) {
     this.setState({mouseDownTime: new Date()});
   }
 
 
-  handleMapMouseUp(e) {
+  addMarkerOrCenter(e) {
     if (this.state.mouseDownTime) {
       var elapsedMilliseconds = new Date() - this.state.mouseDownTime;
       if (elapsedMilliseconds > 250) {
-        this.setState({clickedPosition: e.latlng});
+        this.setState({markerPosition: e.latlng});
       } else {
-        this.setState({mapCenter: e.latlng, mapZoom: 15})
+        this.setState({mapCenter: e.latlng, mapZoom: 10})
       }
     }
   }
 
 
-  handleMapMove(e) {
+  clearTimer(e) {
     if (this.state.mouseDownTime) {
       this.setState({mouseDownTime: null})
     }
