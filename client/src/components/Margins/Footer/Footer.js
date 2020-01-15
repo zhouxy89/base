@@ -17,7 +17,7 @@ export default class Footer extends Component {
             <div className="add-footer">
                 <div className="application-width">
                     <div className="footer-container">
-                        <div>
+                        <div className="footer-height">
                             {this.renderServerInformation()}
                         </div>
                     </div>

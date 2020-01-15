@@ -114,5 +114,10 @@
     align-items: center;
     width: 100%;
     opacity: .90;
+    height: 10%;
+}
+
+.footer-height {
+    font-size: 20px;
 }
 
