@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { Button } from 'reactstrap'
+import {Button} from 'reactstrap'
 
 import ServerSettingsModal from './ServerSettingsModal'
-import FooterLogo from './FooterLogo';
 
 import '../colostatewebstyle.css';
 
@@ -18,7 +17,7 @@ export default class Footer extends Component {
             <div className="add-footer">
                 <div className="application-width">
                     <div className="footer-container">
-                        <div className={"footer-status-wrapper"}>
+                        <div>
                             {this.renderServerInformation()}
                         </div>
                     </div>
@@ -33,7 +32,7 @@ export default class Footer extends Component {
             serverName = this.props.serverConfig.serverName;
         }
         return(
-            <div className={"footer-status-text"}>
+            <div>
                 Connected to {serverName} (
                 <Button color="link" onClick={() => this.setState({modalOpen: true})}>
                     {this.props.clientSettings.serverPort}
@@ -43,6 +42,7 @@ export default class Footer extends Component {
                     toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
                     serverConfig={this.props.serverConfig}
                     clientSettings={this.props.clientSettings}
+                    updateServerConfig={this.props.updateServerConfig}
                 />
             </div>
         );

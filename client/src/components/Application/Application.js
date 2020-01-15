@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
-import {Container} from 'reactstrap';
 
 import Home from './Home';
-import Options from './Options/Options';
-import Calculator from './Calculator/Calculator';
-import {sendServerRequest} from '../../utils/restfulAPI';
-import ErrorBanner from './ErrorBanner';
-import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
-import {isValid} from '../../api/Utils'
-
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -23,10 +15,7 @@ export default class Application extends Component {
 
     this.state = {
       planOptions: {units: {'miles': 3959}, activeUnit: 'miles'},
-      errorMessage: null
     };
-
-    this.updateServerConfig();
   }
 
   render() {
@@ -34,21 +23,15 @@ export default class Application extends Component {
 
     return (
       <div className='application-width'>
-        { this.state.errorMessage }{ this.createApplicationPage(pageToRender) }
+        {this.props.errorMessage}{this.createApplicationPage(pageToRender)}
       </div>
     );
   }
 
   updateClientSetting(field, value) {
-    if(field === 'serverPort') {
-      this.props.modify('clientSettings', {serverPort: value});
-      this.updateServerConfig();
-    }
-    else {
       let newSettings = Object.assign({}, this.state.planOptions);
-      newSettings[field] = value;
-      this.props.modify('clientSettings', newSettings);
-    }
+    newSettings[field] = value;
+    this.props.modify('clientSettings', newSettings);
   }
 
   updatePlanOption(option, value) {
@@ -57,57 +40,7 @@ export default class Application extends Component {
     this.setState({'planOptions': optionsCopy});
   }
 
-  updateServerConfig() {
-    sendServerRequest('config', this.props.clientSettings.serverPort).then(config => {
-      console.log(config);
-      this.processConfigResponse(config);
-    });
-  }
-
-  createErrorBanner(statusText, statusCode, message) {
-    return (
-      <ErrorBanner statusText={statusText}
-                   statusCode={statusCode}
-                   message={message}/>
-    );
-  }
-
-  createApplicationPage(pageToRender) {
-    switch(pageToRender) {
-      case 'calc':
-        return <Calculator options={this.state.planOptions}
-                           settings={this.state.clientSettings}
-                           createErrorBanner={this.createErrorBanner}/>;
-      case 'options':
-        return <Options options={this.state.planOptions}
-                        config={this.state.serverConfig}
-                        updateOption={this.updatePlanOption}/>;
-      default:
-        return <Home/>;
-    }
-  }
-
-  processConfigResponse(config) {
-    if (!isValid(config.body, configSchema)) {
-      this.props.modify('serverConfig', null);
-      this.setState({
-        errorMessage:
-            <Container>
-              {this.createErrorBanner("INVALID_RESPONSE", 400, `Configuration response not valid`)}
-            </Container>
-      });
-    } else if(config.statusCode >= 200 && config.statusCode <= 299) {
-      console.log("Switching to server ", this.props.clientSettings.serverPort);
-      this.props.modify('serverConfig', config.body);
-      this.setState({errorMessage: null});
-    } else {
-      this.props.modify('serverConfig', null);
-      this.setState({
-        errorMessage:
-          <Container>
-            {this.createErrorBanner(config.statusText, config.statusCode, `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
-          </Container>
-      });
-    }
+  createApplicationPage() {
+    return <Home/>;
   }
 }
