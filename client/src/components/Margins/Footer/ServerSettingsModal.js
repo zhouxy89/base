@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Input, Modal, ModalBody, ModalHeader} from 'reactstrap';
+import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
-import {sendServerRequest} from "../../../utils/restfulAPI";
-import {isValid} from "../../../api/Utils";
+import {sendServerRequest} from "../../../api/restfulAPI";
+import {isValid} from "../../../utils/Utils";
+
 import * as configSchema from "../../../../schemas/TIPConfigResponseSchema";
 
 export default class ServerSettingsModal extends Component {
@@ -12,6 +13,7 @@ export default class ServerSettingsModal extends Component {
         this.state = {
             inputText: this.props.clientSettings.serverPort,
             validServer: true,
+            validSave: false,
             config: ''
         }
     }
@@ -34,14 +36,18 @@ export default class ServerSettingsModal extends Component {
                                valid={this.state.validServer}
                                invalid={!this.state.validServer}
                         />
-                        <br/>
+                    </ModalBody>
+                    <ModalFooter>
                         <Button color="secondary" onClick={() => this.props.toggleModal()}>Cancel</Button>
-                        <Button onClick={() => this.props.updateServerConfig(this.state.inputText, this.state.config)}
-                                disabled={!this.state.validServer}
+                        <Button onClick={() => {
+                            this.props.updateServerConfig(this.state.inputText, this.state.config);
+                            this.props.toggleModal();
+                        }}
+                                disabled={!this.state.validSave}
                         >
                             Save
                         </Button>
-                    </ModalBody>
+                    </ModalFooter>
                 </Modal>
             </div>
         )
@@ -58,9 +64,10 @@ export default class ServerSettingsModal extends Component {
 
     processConfigResponse(config) {
         if (!isValid(config.body, configSchema) || !(config.statusCode >= 200 && config.statusCode <= 299)) {
-            this.setState({validServer: false})
+            this.setState({validServer: false});
+            this.setState({validSave: false})
         } else {
-            this.setState({validServer: true, config: config})
+            this.setState({validServer: true, validSave: true, config: config})
         }
     }
 }

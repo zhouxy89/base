@@ -16,10 +16,8 @@ export default class Footer extends Component {
         return (
             <div className="add-footer">
                 <div className="application-width">
-                    <div className="footer-container">
-                        <div className="footer-height">
-                            {this.renderServerInformation()}
-                        </div>
+                    <div className="footer-height">
+                        {this.renderServerInformation()}
                     </div>
                 </div>
             </div>
@@ -28,22 +26,33 @@ export default class Footer extends Component {
 
     renderServerInformation() {
         let serverName = "Unknown";
-        if(this.props.serverConfig && this.props.serverConfig.serverName) {
+        if (this.props.serverConfig && this.props.serverConfig.serverName) {
             serverName = this.props.serverConfig.serverName;
         }
-        return(
-            <div>
-                Connected to {serverName} (
-                <Button color="link" onClick={() => this.setState({modalOpen: true})}>
-                    {this.props.clientSettings.serverPort}
-                </Button> )
-                <ServerSettingsModal
-                    modalOpen={this.state.modalOpen}
-                    toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
-                    serverConfig={this.props.serverConfig}
-                    clientSettings={this.props.clientSettings}
-                    updateServerConfig={this.props.updateServerConfig}
-                />
+        return (
+            <div className={"footer-container"}>
+                <div className={"footer-wrapper"}>
+                    &#128279;
+                </div>
+                <div className={"footer-wrapper"}>
+                    Connected to {serverName}
+                </div>
+                <div className={"footer-wrapper"}>
+                    (
+                    <Button color="link"
+                            size="lg"
+                            onClick={() => this.setState({modalOpen: true})}
+                    >
+                        {this.props.clientSettings.serverPort}
+                    </Button> )
+                    <ServerSettingsModal
+                        modalOpen={this.state.modalOpen}
+                        toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
+                        serverConfig={this.props.serverConfig}
+                        clientSettings={this.props.clientSettings}
+                        updateServerConfig={this.props.updateServerConfig}
+                    />
+                </div>
             </div>
         );
     }

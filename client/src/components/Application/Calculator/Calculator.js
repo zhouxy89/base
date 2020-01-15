@@ -1,27 +1,25 @@
-import React, { Component } from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import { Button } from 'reactstrap'
-import { Form, Label, Input } from 'reactstrap'
-import { sendServerRequestWithBody } from '../../../utils/restfulAPI'
+import React, {Component} from 'react'
+import {Button, Col, Container, Form, Input, Row} from 'reactstrap'
+import {sendServerRequestWithBody} from '../../../api/restfulAPI'
 import Pane from '../Pane';
 import * as distanceResponseSchema from '../../../../schemas/TIPDistanceResponseSchema'
-import {isValid} from '../../../api/Utils'
+import {isValid} from '../../../utils/Utils'
 
 export default class Calculator extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
-    this.calculateDistance = this.calculateDistance.bind(this);
-    this.createInputField = this.createInputField.bind(this);
+        this.updateLocationOnChange = this.updateLocationOnChange.bind(this);
+        this.calculateDistance = this.calculateDistance.bind(this);
+        this.createInputField = this.createInputField.bind(this);
 
-    this.state = {
-      origin: {latitude: '', longitude: ''},
-      destination: {latitude: '', longitude: ''},
-      distance: 0,
-      errorMessage: null
-    };
-  }
+        this.state = {
+            origin: {latitude: '', longitude: ''},
+            destination: {latitude: '', longitude: ''},
+            distance: 0,
+            errorMessage: null
+        };
+    }
 
   render() {
     return (

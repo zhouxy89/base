@@ -7,8 +7,8 @@ import Header from './Margins/Header';
 import Application from './Application/Application';
 import Footer from './Margins/Footer/Footer';
 
-import {getOriginalServerPort, sendServerRequest} from "../utils/restfulAPI";
-import {isValid} from "../api/Utils";
+import {getOriginalServerPort, sendServerRequest} from "../api/restfulAPI";
+import {isValid} from "../utils/Utils";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
 import {Container} from "reactstrap";
 import ErrorBanner from "./Application/ErrorBanner";
