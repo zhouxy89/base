@@ -15,25 +15,25 @@ export default class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                <div className="application-width">
-                    {this.renderServerInformation()}
-                </div>
+                {this.renderServerInformation()}
             </div>
         )
     }
 
     renderServerInformation() {
         let serverName = "Unknown";
+        let UTFchar = "\u26A0"; // Warning Unicode Character
         if (this.props.serverConfig && this.props.serverConfig.serverName) {
             serverName = this.props.serverConfig.serverName;
+            UTFchar = "\uD83D\uDD17"; // Link Unicode Character
         }
         return (
             <div className={"footer-container"}>
-                &#128279; Connected to {serverName}
+                {UTFchar} Connected to {serverName}
                 <Button color="#1E4D2B"
                         onClick={() => this.setState({modalOpen: true})}
                 >
-                    <div className={"csu-text"}>
+                    <div className={"tco-text"}>
                         ( {this.props.clientSettings.serverPort} ).
                     </div>
                 </Button>

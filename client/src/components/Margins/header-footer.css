@@ -1,18 +1,12 @@
 /* Class creates full-window width div */
 
-.application-width {
-    margin: auto;
-    max-width: 1200px;
-    padding: 0 15px 0 15px;
-}
-
-.csu-text {
+.tco-text {
     font-family: 'prox-light', sans-serif;
     font-size: 15px;
     color: white;
 }
 
-.csu-text-upper {
+.tco-text-upper {
     font-family: 'prox-light', sans-serif;
     font-size: 24px;
     letter-spacing: .11em;
@@ -22,11 +16,11 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .csu-text {
+    .tco-text {
         font-size: 12px;
     }
 
-    .csu-text-upper {
+    .tco-text-upper {
         font-size: 18px;
     }
 }
@@ -36,9 +30,14 @@
 
 .header {
     top: 0;
-    margin-bottom: 25px;
     background-color: #1E4D2B;
     color: #FFFFFF;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: 25px;
+    padding: 0 100px 0 100px;
 }
 
 .header-container {
@@ -53,8 +52,7 @@
 }
 
 .header-wrapper {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -76,9 +74,14 @@
 
 .footer {
     bottom: 0;
-    margin-top: 25px;
     background-color: #1E4D2B;
     color: #FFFFFF;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 25px;
+    padding: 0 100px 0 100px;
 }
 
 .footer-container {
@@ -95,5 +98,6 @@
 @media only screen and (max-width: 600px) {
     .footer-container {
         font-size: 12px;
+        justify-content: center;
     }
 }
