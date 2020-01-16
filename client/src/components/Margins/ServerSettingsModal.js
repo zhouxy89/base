@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
-import {sendServerRequest} from "../../../api/restfulAPI";
-import {isValid} from "../../../utils/Utils";
+import {sendServerRequest} from "../../api/restfulAPI";
+import {isValid} from "../../utils/Utils";
 
-import * as configSchema from "../../../../schemas/TIPConfigResponseSchema";
+import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 
 export default class ServerSettingsModal extends Component {
 

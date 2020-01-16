@@ -3,7 +3,7 @@ import {Button} from 'reactstrap'
 
 import ServerSettingsModal from './ServerSettingsModal'
 
-import '../colostatewebstyle.css';
+import './header-footer.css';
 
 export default class Footer extends Component {
 
@@ -39,11 +39,13 @@ export default class Footer extends Component {
                 </div>
                 <div className={"footer-wrapper"}>
                     (
-                    <Button color="link"
+                    <Button color="#1E4D2B"
                             onClick={() => this.setState({modalOpen: true})}
                     >
-                        {this.props.clientSettings.serverPort}
-                    </Button> )
+                        <div className={"csu-text"}>
+                            {this.props.clientSettings.serverPort}
+                        </div>
+                    </Button> ).
                     <ServerSettingsModal
                         modalOpen={this.state.modalOpen}
                         toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}

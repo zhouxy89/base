@@ -1,18 +1,20 @@
-/* Width of marginal components */
-.application-width{
+/* Class creates full-window width div */
+
+.application-width {
     margin: auto;
     max-width: 1200px;
     padding: 0 15px 0 15px;
 }
 
-/* HEADER STYLES */
-/* CSU Unit Identifier Font */
-.add-header-height{
+/* Header Styles */
+
+.add-header-height {
     background-color: #1E4D2B;
     height: 90px;
+    margin-bottom: 25px;
 }
 
-#responsiveHeaderContainer{
+#responsiveHeaderContainer {
     display: flex;
     align-items: center;
     height: 100%;
@@ -110,6 +112,12 @@
 .footer-wrapper {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.csu-text {
+    font-family: 'prox-light', sans-serif;
+    font-size: 15px;
+    color: white;
 }
 
 @media only screen and (max-width: 614px) {

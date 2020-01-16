@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './colostatewebstyle.css';
+import './header-footer.css';
 import HeaderLogo from './resources/tcoLogo.svg';
 import {teamName} from '../Constants';
 
