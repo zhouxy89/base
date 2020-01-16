@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Row, Col, Card} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
-import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
 /*
  * Renders the home page.
@@ -25,21 +25,13 @@ export default class Home extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col>
-            {this.renderMap()}
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-
-  renderMap() {
-    return (
-      <Card>
-        {this.renderLeafletMap()}
-      </Card>
+        <Container>
+          <Row>
+            <Col sm="12" md={{size: 6, offset: 3}}>
+              {this.renderLeafletMap()}
+            </Col>
+          </Row>
+        </Container>
     );
   }
 
