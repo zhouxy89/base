@@ -1,36 +1,32 @@
 import React, {Component} from 'react';
+import {Container, Collapse} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './tripcowebstyle.css';
 
 import Header from './Margins/Header';
+import About from './About/About.js';
 import Application from './Application/Application';
-import Footer from './Margins/Footer/Footer';
+import Footer from './Margins/Footer';
+import ErrorBanner from "./Application/ErrorBanner";
 
 import {getOriginalServerPort, sendServerRequest} from "../api/restfulAPI";
 import {isValid} from "../utils/Utils";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
-import {Container} from "reactstrap";
-import ErrorBanner from "./Application/ErrorBanner";
 
 export default class App extends Component {
 
     constructor(props) {
         super(props);
 
-        this.pages = [
-            {title: 't## team name', page: ''},
-            {title: 'Calculator', page: 'calc'},
-            {title: 'Options', page: 'options'},
-            {title: '\u2699', page: 'settings'}
-        ];
-
         this.state = {
-            current_page: this.pages[0].page,
+            showAbout: false,
             serverConfig: null,
             clientSettings: {serverPort: getOriginalServerPort()},
             errorMessage: null
         };
+
+    this.toggleAbout = this.toggleAbout.bind(this);
 
         sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
             this.processConfigResponse(config);
@@ -40,18 +36,18 @@ export default class App extends Component {
     render() {
         return (
             <div className="csu-branding">
-                <Header
-                    pages={this.pages}
-                    setAppPage={(page) => this.setState({current_page: page})
-                    }
-                />
-                <Application
-                    page={this.state.current_page}
-                    serverConfig={this.state.serverConfig}
-                    clientSettings={this.state.clientSettings}
-                    errorMessage={this.state.errorMessage}
-                    modify={(state, value) => this.setState({[state]: value})}
-                />
+                <Header toggleAbout={this.toggleAbout}/>
+                <Collapse isOpen={this.state.showAbout}>
+                  <About closePage={this.toggleAbout}/>
+                </Collapse>
+                <Collapse isOpen={!this.state.showAbout}>
+                  <Application
+                      serverConfig={this.state.serverConfig}
+                      clientSettings={this.state.clientSettings}
+                      errorMessage={this.state.errorMessage}
+                      modify={(state, value) => this.setState({[state]: value})}
+                  />
+                </Collapse>
                 <Footer
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
@@ -60,6 +56,11 @@ export default class App extends Component {
             </div>
         );
     }
+
+  toggleAbout() {
+    const newState = !this.state.showAbout;
+    this.setState({showAbout: newState});
+  }
 
     updateServerConfig(value, config) {
         this.setState({clientSettings: {serverPort: value}});

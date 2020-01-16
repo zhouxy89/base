@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './colostatewebstyle.css';
-import {HeaderLogoLarge, HeaderLogoMedium, HeaderLogoSmall} from './HeaderLogo';
+import HeaderLogo from './resources/tcoLogo.svg';
+import {teamName} from '../Constants';
 
 /* Renders a text heading above the application with useful information.
  */
@@ -14,18 +15,15 @@ export default class Header extends Component{
         <div className="add-header-height">
           <div className="application-width">
             <div id="responsiveHeaderContainer">
-              <a href="http://colostate.edu" id="csuHeaderLink" target="_blank">
-                <HeaderLogoLarge/>
-                <HeaderLogoMedium/>
-                <HeaderLogoSmall/>
+              <a href="https://cs.colostate.edu/~cs314" id="csuHeaderLink" target="_blank">
+                  <img id="tcoLogo" src={HeaderLogo}
+                       height="100%" alt="TCO Brand Logo"/>
               </a>
-              <div id="responsiveLogoSubsystem">
-                <a href={"https://compsci.colostate.edu/"} id="csHeaderLink" target="_blank">
-                  <h1 className="larger-CSUtext-upper">
-                    Computer Science
-                  </h1>
-                </a>
-              </div>
+              <a id="responsiveLogoSubsystem" onClick={this.props.toggleAbout}>
+                <h1 className="larger-CSUtext-upper">
+                  {teamName}
+                </h1>
+              </a>
             </div>
           </div>
         </div>
