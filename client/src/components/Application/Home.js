@@ -21,6 +21,7 @@ export default class Home extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.addMarkerOrCenter = this.addMarkerOrCenter.bind(this);
     this.clearTimer = this.clearTimer.bind(this);
+    this.setZoomLevel = this.setZoomLevel.bind(this);
   }
 
   render() {
@@ -56,6 +57,7 @@ export default class Home extends Component {
            onMousedown={this.startTimer}
            onMouseup={this.addMarkerOrCenter}
            onMove={this.clearTimer}
+           onZoom={this.setZoomLevel}
            style={{height: 500, maxWidth: 500}}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -90,7 +92,7 @@ export default class Home extends Component {
       if (elapsedMilliseconds > 250) {
         this.setState({markerPosition: e.latlng});
       } else {
-        this.setState({mapCenter: e.latlng, mapZoom: 10})
+        this.setState({mapCenter: e.latlng, mapZoom: e.target.getZoom() + 2});
       }
     }
   }
@@ -102,6 +104,9 @@ export default class Home extends Component {
     }
   }
 
+  setZoomLevel(e) {
+    this.setState({mapZoom: e.target.getZoom()})
+  }
 
   markerIcon() {
     // react-leaflet does not currently handle default marker icons correctly,
