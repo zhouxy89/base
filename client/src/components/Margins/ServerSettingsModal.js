@@ -19,7 +19,7 @@ export default class ServerSettingsModal extends Component {
     }
 
     render() {
-        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : 'Unknown';
+        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : '';
         if (this.state.config) {
             currentServerName = this.state.config.body.serverName;
         }
@@ -40,16 +40,10 @@ export default class ServerSettingsModal extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={() => this.props.toggleModal()}>Cancel</Button>
+                        <Button color="secondary" onClick={() => this.resetModalState()}>Cancel</Button>
                         <Button onClick={() => {
                             this.props.updateServerConfig(this.state.inputText, this.state.config);
-                            this.props.toggleModal();
-                            this.setState({
-                                inputText: this.props.clientSettings.serverPort,
-                                validServer: true,
-                                validSave: false,
-                                config: false
-                            });
+                            this.resetModalState();
                         }}
                                 disabled={!this.state.validSave}
                         >
@@ -59,6 +53,16 @@ export default class ServerSettingsModal extends Component {
                 </Modal>
             </div>
         )
+    }
+
+    resetModalState() {
+        this.props.toggleModal();
+        this.setState({
+            inputText: this.props.clientSettings.serverPort,
+            validServer: true,
+            validSave: false,
+            config: false
+        });
     }
 
     updateInput(value) {
