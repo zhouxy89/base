@@ -1,35 +1,27 @@
 import React, {Component} from 'react';
-import './colostatewebstyle.css';
-import {HeaderLogoLarge, HeaderLogoMedium, HeaderLogoSmall} from './HeaderLogo';
+import './header-footer.css';
+import HeaderLogo from './resources/tcoLogo.svg';
+import {teamName} from '../Constants';
 
-/* Renders a text heading above the application with useful information.
- */
-export default class Header extends Component{
-  constructor(props) {
-    super(props);
-  }
+export default class Header extends Component {
 
-  render() {
-    return(
-        <div className="add-header-height">
-          <div className="application-width">
-            <div id="responsiveHeaderContainer">
-              <a href="http://colostate.edu" id="csuHeaderLink" target="_blank">
-                <HeaderLogoLarge/>
-                <HeaderLogoMedium/>
-                <HeaderLogoSmall/>
-              </a>
-              <div id="responsiveLogoSubsystem">
-                <a href={"https://compsci.colostate.edu/"} id="csHeaderLink" target="_blank">
-                  <h1 className="larger-CSUtext-upper">
-                    Computer Science
-                  </h1>
-                </a>
-              </div>
+    render() {
+        return (
+            <div className="header">
+                <div className={"header-container"}>
+                    <div className="header-wrapper">
+                        <a href="https://cs.colostate.edu/~cs314" id="csuHeaderLink" target="_blank">
+                            <img id="tcoLogo" src={HeaderLogo} height="100%" alt="TCO Brand Logo"/>
+                        </a>
+                    </div>
+                    <div className="header-wrapper">
+                        <a onClick={this.props.toggleAbout}>
+                            <h1 className="tco-text-upper">{teamName}</h1>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-    );
-  }
+        );
+    }
 
 }

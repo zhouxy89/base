@@ -1,61 +1,50 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardHeader, Container} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 
-import Home from './Home';
-import Options from './Options/Options';
-import Calculator from './Calculator/Calculator';
-import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
-import ErrorBanner from './ErrorBanner';
-import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
-import {isValid} from '../../api/Utils';
-import log from '../../utils/globals';
+import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/leaflet.css';
 
+import Pane from './Pane'
 
-/* Renders the application.
- * Holds the destinations and options state shared with the trip.
- */
 export default class Application extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
-    this.createApplicationPage = this.createApplicationPage.bind(this);
 
     this.state = {
-      serverConfig: null,
       planOptions: {
-        units: {'miles':3959},
+        units: {'miles': 3959},
         activeUnit: 'miles'
       },
-      clientSettings: {
-        serverPort: getOriginalServerPort()
-      },
-      errorMessage: null
     };
-
-    this.updateServerConfig();
   }
 
   render() {
-    let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
-
     return (
-      <div className='application-width'>
-        { this.state.errorMessage }{ this.createApplicationPage(pageToRender) }
-      </div>
+        <div className='application-width'>
+          {this.props.errorMessage}
+          <Container>
+            <Row>
+              <Col xs={12} sm={12} md={7} lg={8} xl={9}>
+                {this.renderMap()}
+              </Col>
+              <Col xs={12} sm={12} md={5} lg={4} xl={3}>
+                {this.renderIntro()}
+              </Col>
+            </Row>
+          </Container>
+        </div>
     );
   }
 
   updateClientSetting(field, value) {
-    if(field === 'serverPort')
-      this.setState({clientSettings: {serverPort: value}}, this.updateServerConfig);
-    else {
-      let newSettings = Object.assign({}, this.state.planOptions);
-      newSettings[field] = value;
-      this.setState({clientSettings: newSettings});
-    }
+    let newSettings = Object.assign({}, this.state.planOptions);
+    newSettings[field] = value;
+    this.props.modify('clientSettings', newSettings);
   }
 
   updatePlanOption(option, value) {
@@ -64,67 +53,54 @@ export default class Application extends Component {
     this.setState({'planOptions': optionsCopy});
   }
 
-  updateServerConfig() {
-    sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
-      log.info("Server Config: ",config);
-      this.processConfigResponse(config);
-    });
-  }
-
-  createErrorBanner(statusText, statusCode, message) {
+  renderMap() {
     return (
-      <ErrorBanner statusText={statusText}
-                   statusCode={statusCode}
-                   message={message}/>
+        <Pane header={'Where Am I?'}
+              bodyJSX={this.renderLeafletMap()}/>
     );
   }
 
-  createApplicationPage(pageToRender) {
-    switch(pageToRender) {
-      case 'calc':
-        return <Calculator options={this.state.planOptions}
-                           settings={this.state.clientSettings}
-                           createErrorBanner={this.createErrorBanner}/>;
-      case 'options':
-        return <Options options={this.state.planOptions}
-                        config={this.state.serverConfig}
-                        updateOption={this.updatePlanOption}/>;
-      case 'settings':
-        return <Settings settings={this.state.clientSettings}
-                         serverConfig={this.state.serverConfig}
-                         updateSetting={this.updateClientSetting}/>;
-      default:
-        return <Home/>;
-    }
+  renderLeafletMap() {
+    // initial map placement can use either of these approaches:
+    // 1: bounds={this.coloradoGeographicBoundaries()}
+    // 2: center={this.csuOvalGeographicCoordinates()} zoom={10}
+    return (
+        <Map center={this.csuOvalGeographicCoordinates()} zoom={10}
+             style={{height: 500, maxwidth: 700}}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          />
+          <Marker position={this.csuOvalGeographicCoordinates()}
+                  icon={this.markerIcon()}>
+            <Popup className="font-weight-extrabold">Colorado State University</Popup>
+          </Marker>
+        </Map>
+    )
   }
 
-  processConfigResponse(config) {
-    if (!isValid(config.body, configSchema)) {
-      this.setState({
-        serverConfig: null,
-        errorMessage:
-            <Container>
-              {this.createErrorBanner("INVALID_RESPONSE", 400,
-                  `Configuration response not valid`)}
-            </Container>
-      });
-    }
-    else if(config.statusCode >= 200 && config.statusCode <= 299) {
-      log.info("Switching to server ", this.state.clientSettings.serverPort);
-      this.setState({
-        serverConfig: config.body,
-        errorMessage: null
-      });
-    }
-    else {
-      this.setState({
-        serverConfig: null,
-        errorMessage:
-          <Container>
-            {this.createErrorBanner(config.statusText, config.statusCode,
-            `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
-          </Container>
-      });
-    }
+  renderIntro() {
+    return (
+        <Pane header={'Bon Voyage!'}
+              bodyJSX={'Let us help you plan your next trip.'}/>
+    );
+  }
+
+  coloradoGeographicBoundaries() {
+    // northwest and southeast corners of the state of Colorado
+    return L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
+  }
+
+  csuOvalGeographicCoordinates() {
+    return L.latLng(40.576179, -105.080773);
+  }
+
+  markerIcon() {
+    // react-leaflet does not currently handle default marker icons correctly,
+    // so we must create our own
+    return L.icon({
+      iconUrl: icon,
+      shadowUrl: iconShadow,
+      iconAnchor: [12, 40]  // for proper placement
+    })
   }
 }
