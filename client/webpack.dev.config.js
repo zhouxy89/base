@@ -15,6 +15,7 @@ const webpack = require('webpack')
 // the REST server (on localhost), respectively.
 const dev_port = 31401;
 const server_port = 31400;
+const LOG_LEVEL = 5;
 
 /*
  * Think of module.exports as the "what's in this file" of JavaScript.
@@ -54,7 +55,8 @@ module.exports = {
   // These are the different plugins we can use
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.dev': server_port
+      'process.env.dev': server_port,
+      'process.env.LOG_LEVEL': LOG_LEVEL
     }),
     new webpack.NamedModulesPlugin(),
 
