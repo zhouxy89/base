@@ -12,9 +12,11 @@ const MAX_BOUNDS = [
     [-90, -180],
     [90, 180]
 ];
+const DEFAULT_MAP_CENTER = [0, 0];
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
-const ADD_MARKER_AFTER_TIME_THRESHOLD = 250;
-const ADD_MARKER_ZOOM_LEVEL = 12;
+const ADD_MARKER_ZOOM_LEVEL = 10;
 
 
 export default class Application extends Component {
@@ -23,10 +25,10 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
-    this.startTimer = this.startTimer.bind(this);
-    this.addMarkerOrCenter = this.addMarkerOrCenter.bind(this);
-    this.clearTimer = this.clearTimer.bind(this);
-    this.setZoomLevel = this.setZoomLevel.bind(this);
+    this.addMarker = this.addMarker.bind(this);
+    this.setZoom = this.setZoom.bind(this);
+    this.setCenter = this.setCenter.bind(this);
+    this.zoomToMarker = this.zoomToMarker.bind(this);
 
     this.state = {
       planOptions: {
@@ -34,9 +36,8 @@ export default class Application extends Component {
         activeUnit: 'miles'
       },
       markerPosition: null,
-      mouseDownTime: null,
-      mapCenter: [0, 0],
-      mapZoom: 1,
+      mapCenter: DEFAULT_MAP_CENTER,
+      mapZoom: MIN_ZOOM,
     };
   }
 
@@ -75,12 +76,12 @@ export default class Application extends Component {
     return (
         <Map center={this.state.mapCenter}
              zoom={this.state.mapZoom}
-             minZoom={1}
+             minZoom={MIN_ZOOM}
+             maxZoom={MAX_ZOOM}
              maxBounds={MAX_BOUNDS}
-             onMousedown={this.startTimer}
-             onMouseup={this.addMarkerOrCenter}
-             onMove={this.clearTimer}
-             onZoom={this.setZoomLevel}
+             onClick={this.addMarker}
+             onZoom={this.setZoom}
+             onMove={this.setCenter}
              style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -94,41 +95,32 @@ export default class Application extends Component {
     if (position) {
       return (
           <Marker position={position} icon={this.markerIcon()}
-                  onMouseOver={(e) => {e.target.openPopup();}}
-                  onMouseOut={(e) => {e.target.closePopup();}}>
+                  onClick={this.zoomToMarker}>
             <Popup className="font-weight-bold">{bodyJSX}</Popup>
           </Marker>
       );
     }
   }
 
-  startTimer(e) {
-    this.setState({mouseDownTime: new Date()});
+  addMarker(e) {
+    this.setState({markerPosition: e.latlng});
   }
 
-  addMarkerOrCenter(e) {
-    if (this.state.mouseDownTime) {
-      let elapsedMilliseconds = new Date() - this.state.mouseDownTime;
-      if (elapsedMilliseconds > ADD_MARKER_AFTER_TIME_THRESHOLD) {
-        let newState = {markerPosition: e.latlng, mapCenter: e.latlng};
-        if (e.target.getZoom() <= ADD_MARKER_ZOOM_LEVEL) {
-          newState['mapZoom'] = ADD_MARKER_ZOOM_LEVEL;
-        }
-        this.setState(newState);
-      } else {
-        this.setState({mapCenter: e.latlng, mapZoom: e.target.getZoom() + 2});
-      }
+  zoomToMarker(e) {
+    let newState = {mapCenter: e.latlng};
+    if (this.state.mapZoom < ADD_MARKER_ZOOM_LEVEL) {
+      newState['mapZoom'] = ADD_MARKER_ZOOM_LEVEL;
     }
+    this.setState(newState);
+    e.target.openPopup();
   }
 
-  clearTimer(e) {
-    if (this.state.mouseDownTime) {
-      this.setState({mouseDownTime: null})
-    }
+  setZoom(e) {
+    this.setState({mapZoom: e.target.getZoom()});
   }
 
-  setZoomLevel(e) {
-    this.setState({mapZoom: e.target.getZoom()})
+  setCenter(e) {
+    this.setState({mapCenter: e.target.getCenter()});
   }
 
   markerIcon() {
