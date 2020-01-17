@@ -1,4 +1,4 @@
-import log from "./globals";
+import log from "../utils/globals";
 
 /* functions to support server interactions via restful APIs.
  */
