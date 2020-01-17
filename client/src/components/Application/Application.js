@@ -27,7 +27,7 @@ export default class Application extends Component {
     this.updateClientSetting = this.updateClientSetting.bind(this);
     this.addMarker = this.addMarker.bind(this);
     this.setZoom = this.setZoom.bind(this);
-    this.setCenter = this.setCenter.bind(this);
+    this.clearCenter = this.clearCenter.bind(this);
     this.zoomToMarker = this.zoomToMarker.bind(this);
 
     this.state = {
@@ -81,7 +81,7 @@ export default class Application extends Component {
              maxBounds={MAX_BOUNDS}
              onClick={this.addMarker}
              onZoom={this.setZoom}
-             onMove={this.setCenter}
+             onMove={this.clearCenter}
              style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -107,7 +107,7 @@ export default class Application extends Component {
   }
 
   zoomToMarker(e) {
-    let newState = {mapCenter: e.latlng};
+    let newState = {mapCenter: this.state.markerPosition};
     if (this.state.mapZoom < ADD_MARKER_ZOOM_LEVEL) {
       newState['mapZoom'] = ADD_MARKER_ZOOM_LEVEL;
     }
@@ -119,8 +119,10 @@ export default class Application extends Component {
     this.setState({mapZoom: e.target.getZoom()});
   }
 
-  setCenter(e) {
-    this.setState({mapCenter: e.target.getCenter()});
+  clearCenter(e) {
+    if (this.state.mapCenter) {
+      this.setState({mapCenter: null});
+    }
   }
 
   markerIcon() {
