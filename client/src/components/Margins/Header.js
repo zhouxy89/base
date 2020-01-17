@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './header-footer.css';
 import HeaderLogo from './resources/tcoLogo.svg';
-import {teamName} from '../Constants';
+import {CLIENT_TEAM_NAME} from '../Constants';
 
 export default class Header extends Component {
 
@@ -16,7 +16,7 @@ export default class Header extends Component {
                     </div>
                     <div className="header-wrapper">
                         <a onClick={this.props.toggleAbout}>
-                            <h1 className="tco-text-upper">{teamName}</h1>
+                            <h1 className="tco-text-upper">{CLIENT_TEAM_NAME}</h1>
                         </a>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
 import '../tripcowebstyle.css';
-import {teamName} from "../Constants";
+import {CLIENT_TEAM_NAME} from "../Constants";
 
 export default class About extends Component {
 
@@ -11,7 +11,7 @@ export default class About extends Component {
           <Row>
             <Col>
               <h2 className="font-weight-bold" >
-                {teamName}
+                {CLIENT_TEAM_NAME}
               </h2>
             </Col>
             <Col id="closeAbout" xs='auto' >
