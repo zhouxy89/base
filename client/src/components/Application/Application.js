@@ -5,8 +5,7 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
-
-import Pane from './Pane'
+import {earthRadius} from '../Constants';
 
 const MAX_BOUNDS = [
     [-90, -180],
@@ -32,7 +31,7 @@ export default class Application extends Component {
 
     this.state = {
       planOptions: {
-        units: {'miles': 3959},
+        units: {'miles': earthRadius['miles']},
         activeUnit: 'miles'
       },
       markerPosition: null,
