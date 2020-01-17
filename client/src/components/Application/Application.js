@@ -95,7 +95,7 @@ export default class Application extends Component {
       return (
           <Marker position={position} icon={this.markerIcon()}
                   onClick={this.zoomToMarker}>
-            <Popup className="font-weight-bold">{bodyJSX}</Popup>
+            <Popup offset={[0, -18]} className="font-weight-bold">{bodyJSX}</Popup>
           </Marker>
       );
     }
