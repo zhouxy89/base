@@ -1,60 +1,64 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardHeader, Container} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 
-import Home from './Home';
-import Options from './Options/Options';
-import Calculator from './Calculator/Calculator';
-import Settings from './Settings/Settings';
-import {getOriginalServerPort, sendServerRequest} from '../../utils/restfulAPI';
-import ErrorBanner from './ErrorBanner';
-import * as configSchema from '../../../schemas/TIPConfigResponseSchema'
-import {isValid} from '../../api/Utils'
+import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/leaflet.css';
+
+import Pane from './Pane'
+
+const MAX_BOUNDS = [
+    [-90, -180],
+    [90, 180]
+];
+const MAP_STYLE_LENGTH = 500;
+const ADD_MARKER_AFTER_TIME_THRESHOLD = 250;
+const ADD_MARKER_ZOOM_LEVEL = 12;
 
 
-/* Renders the application.
- * Holds the destinations and options state shared with the trip.
- */
 export default class Application extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
-    this.createApplicationPage = this.createApplicationPage.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.addMarkerOrCenter = this.addMarkerOrCenter.bind(this);
+    this.clearTimer = this.clearTimer.bind(this);
+    this.setZoomLevel = this.setZoomLevel.bind(this);
 
     this.state = {
-      serverConfig: null,
       planOptions: {
-        units: {'miles':3959},
+        units: {'miles': 3959},
         activeUnit: 'miles'
       },
-      clientSettings: {
-        serverPort: getOriginalServerPort()
-      },
-      errorMessage: null
+      markerPosition: null,
+      mouseDownTime: null,
+      mapCenter: [0, 0],
+      mapZoom: 1,
     };
-
-    this.updateServerConfig();
   }
 
   render() {
-    let pageToRender = this.state.serverConfig ? this.props.page : 'settings';
-
     return (
-      <div className='application-width'>
-        { this.state.errorMessage }{ this.createApplicationPage(pageToRender) }
-      </div>
+        <div className='application-width'>
+          {this.props.errorMessage}
+          <Container>
+            <Row>
+              <Col sm="12" md={{size: 6, offset: 3}}>
+                {this.renderLeafletMap()}
+              </Col>
+            </Row>
+          </Container>
+        </div>
     );
   }
 
   updateClientSetting(field, value) {
-    if(field === 'serverPort')
-      this.setState({clientSettings: {serverPort: value}}, this.updateServerConfig);
-    else {
-      let newSettings = Object.assign({}, this.state.planOptions);
-      newSettings[field] = value;
-      this.setState({clientSettings: newSettings});
-    }
+    let newSettings = Object.assign({}, this.state.planOptions);
+    newSettings[field] = value;
+    this.props.modify('clientSettings', newSettings);
   }
 
   updatePlanOption(option, value) {
@@ -63,67 +67,77 @@ export default class Application extends Component {
     this.setState({'planOptions': optionsCopy});
   }
 
-  updateServerConfig() {
-    sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
-      console.log(config);
-      this.processConfigResponse(config);
-    });
-  }
-
-  createErrorBanner(statusText, statusCode, message) {
+  renderLeafletMap() {
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+    }
     return (
-      <ErrorBanner statusText={statusText}
-                   statusCode={statusCode}
-                   message={message}/>
-    );
+        <Map center={this.state.mapCenter}
+             zoom={this.state.mapZoom}
+             minZoom={1}
+             maxBounds={MAX_BOUNDS}
+             onMousedown={this.startTimer}
+             onMouseup={this.addMarkerOrCenter}
+             onMove={this.clearTimer}
+             onZoom={this.setZoomLevel}
+             style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          />
+          {this.getMarker(markerPosition, this.state.markerPosition)}
+        </Map>
+    )
   }
 
-  createApplicationPage(pageToRender) {
-    switch(pageToRender) {
-      case 'calc':
-        return <Calculator options={this.state.planOptions}
-                           settings={this.state.clientSettings}
-                           createErrorBanner={this.createErrorBanner}/>;
-      case 'options':
-        return <Options options={this.state.planOptions}
-                        config={this.state.serverConfig}
-                        updateOption={this.updatePlanOption}/>;
-      case 'settings':
-        return <Settings settings={this.state.clientSettings}
-                         serverConfig={this.state.serverConfig}
-                         updateSetting={this.updateClientSetting}/>;
-      default:
-        return <Home/>;
+  getMarker(bodyJSX, position) {
+    if (position) {
+      return (
+          <Marker position={position} icon={this.markerIcon()}
+                  onMouseOver={(e) => {e.target.openPopup();}}
+                  onMouseOut={(e) => {e.target.closePopup();}}>
+            <Popup className="font-weight-bold">{bodyJSX}</Popup>
+          </Marker>
+      );
     }
   }
 
-  processConfigResponse(config) {
-    if (!isValid(config.body, configSchema)) {
-      this.setState({
-        serverConfig: null,
-        errorMessage:
-            <Container>
-              {this.createErrorBanner("INVALID_RESPONSE", 400,
-                  `Configuration response not valid`)}
-            </Container>
-      });
+  startTimer(e) {
+    this.setState({mouseDownTime: new Date()});
+  }
+
+  addMarkerOrCenter(e) {
+    if (this.state.mouseDownTime) {
+      let elapsedMilliseconds = new Date() - this.state.mouseDownTime;
+      if (elapsedMilliseconds > ADD_MARKER_AFTER_TIME_THRESHOLD) {
+        let newState = {markerPosition: e.latlng, mapCenter: e.latlng};
+        if (e.target.getZoom() <= ADD_MARKER_ZOOM_LEVEL) {
+          newState['mapZoom'] = ADD_MARKER_ZOOM_LEVEL;
+        }
+        this.setState(newState);
+      } else {
+        this.setState({mapCenter: e.latlng, mapZoom: e.target.getZoom() + 2});
+      }
     }
-    else if(config.statusCode >= 200 && config.statusCode <= 299) {
-      console.log("Switching to server ", this.state.clientSettings.serverPort);
-      this.setState({
-        serverConfig: config.body,
-        errorMessage: null
-      });
+  }
+
+  clearTimer(e) {
+    if (this.state.mouseDownTime) {
+      this.setState({mouseDownTime: null})
     }
-    else {
-      this.setState({
-        serverConfig: null,
-        errorMessage:
-          <Container>
-            {this.createErrorBanner(config.statusText, config.statusCode,
-            `Failed to fetch config from ${ this.state.clientSettings.serverPort}. Please choose a valid server.`)}
-          </Container>
-      });
-    }
+  }
+
+  setZoomLevel(e) {
+    this.setState({mapZoom: e.target.getZoom()})
+  }
+
+  markerIcon() {
+    // react-leaflet does not currently handle default marker icons correctly,
+    // so we must create our own
+    return L.icon({
+      iconUrl: icon,
+      shadowUrl: iconShadow,
+      iconAnchor: [12, 40]  // for proper placement
+    })
   }
 }
