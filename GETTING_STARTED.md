@@ -133,7 +133,7 @@ When first opening IntelliJ, a window should open inviting you to open a
 project. Select "Check out from version control" and continue to select "GitHub"
 from the dropdown.
 
-Refer to our [GitHub guide](https://github.com/csucs314s19/tripco/tree/master/guides/git/IntelliJ.md)
+Refer to our [GitHub guide](https://github.com/csucs314s20/guide/tree/master/guides/git/IntelliJ.md)
 for more information on how to clone your project from IntelliJ.
 
 Because we are using Maven, IntelliJ should automatically import all of the
@@ -144,7 +144,7 @@ patient. If you need to set your project JDK, refer to the documentation
 ### Building in IntelliJ
 For the most part, the run script should be comprehensive enough to build your
 project. [Here are some visual instructions on opening a terminal in IntelliJ](https://www.jetbrains.com/help/idea/working-with-tool-windows.html#tool_window_quick_access).
-In separate [guides](https://github.com/csucs314s19/tripco/tree/master/guides)
+In separate [guides](https://github.com/csucs314s20/guide/tree/master/guides)
 we'll show you how to set up run configurations to run and debug within
 IntelliJ.
 

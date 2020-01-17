@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Collapse} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './tripcowebstyle.css';
+import './tcowebstyle.css';
 
 import Header from './Margins/Header';
 import About from './About/About.js';
