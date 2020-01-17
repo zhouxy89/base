@@ -15,7 +15,7 @@ const DEFAULT_MAP_CENTER = [0, 0];
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
-const ADD_MARKER_ZOOM_LEVEL = 10;
+const ZOOM_INCREMENT = 2;
 
 
 export default class Application extends Component {
@@ -106,11 +106,7 @@ export default class Application extends Component {
   }
 
   zoomToMarker(e) {
-    let newState = {mapCenter: this.state.markerPosition};
-    if (this.state.mapZoom < ADD_MARKER_ZOOM_LEVEL) {
-      newState['mapZoom'] = ADD_MARKER_ZOOM_LEVEL;
-    }
-    this.setState(newState);
+    this.setState({mapCenter: this.state.markerPosition, mapZoom: this.state.mapZoom + ZOOM_INCREMENT});
     e.target.openPopup();
   }
 
