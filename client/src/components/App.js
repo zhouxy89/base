@@ -13,6 +13,7 @@ import ErrorBanner from "./Application/ErrorBanner";
 import {getOriginalServerPort, sendServerRequest} from "../api/restfulAPI";
 import {isValid} from "../utils/Utils";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
+import {validResponseCode} from "./Constants";
 
 export default class App extends Component {
 
@@ -76,7 +77,7 @@ export default class App extends Component {
                         {this.createErrorBanner("INVALID_RESPONSE", 400, `Configuration response not valid`)}
                     </Container>
             });
-        } else if (config.statusCode >= 200 && config.statusCode <= 299) {
+        } else if (config.statusCode === validResponseCode) {
             console.log("Switching to server ", this.state.clientSettings.serverPort);
             this.setState({serverConfig: config.body});
             this.setState({errorMessage: null});
