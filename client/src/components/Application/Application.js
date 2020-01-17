@@ -12,15 +12,6 @@ export default class Application extends Component {
   constructor(props) {
     super(props);
 
-    this.updatePlanOption = this.updatePlanOption.bind(this);
-    this.updateClientSetting = this.updateClientSetting.bind(this);
-
-    this.state = {
-      planOptions: {
-        units: {'miles': 3959},
-        activeUnit: 'miles'
-      },
-    };
   }
 
   render() {
@@ -39,18 +30,6 @@ export default class Application extends Component {
           </Container>
         </div>
     );
-  }
-
-  updateClientSetting(field, value) {
-    let newSettings = Object.assign({}, this.state.planOptions);
-    newSettings[field] = value;
-    this.props.modify('clientSettings', newSettings);
-  }
-
-  updatePlanOption(option, value) {
-    let optionsCopy = Object.assign({}, this.state.planOptions);
-    optionsCopy[option] = value;
-    this.setState({'planOptions': optionsCopy});
   }
 
   renderMap() {
