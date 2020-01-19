@@ -17,7 +17,6 @@ const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
 const ZOOM_INCREMENT = 2;
 
-
 export default class Application extends Component {
   constructor(props) {
     super(props);
@@ -91,9 +90,14 @@ export default class Application extends Component {
   }
 
   getMarker(bodyJSX, position) {
+    const initMarker = ref => {
+      if (ref) {
+        ref.leafletElement.openPopup()
+      }
+    }
     if (position) {
       return (
-          <Marker position={position} icon={this.markerIcon()}
+          <Marker ref={initMarker} position={position} icon={this.markerIcon()}
                   onClick={this.zoomToMarker}>
             <Popup offset={[0, -18]} className="font-weight-bold">{bodyJSX}</Popup>
           </Marker>
