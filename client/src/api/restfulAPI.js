@@ -1,3 +1,4 @@
+import log from "../utils/globals";
 
 /* functions to support server interactions via restful APIs.
  */
@@ -31,7 +32,7 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
     };
   }
   catch(err) {
-    console.error(err);
+    log.error("Request failed: ", "Status Code: ", err.status, " ", err );
     return { statusCode: 0, statusText: 'Client failure', body: null };
   }
 }

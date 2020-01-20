@@ -7,7 +7,7 @@ if [ -z "$LOGLEVEL" ]; then
   LOGLEVEL=info
 fi
 if [ -z "$PACKAGE" ]; then
-  PACKAGE=log.com.tripco
+  PACKAGE=log.com.tco
 fi
 printf "java -Dorg.slf4j.simpleLogger.$PACKAGE=$LOGLEVEL -jar target/server-*.jar $PORT\n\n"
 java -Dorg.slf4j.simpleLogger.$PACKAGE=$LOGLEVEL -jar target/server-*.jar $PORT

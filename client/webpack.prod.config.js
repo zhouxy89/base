@@ -1,5 +1,6 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+const LOG_LEVEL = 1;
 
 module.exports = {
   mode: 'production',
@@ -12,7 +13,9 @@ module.exports = {
     filename: 'bundle.js',
   },
   plugins: [
-    new webpack.DefinePlugin({ })
+    new webpack.DefinePlugin({
+      'process.env.LOG_LEVEL': LOG_LEVEL
+    })
   ],
   module: {
     rules: [

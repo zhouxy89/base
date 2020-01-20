@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
-import '../tripcowebstyle.css';
 import {CLIENT_TEAM_NAME} from "../Constants";
+import '../tcowebstyle.css';
 
 export default class About extends Component {
 
