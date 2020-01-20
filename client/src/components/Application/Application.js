@@ -29,13 +29,9 @@ export default class Application extends Component {
     this.zoomToMarker = this.zoomToMarker.bind(this);
 
     this.state = {
-      planOptions: {
-        units: {'miles': earthRadius['miles']},
-        activeUnit: 'miles'
-      },
       markerPosition: null,
       mapCenter: DEFAULT_MAP_CENTER,
-      mapZoom: MIN_ZOOM,
+      mapZoom: MIN_ZOOM
     };
   }
 
@@ -94,7 +90,7 @@ export default class Application extends Component {
       if (ref) {
         ref.leafletElement.openPopup()
       }
-    }
+    };
     if (position) {
       return (
           <Marker ref={initMarker} position={position} icon={this.markerIcon()}
