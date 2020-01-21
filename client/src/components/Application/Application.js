@@ -5,8 +5,17 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
+import {earthRadius} from '../Constants';
 
-import Pane from './Pane'
+const MAX_BOUNDS = [
+    [-90, -180],
+    [90, 180]
+];
+const DEFAULT_MAP_CENTER = [0, 0];
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 17;
+const MAP_STYLE_LENGTH = 500;
+const ZOOM_INCREMENT = 2;
 
 export default class Application extends Component {
   constructor(props) {
@@ -14,12 +23,15 @@ export default class Application extends Component {
 
     this.updatePlanOption = this.updatePlanOption.bind(this);
     this.updateClientSetting = this.updateClientSetting.bind(this);
+    this.addMarker = this.addMarker.bind(this);
+    this.setZoom = this.setZoom.bind(this);
+    this.clearCenter = this.clearCenter.bind(this);
+    this.zoomToMarker = this.zoomToMarker.bind(this);
 
     this.state = {
-      planOptions: {
-        units: {'miles': 3959},
-        activeUnit: 'miles'
-      },
+      markerPosition: null,
+      mapCenter: DEFAULT_MAP_CENTER,
+      mapZoom: MIN_ZOOM
     };
   }
 
@@ -29,11 +41,8 @@ export default class Application extends Component {
           {this.props.errorMessage}
           <Container>
             <Row>
-              <Col xs={12} sm={12} md={7} lg={8} xl={9}>
-                {this.renderMap()}
-              </Col>
-              <Col xs={12} sm={12} md={5} lg={4} xl={3}>
-                {this.renderIntro()}
+              <Col sm="12" md={{size: 6, offset: 3}}>
+                {this.renderLeafletMap()}
               </Col>
             </Row>
           </Container>
@@ -53,45 +62,62 @@ export default class Application extends Component {
     this.setState({'planOptions': optionsCopy});
   }
 
-  renderMap() {
-    return (
-        <Pane header={'Where Am I?'}
-              bodyJSX={this.renderLeafletMap()}/>
-    );
-  }
-
   renderLeafletMap() {
-    // initial map placement can use either of these approaches:
-    // 1: bounds={this.coloradoGeographicBoundaries()}
-    // 2: center={this.csuOvalGeographicCoordinates()} zoom={10}
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+    }
     return (
-        <Map center={this.csuOvalGeographicCoordinates()} zoom={10}
-             style={{height: 500, maxwidth: 700}}>
+        <Map center={this.state.mapCenter}
+             zoom={this.state.mapZoom}
+             minZoom={MIN_ZOOM}
+             maxZoom={MAX_ZOOM}
+             maxBounds={MAX_BOUNDS}
+             onClick={this.addMarker}
+             onZoom={this.setZoom}
+             onMove={this.clearCenter}
+             style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           />
-          <Marker position={this.csuOvalGeographicCoordinates()}
-                  icon={this.markerIcon()}>
-            <Popup className="font-weight-extrabold">Colorado State University</Popup>
-          </Marker>
+          {this.getMarker(markerPosition, this.state.markerPosition)}
         </Map>
     )
   }
 
-  renderIntro() {
-    return (
-        <Pane header={'Bon Voyage!'}
-              bodyJSX={'Let us help you plan your next trip.'}/>
-    );
+  getMarker(bodyJSX, position) {
+    const initMarker = ref => {
+      if (ref) {
+        ref.leafletElement.openPopup()
+      }
+    };
+    if (position) {
+      return (
+          <Marker ref={initMarker} position={position} icon={this.markerIcon()}
+                  onClick={this.zoomToMarker}>
+            <Popup offset={[0, -18]} className="font-weight-bold">{bodyJSX}</Popup>
+          </Marker>
+      );
+    }
   }
 
-  coloradoGeographicBoundaries() {
-    // northwest and southeast corners of the state of Colorado
-    return L.latLngBounds(L.latLng(41, -109), L.latLng(37, -102));
+  addMarker(e) {
+    this.setState({markerPosition: e.latlng});
   }
 
-  csuOvalGeographicCoordinates() {
-    return L.latLng(40.576179, -105.080773);
+  zoomToMarker(e) {
+    this.setState({mapCenter: this.state.markerPosition, mapZoom: this.state.mapZoom + ZOOM_INCREMENT});
+    e.target.openPopup();
+  }
+
+  setZoom(e) {
+    this.setState({mapZoom: e.target.getZoom()});
+  }
+
+  clearCenter(e) {
+    if (this.state.mapCenter) {
+      this.setState({mapCenter: null});
+    }
   }
 
   markerIcon() {
