@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Col, Container, Row} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -40,9 +40,6 @@ export default class Application extends Component {
           {this.props.errorMessage}
           <Container>
             <Row>
-              <Col xs={12}>
-                <Card>fdsakldfaklmdlfsa</Card>
-              </Col>
               <Col sm={12} md={{size: 6, offset: 3}}>
                 {this.renderLeafletMap()}
               </Col>

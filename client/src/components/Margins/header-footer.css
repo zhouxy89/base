@@ -1,14 +1,18 @@
 /* Font Styles */
 
+a:hover {
+    cursor: pointer;
+}
+
 .tco-text {
     font-family: 'prox-light', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     color: white;
 }
 
 .tco-text-upper {
     font-family: 'prox-light', sans-serif;
-    font-size: 18px;
+    font-size: 28px;
     letter-spacing: .11em;
     line-height: 1.1em;
     text-transform: uppercase;
@@ -18,7 +22,7 @@
 .tco-logo {
     width: 90px;
     height: auto;
-    margin-right: 10px;
+    margin-right: 25px;
 }
 
 /* Centering Classes */
@@ -42,7 +46,7 @@
 /* Header Styles */
 
 .header {
-    height: 10%;
+    height: 12%;
     min-height: 120px;
 
     margin-bottom: 25px;
@@ -51,7 +55,7 @@
 /* Footer Styles */
 
 .footer {
-    height: 10%;
+    height: 6%;
     min-height: 100px;
 
     margin-top: 25px;
@@ -66,23 +70,8 @@
 
 @media only screen and (min-width: 576px) {
 
-    .tco-logo {
-        width: 100px;
-    }
-
-    .tco-text-upper {
-        font-size: 21px;
-    }
-
     .centered {
         margin: 0;
         text-align: unset;
-    }
-}
-
-@media only screen and (min-width: 1200px) {
-
-    .tco-text-upper {
-        font-size: 24px;
     }
 }

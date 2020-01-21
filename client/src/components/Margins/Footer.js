@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Container} from 'reactstrap'
+import {Container} from 'reactstrap'
 
 import ServerSettingsModal from './ServerSettingsModal'
 
@@ -31,14 +31,10 @@ export default class Footer extends Component {
             <div className="vertical-center tco-text">
                 <Container>
                     <div className="centered">
-                        {UTFchar} Connected to {serverName}
-                        <Button color="#1E4D2B"
-                                onClick={() => this.setState({modalOpen: true})}
-                        >
-                            <div className={"tco-text"}>
-                                ( {this.props.clientSettings.serverPort} ).
-                            </div>
-                        </Button>
+                        {`${UTFchar} Connected to ${serverName} `}
+                        <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
+                            ({this.props.clientSettings.serverPort}).
+                        </a>
                         <ServerSettingsModal
                             modalOpen={this.state.modalOpen}
                             toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
