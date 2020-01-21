@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap'
+import {Button, Container} from 'reactstrap'
 
 import ServerSettingsModal from './ServerSettingsModal'
 
@@ -14,7 +14,7 @@ export default class Footer extends Component {
 
     render() {
         return (
-            <div className="footer">
+            <div className="full-width footer">
                 {this.renderServerInformation()}
             </div>
         )
@@ -28,22 +28,26 @@ export default class Footer extends Component {
             UTFchar = "\uD83D\uDD17"; // Link Unicode Character
         }
         return (
-            <div className={"footer-container"}>
-                {UTFchar} Connected to {serverName}
-                <Button color="#1E4D2B"
-                        onClick={() => this.setState({modalOpen: true})}
-                >
-                    <div className={"tco-text"}>
-                        ( {this.props.clientSettings.serverPort} ).
+            <div className="vertical-center tco-text">
+                <Container>
+                    <div className="centered">
+                        {UTFchar} Connected to {serverName}
+                        <Button color="#1E4D2B"
+                                onClick={() => this.setState({modalOpen: true})}
+                        >
+                            <div className={"tco-text"}>
+                                ( {this.props.clientSettings.serverPort} ).
+                            </div>
+                        </Button>
+                        <ServerSettingsModal
+                            modalOpen={this.state.modalOpen}
+                            toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
+                            serverConfig={this.props.serverConfig}
+                            clientSettings={this.props.clientSettings}
+                            updateServerConfig={this.props.updateServerConfig}
+                        />
                     </div>
-                </Button>
-                <ServerSettingsModal
-                    modalOpen={this.state.modalOpen}
-                    toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
-                    serverConfig={this.props.serverConfig}
-                    clientSettings={this.props.clientSettings}
-                    updateServerConfig={this.props.updateServerConfig}
-                />
+                </Container>
             </div>
         );
     }

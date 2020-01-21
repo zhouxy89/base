@@ -1,103 +1,88 @@
-/* Class creates full-window width div */
+/* Font Styles */
 
 .tco-text {
     font-family: 'prox-light', sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     color: white;
 }
 
 .tco-text-upper {
     font-family: 'prox-light', sans-serif;
-    font-size: 24px;
+    font-size: 18px;
     letter-spacing: .11em;
     line-height: 1.1em;
     text-transform: uppercase;
     color: white;
 }
 
-@media only screen and (max-width: 600px) {
-    .tco-text {
-        font-size: 12px;
-    }
-
-    .tco-text-upper {
-        font-size: 18px;
-    }
+.tco-logo {
+    width: 90px;
+    height: auto;
+    margin-right: 10px;
 }
 
+/* Centering Classes */
 
-/* Header Styles */
+.full-width {
+    width: 100%;
 
-.header {
-    top: 0;
     background-color: #1E4D2B;
     color: #FFFFFF;
 
     margin-left: auto;
     margin-right: auto;
+}
+
+.vertical-center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Header Styles */
+
+.header {
+    height: 10%;
+    min-height: 120px;
 
     margin-bottom: 25px;
-    padding: 0 5% 0 5%;
-}
-
-.header-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    width: 100%;
-    height: 12%;
-    min-height: 120px;
-    font-family: 'prox-light', sans-serif;
-    font-size: 15px;
-}
-
-.header-wrapper {
-    margin-right: 20px;
-}
-
-@media only screen and (max-width: 600px) {
-    #tcoLogo {
-        height: 70%;
-    }
-
-    .header-container {
-        min-height: 100px;
-    }
-
-    .header-wrapper {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
 }
 
 /* Footer Styles */
 
 .footer {
-    bottom: 0;
-    background-color: #1E4D2B;
-    color: #FFFFFF;
-
-    margin-left: auto;
-    margin-right: auto;
+    height: 10%;
+    min-height: 100px;
 
     margin-top: 25px;
-    padding: 0 5% 0 5%;
 }
 
-.footer-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    width: 100%;
-    height: 10%;
-    min-height: 80px;
-    font-family: 'prox-light', sans-serif;
-    font-size: 15px;
+.centered {
+    margin: 0 auto;
+    text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
-    .footer-container {
-        font-size: 12px;
-        justify-content: center;
+/* Screen Width Intervals (Aligned with Bootstrap) */
+
+@media only screen and (min-width: 576px) {
+
+    .tco-logo {
+        width: 100px;
+    }
+
+    .tco-text-upper {
+        font-size: 21px;
+    }
+
+    .centered {
+        margin: 0;
+        text-align: unset;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+
+    .tco-text-upper {
+        font-size: 24px;
     }
 }
