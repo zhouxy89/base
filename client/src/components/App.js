@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Collapse} from 'reactstrap';
+import {Collapse, Container} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './tcowebstyle.css';
@@ -27,7 +27,7 @@ export default class App extends Component {
             errorMessage: null
         };
 
-    this.toggleAbout = this.toggleAbout.bind(this);
+        this.toggleAbout = this.toggleAbout.bind(this);
 
         sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
             this.processConfigResponse(config);
@@ -39,15 +39,15 @@ export default class App extends Component {
             <div className="csu-branding">
                 <Header toggleAbout={this.toggleAbout}/>
                 <Collapse isOpen={this.state.showAbout}>
-                  <About closePage={this.toggleAbout}/>
+                    <About closePage={this.toggleAbout}/>
                 </Collapse>
                 <Collapse isOpen={!this.state.showAbout}>
-                  <Application
-                      serverConfig={this.state.serverConfig}
-                      clientSettings={this.state.clientSettings}
-                      errorMessage={this.state.errorMessage}
-                      modify={(state, value) => this.setState({[state]: value})}
-                  />
+                    <Application
+                        serverConfig={this.state.serverConfig}
+                        clientSettings={this.state.clientSettings}
+                        errorMessage={this.state.errorMessage}
+                        modify={(state, value) => this.setState({[state]: value})}
+                    />
                 </Collapse>
                 <Footer
                     serverConfig={this.state.serverConfig}
@@ -58,10 +58,10 @@ export default class App extends Component {
         );
     }
 
-  toggleAbout() {
-    const newState = !this.state.showAbout;
-    this.setState({showAbout: newState});
-  }
+    toggleAbout() {
+        const newState = !this.state.showAbout;
+        this.setState({showAbout: newState});
+    }
 
     updateServerConfig(value, config) {
         this.setState({clientSettings: {serverPort: value}});

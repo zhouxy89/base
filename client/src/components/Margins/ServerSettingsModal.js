@@ -33,7 +33,6 @@ export default class ServerSettingsModal extends Component {
                         <div style={{overflow: "hidden", "paddingLeft": ".5em"}}>
                             <Input onChange={(e) => this.updateInput(e.target.value)}
                                    value={this.state.inputText}
-                                   placeholder={this.props.serverPort}
                                    valid={this.state.validServer}
                                    invalid={!this.state.validServer}
                             />

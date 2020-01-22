@@ -37,9 +37,9 @@ export default class Footer extends Component {
                         </a>
                         <ServerSettingsModal
                             modalOpen={this.state.modalOpen}
-                            toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
                             serverConfig={this.props.serverConfig}
                             clientSettings={this.props.clientSettings}
+                            toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
                             updateServerConfig={this.props.updateServerConfig}
                         />
                     </div>
