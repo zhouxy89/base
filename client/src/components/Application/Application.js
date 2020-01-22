@@ -5,11 +5,10 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
-import {earthRadius} from '../Constants';
 
 const MAX_BOUNDS = [
-    [-90, -180],
-    [90, 180]
+  [-90, -180],
+  [90, 180]
 ];
 const DEFAULT_MAP_CENTER = [0, 0];
 const MIN_ZOOM = 1;
@@ -37,11 +36,11 @@ export default class Application extends Component {
 
   render() {
     return (
-        <div className='application-width'>
+        <div>
           {this.props.errorMessage}
           <Container>
             <Row>
-              <Col sm="12" md={{size: 6, offset: 3}}>
+              <Col sm={12} md={{size: 6, offset: 3}}>
                 {this.renderLeafletMap()}
               </Col>
             </Row>
@@ -114,7 +113,7 @@ export default class Application extends Component {
     this.setState({mapZoom: e.target.getZoom()});
   }
 
-  clearCenter(e) {
+  clearCenter() {
     if (this.state.mapCenter) {
       this.setState({mapCenter: null});
     }
