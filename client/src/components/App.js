@@ -12,14 +12,13 @@ import ErrorBanner from "./Application/ErrorBanner";
 
 import { getOriginalServerPort, sendServerRequest } from "../api/restfulAPI";
 import { isValid } from "../utils/Utils";
+import log from "../utils/globals";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
 import { HTTP_BAD_REQUEST, HTTP_OK } from "./Constants";
 
-export default class App extends Component
-{
+export default class App extends Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -53,8 +52,7 @@ export default class App extends Component
         );
     }
 
-    renderApplication()
-    {
+    renderApplication() {
         return (
             <Collapse isOpen={!this.state.showAbout}>
                 <Application
@@ -67,38 +65,29 @@ export default class App extends Component
         );
     }
 
-    toggleAbout()
-    {
+    toggleAbout() {
         const newState = !this.state.showAbout;
         this.setState({showAbout: newState});
     }
 
-    updateServerConfig(value, config)
-    {
+    updateServerConfig(value, config) {
         this.setState({clientSettings: {serverPort: value}});
         this.processConfigResponse(config);
     }
 
-    processConfigResponse(config)
-    {
-        if(!isValid(config.body, configSchema))
-        {
+    processConfigResponse(config) {
+        if(!isValid(config.body, configSchema)) {
             this.runError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
-        }
-        else if(config.statusCode === HTTP_OK)
-        {
-            console.log("Switching to server ", this.state.clientSettings.serverPort);
+        } else if(config.statusCode === HTTP_OK) {
+            log.error("Switching to server ", this.state.clientSettings.serverPort);
             this.setState({serverConfig: config.body});
             this.setState({errorMessage: null});
-        }
-        else
-        {
+        } else {
             this.runError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
         }
     }
 
-    runError(statusText, statusCode, message)
-    {
+    runError(statusText, statusCode, message) {
         this.setState({serverConfig: null});
         this.setState({
             errorMessage:
@@ -108,8 +97,7 @@ export default class App extends Component
         });
     }
 
-    createErrorBanner(statusText, statusCode, message)
-    {
+    createErrorBanner(statusText, statusCode, message) {
         return (
             <ErrorBanner statusText={statusText}
                          statusCode={statusCode}

@@ -11,8 +11,5 @@ import App from './components/App.js';
  * https://reactjs.org/docs/react-dom.html
  */
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App/>, document.getElementById('root'));
 

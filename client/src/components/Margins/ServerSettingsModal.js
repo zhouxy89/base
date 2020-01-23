@@ -6,11 +6,9 @@ import { isValid } from "../../utils/Utils";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 
-export default class ServerSettingsModal extends Component
-{
+export default class ServerSettingsModal extends Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {
             inputText: this.props.clientSettings.serverPort,
@@ -33,11 +31,10 @@ export default class ServerSettingsModal extends Component
                     {this.renderModalButtons()}
                 </Modal>
             </div>
-        )
+        );
     }
 
-    renderModalBody(currentServerName)
-    {
+    renderModalBody(currentServerName) {
         return (
             <ModalBody>
                 <p>Name: {currentServerName}</p>
@@ -54,8 +51,7 @@ export default class ServerSettingsModal extends Component
         );
     }
 
-    renderModalButtons()
-    {
+    renderModalButtons() {
         return (
             <ModalFooter>
                 <Button color="secondary" onClick={() => this.resetModalState()}>Cancel</Button>
@@ -72,39 +68,27 @@ export default class ServerSettingsModal extends Component
         );
     }
 
-    updateInput(value)
-    {
-        this.setState({inputText: value}, () =>
-            {
-                if(value !== "https:")
-                {
-                    sendServerRequest("config", value).then(config =>
-                    {
-                        this.processConfigResponse(config);
-                    });
-                }
-                else
-                {
-                    this.setState({validServer: false, validSave: false, config: false});
-                }
+    updateInput(value) {
+        this.setState({inputText: value}, () => {
+            if(value !== "https:") {
+                sendServerRequest("config", value).then(config => {
+                    this.processConfigResponse(config);
+                });
+            } else {
+                this.setState({validServer: false, validSave: false, config: false});
             }
-        );
+        });
     }
 
-    processConfigResponse(config)
-    {
-        if(!isValid(config.body, configSchema) || !(config.statusCode >= 200 && config.statusCode <= 299))
-        {
+    processConfigResponse(config) {
+        if(!isValid(config.body, configSchema) || !(config.statusCode >= 200 && config.statusCode <= 299)) {
             this.setState({validServer: false, validSave: false, config: false});
-        }
-        else
-        {
+        } else {
             this.setState({validServer: true, validSave: true, config: config});
         }
     }
 
-    resetModalState()
-    {
+    resetModalState() {
         this.props.toggleModal();
         this.setState({
             inputText: this.props.clientSettings.serverPort,

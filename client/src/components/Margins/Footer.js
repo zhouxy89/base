@@ -8,8 +8,7 @@ import "./header-footer.css";
 export default class Footer extends Component
 {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {modalOpen: false};
     }
@@ -44,8 +43,7 @@ export default class Footer extends Component
         );
     }
 
-    renderModal()
-    {
+    renderModal() {
         return (
             <ServerSettingsModal
                 modalOpen={this.state.modalOpen}
