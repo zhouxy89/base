@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import {Container} from 'reactstrap'
+import React, { Component } from "react";
+import { Container } from "reactstrap";
 
-import ServerSettingsModal from './ServerSettingsModal'
+import ServerSettingsModal from "./ServerSettingsModal";
 
-import './header-footer.css';
+import "./header-footer.css";
 
-export default class Footer extends Component {
+export default class Footer extends Component
+{
 
-    constructor(props) {
+    constructor(props)
+    {
         super(props);
-        this.state = {modalOpen: false}
+        this.state = {modalOpen: false};
     }
 
     render() {
@@ -35,16 +37,23 @@ export default class Footer extends Component {
                         <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
                             ({this.props.clientSettings.serverPort}).
                         </a>
-                        <ServerSettingsModal
-                            modalOpen={this.state.modalOpen}
-                            toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
-                            serverConfig={this.props.serverConfig}
-                            clientSettings={this.props.clientSettings}
-                            updateServerConfig={this.props.updateServerConfig}
-                        />
+                        {this.renderModal()}
                     </div>
                 </Container>
             </div>
+        );
+    }
+
+    renderModal()
+    {
+        return (
+            <ServerSettingsModal
+                modalOpen={this.state.modalOpen}
+                toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
+                serverConfig={this.props.serverConfig}
+                clientSettings={this.props.clientSettings}
+                updateServerConfig={this.props.updateServerConfig}
+            />
         );
     }
 }

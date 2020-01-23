@@ -1,23 +1,25 @@
-import React, {Component} from 'react';
-import {Container, Collapse} from 'reactstrap';
+import React, { Component } from "react";
+import { Collapse, Container } from "reactstrap";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import './tcowebstyle.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "./tcowebstyle.css";
 
-import Header from './Margins/Header';
-import About from './About/About.js';
-import Application from './Application/Application';
-import Footer from './Margins/Footer';
+import Header from "./Margins/Header";
+import About from "./About/About.js";
+import Application from "./Application/Application";
+import Footer from "./Margins/Footer";
 import ErrorBanner from "./Application/ErrorBanner";
 
-import {getOriginalServerPort, sendServerRequest} from "../api/restfulAPI";
-import {isValid} from "../utils/Utils";
+import { getOriginalServerPort, sendServerRequest } from "../api/restfulAPI";
+import { isValid } from "../utils/Utils";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
-import {HTTP_OK} from "./Constants";
+import { HTTP_BAD_REQUEST, HTTP_OK } from "./Constants";
 
-export default class App extends Component {
+export default class App extends Component
+{
 
-    constructor(props) {
+    constructor(props)
+    {
         super(props);
 
         this.state = {
@@ -27,7 +29,7 @@ export default class App extends Component {
             errorMessage: null
         };
 
-    this.toggleAbout = this.toggleAbout.bind(this);
+        this.toggleAbout = this.toggleAbout.bind(this);
 
         sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
             this.processConfigResponse(config);
@@ -39,16 +41,9 @@ export default class App extends Component {
             <div className="csu-branding">
                 <Header toggleAbout={this.toggleAbout}/>
                 <Collapse isOpen={this.state.showAbout}>
-                  <About closePage={this.toggleAbout}/>
+                    <About closePage={this.toggleAbout}/>
                 </Collapse>
-                <Collapse isOpen={!this.state.showAbout}>
-                  <Application
-                      serverConfig={this.state.serverConfig}
-                      clientSettings={this.state.clientSettings}
-                      errorMessage={this.state.errorMessage}
-                      modify={(state, value) => this.setState({[state]: value})}
-                  />
-                </Collapse>
+                {this.renderApplication()}
                 <Footer
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
@@ -58,41 +53,63 @@ export default class App extends Component {
         );
     }
 
-  toggleAbout() {
-    const newState = !this.state.showAbout;
-    this.setState({showAbout: newState});
-  }
+    renderApplication()
+    {
+        return (
+            <Collapse isOpen={!this.state.showAbout}>
+                <Application
+                    serverConfig={this.state.serverConfig}
+                    clientSettings={this.state.clientSettings}
+                    errorMessage={this.state.errorMessage}
+                    modify={(state, value) => this.setState({[state]: value})}
+                />
+            </Collapse>
+        );
+    }
 
-    updateServerConfig(value, config) {
+    toggleAbout()
+    {
+        const newState = !this.state.showAbout;
+        this.setState({showAbout: newState});
+    }
+
+    updateServerConfig(value, config)
+    {
         this.setState({clientSettings: {serverPort: value}});
         this.processConfigResponse(config);
     }
 
-    processConfigResponse(config) {
-        if (!isValid(config.body, configSchema)) {
-            this.setState({serverConfig: null});
-            this.setState({
-                errorMessage:
-                    <Container>
-                        {this.createErrorBanner("INVALID_RESPONSE", 400, `Configuration response not valid`)}
-                    </Container>
-            });
-        } else if (config.statusCode === HTTP_OK) {
+    processConfigResponse(config)
+    {
+        if(!isValid(config.body, configSchema))
+        {
+            this.runError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
+        }
+        else if(config.statusCode === HTTP_OK)
+        {
             console.log("Switching to server ", this.state.clientSettings.serverPort);
             this.setState({serverConfig: config.body});
             this.setState({errorMessage: null});
-        } else {
-            this.setState({serverConfig: null});
-            this.setState({
-                errorMessage:
-                    <Container>
-                        {this.createErrorBanner(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`)}
-                    </Container>
-            });
+        }
+        else
+        {
+            this.runError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
         }
     }
 
-    createErrorBanner(statusText, statusCode, message) {
+    runError(statusText, statusCode, message)
+    {
+        this.setState({serverConfig: null});
+        this.setState({
+            errorMessage:
+                <Container>
+                    {this.createErrorBanner(statusText, statusCode, message)}
+                </Container>
+        });
+    }
+
+    createErrorBanner(statusText, statusCode, message)
+    {
         return (
             <ErrorBanner statusText={statusText}
                          statusCode={statusCode}
