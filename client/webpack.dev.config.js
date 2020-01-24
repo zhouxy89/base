@@ -13,7 +13,7 @@ const webpack = require('webpack')
 
 // What ports the website is served from, and where it first looks for
 // the REST server (on localhost), respectively.
-const dev_port = 31401;
+const dev_port = 3000;
 const server_port = 31400;
 const LOG_LEVEL = 5;
 

@@ -5,10 +5,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./tcowebstyle.css";
 
 import Header from "./Margins/Header";
-import About from "./About/About.js";
-import Application from "./Application/Application";
-import Footer from "./Margins/Footer";
 import ErrorBanner from "./Application/ErrorBanner";
+import About from "./About/About.js";
+import Home from "./Application/Home";
+import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../api/restfulAPI";
 import { isValid } from "../utils/Utils";
@@ -42,7 +42,7 @@ export default class App extends Component {
                 <Collapse isOpen={this.state.showAbout}>
                     <About closePage={this.toggleAbout}/>
                 </Collapse>
-                {this.renderApplication()}
+                {this.renderHome()}
                 <Footer
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
@@ -52,10 +52,10 @@ export default class App extends Component {
         );
     }
 
-    renderApplication() {
+    renderHome() {
         return (
             <Collapse isOpen={!this.state.showAbout}>
-                <Application
+                <Home
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
                     errorMessage={this.state.errorMessage}

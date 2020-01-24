@@ -1,6 +1,6 @@
 
 /** This file is required to use fetch mocking to mock a REST response for client
- * testing. When mounting (either shallow or deep) components like Application,
+ * testing. When mounting (either shallow or deep) components like Home,
  * a fetch is made through restfulAPI.js to get information from the server
  * (like the config) in order to render the component dynamically. However, in
  * the jest testing environment, asynchronous calls such as fetch need to be
