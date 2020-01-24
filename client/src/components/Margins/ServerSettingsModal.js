@@ -71,14 +71,19 @@ export default class ServerSettingsModal extends Component {
 
     updateInput(value) {
         this.setState({inputText: value}, () => {
-            if(value !== "https:") {
+            if (this.isValidUrl(value)) {
                 sendServerRequest("config", value).then(config => {
                     this.processConfigResponse(config);
                 });
             } else {
-                this.setState({validServer: false, validSave: false, config: false});
+                this.setState({validServer: false, validSave: false, config: {}});
             }
         });
+    }
+
+    isValidUrl(resource) {
+        const urlRegex = /https?:\/\/.+/;
+        return resource.match(urlRegex) !== null;
     }
 
     processConfigResponse(config) {
