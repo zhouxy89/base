@@ -15,13 +15,13 @@ export default class ServerSettingsModal extends Component {
             inputText: this.props.clientSettings.serverPort,
             validServer: true,
             validSave: false,
-            config: false
+            config: {}
         }
     }
 
     render() {
         let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : '';
-        if (this.state.config) {
+        if (this.state.config && Object.keys(this.state.config).length > 0) {
             currentServerName = this.state.config.body.serverName;
         }
         return (

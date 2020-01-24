@@ -1,55 +1,20 @@
-import './enzyme.config.js'
-import React from 'react'
-import {shallow} from 'enzyme'
-import Application from '../src/components/Application/Application'
+import './enzyme.config.js';
+import React from 'react';
+import {shallow} from 'enzyme';
 
+import Application from '../src/components/Application/Application';
 
-function testInitialState() {
-  mockConfigResponse();
+function testInitialAppState() {
 
   const app = shallow(<Application/>);
 
-  let actualConfig = app.state().serverConfig;
-  let expectedConfig = null;
-  expect(actualConfig).toEqual(expectedConfig);
+  let actualMarkerPosition = app.state().markerPosition;
+  let actualMapCenter = app.state().mapCenter;
 
-  let actualOptions = app.state().planOptions;
-  let expectedOptions = {
-    units: {miles: 3959},
-    activeUnit: 'miles'
-  };
+  let expectedMarkerPosition = null;
+  let expectedMapCenter = [0, 0];
 
-  expect(actualOptions).toEqual(expectedOptions);
+  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
+  expect(actualMapCenter).toEqual(expectedMapCenter);
 }
-
-function mockConfigResponse() {
-  fetch.mockResponse(JSON.stringify(
-      {
-        status: 200,
-        statusText: 'OK',
-        body: {
-          'placeAttributes': ["latitude", "longitude", "serverName"],
-          'requestType': "config",
-          'requestVersion': 1,
-          'serverName': "t00"
-        },
-        type: 'basic',
-        url: 'http://localhost:8088/api/config',
-        redirected: false,
-        ok: true
-      }));
-}
-
-test("Testing Application's initial state", testInitialState);
-
-function testUpdateOption() {
-  const app = shallow(<Application/>);
-
-  app.instance().updatePlanOption("activeUnit", "miles");
-
-  let actualUnit = app.state().planOptions.activeUnit;
-  let expectedUnit = "miles";
-  expect(actualUnit).toEqual(expectedUnit);
-}
-
-test("Testing Application's updatePlanOption function", testUpdateOption);
+test("Testing Application's Initial State", testInitialAppState);

@@ -38,7 +38,7 @@ export default class Footer extends Component
                         <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
                             ({this.props.clientSettings.serverPort}).
                         </a>
-                        {this.renderModal()}
+                    {this.renderModal()}
                     </div>
                 </Container>
             </div>
