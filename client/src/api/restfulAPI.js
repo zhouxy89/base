@@ -3,21 +3,16 @@ import log from "../utils/globals";
 /* functions to support server interactions via restful APIs.
  */
 
-export function sendServerRequest(
-    requestType, serverPort=getOriginalServerPort()) {
+export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
-  const requestOptions = {
-    method: "GET"};
+  const requestOptions = {method: "GET"};
   return processRestfulAPI(restfulAPI, requestOptions);
 }
 
 
-export function sendServerRequestWithBody(
-    requestType, requestBody, serverPort=getOriginalServerPort()) {
+export function sendServerRequestWithBody(requestType, requestBody, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
-  const requestOptions = {
-    method: "POST",
-    body: JSON.stringify(requestBody)};
+  const requestOptions = {method: "POST", body: JSON.stringify(requestBody)};
   return processRestfulAPI(restfulAPI, requestOptions);
 }
 

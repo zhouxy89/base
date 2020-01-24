@@ -6,22 +6,18 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 
-const MAX_BOUNDS = [
-  [-90, -180],
-  [90, 180]
-];
+const MAX_BOUNDS = [[-90, -180], [90, 180]];
 const DEFAULT_MAP_CENTER = [0, 0];
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
 const ZOOM_INCREMENT = 2;
 
-export default class Application extends Component {
+export default class Home extends Component {
+
   constructor(props) {
     super(props);
 
-    this.updatePlanOption = this.updatePlanOption.bind(this);
-    this.updateClientSetting = this.updateClientSetting.bind(this);
     this.addMarker = this.addMarker.bind(this);
     this.setZoom = this.setZoom.bind(this);
     this.clearCenter = this.clearCenter.bind(this);
@@ -47,18 +43,6 @@ export default class Application extends Component {
           </Container>
         </div>
     );
-  }
-
-  updateClientSetting(field, value) {
-    let newSettings = Object.assign({}, this.state.planOptions);
-    newSettings[field] = value;
-    this.props.modify('clientSettings', newSettings);
-  }
-
-  updatePlanOption(option, value) {
-    let optionsCopy = Object.assign({}, this.state.planOptions);
-    optionsCopy[option] = value;
-    this.setState({'planOptions': optionsCopy});
   }
 
   renderLeafletMap() {
