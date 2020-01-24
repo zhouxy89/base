@@ -5,6 +5,7 @@ import { sendServerRequest } from "../../api/restfulAPI";
 import { isValid } from "../../utils/Utils";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
+import { HTTP_OK } from "../Constants";
 
 export default class ServerSettingsModal extends Component {
 
@@ -81,7 +82,7 @@ export default class ServerSettingsModal extends Component {
     }
 
     processConfigResponse(config) {
-        if(!isValid(config.body, configSchema) || !(config.statusCode >= 200 && config.statusCode <= 299)) {
+        if(!isValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
             this.setState({validServer: false, validSave: false, config: false});
         } else {
             this.setState({validServer: true, validSave: true, config: config});

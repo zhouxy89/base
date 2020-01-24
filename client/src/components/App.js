@@ -77,17 +77,17 @@ export default class App extends Component {
 
     processConfigResponse(config) {
         if(!isValid(config.body, configSchema)) {
-            this.runError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
+            this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
         } else if(config.statusCode === HTTP_OK) {
             log.error("Switching to server ", this.state.clientSettings.serverPort);
             this.setState({serverConfig: config.body});
             this.setState({errorMessage: null});
         } else {
-            this.runError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
+            this.processServerConfigError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
         }
     }
 
-    runError(statusText, statusCode, message) {
+    processServerConfigError(statusText, statusCode, message) {
         this.setState({serverConfig: null});
         this.setState({
             errorMessage:
