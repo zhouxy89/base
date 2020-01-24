@@ -23,10 +23,12 @@ export default class Footer extends Component
 
     renderServerInformation() {
         let serverName = "Unknown";
-        let UTFchar = "\u26A0"; // Warning Unicode Character
+        const UNICODE_WARNING = "\u26A0";
+        const UNICODE_LINK = "\uD83D\uDD17";
+        let UTFchar = UNICODE_WARNING;
         if (this.props.serverConfig && this.props.serverConfig.serverName) {
             serverName = this.props.serverConfig.serverName;
-            UTFchar = "\uD83D\uDD17"; // Link Unicode Character
+            UTFchar = UNICODE_LINK;
         }
         return (
             <div className="vertical-center tco-text">
