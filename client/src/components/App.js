@@ -39,9 +39,7 @@ export default class App extends Component {
         return (
             <div className="csu-branding">
                 <Header toggleAbout={this.toggleAbout}/>
-                <Collapse isOpen={this.state.showAbout}>
-                    <About closePage={this.toggleAbout}/>
-                </Collapse>
+                {this.renderAbout()}
                 {this.renderHome()}
                 <Footer
                     serverConfig={this.state.serverConfig}
@@ -49,6 +47,14 @@ export default class App extends Component {
                     updateServerConfig={(value, config) => this.updateServerConfig(value, config)}
                 />
             </div>
+        );
+    }
+
+    renderAbout() {
+        return(
+            <Collapse isOpen={this.state.showAbout}>
+                <About closePage={this.toggleAbout}/>
+            </Collapse>
         );
     }
 
