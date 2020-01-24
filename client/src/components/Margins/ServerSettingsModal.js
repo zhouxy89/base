@@ -83,8 +83,7 @@ export default class ServerSettingsModal extends Component {
 
     isValidUrl(resource) {
         const urlRegex = /https?:\/\/.+/;
-        const isValid = resource.match(urlRegex) !== null;
-        return isValid;
+        return resource.match(urlRegex) !== null;
     }
 
     processConfigResponse(config) {
