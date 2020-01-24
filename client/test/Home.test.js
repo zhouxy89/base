@@ -2,11 +2,11 @@ import './enzyme.config.js';
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import Application from '../src/components/Application/Application';
+import Home from '../src/components/Application/Home';
 
 function testInitialAppState() {
 
-  const app = shallow(<Application/>);
+  const app = shallow(<Home />);
 
   let actualMarkerPosition = app.state().markerPosition;
   let actualMapCenter = app.state().mapCenter;
@@ -17,4 +17,4 @@ function testInitialAppState() {
   expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
   expect(actualMapCenter).toEqual(expectedMapCenter);
 }
-test("Testing Application's Initial State", testInitialAppState);
+test("Testing Home's Initial State", testInitialAppState);

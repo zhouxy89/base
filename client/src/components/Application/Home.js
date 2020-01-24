@@ -6,17 +6,15 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 
-const MAX_BOUNDS = [
-  [-90, -180],
-  [90, 180]
-];
+const MAX_BOUNDS = [[-90, -180], [90, 180]];
 const DEFAULT_MAP_CENTER = [0, 0];
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
 const ZOOM_INCREMENT = 2;
 
-export default class Application extends Component {
+export default class Home extends Component {
+
   constructor(props) {
     super(props);
 
