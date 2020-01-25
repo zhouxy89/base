@@ -2,7 +2,7 @@ import './enzyme.config.js';
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import Home from '../src/components/Application/Home';
+import Home from '../src/components/Home/Home';
 
 function testInitialAppState() {
 

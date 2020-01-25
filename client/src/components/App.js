@@ -5,9 +5,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./tcowebstyle.css";
 
 import Header from "./Margins/Header";
-import ErrorBanner from "./Application/ErrorBanner";
+import ErrorBanner from "./ErrorBanner";
 import About from "./About/About.js";
-import Home from "./Application/Home";
+import Home from "./Home/Home";
 import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../api/restfulAPI";
