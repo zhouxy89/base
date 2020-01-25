@@ -38,6 +38,7 @@ export default class App extends Component {
     render() {
         return (
             <div className="csu-branding">
+                {this.state.errorMessage}
                 <Header toggleAbout={this.toggleAbout}/>
                 {this.renderAbout()}
                 {this.renderHome()}
@@ -64,7 +65,6 @@ export default class App extends Component {
                 <Home
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
-                    errorMessage={this.state.errorMessage}
                     modify={(state, value) => this.setState({[state]: value})}
                 />
             </Collapse>
@@ -94,21 +94,18 @@ export default class App extends Component {
     }
 
     processServerConfigError(statusText, statusCode, message) {
-        this.setState({serverConfig: null});
-        this.setState({
-            errorMessage:
-                <Container>
-                    {this.createErrorBanner(statusText, statusCode, message)}
-                </Container>
-        });
+        this.setState({serverConfig: null, errorMessage: this.createErrorBanner(statusText, statusCode, message)});
+
     }
 
     createErrorBanner(statusText, statusCode, message) {
         return (
-            <ErrorBanner statusText={statusText}
-                         statusCode={statusCode}
-                         message={message}
-            />
+            <Container>
+                <ErrorBanner statusText={statusText}
+                             statusCode={statusCode}
+                             message={message}
+                />
+            </Container>
         );
     }
 }
