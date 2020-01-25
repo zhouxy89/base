@@ -26,8 +26,8 @@ export default class Footer extends Component
         const UNICODE_WARNING = "\u26A0";
         const UNICODE_LINK = "\uD83D\uDD17";
         let UTFchar = UNICODE_WARNING;
-        if (this.props.serverConfig && this.props.serverConfig.serverName) {
-            serverName = this.props.serverConfig.serverName;
+        if (this.props.serverSettings.serverConfig && this.props.serverSettings.serverConfig.serverName) {
+            serverName = this.props.serverSettings.serverConfig.serverName;
             UTFchar = UNICODE_LINK;
         }
         return (
@@ -36,7 +36,7 @@ export default class Footer extends Component
                     <div className="centered">
                         {`${UTFchar} Connected to ${serverName} `}
                         <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
-                            ({this.props.clientSettings.serverPort}).
+                            ({this.props.serverSettings.serverPort}).
                         </a>
                     {this.renderModal()}
                     </div>
@@ -50,8 +50,7 @@ export default class Footer extends Component
             <ServerSettingsModal
                 modalOpen={this.state.modalOpen}
                 toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
-                serverConfig={this.props.serverConfig}
-                clientSettings={this.props.clientSettings}
+                serverSettings={this.props.serverSettings}
                 updateServerConfig={this.props.updateServerConfig}
             />
         );

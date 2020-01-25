@@ -23,14 +23,13 @@ export default class App extends Component {
 
         this.state = {
             showAbout: false,
-            serverConfig: null,
-            clientSettings: {serverPort: getOriginalServerPort()},
+            serverSettings: {serverPort: getOriginalServerPort(), serverConfig: null},
             errorMessage: null
         };
 
         this.toggleAbout = this.toggleAbout.bind(this);
 
-        sendServerRequest('config', this.state.clientSettings.serverPort).then(config => {
+        sendServerRequest('config', this.state.serverSettings.serverPort).then(config => {
             this.processConfigResponse(config);
         });
     }
@@ -42,8 +41,7 @@ export default class App extends Component {
                 {this.renderAbout()}
                 {this.renderHome()}
                 <Footer
-                    serverConfig={this.state.serverConfig}
-                    clientSettings={this.state.clientSettings}
+                    serverSettings={this.state.serverSettings}
                     updateServerConfig={(value, config) => this.updateServerConfig(value, config)}
                 />
             </div>
@@ -62,8 +60,6 @@ export default class App extends Component {
         return (
             <Collapse isOpen={!this.state.showAbout}>
                 <Home
-                    serverConfig={this.state.serverConfig}
-                    clientSettings={this.state.clientSettings}
                     errorMessage={this.state.errorMessage}
                     modify={(state, value) => this.setState({[state]: value})}
                 />
@@ -77,7 +73,7 @@ export default class App extends Component {
     }
 
     updateServerConfig(value, config) {
-        this.setState({clientSettings: {serverPort: value}});
+        this.setState({serverSettings: {serverPort: value}});
         this.processConfigResponse(config);
     }
 
@@ -85,8 +81,10 @@ export default class App extends Component {
         if(!isValid(config.body, configSchema)) {
             this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
         } else if(config.statusCode === HTTP_OK) {
-            log.error("Switching to server ", this.state.clientSettings.serverPort);
-            this.setState({serverConfig: config.body});
+            log.error("Switching to server ", this.state.serverSettings.serverPort);
+            let updatedSettings = Object.assign(this.state.serverSettings);
+            updatedSettings.serverConfig = config.body;
+            this.setState({serverSettings: updatedSettings});
             this.setState({errorMessage: null});
         } else {
             this.processServerConfigError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
@@ -94,7 +92,9 @@ export default class App extends Component {
     }
 
     processServerConfigError(statusText, statusCode, message) {
-        this.setState({serverConfig: null});
+        let updatedSettings = Object.assign(this.state.serverSettings);
+        updatedSettings.serverConfig = null;
+        this.setState({serverSettings: updatedSettings});
         this.setState({
             errorMessage:
                 <Container>
