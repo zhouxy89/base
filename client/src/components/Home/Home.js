@@ -33,7 +33,6 @@ export default class Home extends Component {
   render() {
     return (
         <div>
-          {this.props.errorMessage}
           <Container>
             <Row>
               <Col sm={12} md={{size: 6, offset: 3}}>

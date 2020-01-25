@@ -38,6 +38,7 @@ export default class App extends Component {
     render() {
         return (
             <div className="csu-branding">
+                {this.state.errorMessage}
                 <Header toggleAbout={this.toggleAbout}/>
                 {this.renderAbout()}
                 {this.renderHome()}
@@ -64,7 +65,6 @@ export default class App extends Component {
                 <Home
                     serverConfig={this.state.serverConfig}
                     clientSettings={this.state.clientSettings}
-                    errorMessage={this.state.errorMessage}
                     modify={(state, value) => this.setState({[state]: value})}
                 />
             </Collapse>
