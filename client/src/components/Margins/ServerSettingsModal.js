@@ -97,7 +97,7 @@ export default class ServerSettingsModal extends Component {
     resetModalState() {
         this.props.toggleModal();
         this.setState({
-            inputText: this.props.clientSettings.serverPort,
+            inputText: this.props.serverSettings.serverPort,
             validServer: true,
             validSave: false,
             config: false
