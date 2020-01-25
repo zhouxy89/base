@@ -28,6 +28,7 @@ export default class App extends Component {
         };
 
         this.toggleAbout = this.toggleAbout.bind(this);
+        this.updateServerConfig = this.updateServerConfig.bind(this);
 
         sendServerRequest('config', this.state.serverSettings.serverPort).then(config => {
             this.processConfigResponse(config);
@@ -42,7 +43,7 @@ export default class App extends Component {
                 {this.renderHome()}
                 <Footer
                     serverSettings={this.state.serverSettings}
-                    updateServerConfig={(value, config) => this.updateServerConfig(value, config)}
+                    updateServerConfig={this.updateServerConfig}
                 />
             </div>
         );
@@ -72,23 +73,24 @@ export default class App extends Component {
         this.setState({showAbout: newState});
     }
 
-    updateServerConfig(value, config) {
-        this.setState({serverSettings: {serverPort: value}});
-        this.processConfigResponse(config);
+    processConfigResponse(configResponse) {
+        if(!isValid(configResponse.body, configSchema)) {
+            this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
+        } else if(configResponse.statusCode === HTTP_OK) {
+            this.updateServerConfig(configResponse.body);
+        } else {
+            this.processServerConfigError(configResponse.statusText, configResponse.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
+        }
     }
 
-    processConfigResponse(config) {
-        if(!isValid(config.body, configSchema)) {
-            this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
-        } else if(config.statusCode === HTTP_OK) {
-            log.error("Switching to server ", this.state.serverSettings.serverPort);
-            let updatedSettings = Object.assign(this.state.serverSettings);
-            updatedSettings.serverConfig = config.body;
-            this.setState({serverSettings: updatedSettings});
-            this.setState({errorMessage: null});
-        } else {
-            this.processServerConfigError(config.statusText, config.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
-        }
+    updateServerConfig(config, port=this.state.serverSettings.serverPort) {
+        log.error("Switching to server ", this.state.serverSettings.serverPort);
+        let updatedSettings = {
+            serverConfig: config,
+            serverPort: port
+        };
+        this.setState({serverSettings: updatedSettings});
+        this.setState({errorMessage: null});
     }
 
     processServerConfigError(statusText, statusCode, message) {

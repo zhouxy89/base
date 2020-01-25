@@ -58,7 +58,7 @@ export default class ServerSettingsModal extends Component {
                 <Button color="secondary" onClick={() => this.resetModalState()}>Cancel</Button>
                 <Button onClick={() =>
                 {
-                    this.props.updateServerConfig(this.state.inputText, this.state.config);
+                    this.props.updateServerConfig(this.state.config.body, this.state.inputText);
                     this.resetModalState();
                 }}
                         disabled={!this.state.validSave}
