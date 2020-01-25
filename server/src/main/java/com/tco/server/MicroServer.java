@@ -113,6 +113,7 @@ class MicroServer {
     }
   }
 
+
   private void logRequest(Request request) {
     String message = "TIP Request - "
             + "[" + dateTimeFormat.format(LocalDateTime.now()) + "] "
