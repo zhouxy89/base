@@ -46,10 +46,6 @@ export default class Home extends Component {
   }
 
   renderLeafletMap() {
-    let markerPosition = '';
-    if (this.state.markerPosition) {
-      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
-    }
     return (
         <Map center={this.state.mapCenter}
              zoom={this.state.mapZoom}
@@ -63,9 +59,17 @@ export default class Home extends Component {
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           />
-          {this.getMarker(markerPosition, this.state.markerPosition)}
+          {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
         </Map>
     )
+  }
+
+  getMarkerPosition() {
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+    }
+    return markerPosition;
   }
 
   getMarker(bodyJSX, position) {
