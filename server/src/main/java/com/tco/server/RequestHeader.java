@@ -1,4 +1,4 @@
-package com.tco;
+package com.tco.server;
 
 public abstract class RequestHeader {
   protected Integer requestVersion;

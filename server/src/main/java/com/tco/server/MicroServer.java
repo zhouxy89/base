@@ -2,8 +2,6 @@ package com.tco.server;
 
 import com.google.gson.Gson;
 
-import com.tco.RequestConfig;
-import com.tco.RequestHeader;
 import com.tco.misc.JSONValidator;
 
 import java.io.IOException;
@@ -59,8 +57,8 @@ class MicroServer {
 
   private void processRestfulAPIrequests() {
     Spark.get("/api/config", this::processConfigRequest);
+    // Spark.get("/apt/distance", this::processDistanceRequest);
   }
-
 
   private String processConfigRequest(Request request, Response response) {
     setupResponse(request, response);
@@ -78,6 +76,10 @@ class MicroServer {
     }
   }
 
+  private String processDistanceRequest(Request request, Response response) {
+    // return processDataRequest(RequestDistance.class, request, response);
+    return "This line should be replaced with the line above.";
+  }
 
   private String processDataRequest(Type type, Request request, Response response) {
     setupResponse(request, response);
@@ -89,7 +91,6 @@ class MicroServer {
       String responseBody = jsonConverter.toJson(data);
       log.trace("Data Response: {}", responseBody);
       return responseBody;
-
     } catch (IOException e) {
       log.error("Data request failed validation: {}", request.body());
       log.error("Reason for failure: {}", e.getMessage());

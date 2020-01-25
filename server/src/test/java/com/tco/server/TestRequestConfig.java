@@ -1,7 +1,8 @@
-package com.tco;
+package com.tco.server;
 
 import java.util.List;
 
+import com.tco.server.RequestConfig;
 import org.junit.Before;
 import org.junit.Test;
 
