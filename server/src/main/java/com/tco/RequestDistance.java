@@ -1,6 +1,5 @@
-package com.tco.TIP;
+package com.tco;
 
-import com.tco.misc.GreatCircleDistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,16 +19,16 @@ import java.util.Map;
  * The getDistance method is called to obtain the distance value for comparisons.
  *
  */
-public class TIPDistance extends TIPHeader {
+public class RequestDistance extends RequestHeader {
   private Map origin;
   private Map destination;
   private Float earthRadius;
   private Integer distance;
 
-  private final transient Logger log = LoggerFactory.getLogger(TIPDistance.class);
+  private final transient Logger log = LoggerFactory.getLogger(RequestDistance.class);
 
 
-  TIPDistance(int version, Map origin, Map destination, float earthRadius) {
+  RequestDistance(int version, Map origin, Map destination, float earthRadius) {
     this();
     this.requestVersion = version;
     this.origin = origin;
@@ -39,7 +38,7 @@ public class TIPDistance extends TIPHeader {
   }
 
 
-  private TIPDistance() {
+  private RequestDistance() {
     this.requestType = "distance";
   }
 

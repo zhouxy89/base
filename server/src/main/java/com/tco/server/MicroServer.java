@@ -2,9 +2,9 @@ package com.tco.server;
 
 import com.google.gson.Gson;
 
-import com.tco.TIP.TIPConfig;
-import com.tco.TIP.TIPDistance;
-import com.tco.TIP.TIPHeader;
+import com.tco.RequestConfig;
+import com.tco.RequestDistance;
+import com.tco.RequestHeader;
 import com.tco.misc.JSONValidator;
 
 import java.io.IOException;
@@ -78,7 +78,7 @@ class MicroServer {
     response.status(200);
     try {
       Gson jsonConverter = new Gson();
-      TIPConfig tipRequest = new TIPConfig();
+      RequestConfig tipRequest = new RequestConfig();
       tipRequest.buildResponse();
       String responseBody = jsonConverter.toJson(tipRequest);
       log.trace("TIP Config response: {}", responseBody);
@@ -92,7 +92,7 @@ class MicroServer {
 
 
   private String processTIPdistanceRequest(Request request, Response response) {
-    return processTIPrequest(TIPDistance.class, request, response);
+    return processTIPrequest(RequestDistance.class, request, response);
   }
 
 
@@ -104,7 +104,7 @@ class MicroServer {
 
     try {
       Gson jsonConverter = new Gson();
-      TIPHeader tipInstance = createTIPInstance(tipType, request);
+      RequestHeader tipInstance = createTIPInstance(tipType, request);
       tipInstance.buildResponse();
       String responseBody = jsonConverter.toJson(tipInstance);
       log.trace("TIP Response: {}", responseBody);
@@ -171,7 +171,7 @@ class MicroServer {
 
 
   // Throws an IOException if something went wrong with loading the schema or validating the request.
-  private TIPHeader createTIPInstance(Type classType, Request request) throws IOException {
+  private RequestHeader createTIPInstance(Type classType, Request request) throws IOException {
     JSONValidator.validate(classType, request.body()); // Validates request against JSON schema
     Gson jsonConverter = new Gson();
     return jsonConverter.fromJson(request.body(), classType);

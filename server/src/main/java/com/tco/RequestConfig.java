@@ -1,4 +1,4 @@
-package com.tco.TIP;
+package com.tco;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +19,14 @@ import java.util.List;
  * The buildResponse method is called to set the configuration information.
  * The getDistance method is called to obtain the distance value for comparisons.
  */
-public class TIPConfig extends TIPHeader {
+public class RequestConfig extends RequestHeader {
   private String serverName;
   private List<String> placeAttributes;
 
-  private final transient Logger log = LoggerFactory.getLogger(TIPConfig.class);
+  private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
 
-  public TIPConfig() {
+  public RequestConfig() {
     this.requestType = "config";
     this.requestVersion = 1;
   }

@@ -1,4 +1,4 @@
-package com.tco.TIP;
+package com.tco;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 /** Verifies the operation of the TIP distance class and its buildResponse method.
  */
-public class TestTIPDistance {
+public class TestRequestDistance {
 
   /* Radius and location values shared by test cases */
   private final float radiusMiles = 3958;
@@ -27,7 +27,7 @@ public class TestTIPDistance {
 
   @Test
   public void testOriginDestinationSame() {
-    TIPDistance trip = new TIPDistance(version, csu, csu, radiusMiles);
+    RequestDistance trip = new RequestDistance(version, csu, csu, radiusMiles);
     trip.buildResponse();
     int expect = 0;
     int actual = trip.getDistance();
