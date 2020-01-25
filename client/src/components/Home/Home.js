@@ -48,10 +48,6 @@ export default class Home extends Component {
   }
 
   renderLeafletMap() {
-    let markerPosition = '';
-    if (this.state.markerPosition) {
-      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
-    }
     return (
         <Map center={this.state.mapCenter}
              zoom={this.state.mapZoom}
@@ -63,9 +59,17 @@ export default class Home extends Component {
              onMove={this.clearCenter}
              style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-          {this.getMarker(markerPosition, this.state.markerPosition)}
+          {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
         </Map>
     )
+  }
+
+  getMarkerPosition() {
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+    }
+    return markerPosition;
   }
 
   getMarker(bodyJSX, position) {
