@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 
-import ServerSettingsModal from "./ServerSettingsModal";
+import ServerSettings from "./ServerSettings";
 
 import "./header-footer.css";
 
@@ -38,16 +38,16 @@ export default class Footer extends Component
                         <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
                             ({this.props.clientSettings.serverPort}).
                         </a>
-                    {this.renderModal()}
+                    {this.renderServerSettings()}
                     </div>
                 </Container>
             </div>
         );
     }
 
-    renderModal() {
+    renderServerSettings() {
         return (
-            <ServerSettingsModal
+            <ServerSettings
                 modalOpen={this.state.modalOpen}
                 toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
                 serverConfig={this.props.serverConfig}

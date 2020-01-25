@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme'
 
 import App from "../src/components/App"
 import Footer from '../src/components/Margins/Footer'
-import ServerSettingsModal from '../src/components/Margins/ServerSettingsModal'
+import ServerSettings from '../src/components/Margins/ServerSettings'
 
 const startProperties = {
     modalOpen: true,
@@ -23,7 +23,7 @@ function testRender() {
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(footer.find('ServerSettingsModal').length).toEqual(1);
+    expect(footer.find('ServerSettings').length).toEqual(1);
 }
 
 test("Modal component should be rendered inside Footer", testRender);
@@ -32,7 +32,7 @@ test("Modal component should be rendered inside Footer", testRender);
 function testRenderInput() {
 
     const modal = mount(
-        <ServerSettingsModal
+        <ServerSettings
             modalOpen={startProperties.modalOpen}
             serverConfig={startProperties.serverConfig}
             clientSettings={startProperties.clientSettings}
@@ -48,7 +48,7 @@ test('An Input field should be rendered inside the Modal', testRenderInput);
 function testUpdateInputText() {
 
     const modal = shallow(
-        <ServerSettingsModal
+        <ServerSettings
             modalOpen={startProperties.modalOpen}
             serverConfig={startProperties.serverConfig}
             clientSettings={startProperties.clientSettings}
@@ -76,7 +76,7 @@ function testUpdateServerPort() {
 
     const app = mount(<App />);
     const modal = shallow(
-        <ServerSettingsModal
+        <ServerSettings
             modalOpen={startProperties.modalOpen}
             serverConfig={startProperties.serverConfig}
             clientSettings={startProperties.clientSettings}
