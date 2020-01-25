@@ -94,8 +94,7 @@ export default class App extends Component {
     }
 
     processServerConfigError(statusText, statusCode, message) {
-        this.setState({serverConfig: null});
-        this.setState({errorMessage: this.createErrorBanner(statusText, statusCode, message)});
+        this.setState({serverConfig: null, errorMessage: this.createErrorBanner(statusText, statusCode, message)});
 
     }
 
