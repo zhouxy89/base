@@ -76,7 +76,7 @@ function testUpdateServerPort() {
             modalOpen={startProperties.modalOpen}
             serverSettings={startProperties.serverSettings}
             toggleModal={startProperties.toggleModal}
-            updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
+            updateServerConfig={app.instance().updateServerConfig}
         />);
 
     let actualBeforeServerPort = app.state().serverSettings.serverPort;
