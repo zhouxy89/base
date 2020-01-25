@@ -71,7 +71,7 @@ export default class ServerSettings extends Component {
 
     updateInput(value) {
         this.setState({inputText: value}, () => {
-            if (this.isValidUrl(value)) {
+            if (this.shouldAttemptConfigRequest(value)) {
                 sendServerRequest("config", value).then(config => {
                     this.processConfigResponse(config);
                 });
@@ -81,9 +81,9 @@ export default class ServerSettings extends Component {
         });
     }
 
-    isValidUrl(resource) {
+    shouldAttemptConfigRequest(resource) {
         const urlRegex = /https?:\/\/.+/;
-        return resource.match(urlRegex) !== null;
+        return resource.match(urlRegex) !== null && resource.length > 15;
     }
 
     processConfigResponse(config) {
