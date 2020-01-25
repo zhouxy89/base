@@ -3,7 +3,6 @@ package com.tco.server;
 import com.google.gson.Gson;
 
 import com.tco.RequestConfig;
-import com.tco.RequestDistance;
 import com.tco.RequestHeader;
 import com.tco.misc.JSONValidator;
 
@@ -65,9 +64,6 @@ class MicroServer {
 
   private void processRestfulAPIrequests() {
     Spark.get("/api/config", this::processTIPconfigRequest);
-    Spark.post("/api/distance", this::processTIPdistanceRequest);
-    Spark.get("/api/echo", this::echoHTTPrequest);
-    log.trace("Restful configuration complete");
   }
 
 
@@ -88,11 +84,6 @@ class MicroServer {
       response.status(500);
       return request.body();
     }
-  }
-
-
-  private String processTIPdistanceRequest(Request request, Response response) {
-    return processTIPrequest(RequestDistance.class, request, response);
   }
 
 
@@ -121,42 +112,6 @@ class MicroServer {
       return request.body();
     }
   }
-
-
-  private String echoHTTPrequest(Request request, Response response) {
-    logRequest(request);
-    response.type("application/json");
-    response.header("Access-Control-Allow-Origin", "*");
-    return HTTPrequestToJson(request);
-  }
-
-
-  private String HTTPrequestToJson(Request request) {
-    return "{\n"
-        + "\"attributes\":\"" + request.attributes() + "\",\n"
-        + "\"body\":\"" + request.body() + "\",\n"
-        + "\"contentLength\":\"" + request.contentLength() + "\",\n"
-        + "\"contentType\":\"" + request.contentType() + "\",\n"
-        + "\"contextPath\":\"" + request.contextPath() + "\",\n"
-        + "\"cookies\":\"" + request.cookies() + "\",\n"
-        + "\"headers\":\"" + request.headers() + "\",\n"
-        + "\"host\":\"" + request.host() + "\",\n"
-        + "\"ip\":\"" + request.ip() + "\",\n"
-        + "\"params\":\"" + request.params() + "\",\n"
-        + "\"pathInfo\":\"" + request.pathInfo() + "\",\n"
-        + "\"serverPort\":\"" + request.port() + "\",\n"
-        + "\"protocol\":\"" + request.protocol() + "\",\n"
-        + "\"queryParams\":\"" + request.queryParams() + "\",\n"
-        + "\"requestMethod\":\"" + request.requestMethod() + "\",\n"
-        + "\"scheme\":\"" + request.scheme() + "\",\n"
-        + "\"servletPath\":\"" + request.servletPath() + "\",\n"
-        + "\"session\":\"" + request.session() + "\",\n"
-        + "\"uri()\":\"" + request.uri() + "\",\n"
-        + "\"url()\":\"" + request.url() + "\",\n"
-        + "\"userAgent\":\"" + request.userAgent() + "\"\n"
-        + "}";
-  }
-
 
   private void logRequest(Request request) {
     String message = "TIP Request - "
