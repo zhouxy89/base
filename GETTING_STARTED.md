@@ -106,7 +106,7 @@ As students, you can get a license for the ultimate edition of IntelliJ for
 free. You'll need a free JetBrains student account. You can sign up for one
 [here](https://www.jetbrains.com/student/).
 
-### Home installation
+### IntelliJ installation
 There are two versions of IntelliJ, the Community Edition and the Ultimate
 Edition. Either should work for the scope of this project, but the Ultimate
 Edition integrates better with JavaScript code. As mentioned above, students
