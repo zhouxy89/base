@@ -15,7 +15,7 @@ const ZOOM_INCREMENT = 2;
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 
-export default class Home extends Component {
+export default class Atlas extends Component {
 
   constructor(props) {
     super(props);
