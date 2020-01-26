@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { sendServerRequest } from "../../utils/restfulAPI";
-import { isValid } from "../../utils/restfulAPI";
+import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 import { HTTP_OK } from "../Constants";
@@ -87,7 +87,7 @@ export default class ServerSettings extends Component {
     }
 
     processConfigResponse(config) {
-        if(!isValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
+        if(!isJsonResponseValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
             this.setState({validServer: false, validSave: false, config: false});
         } else {
             this.setState({validServer: true, validSave: true, config: config});
