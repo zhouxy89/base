@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import './header-footer.css';
-import HeaderLogo from './resources/tcoLogo.svg';
-import {CLIENT_TEAM_NAME} from '../Constants';
 import {Container} from "reactstrap";
 
+import './header-footer.css';
+import HeaderLogo from './resources/tcoLogo.svg';
+
+import {CLIENT_TEAM_NAME} from '../Constants';
 const CS314_WEBSITE_URL = "https://cs.colostate.edu/~cs314";
 
 export default class Header extends Component {
