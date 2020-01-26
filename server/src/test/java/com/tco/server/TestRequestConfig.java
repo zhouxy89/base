@@ -1,8 +1,5 @@
 package com.tco.server;
 
-import java.util.List;
-
-import com.tco.server.RequestConfig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,11 +32,5 @@ public class TestRequestConfig {
   public void testServerName() {
     String name = conf.getServerName();
     assertEquals("config name", "t## team name", name);
-  }
-
-  @Test
-  public void testPlaceAttributes() {
-    List<String> attr = conf.getPlaceAttributes();
-    assertEquals("config attribute size", 3, attr.size());
   }
 }

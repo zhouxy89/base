@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-import { sendServerRequest } from "../../api/restfulAPI";
-import { isValid } from "../../utils/Utils";
+import { sendServerRequest } from "../../utils/restfulAPI";
+import { isValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 import { HTTP_OK } from "../Constants";

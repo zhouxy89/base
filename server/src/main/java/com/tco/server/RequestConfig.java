@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class RequestConfig extends RequestHeader {
   private String serverName;
-  private List<String> placeAttributes;
 
   private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
@@ -35,7 +34,6 @@ public class RequestConfig extends RequestHeader {
   @Override
   public void buildResponse() {
     this.serverName = "t## team name";
-    this.placeAttributes = Arrays.asList("latitude", "longitude", "name");
     log.trace("buildResponse -> {}", this);
   }
 
@@ -43,10 +41,4 @@ public class RequestConfig extends RequestHeader {
   String getServerName() {
     return this.serverName;
   }
-
-
-  List<String> getPlaceAttributes() {
-    return this.placeAttributes;
-  }
-
 }
