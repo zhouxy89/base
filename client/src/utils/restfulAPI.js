@@ -39,7 +39,7 @@ export function getOriginalServerPort() {
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
 
-export function isValid(object, schema) {
+export function isJsonResponseValid(object, schema) {
   let Ajv = require('ajv');
   let anotherJsonValidator = new Ajv();
   let validate = anotherJsonValidator.compile(schema);

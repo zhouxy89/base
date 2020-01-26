@@ -11,7 +11,7 @@ import Atlas from "./Atlas/Atlas";
 import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../utils/restfulAPI";
-import { isValid } from "../utils/restfulAPI";
+import { isJsonResponseValid } from "../utils/restfulAPI";
 import log from "../utils/globals";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
 import { HTTP_BAD_REQUEST, HTTP_OK } from "./Constants";
@@ -74,7 +74,7 @@ export default class App extends Component {
     }
 
     processConfigResponse(configResponse) {
-        if(!isValid(configResponse.body, configSchema)) {
+        if(!isJsonResponseValid(configResponse.body, configSchema)) {
             this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
         } else if(configResponse.statusCode === HTTP_OK) {
             this.updateServerConfig(configResponse.body);
