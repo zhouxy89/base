@@ -20,12 +20,7 @@ public class WebApplication {
     }
 
     Integer serverPort = getServerPort(commandLineArguments);
-    if ( validTcpIpPortNumber(serverPort) ) {
-      MicroServer server = new MicroServer(serverPort);  // constructor never returns
-    }
-    else {
-      log.error("Port number argument {} not a valid TCP/IP port.", serverPort);
-    }
+    MicroServer server = new MicroServer(serverPort);  // constructor never returns
   }
 
 
@@ -52,8 +47,4 @@ public class WebApplication {
     return port >= MIN_SERVER_PORT && port <= MAX_SERVER_PORT;
   }
 
-
-  private static boolean validTcpIpPortNumber(int portNumber) {
-    return (portNumber >= 0 & portNumber <= 65535);
-  }
 }
