@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-import { sendServerRequest } from "../../api/restfulAPI";
-import { isValid } from "../../utils/Utils";
+import { sendServerRequest } from "../../utils/restfulAPI";
+import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 import { HTTP_OK } from "../Constants";
@@ -20,10 +20,7 @@ export default class ServerSettings extends Component {
     }
 
     render() {
-        let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer ? this.props.serverSettings.serverConfig.serverName : '';
-        if (this.state.config && Object.keys(this.state.config).length > 0) {
-            currentServerName = this.state.config.body.serverName;
-        }
+        let currentServerName = this.getCurrentServerName();
         return (
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
@@ -69,6 +66,14 @@ export default class ServerSettings extends Component {
         );
     }
 
+    getCurrentServerName() {
+        let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer ? this.props.serverSettings.serverConfig.serverName : '';
+        if (this.state.config && Object.keys(this.state.config).length > 0) {
+            currentServerName = this.state.config.body.serverName;
+        }
+        return currentServerName;
+    }
+
     updateInput(value) {
         this.setState({inputText: value}, () => {
             if (this.shouldAttemptConfigRequest(value)) {
@@ -87,7 +92,7 @@ export default class ServerSettings extends Component {
     }
 
     processConfigResponse(config) {
-        if(!isValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
+        if(!isJsonResponseValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
             this.setState({validServer: false, validSave: false, config: false});
         } else {
             this.setState({validServer: true, validSave: true, config: config});

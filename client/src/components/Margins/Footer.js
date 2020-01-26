@@ -5,8 +5,8 @@ import ServerSettings from "./ServerSettings";
 
 import "./header-footer.css";
 
-const UNICODE_WARNING_SIGN = "\u26A0";
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
+const UNICODE_WARNING_SIGN = "\u26A0";
 
 export default class Footer extends Component
 {
