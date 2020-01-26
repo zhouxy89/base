@@ -20,10 +20,7 @@ export default class ServerSettings extends Component {
     }
 
     render() {
-        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : '';
-        if (this.state.config && Object.keys(this.state.config).length > 0) {
-            currentServerName = this.state.config.body.serverName;
-        }
+        let currentServerName = this.getCurrentServerName();
         return (
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
@@ -67,6 +64,14 @@ export default class ServerSettings extends Component {
                 </Button>
             </ModalFooter>
         );
+    }
+
+    getCurrentServerName() {
+        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : '';
+        if (this.state.config && Object.keys(this.state.config).length > 0) {
+            currentServerName = this.state.config.body.serverName;
+        }
+        return currentServerName;
     }
 
     updateInput(value) {
