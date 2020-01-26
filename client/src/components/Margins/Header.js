@@ -4,7 +4,7 @@ import HeaderLogo from './resources/tcoLogo.svg';
 import {CLIENT_TEAM_NAME} from '../Constants';
 import {Container} from "reactstrap";
 
-const CS314_WEBSITE_URL = "https://cs.colostate.edu/~cs314";
+const COURSE_URL = "https://cs.colostate.edu/~cs314";
 
 export default class Header extends Component {
 
@@ -14,7 +14,7 @@ export default class Header extends Component {
                 <div className="vertical-center">
                     <Container>
                         <div className="vertical-center">
-                            <a href={CS314_WEBSITE_URL} target="_blank">
+                            <a href={COURSE_URL} target="_blank">
                                 <img className="tco-logo" src={HeaderLogo} alt="TCO Brand Logo"/>
                             </a>
                             <a onClick={this.props.toggleAbout}>

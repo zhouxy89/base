@@ -6,14 +6,14 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 
-const DEFAULT_MAP_CENTER = [0, 0];
-const MAX_BOUNDS = [[-90, -180], [90, 180]];
-const MIN_ZOOM = 1;
-const MAX_ZOOM = 17;
-const MAP_STYLE_LENGTH = 500;
-const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const MAP_BOUNDS = [[-90, -180], [90, 180]];
+const MAP_CENTER_DEFAULT = [0, 0];
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
-const ZOOM_INCREMENT = 2;
+const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const MAP_STYLE_LENGTH = 500;
+const MAP_ZOOM_INCREMENT = 2;
+const MAP_ZOOM_MAX = 17;
+const MAP_ZOOM_MIN = 1;
 
 export default class Atlas extends Component {
 
@@ -27,8 +27,8 @@ export default class Atlas extends Component {
 
     this.state = {
       markerPosition: null,
-      mapCenter: DEFAULT_MAP_CENTER,
-      mapZoom: MIN_ZOOM
+      mapCenter: MAP_CENTER_DEFAULT,
+      mapZoom: MAP_ZOOM_MIN
     };
   }
 
@@ -50,9 +50,9 @@ export default class Atlas extends Component {
     return (
         <Map center={this.state.mapCenter}
              zoom={this.state.mapZoom}
-             minZoom={MIN_ZOOM}
-             maxZoom={MAX_ZOOM}
-             maxBounds={MAX_BOUNDS}
+             minZoom={MAP_ZOOM_MIN}
+             maxZoom={MAP_ZOOM_MAX}
+             maxBounds={MAP_BOUNDS}
              onClick={this.addMarker}
              onZoom={this.setZoom}
              onMove={this.clearCenter}
@@ -92,7 +92,7 @@ export default class Atlas extends Component {
   }
 
   zoomToMarker(e) {
-    this.setState({mapCenter: this.state.markerPosition, mapZoom: this.state.mapZoom + ZOOM_INCREMENT});
+    this.setState({mapCenter: this.state.markerPosition, mapZoom: this.state.mapZoom + MAP_ZOOM_INCREMENT});
     e.target.openPopup();
   }
 
