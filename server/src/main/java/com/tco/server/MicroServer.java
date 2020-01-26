@@ -1,22 +1,18 @@
 package com.tco.server;
 
+import static spark.Spark.secure;
+
 import com.google.gson.Gson;
-
 import com.tco.misc.JSONValidator;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-import static spark.Spark.secure;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-
 
 class MicroServer {
 
@@ -41,34 +37,28 @@ class MicroServer {
       log.info("Keystore file: {}", keystoreFile);
       log.info("Keystore password: {}", keystorePassword);
       log.info("MicroServer using HTTPS.");
-    }
-    else {
+    } else {
       log.info("MicroServer using HTTP.");
     }
   }
 
-
   private void serveStaticPages() {
     String path = "/public/";
     Spark.staticFileLocation(path);
-    Spark.get("/", (req, res) -> { res.redirect("index.html"); return null; });
+    Spark.get("/", (req, res) -> {
+      res.redirect("index.html");
+      return null;
+    });
   }
-
 
   private void processRestfulAPIrequests() {
     Spark.get("/api/config", this::processConfigRequest);
-    // Spark.get("/apt/distance", this::processDistanceRequest);
   }
 
   private String processConfigRequest(Request request, Response response) {
     setupResponse(request, response);
     try {
-      Gson jsonConverter = new Gson();
-      RequestConfig config = new RequestConfig();
-      config.buildResponse();
-      String responseBody = jsonConverter.toJson(config);
-      log.trace("Config response: {}", responseBody);
-      return responseBody;
+      return buildJSONResponse(new RequestConfig());
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
@@ -76,21 +66,12 @@ class MicroServer {
     }
   }
 
-  private String processDistanceRequest(Request request, Response response) {
-    // return processDataRequest(RequestDistance.class, request, response);
-    return "This line should be replaced with the line above.";
-  }
-
   private String processDataRequest(Type type, Request request, Response response) {
     setupResponse(request, response);
     try {
-      Gson jsonConverter = new Gson();
       JSONValidator.validate(type, request.body());
-      RequestHeader data = jsonConverter.fromJson(request.body(), type);
-      data.buildResponse();
-      String responseBody = jsonConverter.toJson(data);
-      log.trace("Data Response: {}", responseBody);
-      return responseBody;
+      Gson jsonConverter = new Gson();
+      return buildJSONResponse(jsonConverter.fromJson(request.body(), type));
     } catch (IOException e) {
       log.error("Data request failed validation: {}", request.body());
       log.error("Reason for failure: {}", e.getMessage());
@@ -108,6 +89,14 @@ class MicroServer {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
+  }
+
+  private String buildJSONResponse(RequestHeader request) {
+    request.buildResponse();
+    Gson jsonConverter = new Gson();
+    String responseBody = jsonConverter.toJson(request);
+    log.trace("Data Response: {}", responseBody);
+    return responseBody;
   }
 
   private void logRequest(Request request) {
