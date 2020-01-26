@@ -7,7 +7,7 @@ import "./tcowebstyle.css";
 import Header from "./Margins/Header";
 import ErrorBanner from "./ErrorBanner";
 import About from "./About/About.js";
-import Home from "./Home/Home";
+import Atlas from "./Atlas/Atlas";
 import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../api/restfulAPI";
@@ -61,8 +61,7 @@ export default class App extends Component {
     renderHome() {
         return (
             <Collapse isOpen={!this.state.showAbout}>
-                <Home
-                    errorMessage={this.state.errorMessage}
+                <Atlas
                     modify={(state, value) => this.setState({[state]: value})}
                 />
             </Collapse>
