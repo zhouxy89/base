@@ -7,7 +7,7 @@ import { isValid } from "../../utils/Utils";
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 import { HTTP_OK } from "../Constants";
 
-export default class ServerSettingsModal extends Component {
+export default class ServerSettings extends Component {
 
     constructor(props) {
         super(props);
@@ -26,16 +26,16 @@ export default class ServerSettingsModal extends Component {
         }
         return (
             <div>
-                <Modal isOpen={this.props.modalOpen} toggle={() => this.props.toggleModal()}>
-                    <ModalHeader toggle={() => this.props.toggleModal()}>Server Connection</ModalHeader>
-                    {this.renderModalBody(currentServerName)}
-                    {this.renderModalButtons()}
+                <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
+                    <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
+                    {this.renderSettings(currentServerName)}
+                    {this.renderActions()}
                 </Modal>
             </div>
         );
     }
 
-    renderModalBody(currentServerName) {
+    renderSettings(currentServerName) {
         return (
             <ModalBody>
                 <p>Name: {currentServerName}</p>
@@ -52,14 +52,14 @@ export default class ServerSettingsModal extends Component {
         );
     }
 
-    renderModalButtons() {
+    renderActions() {
         return (
             <ModalFooter>
-                <Button color="secondary" onClick={() => this.resetModalState()}>Cancel</Button>
+                <Button color="secondary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
                 <Button onClick={() =>
                 {
                     this.props.updateServerConfig(this.state.inputText, this.state.config);
-                    this.resetModalState();
+                    this.resetServerSettingsState();
                 }}
                         disabled={!this.state.validSave}
                 >
@@ -94,8 +94,8 @@ export default class ServerSettingsModal extends Component {
         }
     }
 
-    resetModalState() {
-        this.props.toggleModal();
+    resetServerSettingsState() {
+        this.props.toggleOpen();
         this.setState({
             inputText: this.props.clientSettings.serverPort,
             validServer: true,

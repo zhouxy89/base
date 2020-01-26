@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 
-import ServerSettingsModal from "./ServerSettingsModal";
+import ServerSettings from "./ServerSettings";
 
 import "./header-footer.css";
 
@@ -13,7 +13,7 @@ export default class Footer extends Component
 
     constructor(props) {
         super(props);
-        this.state = {modalOpen: false};
+        this.state = {serverSettingsOpen: false};
     }
 
     render() {
@@ -32,10 +32,10 @@ export default class Footer extends Component
                 <Container>
                     <div className="centered">
                         {`${linkStatusCharacter} Connected to ${serverName} `}
-                        <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
+                        <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
                             ({this.props.clientSettings.serverPort}).
                         </a>
-                    {this.renderModal()}
+                    {this.renderServerSettings()}
                     </div>
                 </Container>
             </div>
@@ -55,11 +55,11 @@ export default class Footer extends Component
         return this.props.serverConfig && this.props.serverConfig.serverName;
     }
 
-    renderModal() {
+    renderServerSettings() {
         return (
-            <ServerSettingsModal
-                modalOpen={this.state.modalOpen}
-                toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
+            <ServerSettings
+                isOpen={this.state.serverSettingsOpen}
+                toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
                 serverConfig={this.props.serverConfig}
                 clientSettings={this.props.clientSettings}
                 updateServerConfig={this.props.updateServerConfig}
