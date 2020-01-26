@@ -7,6 +7,7 @@ import "./header-footer.css";
 
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
+const UNKNOWN_SERVER_NAME = "Unknown";
 
 export default class Footer extends Component {
 
@@ -46,7 +47,7 @@ export default class Footer extends Component {
     }
 
     getServerNameFromConnectionStatus() {
-        return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : "Unknown";
+        return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : UNKNOWN_SERVER_NAME;
 
     }
 
