@@ -25,9 +25,9 @@ public class RequestConfig extends RequestHeader {
   private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
 
-  public RequestConfig() {
+  RequestConfig() {
     this.requestType = "config";
-    this.requestVersion = 1;
+    this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
   }
 
 
