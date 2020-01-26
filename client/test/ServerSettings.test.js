@@ -7,9 +7,8 @@ import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
 
 const startProperties = {
+    serverSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400', 'serverConfig': {}},
     isOpen: true,
-    serverConfig: {},
-    clientSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400'},
     toggleOpen: jest.fn(),
     updateServerConfig: jest.fn(),
 };
@@ -33,8 +32,7 @@ function testRenderInput() {
     const settings = mount(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
@@ -49,13 +47,12 @@ function testUpdateInputText() {
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(settings.state().inputText).toEqual(startProperties.clientSettings.serverPort);
+    expect(settings.state().inputText).toEqual(startProperties.serverSettings.serverPort);
 
     let inputText = 'Fake Input Text';
     simulateOnChangeEvent(inputText, settings);
@@ -77,8 +74,7 @@ function testUpdateServerPort() {
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
         />);
