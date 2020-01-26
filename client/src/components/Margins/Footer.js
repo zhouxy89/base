@@ -9,8 +9,7 @@ const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
 const UNKNOWN_SERVER_NAME = "Unknown";
 
-export default class Footer extends Component
-{
+export default class Footer extends Component {
 
     constructor(props) {
         super(props);
@@ -22,7 +21,7 @@ export default class Footer extends Component
             <div className="full-width footer">
                 {this.renderServerInformation()}
             </div>
-        )
+        );
     }
 
     renderServerInformation() {

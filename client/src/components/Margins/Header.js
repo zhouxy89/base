@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {Container} from "reactstrap";
+
 import './header-footer.css';
 import HeaderLogo from './resources/tcoLogo.svg';
+
 import {CLIENT_TEAM_NAME} from '../Constants';
-import {Container} from "reactstrap";
 
 const COURSE_URL = "https://cs.colostate.edu/~cs314";
 
