@@ -7,6 +7,9 @@ import java.util.HashMap;
 /** The server for the single page web application. */
 public class WebApplication {
 
+  private final static int DEFAULT_SERVER_PORT = 8088;
+  private final static int MAX_SERVER_PORT = 65535;
+  private final static int MIN_SERVER_PORT = 1024;
   private final static Logger log = LoggerFactory.getLogger(WebApplication.class);
 
   public static void main(String[] commandLineArguments) {
@@ -17,18 +20,13 @@ public class WebApplication {
     }
 
     Integer serverPort = getServerPort(commandLineArguments);
-    if ( validTcpIpPortNumber(serverPort) ) {
-      MicroServer server = new MicroServer(serverPort);  // constructor never returns
-    }
-    else {
-      log.error("Port number argument {} not a valid TCP/IP port.", serverPort);
-    }
+    MicroServer server = new MicroServer(serverPort);  // constructor never returns
   }
 
 
   private static int getServerPort(String[] commandLineArguments) {
 
-    Integer serverPort = 8088;
+    Integer serverPort = DEFAULT_SERVER_PORT;
     if (commandLineArguments.length > 0) {
       try {
         serverPort = Integer.parseInt(commandLineArguments[0]);
@@ -36,12 +34,17 @@ public class WebApplication {
         log.error("Error converting server port: {}", e);
       }
     }
-    log.info("Server port: {}", serverPort);
+    if(portIsValid(serverPort)) {
+      log.info("Server port: {}", serverPort);
+    } else {
+      log.error("Given port is out of acceptable range ({}-{}), defaulting to {}", MIN_SERVER_PORT, MAX_SERVER_PORT, DEFAULT_SERVER_PORT);
+      serverPort = DEFAULT_SERVER_PORT;
+    }
     return serverPort;
   }
 
-
-  private static boolean validTcpIpPortNumber(int portNumber) {
-    return (portNumber >= 0 & portNumber <= 65535);
+  private static boolean portIsValid(int port) {
+    return port >= MIN_SERVER_PORT && port <= MAX_SERVER_PORT;
   }
+
 }
