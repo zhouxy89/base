@@ -26,8 +26,8 @@ export default class ServerSettings extends Component {
         }
         return (
             <div>
-                <Modal isOpen={this.props.modalOpen} toggle={() => this.props.toggleModal()}>
-                    <ModalHeader toggle={() => this.props.toggleModal()}>Server Connection</ModalHeader>
+                <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
+                    <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
                     {this.renderSettings(currentServerName)}
                     {this.renderActions()}
                 </Modal>
@@ -95,7 +95,7 @@ export default class ServerSettings extends Component {
     }
 
     resetServerSettingsState() {
-        this.props.toggleModal();
+        this.props.toggleOpen();
         this.setState({
             inputText: this.props.clientSettings.serverPort,
             validServer: true,
