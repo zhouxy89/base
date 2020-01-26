@@ -1,6 +1,6 @@
-package com.tco.TIP;
+package com.tco.server;
 
-public abstract class TIPHeader {
+public abstract class RequestHeader {
   protected Integer requestVersion;
   protected String requestType;
 
