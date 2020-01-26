@@ -38,8 +38,8 @@ export default class App extends Component {
     render() {
         return (
             <div className="csu-branding">
-                {this.state.errorMessage}
                 <Header toggleAbout={this.toggleAbout}/>
+                {this.state.errorMessage}
                 {this.renderAbout()}
                 {this.renderHome()}
                 <Footer
