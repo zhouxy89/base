@@ -1,7 +1,5 @@
-import log from "../utils/globals";
+import log from "./globals";
 
-/* functions to support server interactions via restful APIs.
- */
 
 export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
@@ -39,4 +37,11 @@ export function getOriginalServerPort() {
   const serverPort = location.port;
   const alternatePort = process.env.dev;
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
+}
+
+export function isValid(object, schema) {
+  let Ajv = require('ajv');
+  let anotherJsonValidator = new Ajv();
+  let validate = anotherJsonValidator.compile(schema);
+  return validate(object);
 }
