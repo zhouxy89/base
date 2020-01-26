@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
 
 import { sendServerRequest } from "../../utils/restfulAPI";
 import { isJsonResponseValid } from "../../utils/restfulAPI";
@@ -35,17 +35,31 @@ export default class ServerSettings extends Component {
     renderSettings(currentServerName) {
         return (
             <ModalBody>
-                <p>Name: {currentServerName}</p>
-                <p style={{float: "left"}}>URL:</p>
-                <div style={{overflow: "hidden", "paddingLeft": ".5em"}}>
-                    <Input onChange={(e) => this.updateInput(e.target.value)}
-                           value={this.state.inputText}
-                           placeholder={this.props.serverPort}
-                           valid={this.state.validServer}
-                           invalid={!this.state.validServer}
-                    />
-                </div>
+                <Row className="m-2">
+                    <Col>
+                        Name: {currentServerName}
+                    </Col>
+                </Row>
+                <Row className="m-2">
+                    <Col xs={2}>
+                        URL:
+                    </Col>
+                    <Col xs={10}>
+                        {this.renderInputField()}
+                    </Col>
+                </Row>
             </ModalBody>
+        );
+    }
+
+    renderInputField() {
+        return(
+            <Input onChange={(e) => this.updateInput(e.target.value)}
+                   value={this.state.inputText}
+                   placeholder={this.props.serverPort}
+                   valid={this.state.validServer}
+                   invalid={!this.state.validServer}
+            />
         );
     }
 
