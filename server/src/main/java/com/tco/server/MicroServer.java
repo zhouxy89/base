@@ -16,6 +16,7 @@ import spark.Spark;
 
 class MicroServer {
 
+  private final String configRequestBody = "{\"requestType\" : \"config\", \"requestVersion\" : 1}";
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
   private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
@@ -51,41 +52,36 @@ class MicroServer {
     });
   }
 
+
   private void processRestfulAPIrequests() {
     Spark.get("/api/config", this::processConfigRequest);
+    // Configure other restful API requests here
   }
 
   private String processConfigRequest(Request request, Response response) {
-    setupResponse(request, response);
-    try {
-      return buildJSONResponse(new RequestConfig());
-    } catch (Exception e) {
-      log.error("Exception: {}", e);
-      response.status(500);
-      return request.body();
-    }
+    logRequest(request);
+    return processHttpRequest(RequestConfig.class, configRequestBody, response);
   }
 
-  private String processDataRequest(Type type, Request request, Response response) {
-    setupResponse(request, response);
+  private String processHttpRequest(Type type, String requestBody, Response response) {
+    setupResponse(response);
     try {
-      JSONValidator.validate(type, request.body());
+      JSONValidator.validate(type, requestBody);
       Gson jsonConverter = new Gson();
-      return buildJSONResponse(jsonConverter.fromJson(request.body(), type));
+      return buildJSONResponse(jsonConverter.fromJson(requestBody, type));
     } catch (IOException e) {
-      log.error("Data request failed validation: {}", request.body());
+      log.error("Data request failed validation: {}", requestBody);
       log.error("Reason for failure: {}", e.getMessage());
       response.status(400);
-      return null;
+      return requestBody;
     } catch (Exception e) {
       log.error("Exception: {}", e);
       response.status(500);
-      return request.body();
+      return requestBody;
     }
   }
 
-  private void setupResponse(Request request, Response response) {
-    logRequest(request);
+  private void setupResponse(Response response) {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
     response.status(200);
