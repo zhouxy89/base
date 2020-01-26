@@ -4,12 +4,13 @@ import {mount, shallow} from 'enzyme'
 
 import App from "../src/components/App"
 import Footer from '../src/components/Margins/Footer'
-import ServerSettingsModal from '../src/components/Margins/ServerSettingsModal'
+import ServerSettings from '../src/components/Margins/ServerSettings'
 
 const startProperties = {
-    modalOpen: true,
-    serverSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400', 'serverConfig': {}},
-    toggleModal: jest.fn(),
+    isOpen: true,
+    serverConfig: {},
+    clientSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400'},
+    toggleOpen: jest.fn(),
     updateServerConfig: jest.fn(),
 };
 
@@ -21,42 +22,44 @@ function testRender() {
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(footer.find('ServerSettingsModal').length).toEqual(1);
+    expect(footer.find('ServerSettings').length).toEqual(1);
 }
 
-test("Modal component should be rendered inside Footer", testRender);
+test("Settings component should be rendered inside Footer", testRender);
 
 
 function testRenderInput() {
 
-    const modal = mount(
-        <ServerSettingsModal
-            modalOpen={startProperties.modalOpen}
-            serverSettings={startProperties.serverSettings}
-            toggleModal={startProperties.toggleModal}
+    const settings = mount(
+        <ServerSettings
+            isOpen={startProperties.isOpen}
+            serverConfig={startProperties.serverConfig}
+            clientSettings={startProperties.clientSettings}
+            toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(modal.find('Input').length).toEqual(1);
+    expect(settings.find('Input').length).toEqual(1);
 }
 
-test('An Input field should be rendered inside the Modal', testRenderInput);
+test('An Input field should be rendered inside the Settings', testRenderInput);
 
 function testUpdateInputText() {
 
-    const modal = shallow(
-        <ServerSettingsModal
-            modalOpen={startProperties.modalOpen}
-            serverSettings={startProperties.serverSettings}
-            toggleModal={startProperties.toggleModal}
+    const settings = shallow(
+        <ServerSettings
+            isOpen={startProperties.isOpen}
+            serverConfig={startProperties.serverConfig}
+            clientSettings={startProperties.clientSettings}
+            toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(modal.state().inputText).toEqual(startProperties.serverSettings.serverPort);
+    expect(settings.state().inputText).toEqual(startProperties.clientSettings.serverPort);
 
     let inputText = 'Fake Input Text';
-    simulateOnChangeEvent(inputText, modal);
-    expect(modal.state().inputText).toEqual(inputText);
+    simulateOnChangeEvent(inputText, settings);
+    expect(settings.state().inputText).toEqual(inputText);
 }
 
 function simulateOnChangeEvent(inputText, reactWrapper) {
@@ -65,26 +68,27 @@ function simulateOnChangeEvent(inputText, reactWrapper) {
     reactWrapper.update();
 }
 
-test("onChangeEvent should update the Modal's state", testUpdateInputText);
+test("onChangeEvent should update the component's state", testUpdateInputText);
 
 function testUpdateServerPort() {
     mockConfigResponse();
 
     const app = mount(<App />);
-    const modal = shallow(
-        <ServerSettingsModal
-            modalOpen={startProperties.modalOpen}
-            serverSettings={startProperties.serverSettings}
-            toggleModal={startProperties.toggleModal}
-            updateServerConfig={app.instance().updateServerConfig}
+    const settings = shallow(
+        <ServerSettings
+            isOpen={startProperties.isOpen}
+            serverConfig={startProperties.serverConfig}
+            clientSettings={startProperties.clientSettings}
+            toggleOpen={startProperties.toggleOpen}
+            updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
         />);
 
     let actualBeforeServerPort = app.state().serverSettings.serverPort;
     let expectedBeforeServerPort = `http://${location.hostname}:`;
 
     let inputText = 'https://black-bottle.cs.colostate.edu:31400';
-    simulateOnChangeEvent(inputText, modal);
-    modal.find('Button').at(1).simulate('click');
+    simulateOnChangeEvent(inputText, settings);
+    settings.find('Button').at(1).simulate('click');
 
     let actualAfterServerPort = app.state().serverSettings.serverPort;
 

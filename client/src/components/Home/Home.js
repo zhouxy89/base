@@ -12,6 +12,8 @@ const MIN_ZOOM = 1;
 const MAX_ZOOM = 17;
 const MAP_STYLE_LENGTH = 500;
 const ZOOM_INCREMENT = 2;
+const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 
 export default class Home extends Component {
 
@@ -33,7 +35,6 @@ export default class Home extends Component {
   render() {
     return (
         <div>
-          {this.props.errorMessage}
           <Container>
             <Row>
               <Col sm={12} md={{size: 6, offset: 3}}>
@@ -46,10 +47,6 @@ export default class Home extends Component {
   }
 
   renderLeafletMap() {
-    let markerPosition = '';
-    if (this.state.markerPosition) {
-      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
-    }
     return (
         <Map center={this.state.mapCenter}
              zoom={this.state.mapZoom}
@@ -60,12 +57,18 @@ export default class Home extends Component {
              onZoom={this.setZoom}
              onMove={this.clearCenter}
              style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-          />
-          {this.getMarker(markerPosition, this.state.markerPosition)}
+          <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+          {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
         </Map>
     )
+  }
+
+  getMarkerPosition() {
+    let markerPosition = '';
+    if (this.state.markerPosition) {
+      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+    }
+    return markerPosition;
   }
 
   getMarker(bodyJSX, position) {

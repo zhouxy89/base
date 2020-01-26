@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 
-import ServerSettingsModal from "./ServerSettingsModal";
+import ServerSettings from "./ServerSettings";
 
 import "./header-footer.css";
+
+const UNICODE_WARNING_SIGN = "\u26A0";
+const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 
 export default class Footer extends Component
 {
 
     constructor(props) {
         super(props);
-        this.state = {modalOpen: false};
+        this.state = {serverSettingsOpen: false};
     }
 
     render() {
@@ -22,34 +25,41 @@ export default class Footer extends Component
     }
 
     renderServerInformation() {
-        let serverName = "Unknown";
-        const UNICODE_WARNING = "\u26A0";
-        const UNICODE_LINK = "\uD83D\uDD17";
-        let UTFchar = UNICODE_WARNING;
-        if (this.props.serverSettings.serverConfig && this.props.serverSettings.serverConfig.serverName) {
-            serverName = this.props.serverSettings.serverConfig.serverName;
-            UTFchar = UNICODE_LINK;
-        }
+        const serverName = this.getServerNameFromConnectionStatus();
+        const linkStatusCharacter = this.getCharFromConnectionStatus();
         return (
             <div className="vertical-center tco-text">
                 <Container>
                     <div className="centered">
-                        {`${UTFchar} Connected to ${serverName} `}
-                        <a className="tco-text" onClick={() => this.setState({modalOpen: true})}>
+                        {`${linkStatusCharacter} Connected to ${serverName} `}
+                        <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
                             ({this.props.serverSettings.serverPort}).
                         </a>
-                    {this.renderModal()}
+                    {this.renderServerSettings()}
                     </div>
                 </Container>
             </div>
         );
     }
 
-    renderModal() {
+    getCharFromConnectionStatus() {
+        return this.connectedToValidServer() ? UNICODE_LINK_SYMBOL : UNICODE_WARNING_SIGN;
+    }
+
+    getServerNameFromConnectionStatus() {
+        return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : "Unknown";
+
+    }
+
+    connectedToValidServer() {
+        return this.props.serverSettings.serverConfig && this.props.serverSettings.serverConfig.serverName;
+    }
+
+    renderServerSettings() {
         return (
-            <ServerSettingsModal
-                modalOpen={this.state.modalOpen}
-                toggleModal={(modalOpen = !this.state.modalOpen) => this.setState({modalOpen: modalOpen})}
+            <ServerSettings
+                isOpen={this.state.serverSettingsOpen}
+                toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
                 serverSettings={this.props.serverSettings}
                 updateServerConfig={this.props.updateServerConfig}
             />
