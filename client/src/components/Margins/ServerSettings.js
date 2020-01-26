@@ -12,7 +12,7 @@ export default class ServerSettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputText: this.props.clientSettings.serverPort,
+            inputText: this.props.serverSettings.serverPort,
             validServer: true,
             validSave: false,
             config: {}
@@ -20,7 +20,7 @@ export default class ServerSettings extends Component {
     }
 
     render() {
-        let currentServerName = this.props.serverConfig && this.state.validServer ? this.props.serverConfig.serverName : '';
+        let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer ? this.props.serverSettings.serverConfig.serverName : '';
         if (this.state.config && Object.keys(this.state.config).length > 0) {
             currentServerName = this.state.config.body.serverName;
         }
@@ -58,7 +58,7 @@ export default class ServerSettings extends Component {
                 <Button color="secondary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
                 <Button onClick={() =>
                 {
-                    this.props.updateServerConfig(this.state.inputText, this.state.config);
+                    this.props.updateServerConfig(this.state.config.body, this.state.inputText);
                     this.resetServerSettingsState();
                 }}
                         disabled={!this.state.validSave}
@@ -97,7 +97,7 @@ export default class ServerSettings extends Component {
     resetServerSettingsState() {
         this.props.toggleOpen();
         this.setState({
-            inputText: this.props.clientSettings.serverPort,
+            inputText: this.props.serverSettings.serverPort,
             validServer: true,
             validSave: false,
             config: false

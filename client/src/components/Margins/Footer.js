@@ -33,7 +33,7 @@ export default class Footer extends Component
                     <div className="centered">
                         {`${linkStatusCharacter} Connected to ${serverName} `}
                         <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
-                            ({this.props.clientSettings.serverPort}).
+                            ({this.props.serverSettings.serverPort}).
                         </a>
                     {this.renderServerSettings()}
                     </div>
@@ -47,12 +47,12 @@ export default class Footer extends Component
     }
 
     getServerNameFromConnectionStatus() {
-        return this.connectedToValidServer() ? this.props.serverConfig.serverName : "Unknown";
+        return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : "Unknown";
 
     }
 
     connectedToValidServer() {
-        return this.props.serverConfig && this.props.serverConfig.serverName;
+        return this.props.serverSettings.serverConfig && this.props.serverSettings.serverConfig.serverName;
     }
 
     renderServerSettings() {
@@ -60,8 +60,7 @@ export default class Footer extends Component
             <ServerSettings
                 isOpen={this.state.serverSettingsOpen}
                 toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
-                serverConfig={this.props.serverConfig}
-                clientSettings={this.props.clientSettings}
+                serverSettings={this.props.serverSettings}
                 updateServerConfig={this.props.updateServerConfig}
             />
         );

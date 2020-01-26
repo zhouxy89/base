@@ -7,9 +7,8 @@ import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
 
 const startProperties = {
+    serverSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400', 'serverConfig': {}},
     isOpen: true,
-    serverConfig: {},
-    clientSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400'},
     toggleOpen: jest.fn(),
     updateServerConfig: jest.fn(),
 };
@@ -18,8 +17,7 @@ function testRender() {
 
     const footer = mount(
         <Footer
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings.serverPort}
+            serverSettings={startProperties.serverSettings}
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
@@ -34,8 +32,7 @@ function testRenderInput() {
     const settings = mount(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
@@ -50,13 +47,12 @@ function testUpdateInputText() {
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={startProperties.updateServerConfig}
         />);
 
-    expect(settings.state().inputText).toEqual(startProperties.clientSettings.serverPort);
+    expect(settings.state().inputText).toEqual(startProperties.serverSettings.serverPort);
 
     let inputText = 'Fake Input Text';
     simulateOnChangeEvent(inputText, settings);
@@ -78,20 +74,19 @@ function testUpdateServerPort() {
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
-            serverConfig={startProperties.serverConfig}
-            clientSettings={startProperties.clientSettings}
+            serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
             updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
         />);
 
-    let actualBeforeServerPort = app.state().clientSettings.serverPort;
+    let actualBeforeServerPort = app.state().serverSettings.serverPort;
     let expectedBeforeServerPort = `http://${location.hostname}:`;
 
     let inputText = 'https://black-bottle.cs.colostate.edu:31400';
     simulateOnChangeEvent(inputText, settings);
     settings.find('Button').at(1).simulate('click');
 
-    let actualAfterServerPort = app.state().clientSettings.serverPort;
+    let actualAfterServerPort = app.state().serverSettings.serverPort;
 
     expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
     expect(actualAfterServerPort).toEqual(inputText);
