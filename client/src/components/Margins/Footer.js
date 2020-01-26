@@ -26,12 +26,12 @@ export default class Footer extends Component {
 
     renderServerInformation() {
         const serverName = this.getServerNameFromConnectionStatus();
-        const linkStatusCharacter = this.getCharFromConnectionStatus();
+        const linkStatusSymbol = this.getSymbolFromConnectionStatus();
         return (
             <div className="vertical-center tco-text">
                 <Container>
                     <div className="centered">
-                        {linkStatusCharacter} Connected to {serverName}
+                        {linkStatusSymbol} Connected to {serverName}
                         <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
                             ({this.props.serverSettings.serverPort}).
                         </a>
@@ -42,7 +42,7 @@ export default class Footer extends Component {
         );
     }
 
-    getCharFromConnectionStatus() {
+    getSymbolFromConnectionStatus() {
         return this.connectedToValidServer() ? UNICODE_LINK_SYMBOL : UNICODE_WARNING_SIGN;
     }
 
