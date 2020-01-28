@@ -11,9 +11,13 @@ const MAP_CENTER_DEFAULT = [0, 0];
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_STYLE_LENGTH = 500;
-const MAP_ZOOM_INCREMENT = 2;
 const MAP_ZOOM_MAX = 17;
 const MAP_ZOOM_MIN = 1;
+const MARKER_ICON = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconAnchor: [12, 40]  // for proper placement
+});
 
 export default class Atlas extends Component {
 
@@ -21,14 +25,9 @@ export default class Atlas extends Component {
     super(props);
 
     this.addMarker = this.addMarker.bind(this);
-    this.setZoom = this.setZoom.bind(this);
-    this.clearCenter = this.clearCenter.bind(this);
-    this.zoomToMarker = this.zoomToMarker.bind(this);
 
     this.state = {
       markerPosition: null,
-      mapCenter: MAP_CENTER_DEFAULT,
-      mapZoom: MAP_ZOOM_MIN
     };
   }
 
@@ -48,19 +47,21 @@ export default class Atlas extends Component {
 
   renderLeafletMap() {
     return (
-        <Map center={this.state.mapCenter}
-             zoom={this.state.mapZoom}
+        <Map center={MAP_CENTER_DEFAULT}
+             zoom={MAP_ZOOM_MIN}
              minZoom={MAP_ZOOM_MIN}
              maxZoom={MAP_ZOOM_MAX}
              maxBounds={MAP_BOUNDS}
              onClick={this.addMarker}
-             onZoom={this.setZoom}
-             onMove={this.clearCenter}
              style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
           {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
         </Map>
     )
+  }
+
+  addMarker(mapClickInfo) {
+    this.setState({markerPosition: mapClickInfo.latlng});
   }
 
   getMarkerPosition() {
@@ -79,40 +80,10 @@ export default class Atlas extends Component {
     };
     if (position) {
       return (
-          <Marker ref={initMarker} position={position} icon={this.markerIcon()}
-                  onClick={this.zoomToMarker}>
+          <Marker ref={initMarker} position={position} icon={MARKER_ICON}>
             <Popup offset={[0, -18]} className="font-weight-bold">{bodyJSX}</Popup>
           </Marker>
       );
     }
-  }
-
-  addMarker(e) {
-    this.setState({markerPosition: e.latlng});
-  }
-
-  zoomToMarker(e) {
-    this.setState({mapCenter: this.state.markerPosition, mapZoom: this.state.mapZoom + MAP_ZOOM_INCREMENT});
-    e.target.openPopup();
-  }
-
-  setZoom(e) {
-    this.setState({mapZoom: e.target.getZoom()});
-  }
-
-  clearCenter() {
-    if (this.state.mapCenter) {
-      this.setState({mapCenter: null});
-    }
-  }
-
-  markerIcon() {
-    // react-leaflet does not currently handle default marker icons correctly,
-    // so we must create our own
-    return L.icon({
-      iconUrl: icon,
-      shadowUrl: iconShadow,
-      iconAnchor: [12, 40]  // for proper placement
-    })
   }
 }
