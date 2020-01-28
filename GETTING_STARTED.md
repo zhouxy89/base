@@ -187,7 +187,8 @@ that this server runs as a process that is completely separate from your JAR.
 Use the run script in development mode (`ENV=dev`):
 
 ```bash
-ENV=dev ./run.sh
+ENV=dev 
+./run.sh
 ```
 
 This starts two processes:
