@@ -153,6 +153,7 @@ The easiest way to run the server and make sure everything works is to use the
 run script:
 
 ```bash
+export ENV=prod 
 ./run.sh
 ```
 
@@ -168,42 +169,47 @@ If you want to run the JAR on a port other than `8088`, then specify an
 environment variable when you invoke the script:
 
 ```bash
-PORT=31400 ./run.sh
+export ENV=prod
+export PORT=31400 
+./run.sh
 ```
 
 Investigate what the run scripts actually do to better understand how our system
 is built. All of the commands they run can be run manually as well, to perform a
 single step of the build operation only.
 
-## Using the Hot Server
+## Starting the Development Server
 The Webpack dev server allows you to make changes to your JavaScript code
 without repackaging it. Additionally, every time you change a file and save it,
 the browser that you're viewing the project in will automatically refresh. Note
 that this server runs as a process that is completely separate from your JAR.
 
-To use it, first package and run your JAR:
+Use the run script in development mode (`ENV=dev`):
 
 ```bash
-# Package Java code
-mvn package
-# Run the JAR on the port you specify
-java -jar target/server-0.1.jar [serverPort]
+ENV=dev 
+./run.sh
 ```
 
-Next, adjust the `const server_port = 31400`; line in
-`client/webpack.dev.config.js` to match the port that the JAR is running on, or
-restart the JAR to run on `31400`.
-
-Now, in a separate terminal, start the development server:
-
-```bash
-cd client
-# This assumes that npm dependencies have been installed (the node_modules
-# directory exists)
-npm run dev
-```
+This starts two processes:
+* the client code running via `npm run dev` listening on port 31401
+* the server code listening on port 31400 
 
 Your default browser should open automatically and display the project's
 homepage after a few seconds (notice that it is running on `localhost:31401`).
 If you see an error banner displayed at the top, it is likely that your JAR is
 running on an unexpected port, or is not running at all.
+
+## Creating a Deployment
+Ultimately, you will deploy your production server to a different machine. To
+package everything into a single executable jar file to be submitted through
+checkin, use the following script:
+
+```bash
+./deploy.sh
+```
+
+This will create a directory called `target` if it does not already exist and
+write the jar file to this directory. This jar can then be copied and ran on 
+any other machine with java.
+
