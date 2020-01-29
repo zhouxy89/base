@@ -13,12 +13,14 @@ if [ -z "$ENV" ]; then
 fi
 
 if [[ "$ENV" == "dev" ]]; then
+	echo "Building and starting the server in DEVELOPMENT mode."
   ./build_server.sh
   check_error $?
   ./build_client.sh dev &
   PORT=31400 ./run_server.sh
   check_error $?
 else
+	echo "Building and starting the server in PRODUCTION mode."
   ./build_client.sh
   check_error $?
   ./build_server.sh
