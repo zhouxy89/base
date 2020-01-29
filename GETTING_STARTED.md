@@ -184,10 +184,9 @@ without repackaging it. Additionally, every time you change a file and save it,
 the browser that you're viewing the project in will automatically refresh. Note
 that this server runs as a process that is completely separate from your JAR.
 
-Use the run script in development mode (`ENV=dev`):
+If you don't set the environment variable `ENV`, then the run script will default to development mode. To run the server in development mode, invoke the run script as is:
 
 ```bash
-ENV=dev 
 ./run.sh
 ```
 
