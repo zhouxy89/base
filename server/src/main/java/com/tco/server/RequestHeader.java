@@ -8,4 +8,7 @@ public abstract class RequestHeader {
   protected String requestType;
 
   public abstract void buildResponse();
+
+  public void validate() throws AssertionError {
+  };
 }

@@ -37,7 +37,6 @@ public class RequestConfig extends RequestHeader {
     log.trace("buildResponse -> {}", this);
   }
 
-
   String getServerName() {
     return this.serverName;
   }

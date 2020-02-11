@@ -69,7 +69,7 @@ class MicroServer {
       JSONValidator.validate(type, requestBody);
       Gson jsonConverter = new Gson();
       return buildJSONResponse(jsonConverter.fromJson(requestBody, type));
-    } catch (IOException e) {
+    } catch (IOException | AssertionError e) {
       log.error("Data request failed validation: {}", requestBody);
       log.error("Reason for failure: {}", e.getMessage());
       response.status(400);
@@ -88,6 +88,7 @@ class MicroServer {
   }
 
   private String buildJSONResponse(RequestHeader request) {
+    request.validate();
     request.buildResponse();
     Gson jsonConverter = new Gson();
     String responseBody = jsonConverter.toJson(request);
