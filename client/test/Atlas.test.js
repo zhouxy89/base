@@ -15,4 +15,3 @@ function testInitialAppState() {
   expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
 }
 test("Testing Atlas's Initial State", testInitialAppState);
-
