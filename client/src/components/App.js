@@ -12,9 +12,9 @@ import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../utils/restfulAPI";
 import { isJsonResponseValid } from "../utils/restfulAPI";
-import log from "../utils/globals";
+import { LOG } from "../utils/Constants";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
-import { HTTP_BAD_REQUEST, HTTP_OK } from "./Constants";
+import { HTTP_BAD_REQUEST, HTTP_OK } from "../utils/Constants";
 
 export default class App extends Component {
 
@@ -84,7 +84,7 @@ export default class App extends Component {
     }
 
     updateServerConfig(config, port=this.state.serverSettings.serverPort) {
-        log.info("Switching to server ", this.state.serverSettings.serverPort);
+        LOG.info("Switching to server ", this.state.serverSettings.serverPort);
         let updatedSettings = {
             serverConfig: config,
             serverPort: port

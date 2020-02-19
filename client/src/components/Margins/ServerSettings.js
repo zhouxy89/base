@@ -5,7 +5,7 @@ import { sendServerRequest } from "../../utils/restfulAPI";
 import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
-import { HTTP_OK } from "../Constants";
+import { HTTP_OK } from "../../utils/Constants";
 
 export default class ServerSettings extends Component {
 
