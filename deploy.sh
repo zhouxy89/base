@@ -18,6 +18,8 @@ if [ ! -d "./client/node_modules" ]; then
 fi
 
 # Build The Client
+npm run test --prefix client
+check_error $?
 
 npm run prod --prefix client
 check_error $?

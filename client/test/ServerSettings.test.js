@@ -1,7 +1,7 @@
 import './enzyme.config.js'
-import React from 'react'
 import {mount, shallow} from 'enzyme'
 
+import React from 'react'
 import App from "../src/components/App"
 import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
