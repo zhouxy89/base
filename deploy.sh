@@ -2,7 +2,6 @@
 
 check_error() {
   if [ "$1" -ne 0 ]; then
-    echo "Build Failed!"
     exit "$1"
   fi
 }
@@ -26,5 +25,5 @@ check_error $?
 
 # Build and Package the JAVA Server
 
-mvn -f server clean package
+mvn -f ./server clean package
 check_error $?
