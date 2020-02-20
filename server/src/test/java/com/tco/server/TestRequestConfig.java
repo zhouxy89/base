@@ -1,36 +1,41 @@
 package com.tco.server;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.tco.requests.RequestConfig;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 
-/** Verifies the operation of the TIP config class and its buildResponse method.
- */
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TestRequestConfig {
+
   private RequestConfig conf;
 
-  @Before
+  @BeforeEach
   public void createConfigurationForTestCases(){
     conf = new RequestConfig();
     conf.buildResponse();
   }
 
   @Test
+  @DisplayName("Request type is \"config\"")
   public void testType() {
-    String type = "config"; //conf.getType();
-    assertEquals("config requestType", "config", type);
+    String type = conf.getRequestType();
+    assertEquals("config", type);
   }
 
   @Test
+  @DisplayName("Version number is equal to 1")
   public void testVersion() {
-    int version = 1; //conf.getVersion();
-    assertEquals("config requestVersion", 1, version);
+    int version = conf.getRequestVersion();
+    assertEquals(1, version);
   }
 
   @Test
+  @DisplayName("Team name is t## team name")
   public void testServerName() {
     String name = conf.getServerName();
-    assertEquals("config name", "t## team name", name);
+    assertEquals("t## team name", name);
   }
 }
