@@ -1,9 +1,5 @@
 # This is a gitignore file. Any items in this file will be "ignored" by git.
 
-# IntelliJ items; the .idea directory and all project files.
-.idea/
-*.iml
-
 # Generated Client files:
 
 # Coverage Files, Bundled Files, Dependencies
