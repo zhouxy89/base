@@ -61,14 +61,22 @@
       "!**/templates/**",
       "!**/test/**"
     ],
-    "coverageReporters": ["json", "lcov", "text", "clover", "html"],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover",
+      "html"
+    ],
     "testURL": "http://localhost/",
     "moduleNameMapper": {
       "^.+\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/require_stub.js",
       "^.+\\.(css)$": "<rootDir>/test/require_stub.js"
     },
     "automock": false,
-    "setupFiles": ["<rootDir>/test/setupJest.js"],
+    "setupFiles": [
+      "<rootDir>/test/setupJest.js"
+    ],
     "transform": {
       "^.+\\.jsx$": "babel-jest",
       "^.+\\.js$": "babel-jest"
