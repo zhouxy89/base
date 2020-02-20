@@ -1,6 +1,6 @@
 package com.tco.server;
 
-import com.tco.server.RequestTypes.RequestConfig;
+import com.tco.requests.RequestConfig;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
