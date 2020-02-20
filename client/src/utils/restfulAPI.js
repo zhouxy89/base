@@ -1,5 +1,4 @@
-import log from "./globals";
-
+import { LOG } from "./Constants";
 
 export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
@@ -25,7 +24,7 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
     };
   }
   catch(err) {
-    log.error("Request failed: ", "Status Code: ", err.status, " ", err );
+    LOG.error("Request failed: ", "Status Code: ", err.status, " ", err );
     return { statusCode: 0, statusText: 'Client failure', body: null };
   }
 }
@@ -35,7 +34,7 @@ export function getOriginalServerPort() {
   const serverProtocol = location.protocol;
   const serverHost = location.hostname;
   const serverPort = location.port;
-  const alternatePort = process.env.dev;
+  const alternatePort = process.env.SERVER_PORT;
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
 

@@ -46,18 +46,14 @@ a:hover {
 /* Header Styles */
 
 .header {
-    height: 12%;
-    min-height: 120px;
-
+    height: 120px;
     margin-bottom: 25px;
 }
 
 /* Footer Styles */
 
 .footer {
-    height: 6%;
-    min-height: 100px;
-
+    height: 100px;
     margin-top: 25px;
 }
 
