@@ -21,6 +21,7 @@ module.exports = env => {
 			]
 		},
 		output: { filename: "bundle.js", path: path.join(__dirname, './dist/public/') },
+		performance: { hints: false },
 		plugins: [
 			new CleanWebpackPlugin(),
 			new webpack.DefinePlugin({'process.env.SERVER_PORT': SERVER_PORT, 'process.env.LOG_LEVEL': LOG_LEVEL}),
