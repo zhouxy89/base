@@ -185,11 +185,11 @@ If you don't set the environment variable `ENV`, then the run script will defaul
 ```
 
 This starts two processes:
-* the client code running via `npm run dev` listening on port 31401
-* the server code listening on port 31400 
+* the client code running via `npm run devClient` listening on port 3000
+* the server code running via `npm run server` listening on port 31400 
 
 Your default browser should open automatically and display the project's
-homepage after a few seconds (notice that it is running on `localhost:31401`).
+homepage after a few seconds (notice that it is running on `localhost:3000`).
 If you see an error banner displayed at the top, it is likely that your JAR is
 running on an unexpected port, or is not running at all.
 
@@ -204,16 +204,15 @@ export ENV=prod
 ```
 
 This will install all npm dependencies (if they haven't been already), bundle
-together all of the Javascript source, compile and test your Java Code, package
-everything into a single JAR, and start running the server on the default port
-`3000`. Visit `http://localhost:3000` to see the webpage.
+together all of the Javascript source, compile and test your React and Java Code, package
+everything into a single JAR, and start running the server on the default port. Visit `http://localhost:31400` 
+to see the webpage.
 
-If you want to run the JAR on a port other than `3000`, then specify an
+If you want to run the JAR on a port other than `31400`, then specify an
 environment variable when you invoke the script:
 
 ```bash
-export ENV=prod
-export PORT=31400 
+export ENV=prod PORT=8000 
 ./run.sh
 ```
 
