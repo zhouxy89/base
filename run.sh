@@ -47,7 +47,3 @@ else
   check_error $?
 
 fi
-
-
-
-
