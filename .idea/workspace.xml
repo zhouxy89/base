@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="711224a0-4faa-4c58-ac4d-b7cb2828e4a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Deploy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Client_Tests.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Development.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Production.xml" afterDir="false" />
+    <list default="true" id="711224a0-4faa-4c58-ac4d-b7cb2828e4a9" name="Default Changelist" comment="Testing Giving .idea config">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Development_Client.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_Development_Server.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Run_Development.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Run_Production.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/base.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,20 +38,68 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/package.json" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Maven.Run Server Tests">
+  <component name="RunManager" selected="npm.Run Development Server">
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="base" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="base" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Maven.Run Server Tests" />
+      <item itemvalue="npm.Run Development Client" />
+      <item itemvalue="npm.Run Development Server" />
       <item itemvalue="npm.Run Client Tests" />
-      <item itemvalue="Shell Script.Run Development" />
+      <item itemvalue="Shell Script.Run" />
       <item itemvalue="Shell Script.Deploy" />
-      <item itemvalue="Shell Script.Run Production" />
     </list>
   </component>
   <component name="ServiceViewManager">
@@ -93,30 +144,34 @@
       <screen x="0" y="30" width="1500" height="915" />
     </state>
     <state x="469" y="216" width="558" height="557" key="#Run_Development/0.30.1500.915@0.30.1500.915" timestamp="1582231869325" />
-    <state x="212" y="136" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582232446138">
+    <state x="212" y="132" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582655647128">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state x="212" y="136" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1500.915@0.30.1500.915" timestamp="1582232446138" />
-    <state x="534" y="186" width="424" height="619" key="FileChooserDialogImpl" timestamp="1582232021933">
+    <state x="212" y="132" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1500.915@0.30.1500.915" timestamp="1582655647128" />
+    <state x="368" y="90" width="759" height="810" key="CommitChangelistDialog2" timestamp="1582655680189">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state x="534" y="186" width="424" height="619" key="FileChooserDialogImpl/0.30.1500.915@0.30.1500.915" timestamp="1582232021933" />
-    <state width="1454" height="278" key="GridCell.Tab.0.bottom" timestamp="1582232414712">
+    <state x="368" y="90" width="759" height="810" key="CommitChangelistDialog2/0.30.1500.915@0.30.1500.915" timestamp="1582655680189" />
+    <state x="534" y="182" width="424" height="619" key="FileChooserDialogImpl" timestamp="1582655298476">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state width="1454" height="278" key="GridCell.Tab.0.bottom/0.30.1500.915@0.30.1500.915" timestamp="1582232414712" />
-    <state width="1454" height="278" key="GridCell.Tab.0.center" timestamp="1582232414712">
+    <state x="534" y="182" width="424" height="619" key="FileChooserDialogImpl/0.30.1500.915@0.30.1500.915" timestamp="1582655298476" />
+    <state width="1454" height="282" key="GridCell.Tab.0.bottom" timestamp="1582655571651">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state width="1454" height="278" key="GridCell.Tab.0.center/0.30.1500.915@0.30.1500.915" timestamp="1582232414712" />
-    <state width="1454" height="278" key="GridCell.Tab.0.left" timestamp="1582232414711">
+    <state width="1454" height="282" key="GridCell.Tab.0.bottom/0.30.1500.915@0.30.1500.915" timestamp="1582655571651" />
+    <state width="1454" height="282" key="GridCell.Tab.0.center" timestamp="1582655571650">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state width="1454" height="278" key="GridCell.Tab.0.left/0.30.1500.915@0.30.1500.915" timestamp="1582232414711" />
-    <state width="1454" height="278" key="GridCell.Tab.0.right" timestamp="1582232414712">
+    <state width="1454" height="282" key="GridCell.Tab.0.center/0.30.1500.915@0.30.1500.915" timestamp="1582655571650" />
+    <state width="1454" height="282" key="GridCell.Tab.0.left" timestamp="1582655571650">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
-    <state width="1454" height="278" key="GridCell.Tab.0.right/0.30.1500.915@0.30.1500.915" timestamp="1582232414712" />
+    <state width="1454" height="282" key="GridCell.Tab.0.left/0.30.1500.915@0.30.1500.915" timestamp="1582655571650" />
+    <state width="1454" height="282" key="GridCell.Tab.0.right" timestamp="1582655571650">
+      <screen x="0" y="30" width="1500" height="915" />
+    </state>
+    <state width="1454" height="282" key="GridCell.Tab.0.right/0.30.1500.915@0.30.1500.915" timestamp="1582655571650" />
     <state x="236" y="70" width="1024" height="850" key="SettingsEditor" timestamp="1582231466141">
       <screen x="0" y="30" width="1500" height="915" />
     </state>
