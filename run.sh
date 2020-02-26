@@ -29,6 +29,9 @@ if [[ "$CS314_MODE" == "dev" ]]; then
 
   # Build and Run The Client / Run The Server
 
+  npm run test --prefix client
+  check_error $?
+
   npm run dev --prefix client
   check_error $?
 

@@ -1,4 +1,4 @@
-import { LOG } from "./Constants";
+import { LOG } from "./constants";
 
 export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
