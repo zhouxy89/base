@@ -21,7 +21,7 @@ fi
 npm run test --prefix client
 check_error $?
 
-npm run prod --prefix client
+npm run prodClient --prefix client
 check_error $?
 
 # Build and Package the JAVA Server
