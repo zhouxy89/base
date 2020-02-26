@@ -1,4 +1,4 @@
-import './enzyme.config.js'
+import './jestConfig/enzyme.config.js'
 import {mount, shallow} from 'enzyme'
 
 import React from 'react'

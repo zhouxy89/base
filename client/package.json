@@ -56,23 +56,17 @@
       "!**/node_modules/**",
       "!**/schemas/**",
       "!**/templates/**",
-      "!**/test/**"
-    ],
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "clover",
-      "html"
+      "!**/test/**",
+      "!**/webpack.config.js"
     ],
     "testURL": "http://localhost/",
     "moduleNameMapper": {
-      "^.+\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/require_stub.js",
-      "^.+\\.(css)$": "<rootDir>/test/require_stub.js"
+      "^.+\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/jestConfig/require_stub.js",
+      "^.+\\.(css)$": "<rootDir>/test/jestConfig/require_stub.js"
     },
     "automock": false,
     "setupFiles": [
-      "<rootDir>/test/setupJest.js"
+      "<rootDir>/test/jestConfig/setupJest.js"
     ],
     "transform": {
       "^.+\\.jsx$": "babel-jest",
