@@ -1,4 +1,4 @@
-package com.tco.server;
+package com.tco.requests;
 
 import com.tco.requests.RequestConfig;
 
