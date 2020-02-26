@@ -12,7 +12,7 @@ fi
 
 if [[ "$CS314_MODE" == "dev" ]]; then
 
-	echo "Building and starting the server in DEVELOPMENT mode."
+	echo "Building and Starting the Server in DEVELOPMENT Mode."
 	echo
 
   # Build and Package the JAVA Server
@@ -37,7 +37,7 @@ if [[ "$CS314_MODE" == "dev" ]]; then
 
 else
 
-	echo "Building and starting the server in PRODUCTION mode."
+	echo "Building and Starting the Server in PRODUCTION Mode."
   echo
 
   # Build and Package the JAVA Server With Client

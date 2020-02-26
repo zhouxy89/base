@@ -14,5 +14,6 @@ client/package-lock.json
 
 # Generated Java Files
 
-target/
 server/dependency-reduced-pom.xml
+server/target/
+target/
