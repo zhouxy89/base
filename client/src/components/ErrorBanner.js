@@ -10,5 +10,4 @@ export default class ErrorBanner extends Component {
       </Alert>
     );
   }
-
 }
