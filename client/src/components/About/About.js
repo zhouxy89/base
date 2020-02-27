@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
-import {CLIENT_TEAM_NAME} from "../../utils/Constants";
+import {CLIENT_TEAM_NAME} from "../../utils/constants";
 
 export default class About extends Component {
 

@@ -12,9 +12,9 @@ import Footer from "./Margins/Footer";
 
 import { getOriginalServerPort, sendServerRequest } from "../utils/restfulAPI";
 import { isJsonResponseValid } from "../utils/restfulAPI";
-import { LOG } from "../utils/Constants";
+import { LOG } from "../utils/constants";
 import * as configSchema from "../../schemas/TIPConfigResponseSchema";
-import { HTTP_BAD_REQUEST, HTTP_OK } from "../utils/Constants";
+import { HTTP_BAD_REQUEST, HTTP_OK } from "../utils/constants";
 
 export default class App extends Component {
 

@@ -1,4 +1,4 @@
-import { LOG } from "./Constants";
+import { LOG } from "./constants";
 
 export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
@@ -37,6 +37,7 @@ export function getOriginalServerPort() {
   const alternatePort = process.env.SERVER_PORT;
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
+
 
 export function isJsonResponseValid(object, schema) {
   let Ajv = require('ajv');

@@ -1,12 +1,12 @@
+import ulog from "ulog";
 
-import ulog from 'ulog';
 ulog.level = process.env.LOG_LEVEL;
 
-export const LOG = ulog('App');
+export const LOG = ulog("App");
 
 export const CLIENT_TEAM_NAME = "T## Team Name";
 
-export const EARTH_RADIUS_UNITS_DEFAULT = { 'miles': 3959 };
+export const EARTH_RADIUS_UNITS_DEFAULT = {"miles": 3959};
 
 export const PROTOCOL_VERSION = 1;
 

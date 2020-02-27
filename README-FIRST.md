@@ -172,13 +172,16 @@ are some visual instructions on opening a terminal in IntelliJ. In addition, sev
 included with the source files provided to you. Try running each of them and take note of what each one does.
 
 ## Run Configurations
+
 ### Development
+
 The Webpack dev server allows you to make changes to your JavaScript code
 without repackaging it. Additionally, every time you change a file and save it,
 the browser that you're viewing the project in will automatically refresh. Note
 that this server runs as a process that is completely separate from your JAR.
 
-If you don't set the environment variable `ENV`, then the run script will default to development mode. To run the server in development mode, invoke the run script as is:
+If you don't set the environment variable `ENV`, then the run script will default to development mode. To run the 
+server in development mode, invoke the run script as is:
 
 ```bash
 ./run.sh
@@ -206,21 +209,14 @@ export ENV=prod
 This will install all npm dependencies (if they haven't been already), bundle
 together all of the Javascript source, compile and test your React and Java Code, package
 everything into a single JAR, and start running the server on the default port. Visit `http://localhost:31400` 
-to see the webpage.
-
-If you want to run the JAR on a port other than `31400`, then specify an
-environment variable when you invoke the script:
-
-```bash
-export ENV=prod PORT=8000 
-./run.sh
-```
+to see the web page.
 
 Investigate what the run scripts actually do to better understand how our system
 is built. All of the commands they run can be run manually as well, to perform a
 single step of the build operation only.
 
 ### Deployment
+
 Ultimately, you will deploy your production server to a different machine. To
 package everything into a single executable jar file to be submitted through
 checkin, use the following script:
