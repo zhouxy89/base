@@ -41,7 +41,7 @@ export default class App extends Component {
                 <Header toggleAbout={this.toggleAbout}/>
                 {this.state.errorMessage}
                 {this.renderAbout()}
-                {this.renderHome()}
+                {this.renderAtlas()}
                 <Footer
                     serverSettings={this.state.serverSettings}
                     updateServerConfig={this.updateServerConfig}
