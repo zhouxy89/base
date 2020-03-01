@@ -58,12 +58,10 @@ export default class App extends Component {
         );
     }
 
-    renderHome() {
+    renderAtlas() {
         return (
             <Collapse isOpen={!this.state.showAbout}>
-                <Atlas
-                    modify={(state, value) => this.setState({[state]: value})}
-                />
+                <Atlas />
             </Collapse>
         );
     }
@@ -102,9 +100,10 @@ export default class App extends Component {
     createErrorBanner(statusText, statusCode, message) {
         return (
             <Container>
-                <ErrorBanner statusText={statusText}
-                             statusCode={statusCode}
-                             message={message}
+                <ErrorBanner
+                    statusText={statusText}
+                    statusCode={statusCode}
+                    message={message}
                 />
             </Container>
         );
