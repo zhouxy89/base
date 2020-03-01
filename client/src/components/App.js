@@ -87,8 +87,7 @@ export default class App extends Component {
             serverConfig: config,
             serverPort: port
         };
-        this.setState({serverSettings: updatedSettings});
-        this.setState({errorMessage: null});
+        this.setState({serverSettings: updatedSettings, errorMessage: null});
     }
 
     processServerConfigError(statusText, statusCode, message) {
