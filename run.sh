@@ -1,29 +1,52 @@
 #!/bin/bash
 
 check_error() {
-  if [ $1 -ne 0 ]
-  then
-    echo "run.sh: Build failed!"
-    exit $1
+  if [ "$1" -ne 0 ]; then
+    exit "$1"
   fi
 }
 
-if [ -z "$ENV" ]; then
-  export ENV=dev
+if [ -z "$CS314_MODE" ]; then
+  export CS314_MODE=dev
 fi
 
-if [[ "$ENV" == "dev" ]]; then
-	echo "Building and starting the server in DEVELOPMENT mode."
-  ./build_server.sh
+if [[ "$CS314_MODE" == "dev" ]]; then
+
+	echo "Building and Starting the Server in DEVELOPMENT Mode."
+	echo
+
+  # Build and Package the JAVA Server
+
+  mvn -f ./server clean package
   check_error $?
-  ./build_client.sh dev &
-  PORT=31400 ./run_server.sh
+
+  # Check if Node Modules are Installed
+
+  if [ ! -d "./client/node_modules" ]; then
+    npm install --prefix client
+    check_error $?
+  fi
+
+  # Build and Run The Client / Run The Server
+
+  npm run test --prefix client
   check_error $?
+
+  npm run dev --prefix client
+  check_error $?
+
 else
-	echo "Building and starting the server in PRODUCTION mode."
-  ./build_client.sh
+
+	echo "Building and Starting the Server in PRODUCTION Mode."
+  echo
+
+  # Build and Package the JAVA Server With Client
+
+  ./deploy.sh
+
+  # Run The Server
+
+  npm run server --prefix client
   check_error $?
-  ./build_server.sh
-  check_error $?
-  ./run_server.sh
+
 fi

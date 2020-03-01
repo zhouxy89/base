@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
-import {CLIENT_TEAM_NAME} from "../Constants";
-import '../tcowebstyle.css';
+import {CLIENT_TEAM_NAME} from "../../utils/constants";
 
 export default class About extends Component {
 
@@ -10,7 +9,7 @@ export default class About extends Component {
         <Container id="about">
           <Row>
             <Col>
-              <h2 className="font-weight-bold" >
+              <h2>
                 {CLIENT_TEAM_NAME}
               </h2>
             </Col>

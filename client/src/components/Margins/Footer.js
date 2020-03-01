@@ -48,7 +48,6 @@ export default class Footer extends Component {
 
     getServerNameFromConnectionStatus() {
         return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : UNKNOWN_SERVER_NAME;
-
     }
 
     connectedToValidServer() {
