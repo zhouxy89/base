@@ -1,9 +1,5 @@
 os: linux
 
-branches:
-  only:
-    - master
-
 language: java
 
 before_script:
