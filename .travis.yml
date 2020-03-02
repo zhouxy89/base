@@ -2,6 +2,8 @@ os: linux
 
 language: java
 
+env:
+  - CS314_DEPLOY_TESTS="false"
 
 before_script:
   # Install NPM
@@ -30,7 +32,6 @@ script:
   - npm test --prefix client || travis_terminate 2
 
   # Check Valid Code
-  export CS314_DEPLOY_TESTS=false
   - ./deploy.sh || travis_terminate 3
 
 after_script:
