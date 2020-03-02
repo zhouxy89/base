@@ -1,32 +1,38 @@
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+os: linux
 
 branches:
   only:
     - master
 
-language: java
-jdk: oraclejdk8
-
-language: node_js
-node_js:
-  - "lts/*"  # Latest LTS Node.js release
-
 cache:
-  bundler: true
   directories:
+    # Maven Dependencies
+    - $HOME/.m2
+
+    # Client Dependencies
     - client/node_modules
+
+language: java
+
+before_script:
+  # Install NPM
+  - nvm install --lts
+
+  # Download Code Climate Test Reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 install:
   - npm install --prefix client
+  - mvn -f server compile
 
 script:
   - mvn -f server verify || travis_terminate 1
   - npm test --prefix client || travis_terminate 2
 
 after_script:
+  # Send Coverage Information to Code Climate
   - JACOCO_SOURCE_PATH=server/src/main/java ./cc-test-reporter format-coverage -t jacoco target/site/jacoco/jacoco.xml --output "codeclimate.java.json"
   - ./cc-test-reporter format-coverage -t clover target/coverage/client/clover.xml --output "codeclimate.js.json"
   - ./cc-test-reporter sum-coverage --output "codeclimate.combined.json" codeclimate.*.json
