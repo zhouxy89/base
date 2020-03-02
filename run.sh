@@ -17,7 +17,7 @@ if [[ "$CS314_RUN_MODE" == "dev" ]]; then
 
   # Build and Package the JAVA Server
 
-  mvn -f ./server clean package
+  mvn -f ./server --global-settings .m2/settings.xml clean package
   check_error $?
 
   # Check if Node Modules are Installed

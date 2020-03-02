@@ -35,5 +35,5 @@ check_error $?
 
 # Build and Package the JAVA Server
 
-mvn -f ./server clean package verify
+mvn -f ./server --global-settings .m2/settings.xml clean package verify
 check_error $?
