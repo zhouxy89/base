@@ -27,9 +27,15 @@ npm run prodClient --prefix client
 check_error $?
 
 # Build and Package the JAVA Server
+
 if [ -z "$CS314_IN_TRAVIS" ]; then
-  mvn -f ./server --global-settings .m2/settings.xml clean package verify
+
+  mvn -f ./server --global-settings .m2/settings.xml clean verify
+  check_error $?
+
 else
-  mvn -f ./server --global-settings .m2/settings.xml package verify
+
+  mvn -f ./server --global-settings .m2/settings.xml verify
+  check_error $?
+
 fi
-check_error $?
