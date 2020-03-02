@@ -16,19 +16,19 @@ before_script:
 
 install:
   - npm install --prefix client
-  - mvn -f server compile
+  - mvn -f server --global-settings .m2/settings.xml compile
 
 cache:
   directories:
-    # Maven Dependencies
-    - $HOME/.m2
+    # Local maven repo
+    - .m2/repository 
 
     # Client Dependencies
     - client/node_modules
 
 script:
   # Run Tests
-  - mvn -f server test || travis_terminate 1
+  - mvn -f server --global-settings .m2/settings.xml test || travis_terminate 1
   - npm test --prefix client || travis_terminate 2
 
   # Check Valid Code
