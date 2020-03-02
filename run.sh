@@ -6,11 +6,11 @@ check_error() {
   fi
 }
 
-if [ -z "$CS314_MODE" ]; then
-  export CS314_MODE=dev
+if [ -z "$CS314_RUN_MODE" ]; then
+  export CS314_RUN_MODE=dev
 fi
 
-if [[ "$CS314_MODE" == "dev" ]]; then
+if [[ "$CS314_RUN_MODE" == "dev" ]]; then
 
 	echo "Building and Starting the Server in DEVELOPMENT Mode."
 	echo
