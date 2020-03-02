@@ -21,7 +21,7 @@ install:
 cache:
   directories:
     # Local maven repo
-    - .m2/repository 
+    - server/.m2/repository
 
     # Client Dependencies
     - client/node_modules
