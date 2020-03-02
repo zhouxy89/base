@@ -11,19 +11,19 @@ node_js:
   - "lts/*"  # Latest LTS Node.js release
 
 cache:
+  bundler: true
   directories:
-    - $HOME/.m2
     - client/node_modules
 
 install:
   - npm install --prefix client
 
 script:
-  - npm test --prefix client || travis_terminate 1
-  - mvn -f server verify || travis_terminate 2
+  - mvn -f server verify || travis_terminate 1
+  - npm test --prefix client || travis_terminate 2
 
 after_script:
   - JACOCO_SOURCE_PATH=server/src/main/java ./cc-test-reporter format-coverage -t jacoco target/site/jacoco/jacoco.xml --output "codeclimate.java.json"
-  - ./cc-test-reporter format-coverage -t lcov client/coverage/lcov.info --output "codeclimate.js.json"
+  - ./cc-test-reporter format-coverage -t clover target/coverage/client/clover.xml --output "codeclimate.js.json"
   - ./cc-test-reporter sum-coverage --output "codeclimate.combined.json" codeclimate.*.json
   - ./cc-test-reporter upload-coverage --input "codeclimate.combined.json"

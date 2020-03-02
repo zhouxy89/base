@@ -50,15 +50,18 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/coverage/**",
-      "!**/dist/**",
-      "!**/node_modules/**",
-      "!**/schemas/**",
-      "!**/templates/**",
-      "!**/test/**",
-      "!**/webpack.config.js"
+      "**/**.{js,jsx}"
     ],
+    "coveragePathIgnorePatterns": [
+      "/coverage/*",
+      "/dist/*",
+      "/node_modules/*",
+      "/schemas/*",
+      "/templates/*",
+      "/test/*",
+      "/webpack.config.js"
+    ],
+    "coverageDirectory": "../target/coverage/client/",
     "testURL": "http://localhost/",
     "moduleNameMapper": {
       "^.+\\.(png|svg|gif|jpg|jpeg)$": "<rootDir>/test/jestConfig/require_stub.js",
