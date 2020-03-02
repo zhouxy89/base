@@ -3,7 +3,7 @@ os: linux
 language: java
 
 env:
-  - CS314_DEPLOY_TESTS="false"
+  - CS314_IN_TRAVIS=1
 
 before_script:
   # Install NPM
