@@ -15,5 +15,8 @@ public abstract class RequestHeader {
     return requestVersion;
   }
 
+  // Overrideable Methods
+
   public abstract void buildResponse();
+  public void validate() throws AssertionError {};
 }
