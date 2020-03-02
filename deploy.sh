@@ -30,12 +30,12 @@ check_error $?
 
 if [ -z "$CS314_IN_TRAVIS" ]; then
 
-  mvn -f ./server --global-settings .m2/settings.xml clean verify
+  mvn -f ./server --global-settings server/.m2/settings.xml clean verify
   check_error $?
 
 else
 
-  mvn -f ./server --global-settings .m2/settings.xml verify
+  mvn -f ./server --global-settings server/.m2/settings.xml -DskipTests verify
   check_error $?
 
 fi

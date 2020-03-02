@@ -28,7 +28,7 @@ cache:
 
 script:
   # Run Tests
-  - mvn -f server --global-settings server/.m2/settings.xml surefire:test || travis_terminate 1
+  - mvn -f server --global-settings server/.m2/settings.xml test || travis_terminate 1
   - npm test --prefix client || travis_terminate 2
 
   # Check Valid Code
