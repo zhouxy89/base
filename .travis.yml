@@ -20,7 +20,7 @@ install:
 
 cache:
   directories:
-    # Local maven repo
+    # Local Maven Dependencies
     - server/.m2/repository
 
     # Client Dependencies
