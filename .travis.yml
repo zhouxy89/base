@@ -4,14 +4,6 @@ branches:
   only:
     - master
 
-cache:
-  directories:
-    # Maven Dependencies
-    - $HOME/.m2
-
-    # Client Dependencies
-    - client/node_modules
-
 language: java
 
 before_script:
@@ -26,6 +18,14 @@ before_script:
 install:
   - npm install --prefix client
   - mvn -f server compile
+
+cache:
+  directories:
+    # Maven Dependencies
+    - $HOME/.m2
+
+    # Client Dependencies
+    - client/node_modules
 
 script:
   - mvn -f server verify || travis_terminate 1
