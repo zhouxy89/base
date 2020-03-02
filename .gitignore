@@ -6,7 +6,6 @@
 
 # Coverage Files, Bundled Files, Dependencies
 
-client/coverage/
 client/dist/
 client/node_modules/
 
@@ -15,5 +14,4 @@ client/package-lock.json
 # Generated Java Files
 
 server/dependency-reduced-pom.xml
-server/target/
 target/
