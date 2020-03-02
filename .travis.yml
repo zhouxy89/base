@@ -40,3 +40,4 @@ after_script:
   - ./cc-test-reporter format-coverage -t clover target/coverage/client/clover.xml --output "codeclimate.js.json"
   - ./cc-test-reporter sum-coverage --output "codeclimate.combined.json" codeclimate.*.json
   - ./cc-test-reporter upload-coverage --input "codeclimate.combined.json"
+
