@@ -3,6 +3,10 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
+branches:
+  only:
+    - master
+
 language: java
 jdk: oraclejdk8
 
