@@ -6,6 +6,11 @@ check_error() {
   fi
 }
 
+
+if [ -z "$CS314_DEPLOY_TESTS" ]; then
+  export CS314_DEPLOY_TESTS=true
+fi
+
 echo "Building the Server for PRODUCTION"
 echo
 
@@ -18,13 +23,17 @@ fi
 
 # Build The Client
 
-npm run test --prefix client
-check_error $?
+if [[ "$CS314_DEPLOY_TESTS" == "true" ]]; then
+
+  npm run test --prefix client
+  check_error $?
+
+fi
 
 npm run prodClient --prefix client
 check_error $?
 
 # Build and Package the JAVA Server
 
-mvn -f ./server clean package
+mvn -f ./server clean package verify
 check_error $?

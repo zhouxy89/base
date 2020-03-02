@@ -1,17 +1,5 @@
 os: linux
 
-branches:
-  only:
-    - master
-
-cache:
-  directories:
-    # Maven Dependencies
-    - $HOME/.m2
-
-    # Client Dependencies
-    - client/node_modules
-
 language: java
 
 before_script:
@@ -27,9 +15,22 @@ install:
   - npm install --prefix client
   - mvn -f server compile
 
+cache:
+  directories:
+    # Maven Dependencies
+    - $HOME/.m2
+
+    # Client Dependencies
+    - client/node_modules
+
 script:
-  - mvn -f server verify || travis_terminate 1
+  # Run Tests
+  - mvn -f server test || travis_terminate 1
   - npm test --prefix client || travis_terminate 2
+
+  # Check Valid Code
+  export CS314_DEPLOY_TESTS=false
+  - ./deploy.sh || travis_terminate 3
 
 after_script:
   # Send Coverage Information to Code Climate
