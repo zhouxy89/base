@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Container} from "reactstrap";
 
-import './header-footer.css';
-import HeaderLogo from './resources/tcoLogo.svg';
+import '../../static/header-footer.css';
+import HeaderLogo from '../../static/images/tcoLogo.svg';
 
 import {CLIENT_TEAM_NAME} from '../../utils/constants';
 

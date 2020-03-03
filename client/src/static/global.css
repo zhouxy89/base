@@ -1,0 +1,35 @@
+/* Text Styles */
+
+a:hover {
+    cursor: pointer;
+}
+
+.tco-text {
+    font-family: 'prox-light', sans-serif;
+    font-size: 16px;
+    color: white;
+}
+
+.tco-text-upper {
+    font-family: 'prox-light', sans-serif;
+    font-size: 28px;
+    letter-spacing: .11em;
+    line-height: 1.1em;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* Class Useful for Vertical Centering */
+
+.vertical-center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Map Styles */
+
+.mapStyle {
+    height: 573px;
+    width: 100%;
+}
