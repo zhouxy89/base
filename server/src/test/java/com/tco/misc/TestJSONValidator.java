@@ -1,3 +1,5 @@
+package com.tco.misc;
+
 import com.tco.misc.JSONValidator;
 import com.tco.requests.RequestConfig;
 
@@ -36,5 +38,4 @@ public class TestJSONValidator {
     public void testMissingSchema() {
         test("", JSONValidator.class, false);
     }
-
 }

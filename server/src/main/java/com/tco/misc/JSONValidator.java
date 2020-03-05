@@ -14,6 +14,16 @@ import org.json.JSONTokener;
 
 public class JSONValidator {
 
+  public static void validate(Type requestType, String requestBody) throws IOException {
+    Schema schema = getSchema(requestType.getTypeName());
+    try {
+      JSONObject request = new JSONObject(requestBody);
+      schema.validate(request);
+    } catch (ValidationException e) {
+      throw new IOException(e.getMessage());
+    }
+  }
+
   private static Schema getSchema(String className) throws IOException {
     String schemaPath = String.format("/schemas/%s.json", className.substring(className.lastIndexOf(".") + 1));
     try (InputStream inputStream = JSONValidator.class.getResourceAsStream(schemaPath)) {
@@ -25,15 +35,4 @@ public class JSONValidator {
       throw new IOException(String.format("Invalid schema format. Root message: %s", e.getMessage()));
     }
   }
-
-  public static void validate(Type requestType, String requestBody) throws IOException {
-    Schema schema = getSchema(requestType.getTypeName());
-    try {
-      JSONObject request = new JSONObject(requestBody);
-      schema.validate(request);
-    } catch (ValidationException e) {
-      throw new IOException(e.getMessage());
-    }
-  }
-
 }

@@ -1,3 +1,5 @@
+package com.tco.requests;
+
 import com.tco.requests.RequestConfig;
 
 import org.junit.jupiter.api.Test;
