@@ -1,3 +1,21 @@
+// Background of Header / Footer
+
+.full-width {
+    width: 100%;
+
+    background-color: $primary;
+    color: #FFFFFF;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Header Styles
+
+.header {
+    height: 120px;
+    margin-bottom: 25px;
+}
 
 .tco-logo {
     width: 90px;
@@ -5,26 +23,7 @@
     margin-right: 25px;
 }
 
-/* Background of Header / Footer */
-
-.full-width {
-    width: 100%;
-
-    background-color: #1E4D2B;
-    color: #FFFFFF;
-
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Header Styles */
-
-.header {
-    height: 120px;
-    margin-bottom: 25px;
-}
-
-/* Footer Styles */
+// Footer Styles
 
 .footer {
     height: 100px;
@@ -36,11 +35,11 @@
     text-align: center;
 }
 
-/* Screen Width Intervals (Aligned with Bootstrap) */
+// Screen Width Intervals (Aligned with Bootstrap)
 
 @media only screen and (min-width: 576px) {
 
-    /* Footer Centering at Small Screen Sizes */
+    // Footer Centering at Small Screen Sizes
 
     .centered {
         margin: 0;

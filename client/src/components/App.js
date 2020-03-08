@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Container } from "reactstrap";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "../static/global.css"
-
 import Header from "./Margins/Header";
 import ErrorBanner from "./ErrorBanner";
 import About from "./About/About.js";

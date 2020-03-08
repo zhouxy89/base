@@ -16,7 +16,22 @@ module.exports = env => {
 			rules: [
 				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" },
 				{ test: /\.css$/i, use: ['style-loader', 'css-loader'] },
-				{ test:/\.s[ac]ss$/i, use: ['style-loader','css-loader','sass-loader'] },
+				{
+					test: /\.s[ac]ss$/i, use:
+						[
+							{ loader: 'style-loader' },
+							{ loader: 'css-loader' },
+							{ loader: 'postcss-loader', options:
+									{
+										plugins: function()
+										{
+											return [require('precss'), require('autoprefixer')];
+										}
+									}
+							},
+							{ loader: 'sass-loader' }
+						]
+				},
 				{ test: /\.(png|svg|jpg|gif)$/, use: ['file-loader'] }
 			]
 		},
