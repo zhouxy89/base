@@ -7,26 +7,19 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 import 'leaflet/dist/leaflet.css';
-import '../../static/global.css';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
-const MAP_CENTER_DEFAULT = [0, 0];
+const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
+const MARKER_ICON = L.icon({ iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const MAP_ZOOM_MAX = 17;
-const MAP_ZOOM_MIN = 1;
-const MARKER_ICON = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconAnchor: [12, 40]  // for proper placement
-});
 
 export default class Atlas extends Component {
 
   constructor(props) {
     super(props);
 
-    this.addMarker = this.addMarker.bind(this);
+    this.setMarker = this.setMarker.bind(this);
 
     this.state = {
       markerPosition: null,
@@ -38,7 +31,7 @@ export default class Atlas extends Component {
         <div>
           <Container>
             <Row>
-              <Col sm={12} md={{size: 10, offset: 1}} lg={{size: 8, offset: 2}}>
+              <Col sm={12} md={{size: 10, offset: 1}}>
                 {this.renderLeafletMap()}
               </Col>
             </Row>
@@ -49,44 +42,44 @@ export default class Atlas extends Component {
 
   renderLeafletMap() {
     return (
-        <Map center={MAP_CENTER_DEFAULT}
-             zoom={MAP_ZOOM_MIN}
-             minZoom={MAP_ZOOM_MIN}
-             maxZoom={MAP_ZOOM_MAX}
-             maxBounds={MAP_BOUNDS}
-             onClick={this.addMarker}
-             className={'mapStyle'}
+        <Map
+            className={'mapStyle'}
+            zoom={15}
+            minZoom={1}
+            maxZoom={19}
+            boxZoom={false}
+            useFlyTo={true}
+            center={MAP_CENTER_DEFAULT}
+            maxBounds={MAP_BOUNDS}
+            onClick={this.setMarker}
         >
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-          {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
+          {this.getMarker()}
         </Map>
-    )
+    );
   }
 
-  addMarker(mapClickInfo) {
+  setMarker(mapClickInfo) {
     this.setState({markerPosition: mapClickInfo.latlng});
   }
 
-  getMarkerPosition() {
-    let markerPosition = '';
-    if (this.state.markerPosition) {
-      markerPosition = this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
-    }
-    return markerPosition;
-  }
-
-  getMarker(bodyJSX, position) {
+  getMarker() {
     const initMarker = ref => {
       if (ref) {
         ref.leafletElement.openPopup()
       }
     };
-    if (position) {
+
+    if (this.state.markerPosition) {
       return (
-          <Marker ref={initMarker} position={position} icon={MARKER_ICON}>
-            <Popup offset={[0, -18]} className="font-weight-bold">{bodyJSX}</Popup>
+          <Marker ref={initMarker} position={this.state.markerPosition} icon={MARKER_ICON}>
+            <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition()}</Popup>
           </Marker>
       );
     }
+  }
+
+  getStringMarkerPosition() {
+    return this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
   }
 }
