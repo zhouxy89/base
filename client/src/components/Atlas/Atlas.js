@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import {Col, Container, Row} from 'reactstrap';
 
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
 import 'leaflet/dist/leaflet.css';
+import '../../static/global.css';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [0, 0];
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const MAP_STYLE_LENGTH = 500;
 const MAP_ZOOM_MAX = 17;
 const MAP_ZOOM_MIN = 1;
 const MARKER_ICON = L.icon({
@@ -36,7 +38,7 @@ export default class Atlas extends Component {
         <div>
           <Container>
             <Row>
-              <Col sm={12} md={{size: 6, offset: 3}}>
+              <Col sm={12} md={{size: 10, offset: 1}} lg={{size: 8, offset: 2}}>
                 {this.renderLeafletMap()}
               </Col>
             </Row>
@@ -53,7 +55,8 @@ export default class Atlas extends Component {
              maxZoom={MAP_ZOOM_MAX}
              maxBounds={MAP_BOUNDS}
              onClick={this.addMarker}
-             style={{height: MAP_STYLE_LENGTH, maxWidth: MAP_STYLE_LENGTH}}>
+             className={'mapStyle'}
+        >
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
           {this.getMarker(this.getMarkerPosition(), this.state.markerPosition)}
         </Map>

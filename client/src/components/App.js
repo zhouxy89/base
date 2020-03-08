@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Collapse, Container } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.css";
-import "./Margins/header-footer.css";
+import "../static/global.css"
 
 import Header from "./Margins/Header";
 import ErrorBanner from "./ErrorBanner";
@@ -37,7 +37,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <div className="csu-branding">
+            <>
                 <Header toggleAbout={this.toggleAbout}/>
                 {this.state.errorMessage}
                 {this.renderAbout()}
@@ -46,7 +46,7 @@ export default class App extends Component {
                     serverSettings={this.state.serverSettings}
                     updateServerConfig={this.updateServerConfig}
                 />
-            </div>
+            </>
         );
     }
 

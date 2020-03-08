@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 
 import ServerSettings from "./ServerSettings";
 
-import "./header-footer.css";
+import "../../static/header-footer.css";
 
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
@@ -31,7 +31,7 @@ export default class Footer extends Component {
             <div className="vertical-center tco-text">
                 <Container>
                     <div className="centered">
-                        {linkStatusSymbol} Connected to {serverName}
+                        {linkStatusSymbol} Connected to {serverName} &nbsp;
                         <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
                             ({this.props.serverSettings.serverPort}).
                         </a>
