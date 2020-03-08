@@ -7,9 +7,9 @@ import java.util.HashMap;
 /** The server for the single page web application. */
 public class WebApplication {
 
-  private final static int DEFAULT_SERVER_PORT = 8088;
-  private final static int MAX_SERVER_PORT = 65535;
-  private final static int MIN_SERVER_PORT = 1024;
+  protected final static int DEFAULT_SERVER_PORT = 8088;
+  protected final static int MAX_SERVER_PORT = 65535;
+  protected final static int MIN_SERVER_PORT = 1024;
   private final static Logger log = LoggerFactory.getLogger(WebApplication.class);
 
   public static void main(String[] commandLineArguments) {
@@ -24,26 +24,25 @@ public class WebApplication {
   }
 
 
-  private static int getServerPort(String[] commandLineArguments) {
+  protected static int getServerPort(String[] commandLineArguments) {
 
     Integer serverPort = DEFAULT_SERVER_PORT;
     if (commandLineArguments.length > 0) {
       try {
         serverPort = Integer.parseInt(commandLineArguments[0]);
-      } catch (Exception e) {
-        log.error("Error converting server port: {}", e);
+      } catch (java.lang.NumberFormatException e) {
+        log.error("Error converting server port: \"{}\", defaulting to {}", commandLineArguments[0], DEFAULT_SERVER_PORT);
       }
     }
-    if(portIsValid(serverPort)) {
-      log.info("Server port: {}", serverPort);
-    } else {
-      log.error("Given port is out of acceptable range ({}-{}), defaulting to {}", MIN_SERVER_PORT, MAX_SERVER_PORT, DEFAULT_SERVER_PORT);
+    if(!portIsValid(serverPort)) {
+      log.error("Command line port {} is out of acceptable range ({}-{}), defaulting to {}", serverPort, MIN_SERVER_PORT, MAX_SERVER_PORT, DEFAULT_SERVER_PORT);
       serverPort = DEFAULT_SERVER_PORT;
     }
+    log.info("Server port: {}", serverPort);
     return serverPort;
   }
 
-  private static boolean portIsValid(int port) {
+  protected static boolean portIsValid(int port) {
     return port >= MIN_SERVER_PORT && port <= MAX_SERVER_PORT;
   }
 
