@@ -8,7 +8,6 @@ env:
 before_script:
   # Install NPM
   - nvm install --lts
-  - npm rebuild node-sass
 
   # Download Code Climate Test Reporter
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -17,6 +16,7 @@ before_script:
 
 install:
   - npm install --prefix client
+  - npm rebuild node-sass
   - mvn -f server --global-settings server/.m2/settings.xml compile
 
 cache:
