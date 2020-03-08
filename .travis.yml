@@ -8,7 +8,7 @@ env:
 before_script:
   # Install NPM
   - nvm install --lts
-  - npm rebuild
+  - npm rebuild --prefix client
 
   # Download Code Climate Test Reporter
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
