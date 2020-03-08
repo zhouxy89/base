@@ -24,8 +24,7 @@ cache:
     # Local Maven Dependencies
     - server/.m2/repository
 
-    # Client Dependencies
-    - client/node_modules
+
 
 script:
   # Run Tests
