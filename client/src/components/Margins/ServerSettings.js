@@ -6,6 +6,7 @@ import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/TIPConfigResponseSchema";
 import { HTTP_OK } from "../../utils/constants";
+import "../../static/styles/global.scss"
 
 export default class ServerSettings extends Component {
 
@@ -66,8 +67,8 @@ export default class ServerSettings extends Component {
     renderActions() {
         return (
             <ModalFooter>
-                <Button color="secondary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
-                <Button onClick={() =>
+                <Button color="primary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
+                <Button color="primary" onClick={() =>
                 {
                     this.props.updateServerConfig(this.state.config.body, this.state.inputText);
                     this.resetServerSettingsState();

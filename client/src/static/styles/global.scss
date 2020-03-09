@@ -1,7 +1,9 @@
-/* Text Styles */
+// Text Styles
 
-a:hover {
-    cursor: pointer;
+a {
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .tco-text {
@@ -19,7 +21,7 @@ a:hover {
     color: white;
 }
 
-/* Class Useful for Vertical Centering */
+// Class Useful for Vertical Centering
 
 .vertical-center {
     height: 100%;
@@ -27,9 +29,25 @@ a:hover {
     align-items: center;
 }
 
-/* Map Styles */
+// Map Styles
 
 .mapStyle {
     height: 69.05vh;
     width: 100%;
 }
+
+$primary: #1E4D2B;
+
+// Import (The Following Must Be In This Order At Bottom Of File!)
+
+// Header / Footer CSS
+
+@import "src/static/styles/header-footer";
+
+// Student Styles
+
+@import "src/static/styles/student-styles";
+
+// Bootstrap
+
+@import "~bootstrap/scss/bootstrap";
