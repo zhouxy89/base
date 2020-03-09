@@ -13,6 +13,8 @@ const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({ iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const MAP_MIN_ZOOM = 1;
+const MAP_MAX_ZOOM = 19;
 
 export default class Atlas extends Component {
 
@@ -44,13 +46,13 @@ export default class Atlas extends Component {
     return (
         <Map
             className={'mapStyle'}
-            zoom={15}
-            minZoom={1}
-            maxZoom={19}
             boxZoom={false}
             useFlyTo={true}
-            center={MAP_CENTER_DEFAULT}
+            zoom={15}
+            minZoom={MAP_MIN_ZOOM}
+            maxZoom={MAP_MAX_ZOOM}
             maxBounds={MAP_BOUNDS}
+            center={MAP_CENTER_DEFAULT}
             onClick={this.setMarker}
         >
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>

@@ -20,14 +20,14 @@
 /* Header Styles */
 
 .header {
-    height: 120px;
+    height: 15vh;
     margin-bottom: 25px;
 }
 
 /* Footer Styles */
 
 .footer {
-    height: 100px;
+    height: 10vh;
     margin-top: 25px;
 }
 
