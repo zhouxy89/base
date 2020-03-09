@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from "reactstrap";
 
-import '../../static/header-footer.css';
 import HeaderLogo from '../../static/images/tcoLogo.svg';
 
 import {CLIENT_TEAM_NAME} from '../../utils/constants';

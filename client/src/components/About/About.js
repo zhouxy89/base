@@ -14,7 +14,7 @@ export default class About extends Component {
               </h2>
             </Col>
             <Col id="closeAbout" xs='auto' >
-              <Button className='btn-csu w-100' onClick={this.props.closePage} xs={1}>
+              <Button color="primary" onClick={this.props.closePage} xs={1}>
                 Close
               </Button>
             </Col>
