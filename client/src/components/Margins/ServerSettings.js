@@ -12,11 +12,14 @@ export default class ServerSettings extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             inputText: this.props.serverSettings.serverPort,
             validServer: null,
             config: {}
-        }
+        };
+
+        this.saveInputText = this.state.inputText;
     }
 
     render() {
@@ -71,7 +74,7 @@ export default class ServerSettings extends Component {
                 <Button color="primary" onClick={() =>
                 {
                     this.props.processServerConfigSuccess(this.state.config.body, this.state.inputText);
-                    this.resetServerSettingsState();
+                    this.resetServerSettingsState(this.state.inputText);
                 }}
                         disabled={!this.state.validServer}
                 >
@@ -115,10 +118,10 @@ export default class ServerSettings extends Component {
         }
     }
 
-    resetServerSettingsState() {
+    resetServerSettingsState(inputText=this.saveInputText) {
         this.props.toggleOpen();
         this.setState({
-            inputText: this.props.serverSettings.serverPort,
+            inputText: inputText,
             validServer: null,
             config: false
         });

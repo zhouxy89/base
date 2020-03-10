@@ -26,7 +26,7 @@ class App extends Component {
     }
 }
 
-const MiddleMan = props => {
+export const MiddleMan = props => {
 
     const { enqueueSnackbar } = useSnackbar();
     const produceSnackBar = (message, variant) => enqueueSnackbar(message, { variant: variant });
@@ -34,7 +34,7 @@ const MiddleMan = props => {
     return( <MainApp createErrorMessage={produceSnackBar}/> );
 };
 
-class MainApp extends Component {
+export class MainApp extends Component {
 
     constructor(props) {
         super(props);

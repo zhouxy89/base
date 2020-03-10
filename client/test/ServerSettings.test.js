@@ -2,7 +2,7 @@ import './jestConfig/enzyme.config.js'
 import {mount, shallow} from 'enzyme'
 
 import React from 'react'
-import App from "../src/components/App"
+import { MainApp } from "../src/components/App";
 import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
 
@@ -10,7 +10,7 @@ const startProperties = {
     serverSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400', 'serverConfig': {}},
     isOpen: true,
     toggleOpen: jest.fn(),
-    updateServerConfig: jest.fn(),
+    processServerConfigSuccess: jest.fn(),
 };
 
 function testRender() {
@@ -18,7 +18,7 @@ function testRender() {
     const footer = mount(
         <Footer
             serverSettings={startProperties.serverSettings}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(footer.find('ServerSettings').length).toEqual(1);
@@ -34,7 +34,7 @@ function testRenderInput() {
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(settings.find('Input').length).toEqual(1);
@@ -49,7 +49,7 @@ function testUpdateInputText() {
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(settings.state().inputText).toEqual(startProperties.serverSettings.serverPort);
@@ -70,13 +70,13 @@ test("onChangeEvent should update the component's state", testUpdateInputText);
 function testUpdateServerPort() {
     mockConfigResponse();
 
-    const app = mount(<App />);
+    const app = mount(<MainApp />);
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
+            processServerConfigSuccess={(value, config) => app.instance().processServerConfigSuccess(value, config)}
         />);
 
     let actualBeforeServerPort = app.state().serverSettings.serverPort;
@@ -102,5 +102,5 @@ function mockConfigResponse() {
         }));
 }
 
-// test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
+test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
 
