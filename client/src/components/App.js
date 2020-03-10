@@ -11,7 +11,7 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 import { LOG } from "../utils/constants";
 import { HTTP_BAD_REQUEST, HTTP_OK } from "../utils/constants";
 
-import * as configSchema from "../../schemas/TIPConfigResponseSchema";
+import * as configSchema from "../../schemas/ResponseConfig";
 
 import { getOriginalServerPort, sendServerRequest, isJsonResponseValid } from "../utils/restfulAPI";
 
