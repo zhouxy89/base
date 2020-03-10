@@ -1,19 +1,40 @@
 import React, { Component } from "react";
-import { Collapse, Container } from "reactstrap";
+import { Collapse } from "reactstrap";
 
 import Header from "./Margins/Header";
-import ErrorBanner from "./ErrorBanner";
 import About from "./About/About.js";
 import Atlas from "./Atlas/Atlas";
 import Footer from "./Margins/Footer";
 
-import { getOriginalServerPort, sendServerRequest } from "../utils/restfulAPI";
-import { isJsonResponseValid } from "../utils/restfulAPI";
+import { SnackbarProvider, useSnackbar } from 'notistack';
+
 import { LOG } from "../utils/constants";
-import * as configSchema from "../../schemas/TIPConfigResponseSchema";
 import { HTTP_BAD_REQUEST, HTTP_OK } from "../utils/constants";
 
-export default class App extends Component {
+import * as configSchema from "../../schemas/TIPConfigResponseSchema";
+
+import { getOriginalServerPort, sendServerRequest, isJsonResponseValid } from "../utils/restfulAPI";
+
+class App extends Component {
+
+    render() {
+        return (
+            <SnackbarProvider maxSnack={3} preventDuplicate>
+                <MiddleMan />
+            </SnackbarProvider>
+        );
+    }
+}
+
+const MiddleMan = props => {
+
+    const { enqueueSnackbar } = useSnackbar();
+    const produceSnackBar = (message, variant) => enqueueSnackbar(message, { variant: variant });
+
+    return( <MainApp createErrorMessage={produceSnackBar}/> );
+};
+
+class MainApp extends Component {
 
     constructor(props) {
         super(props);
@@ -21,11 +42,10 @@ export default class App extends Component {
         this.state = {
             showAbout: false,
             serverSettings: {serverPort: getOriginalServerPort(), serverConfig: null},
-            errorMessage: null
         };
 
         this.toggleAbout = this.toggleAbout.bind(this);
-        this.updateServerConfig = this.updateServerConfig.bind(this);
+        this.processServerConfigSuccess = this.processServerConfigSuccess.bind(this);
 
         sendServerRequest('config', this.state.serverSettings.serverPort).then(config => {
             this.processConfigResponse(config);
@@ -36,12 +56,11 @@ export default class App extends Component {
         return (
             <>
                 <Header toggleAbout={this.toggleAbout}/>
-                {this.state.errorMessage}
                 {this.renderAbout()}
                 {this.renderAtlas()}
                 <Footer
                     serverSettings={this.state.serverSettings}
-                    updateServerConfig={this.updateServerConfig}
+                    processServerConfigSuccess={this.processServerConfigSuccess}
                 />
             </>
         );
@@ -58,51 +77,38 @@ export default class App extends Component {
     renderAtlas() {
         return (
             <Collapse isOpen={!this.state.showAbout}>
-                <Atlas />
+                <Atlas createErrorMessage={this.props.createErrorMessage}/>
             </Collapse>
         );
     }
 
     toggleAbout() {
-        const newState = !this.state.showAbout;
-        this.setState({showAbout: newState});
+        this.setState({showAbout: !this.state.showAbout});
     }
 
     processConfigResponse(configResponse) {
         if(!isJsonResponseValid(configResponse.body, configSchema)) {
-            this.processServerConfigError("INVALID_RESPONSE", HTTP_BAD_REQUEST, `Configuration response not valid`);
+            this.processServerConfigError("Configuration Response Not Valid. Check The Server.");
         } else if(configResponse.statusCode === HTTP_OK) {
-            this.updateServerConfig(configResponse.body);
+            this.processServerConfigSuccess(configResponse.body);
         } else {
-            this.processServerConfigError(configResponse.statusText, configResponse.statusCode, `Failed to fetch config from ${this.state.clientSettings.serverPort}. Please choose a valid server.`);
+            this.processServerConfigError("An Unknown Error Has Occurred. Please Refresh The Page.");
         }
     }
 
-    updateServerConfig(config, port=this.state.serverSettings.serverPort) {
+    processServerConfigSuccess(config, port=this.state.serverSettings.serverPort) {
         LOG.info("Switching to server ", this.state.serverSettings.serverPort);
-        let updatedSettings = {
-            serverConfig: config,
-            serverPort: port
-        };
-        this.setState({serverSettings: updatedSettings, errorMessage: null});
+        let updatedSettings = { serverConfig: config, serverPort: port };
+        this.setState({serverSettings: updatedSettings});
     }
 
-    processServerConfigError(statusText, statusCode, message) {
+    processServerConfigError(message) {
+        LOG.error(message);
         let updatedSettings = Object.assign(this.state.serverSettings);
         updatedSettings.serverConfig = null;
-        this.setState({serverSettings: updatedSettings, errorMessage: this.createErrorBanner(statusText, statusCode, message)});
-    }
-
-    createErrorBanner(statusText, statusCode, message) {
-        return (
-            <Container>
-                <ErrorBanner
-                    statusText={statusText}
-                    statusCode={statusCode}
-                    message={message}
-                />
-            </Container>
-        );
+        this.setState({serverSettings: updatedSettings});
+        this.props.createErrorMessage(message, "error");
     }
 }
 
+export default App;

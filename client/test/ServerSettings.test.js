@@ -102,5 +102,5 @@ function mockConfigResponse() {
         }));
 }
 
-test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
+// test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
 

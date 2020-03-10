@@ -14,19 +14,17 @@ export default class ServerSettings extends Component {
         super(props);
         this.state = {
             inputText: this.props.serverSettings.serverPort,
-            validServer: true,
-            validSave: false,
+            validServer: null,
             config: {}
         }
     }
 
     render() {
-        let currentServerName = this.getCurrentServerName();
         return (
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
                     <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
-                    {this.renderSettings(currentServerName)}
+                    {this.renderSettings(this.getCurrentServerName())}
                     {this.renderActions()}
                 </Modal>
             </div>
@@ -54,12 +52,14 @@ export default class ServerSettings extends Component {
     }
 
     renderInputField() {
+        let valid = this.state.validServer === null ? false : this.state.validServer;
+        let notValid = this.state.validServer === null ? false : !this.state.validServer;
         return(
             <Input onChange={(e) => this.updateInput(e.target.value)}
                    value={this.state.inputText}
                    placeholder={this.props.serverPort}
-                   valid={this.state.validServer}
-                   invalid={!this.state.validServer}
+                   valid={valid}
+                   invalid={notValid}
             />
         );
     }
@@ -70,10 +70,10 @@ export default class ServerSettings extends Component {
                 <Button color="primary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
                 <Button color="primary" onClick={() =>
                 {
-                    this.props.updateServerConfig(this.state.config.body, this.state.inputText);
+                    this.props.processServerConfigSuccess(this.state.config.body, this.state.inputText);
                     this.resetServerSettingsState();
                 }}
-                        disabled={!this.state.validSave}
+                        disabled={!this.state.validServer}
                 >
                     Save
                 </Button>
@@ -82,7 +82,8 @@ export default class ServerSettings extends Component {
     }
 
     getCurrentServerName() {
-        let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer ? this.props.serverSettings.serverConfig.serverName : '';
+        let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer === null ?
+                                this.props.serverSettings.serverConfig.serverName : "";
         if (this.state.config && Object.keys(this.state.config).length > 0) {
             currentServerName = this.state.config.body.serverName;
         }
@@ -96,7 +97,7 @@ export default class ServerSettings extends Component {
                     this.processConfigResponse(config);
                 });
             } else {
-                this.setState({validServer: false, validSave: false, config: {}});
+                this.setState({validServer: false, config: {}});
             }
         });
     }
@@ -108,9 +109,9 @@ export default class ServerSettings extends Component {
 
     processConfigResponse(config) {
         if(!isJsonResponseValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
-            this.setState({validServer: false, validSave: false, config: false});
+            this.setState({validServer: false, config: false});
         } else {
-            this.setState({validServer: true, validSave: true, config: config});
+            this.setState({validServer: true, config: config});
         }
     }
 
@@ -118,8 +119,7 @@ export default class ServerSettings extends Component {
         this.props.toggleOpen();
         this.setState({
             inputText: this.props.serverSettings.serverPort,
-            validServer: true,
-            validSave: false,
+            validServer: null,
             config: false
         });
     }

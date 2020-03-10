@@ -58,7 +58,7 @@ export default class Footer extends Component {
                 isOpen={this.state.serverSettingsOpen}
                 toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
                 serverSettings={this.props.serverSettings}
-                updateServerConfig={this.props.updateServerConfig}
+                processServerConfigSuccess={this.props.processServerConfigSuccess}
             />
         );
     }
