@@ -2,7 +2,7 @@ import './jestConfig/enzyme.config.js'
 import {mount, shallow} from 'enzyme'
 
 import React from 'react'
-import { MainApp } from "../src/components/App";
+import Page  from "../src/components/Page";
 import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
 
@@ -70,23 +70,23 @@ test("onChangeEvent should update the component's state", testUpdateInputText);
 function testUpdateServerPort() {
     mockConfigResponse();
 
-    const app = mount(<MainApp />);
+    const page = mount(<Page />);
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            processServerConfigSuccess={(value, config) => app.instance().processServerConfigSuccess(value, config)}
+            processServerConfigSuccess={(value, config) => page.instance().processServerConfigSuccess(value, config)}
         />);
 
-    let actualBeforeServerPort = app.state().serverSettings.serverPort;
+    let actualBeforeServerPort = page.state().serverSettings.serverPort;
     let expectedBeforeServerPort = `http://${location.hostname}:`;
 
     let inputText = 'https://black-bottle.cs.colostate.edu:31400';
     simulateOnChangeEvent(inputText, settings);
     settings.find('Button').at(1).simulate('click');
 
-    let actualAfterServerPort = app.state().serverSettings.serverPort;
+    let actualAfterServerPort = page.state().serverSettings.serverPort;
 
     expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
     expect(actualAfterServerPort).toEqual(inputText);
@@ -102,5 +102,5 @@ function mockConfigResponse() {
         }));
 }
 
-test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
+test('onClick event for Save Button should update server port in Page component', testUpdateServerPort);
 

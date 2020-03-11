@@ -4,14 +4,14 @@ import {shallow} from 'enzyme';
 import React from 'react';
 import Atlas from '../src/components/Atlas/Atlas';
 
-function testInitialAppState() {
+function testInitialAtlasState() {
 
-  const app = shallow(<Atlas />);
+  const atlas = shallow(<Atlas />);
 
-  let actualMarkerPosition = app.state().markerPosition;
+  let actualMarkerPosition = atlas.state().markerPosition;
   let expectedMarkerPosition = null;
 
   expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
 }
 
-test("Testing Atlas's Initial State", testInitialAppState);
+test("Testing Atlas's Initial State", testInitialAtlasState);
