@@ -42,6 +42,7 @@ function testRenderInput() {
 
 test('An Input field should be rendered inside the Settings', testRenderInput);
 
+
 function testUpdateInputText() {
 
     const settings = shallow(
@@ -55,17 +56,17 @@ function testUpdateInputText() {
     expect(settings.state().inputText).toEqual(startProperties.serverSettings.serverPort);
 
     let inputText = 'Fake Input Text';
-    simulateOnChangeEvent(inputText, settings);
+    simulateOnChangeEvent(settings, {target: {value: inputText}});
     expect(settings.state().inputText).toEqual(inputText);
 }
 
-function simulateOnChangeEvent(inputText, reactWrapper) {
-    let event = {target: {value: inputText}};
+function simulateOnChangeEvent(reactWrapper, event) {
     reactWrapper.find('Input').at(0).simulate('change', event);
     reactWrapper.update();
 }
 
 test("onChangeEvent should update the component's state", testUpdateInputText);
+
 
 function testUpdateServerPort() {
     mockConfigResponse();
@@ -83,7 +84,7 @@ function testUpdateServerPort() {
     let expectedBeforeServerPort = `http://${location.hostname}:`;
 
     let inputText = 'https://black-bottle.cs.colostate.edu:31400';
-    simulateOnChangeEvent(inputText, settings);
+    simulateOnChangeEvent(settings, {target: {value: inputText}});
     settings.find('Button').at(1).simulate('click');
 
     let actualAfterServerPort = page.state().serverSettings.serverPort;
