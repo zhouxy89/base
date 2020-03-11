@@ -36,7 +36,36 @@ a {
     width: 100%;
 }
 
-$primary: #1E4D2B;
+// The following variable declarations create our color theme
+
+// CSU (CSU - Primary)
+
+$csu-green: #1E4D2B;
+$csu-gold: #C8C372;
+$csu-white: #FFFFFF;
+
+// Aggie (CSU - Secondary)
+
+$black-80: #59595B;
+$aggie-orange: #D9782D;
+
+// Tertiary (CSU - Tertiary)
+
+$alfalfa: #C9D845;
+$canyon: #CC5430;
+$dark-slate: #105456;
+$reservoir: #12A4B6;
+$sunshine: #ECC530;
+
+// Color Theme
+
+$primary: $csu-green;
+$secondary: $csu-gold;
+$success: $dark-slate;
+$info: $reservoir;
+$warning: $sunshine;
+$danger: $canyon;
+$link: $dark-slate;
 
 // Import (The Following Must Be In This Order At Bottom Of File!)
 
