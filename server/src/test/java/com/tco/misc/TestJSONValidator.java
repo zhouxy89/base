@@ -9,15 +9,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestJSONValidator {
 
     private void test(String request, Type type, boolean valid) {
         try {
-            JSONValidator.validate(type, request);
+            JSONValidator.validate(request, type);
             assertTrue(valid);
         } catch ( Exception e ) {
-            assertTrue(!valid);
+            assertFalse(valid);
         }
     }
 

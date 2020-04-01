@@ -14,7 +14,7 @@ import org.json.JSONTokener;
 
 public class JSONValidator {
 
-  public static void validate(Type requestType, String requestBody) throws IOException {
+  public static void validate(String requestBody, Type requestType) throws IOException {
     Schema schema = getSchema(requestType.getTypeName());
     try {
       JSONObject request = new JSONObject(requestBody);
