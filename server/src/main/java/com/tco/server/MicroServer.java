@@ -1,5 +1,6 @@
 package com.tco.server;
 
+import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.RequestConfig;
 import com.tco.requests.RequestHeader;
@@ -56,7 +57,7 @@ class MicroServer {
     try {
       JSONValidator.validate(jsonString, type);
       return buildJSONResponse(new Gson().fromJson(jsonString, type));
-    } catch (IOException | AssertionError e) {
+    } catch (IOException | BadRequestException e) {
       log.info("Bad Request - {}", e.getMessage());
       httpResponse.status(HTTP_BAD_REQUEST);
     } catch (Exception e) {
@@ -72,8 +73,7 @@ class MicroServer {
     response.status(200);
   }
 
-  private String buildJSONResponse(RequestHeader request) {
-    request.validate();
+  private String buildJSONResponse(RequestHeader request) throws BadRequestException {
     request.buildResponse();
     String responseBody = new Gson().toJson(request);
     log.trace("Response - {}", responseBody);
