@@ -2,7 +2,7 @@ import './jestConfig/enzyme.config.js'
 import {mount, shallow} from 'enzyme'
 
 import React from 'react'
-import App from "../src/components/App"
+import Page from "../src/components/Page";
 import Footer from '../src/components/Margins/Footer'
 import ServerSettings from '../src/components/Margins/ServerSettings'
 
@@ -10,7 +10,7 @@ const startProperties = {
     serverSettings: {'serverPort': 'black-bottle.cs.colostate.edu:31400', 'serverConfig': {}},
     isOpen: true,
     toggleOpen: jest.fn(),
-    updateServerConfig: jest.fn(),
+    processServerConfigSuccess: jest.fn(),
 };
 
 function testRender() {
@@ -18,7 +18,7 @@ function testRender() {
     const footer = mount(
         <Footer
             serverSettings={startProperties.serverSettings}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(footer.find('ServerSettings').length).toEqual(1);
@@ -34,13 +34,14 @@ function testRenderInput() {
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(settings.find('Input').length).toEqual(1);
 }
 
 test('An Input field should be rendered inside the Settings', testRenderInput);
+
 
 function testUpdateInputText() {
 
@@ -49,44 +50,44 @@ function testUpdateInputText() {
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={startProperties.updateServerConfig}
+            processServerConfigSuccess={startProperties.processServerConfigSuccess}
         />);
 
     expect(settings.state().inputText).toEqual(startProperties.serverSettings.serverPort);
 
     let inputText = 'Fake Input Text';
-    simulateOnChangeEvent(inputText, settings);
+    simulateOnChangeEvent(settings, {target: {value: inputText}});
     expect(settings.state().inputText).toEqual(inputText);
 }
 
-function simulateOnChangeEvent(inputText, reactWrapper) {
-    let event = {target: {value: inputText}};
+function simulateOnChangeEvent(reactWrapper, event) {
     reactWrapper.find('Input').at(0).simulate('change', event);
     reactWrapper.update();
 }
 
 test("onChangeEvent should update the component's state", testUpdateInputText);
 
+
 function testUpdateServerPort() {
     mockConfigResponse();
 
-    const app = mount(<App />);
+    const page = mount(<Page />);
     const settings = shallow(
         <ServerSettings
             isOpen={startProperties.isOpen}
             serverSettings={startProperties.serverSettings}
             toggleOpen={startProperties.toggleOpen}
-            updateServerConfig={(value, config) => app.instance().updateServerConfig(value, config)}
+            processServerConfigSuccess={(value, config) => page.instance().processServerConfigSuccess(value, config)}
         />);
 
-    let actualBeforeServerPort = app.state().serverSettings.serverPort;
+    let actualBeforeServerPort = page.state().serverSettings.serverPort;
     let expectedBeforeServerPort = `http://${location.hostname}:`;
 
     let inputText = 'https://black-bottle.cs.colostate.edu:31400';
-    simulateOnChangeEvent(inputText, settings);
+    simulateOnChangeEvent(settings, {target: {value: inputText}});
     settings.find('Button').at(1).simulate('click');
 
-    let actualAfterServerPort = app.state().serverSettings.serverPort;
+    let actualAfterServerPort = page.state().serverSettings.serverPort;
 
     expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
     expect(actualAfterServerPort).toEqual(inputText);
@@ -102,5 +103,5 @@ function mockConfigResponse() {
         }));
 }
 
-test('onClick event for Save Button should update server port in App component', testUpdateServerPort);
+test('onClick event for Save Button should update server port in Page component', testUpdateServerPort);
 
