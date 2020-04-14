@@ -24,7 +24,11 @@ export default class Page extends Component {
 		this.toggleAbout = this.toggleAbout.bind(this);
 		this.processServerConfigSuccess = this.processServerConfigSuccess.bind(this);
 
-		sendServerRequest('config', this.state.serverSettings.serverPort).then(config => {
+		sendServerRequest(
+			'config',
+			{ requestType: "config", requestVersion : 1 },
+			this.state.serverSettings.serverPort
+		).then(config => {
 			this.processConfigResponse(config);
 		});
 	}

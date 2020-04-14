@@ -4,7 +4,6 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import Page from "./Page";
 
-
 export default class App extends Component {
 
     render() {

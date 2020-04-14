@@ -20,10 +20,8 @@ import spark.Spark;
 
 class MicroServer {
 
-  private final String CONFIG_REQUEST_BODY = "{\"requestType\" : \"config\", \"requestVersion\" : 1}";
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
   private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-
 
   MicroServer(int serverPort) {
     configureServer(serverPort);
@@ -31,7 +29,6 @@ class MicroServer {
     processRestfulAPIrequests();
     log.info("MicroServer running on port: {}", serverPort);
   }
-
 
   private void configureServer(int serverPort) {
     Spark.port(serverPort);
@@ -56,7 +53,6 @@ class MicroServer {
     });
   }
 
-
   private void processRestfulAPIrequests() {
     Spark.get("/api/config", this::processConfigRequest);
     // Configure other restful API requests here
@@ -64,7 +60,7 @@ class MicroServer {
 
   private String processConfigRequest(Request request, Response response) {
     logRequest(request);
-    return processHttpRequest(RequestConfig.class, CONFIG_REQUEST_BODY, response);
+    return processHttpRequest(RequestConfig.class, request.body, response);
   }
 
   private String processHttpRequest(Type type, String requestBody, Response response) {
