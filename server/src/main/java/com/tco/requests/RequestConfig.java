@@ -1,5 +1,6 @@
 package com.tco.requests;
 
+import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
