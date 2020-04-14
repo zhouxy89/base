@@ -20,7 +20,6 @@ import spark.Spark;
 
 class MicroServer {
 
-  private final String CONFIG_REQUEST_BODY = "{\"requestType\" : \"config\", \"requestVersion\" : 1}";
   private final Logger log = LoggerFactory.getLogger(MicroServer.class);
   private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
@@ -41,15 +40,10 @@ class MicroServer {
   /* Configure MicroServices here. */
 
   private void processRestfulAPIrequests() {
-    Spark.get(API_CONFIG, this::processGetConfigRequest);
-    Spark.post(API_CONFIG, this::processPostConfigRequest);
+    Spark.post(API_CONFIG, this::processConfigRequest);
   }
 
-  private String processGetConfigRequest(Request request, Response response) {
-    return processHttpRequest(request, response, RequestConfig.class);
-  }
-
-  private String processPostConfigRequest(Request request, Response response) {
+  private String processConfigRequest(Request request, Response response) {
     return processHttpRequest(request, response, RequestConfig.class);
   }
 
@@ -58,7 +52,7 @@ class MicroServer {
   private String processHttpRequest(Request httpRequest, Response httpResponse, Type type) {
     logRequest(httpRequest);
     setupResponse(httpResponse);
-    String jsonString = getHttpRequestBody(httpRequest);
+    String jsonString = httpRequest.body();
     try {
       JSONValidator.validate(jsonString, type);
       return buildJSONResponse(new Gson().fromJson(jsonString, type));
@@ -70,14 +64,6 @@ class MicroServer {
       httpResponse.status(HTTP_SERVER_ERROR);
     }
     return jsonString;
-  }
-
-  private String getHttpRequestBody(Request request) {
-    if (request.requestMethod().equals("GET") && request.pathInfo().equals(API_CONFIG)) {
-      return CONFIG_REQUEST_BODY;
-    } else {
-      return request.body();
-    }
   }
 
   private void setupResponse(Response response) {
