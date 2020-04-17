@@ -5,7 +5,6 @@ import { sendServerRequest } from "../../utils/restfulAPI";
 import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/ResponseConfig";
-import "../../static/styles/global.scss"
 
 export default class ServerSettings extends Component {
 
