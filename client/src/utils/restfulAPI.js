@@ -1,24 +1,8 @@
-import { LOG } from "./constants";
+const axios = require('axios');
 
-export function sendServerRequest(requestType, requestBody, serverPort=getOriginalServerPort()) {
-  const restfulAPI = `${serverPort}/api/${requestType}`;
-  const requestOptions = { method: "POST", body: JSON.stringify(requestBody) };
-  return processRestfulAPI(restfulAPI, requestOptions);
-}
-
-async function processRestfulAPI(restfulAPI, requestOptions) {
-  try {
-    let response = await fetch(restfulAPI, requestOptions);
-    return {
-      statusCode: response.status,
-      statusText: response.statusText,
-      body: await response.json()
-    };
-  }
-  catch(err) {
-    LOG.error("Request failed: ", "Status Code: ", err.status, " ", err );
-    return { statusCode: 0, statusText: 'Client failure', body: null };
-  }
+export async function sendServerRequest(requestBody, serverPort=getOriginalServerPort()) {
+  try { return await axios.post(`${serverPort}/api/${requestBody.requestType}`, JSON.stringify(requestBody)) }
+  catch(error) { return null; }
 }
 
 export function getOriginalServerPort() {

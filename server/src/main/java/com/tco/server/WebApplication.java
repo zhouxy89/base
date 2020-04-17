@@ -20,7 +20,7 @@ public class WebApplication {
     }
 
     Integer serverPort = getServerPort(commandLineArguments);
-    MicroServer server = new MicroServer(serverPort);  // constructor never returns
+    MicroServer server = new MicroServer(serverPort);
   }
 
 
