@@ -1,6 +1,14 @@
 import ulog from "ulog";
 
-ulog.level = process.env.LOG_LEVEL;
+function setLogLevelIfDefault() {
+    const urlString = window.location.search
+    const urlParams = new URLSearchParams(urlString)
+    if(!urlParams.has("log")) {
+        ulog.level = ulog.ERROR
+    }
+}
+
+setLogLevelIfDefault()
 
 export const LOG = ulog("App");
 
