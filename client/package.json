@@ -1,9 +1,9 @@
 {
   "scripts": {
     "test": "jest",
-    "devClient": "webpack-dev-server --mode development --devtool 'inline-cheap-module-source-map' --env.CLIENT_PORT=3000 --env.SERVER_PORT=31400 --env.LOG_LEVEL=5",
+    "devClient": "webpack-dev-server --mode development --devtool 'inline-cheap-module-source-map' --env.CLIENT_PORT=3000 --env.SERVER_PORT=8000 --env.LOG_LEVEL=5",
     "prodClient": "webpack --mode production --env.LOG_LEVEL=1",
-    "server": "java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar ../target/server-*.jar 31400",
+    "server": "java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar ../target/server-*.jar 8000",
     "dev": "concurrently \"npm run server\" \"npm run devClient\""
   },
   "dependencies": {
