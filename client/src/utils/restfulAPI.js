@@ -1,18 +1,10 @@
 import { LOG } from "./constants";
 
-export function sendServerRequest(requestType, serverPort=getOriginalServerPort()) {
+export function sendServerRequest(requestType, requestBody, serverPort=getOriginalServerPort()) {
   const restfulAPI = `${serverPort}/api/${requestType}`;
-  const requestOptions = {method: "GET"};
+  const requestOptions = { method: "POST", body: JSON.stringify(requestBody) };
   return processRestfulAPI(restfulAPI, requestOptions);
 }
-
-
-export function sendServerRequestWithBody(requestType, requestBody, serverPort=getOriginalServerPort()) {
-  const restfulAPI = `${serverPort}/api/${requestType}`;
-  const requestOptions = {method: "POST", body: JSON.stringify(requestBody)};
-  return processRestfulAPI(restfulAPI, requestOptions);
-}
-
 
 async function processRestfulAPI(restfulAPI, requestOptions) {
   try {
@@ -29,7 +21,6 @@ async function processRestfulAPI(restfulAPI, requestOptions) {
   }
 }
 
-
 export function getOriginalServerPort() {
   const serverProtocol = location.protocol;
   const serverHost = location.hostname;
@@ -37,7 +28,6 @@ export function getOriginalServerPort() {
   const alternatePort = process.env.SERVER_PORT;
   return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
 }
-
 
 export function isJsonResponseValid(object, schema) {
   let Ajv = require('ajv');
