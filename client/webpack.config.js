@@ -14,19 +14,7 @@ module.exports = env => {
 		devtool: "inline-cheap-module-source-map",
 		module: {
 			rules: [
-				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader",
-					options:
-						{
-							presets: [["@babel/preset-env", {"targets": {"node": "current"}}], "@babel/preset-react"],
-							plugins: [
-								"@babel/plugin-transform-modules-commonjs",
-								"@babel/plugin-transform-object-assign",
-								"@babel/plugin-proposal-class-properties",
-								"@babel/plugin-proposal-object-rest-spread"
-							]
-						}
-
-				},
+				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" },
 				{ test: /\.css$/i, use: ['style-loader', 'css-loader'] },
 				{
 					test: /\.s[ac]ss$/i, use:
