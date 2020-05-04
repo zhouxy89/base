@@ -1,4 +1,5 @@
-const axios = require('axios');
+import axios from 'axios';
+import Ajv from 'ajv';
 
 export async function sendServerRequest(requestBody, serverPort=getOriginalServerPort()) {
   try { return await axios.post(`${serverPort}/api/${requestBody.requestType}`, JSON.stringify(requestBody)) }
@@ -14,7 +15,6 @@ export function getOriginalServerPort() {
 }
 
 export function isJsonResponseValid(object, schema) {
-  let Ajv = require('ajv');
   let anotherJsonValidator = new Ajv();
   let validate = anotherJsonValidator.compile(schema);
   return validate(object);

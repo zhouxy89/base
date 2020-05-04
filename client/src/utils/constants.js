@@ -1,14 +1,14 @@
 import ulog from "ulog";
 
 function setLogLevelIfDefault() {
-    const urlString = window.location.search
-    const urlParams = new URLSearchParams(urlString)
+    const urlString = window.location.search;
+    const urlParams = new URLSearchParams(urlString);
     if(!urlParams.has("log")) {
         ulog.level = ulog.ERROR
     }
 }
 
-setLogLevelIfDefault()
+setLogLevelIfDefault();
 
 export const LOG = ulog("App");
 
