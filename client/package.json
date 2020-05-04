@@ -2,7 +2,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "devClient": "webpack-dev-server -d --env.CLIENT_PORT=3000 --env.SERVER_PORT=8000",
-    "prodClient": "webpack -p --progress",
+    "prodClient": "webpack -p",
     "server": "java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar ../target/server-*.jar 8000",
     "dev": "concurrently \"npm run server\" \"npm run devClient\""
   },
