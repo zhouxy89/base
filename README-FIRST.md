@@ -180,7 +180,7 @@ without repackaging it. Additionally, every time you change a file and save it,
 the browser that you're viewing the project in will automatically refresh. Note
 that this server runs as a process that is completely separate from your JAR.
 
-If you don't set the environment variable `ENV`, then the run script will default to development mode. To run the 
+If you don't set the environment variable `CS314_RUN_MODE`, then the run script will default to development mode. To run the 
 server in development mode, invoke the run script as is:
 
 ```bash
@@ -189,7 +189,7 @@ server in development mode, invoke the run script as is:
 
 This starts two processes:
 * the client code running via `npm run devClient` listening on port 3000
-* the server code running via `npm run server` listening on port 31400 
+* the server code running via `npm run server` listening on port 8000 
 
 Your default browser should open automatically and display the project's
 homepage after a few seconds (notice that it is running on `localhost:3000`).
@@ -202,13 +202,13 @@ The easiest way to run the server and make sure everything works is to use the
 run script:
 
 ```bash
-export ENV=prod 
+export CS314_RUN_MODE=prod 
 ./run.sh
 ```
 
 This will install all npm dependencies (if they haven't been already), bundle
 together all of the Javascript source, compile and test your React and Java Code, package
-everything into a single JAR, and start running the server on the default port. Visit `http://localhost:31400` 
+everything into a single JAR, and start running the server on the default port. Visit `http://localhost:8000` 
 to see the web page.
 
 Investigate what the run scripts actually do to better understand how our system
@@ -229,3 +229,7 @@ This will create a directory called `target` if it does not already exist and
 write the jar file to this directory. This jar can then be copied and ran on 
 any other machine with java.
 
+### IntelliJ Run Configurations
+
+In addition to the bash scripts mentioned above, we have provided a set of IntelliJ run configurations for you in
+your repository. These can be invoked via the green run button towards the top left of the screen.

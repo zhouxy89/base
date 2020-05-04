@@ -11,17 +11,19 @@ module.exports = env => {
 	return {
 		entry: ['@babel/polyfill', './src/entry.js'],
 		devServer: { hot: true, open: true, port: CLIENT_PORT },
-		devTool: "inline-cheap-module-source-map",
+		devtool: "inline-cheap-module-source-map",
 		module: {
 			rules: [
 				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader",
 					options:
 						{
-							"presets": [["@babel/preset-env", {"targets": {"node": "current"}}], "@babel/preset-react"],
-							"plugins": ["@babel/plugin-transform-modules-commonjs",
-										"@babel/plugin-transform-object-assign",
-										"@babel/plugin-proposal-class-properties",
-										"@babel/plugin-proposal-object-rest-spread"]
+							presets: [["@babel/preset-env", {"targets": {"node": "current"}}], "@babel/preset-react"],
+							plugins: [
+								"@babel/plugin-transform-modules-commonjs",
+								"@babel/plugin-transform-object-assign",
+								"@babel/plugin-proposal-class-properties",
+								"@babel/plugin-proposal-object-rest-spread"
+							]
 						}
 
 				},
