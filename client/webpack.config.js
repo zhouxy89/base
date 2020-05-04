@@ -11,6 +11,7 @@ module.exports = env => {
 	return {
 		entry: ['@babel/polyfill', './src/entry.js'],
 		devServer: { hot: true, open: true, port: CLIENT_PORT },
+		devTool: "inline-cheap-module-source-map",
 		module: {
 			rules: [
 				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" },

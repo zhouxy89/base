@@ -5,9 +5,6 @@ import com.tco.misc.JSONValidator;
 import com.tco.requests.RequestConfig;
 import com.tco.requests.RequestHeader;
 
-import static spark.Spark.secure;
-
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -15,9 +12,9 @@ import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.Request;
-import spark.Response;
-import spark.Spark;
+
+import com.google.gson.Gson;
+import static spark.Spark.*;
 
 class MicroServer {
 
@@ -28,30 +25,23 @@ class MicroServer {
   private final int HTTP_BAD_REQUEST = 400;
   private final int HTTP_SERVER_ERROR = 500;
 
-  private final String API_PATH = "/api/";
-  private final String API_CONFIG = API_PATH + "config";
-
   MicroServer(int serverPort) {
     configureServer(serverPort);
-    serveStaticPages();
     processRestfulAPIrequests();
-    log.info("MicroServer running on port: {}", serverPort);
   }
 
-  /* Configure MicroServices here. */
+  /* Configure MicroServices Here. */
 
   private void processRestfulAPIrequests() {
-    Spark.post(API_CONFIG, this::processConfigRequest);
-  }
-
-  private String processConfigRequest(Request request, Response response) {
-    return processHttpRequest(request, response, RequestConfig.class);
+    path("/api", () -> {
+      before("/*", (req, res) -> logRequest(req));
+      post("/config", (req, res) -> processHttpRequest(req, res, RequestConfig.class));
+    });
   }
 
   /* You shouldn't need to change what is found below. */
 
-  private String processHttpRequest(Request httpRequest, Response httpResponse, Type type) {
-    logRequest(httpRequest);
+  private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type type) {
     setupResponse(httpResponse);
     String jsonString = httpRequest.body();
     try {
@@ -67,9 +57,10 @@ class MicroServer {
     return jsonString;
   }
 
-  private void setupResponse(Response response) {
+  private void setupResponse(spark.Response response) {
     response.type("application/json");
     response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     response.status(200);
   }
 
@@ -80,7 +71,7 @@ class MicroServer {
     return responseBody;
   }
 
-  private void logRequest(Request request) {
+  private void logRequest(spark.Request request) {
     String message = "Request - "
             + "[" + dateTimeFormat.format(LocalDateTime.now()) + "] "
             + request.ip() + " "
@@ -92,23 +83,19 @@ class MicroServer {
   }
 
   private void configureServer(int serverPort) {
-    Spark.port(serverPort);
+    port(serverPort);
     String keystoreFile = System.getenv("KEYSTORE_FILE");
     String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
     if (keystoreFile != null && keystorePassword != null) {
       secure(keystoreFile, keystorePassword, null, null);
-      log.info("MicroServer using HTTPS.");
+      log.info("MicroServer running using HTTPS on port {}.", serverPort);
     } else {
-      log.info("MicroServer using HTTP.");
+      log.info("MicroServer running using HTTP on port {}.", serverPort);
     }
-  }
 
-  private void serveStaticPages() {
-    String path = "/public/";
-    Spark.staticFileLocation(path);
-    Spark.get("/", (req, res) -> {
-      res.redirect("index.html");
-      return null;
-    });
+    // To Serve Static Files (SPA)
+
+    staticFiles.location("/public/");
+    redirect.get("/", "/index.html");
   }
 }

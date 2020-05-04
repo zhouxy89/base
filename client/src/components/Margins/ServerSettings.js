@@ -5,8 +5,6 @@ import { sendServerRequest } from "../../utils/restfulAPI";
 import { isJsonResponseValid } from "../../utils/restfulAPI";
 
 import * as configSchema from "../../../schemas/ResponseConfig";
-import { HTTP_OK } from "../../utils/constants";
-import "../../static/styles/global.scss"
 
 export default class ServerSettings extends Component {
 
@@ -73,7 +71,7 @@ export default class ServerSettings extends Component {
                 <Button color="primary" onClick={() => this.resetServerSettingsState()}>Cancel</Button>
                 <Button color="primary" onClick={() =>
                 {
-                    this.props.processServerConfigSuccess(this.state.config.body, this.state.inputText);
+                    this.props.processServerConfigSuccess(this.state.config, this.state.inputText);
                     this.resetServerSettingsState(this.state.inputText);
                 }}
                         disabled={!this.state.validServer}
@@ -88,7 +86,7 @@ export default class ServerSettings extends Component {
         let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer === null ?
                                 this.props.serverSettings.serverConfig.serverName : "";
         if (this.state.config && Object.keys(this.state.config).length > 0) {
-            currentServerName = this.state.config.body.serverName;
+            currentServerName = this.state.config.serverName;
         }
         return currentServerName;
     }
@@ -96,9 +94,11 @@ export default class ServerSettings extends Component {
     updateInput(value) {
         this.setState({inputText: value}, () => {
             if (this.shouldAttemptConfigRequest(value)) {
-                sendServerRequest("config", value).then(config => {
-                    this.processConfigResponse(config);
-                });
+                sendServerRequest({requestType: "config", requestVersion: 1}, value)
+                    .then(config => {
+                        if (config) { this.processConfigResponse(config.data) }
+                        else { this.setState({validServer: true, config: config}); }
+                    });
             } else {
                 this.setState({validServer: false, config: {}});
             }
@@ -111,7 +111,7 @@ export default class ServerSettings extends Component {
     }
 
     processConfigResponse(config) {
-        if(!isJsonResponseValid(config.body, configSchema) || config.statusCode !== HTTP_OK) {
+        if(!isJsonResponseValid(config, configSchema)) {
             this.setState({validServer: false, config: false});
         } else {
             this.setState({validServer: true, config: config});
