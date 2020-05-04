@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Collapse } from "reactstrap";
 
 import Header from "./Margins/Header";
@@ -9,7 +10,6 @@ import Atlas from "./Atlas/Atlas";
 import { LOG } from "../utils/constants";
 import * as configSchema from "../../schemas/ResponseConfig";
 import { getOriginalServerPort, isJsonResponseValid, sendServerRequest } from "../utils/restfulAPI";
-
 
 export default class Page extends Component {
 
