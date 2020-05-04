@@ -5,13 +5,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = env => {
 
-	const CLIENT_PORT = env.CLIENT_PORT;
-	const SERVER_PORT = env.SERVER_PORT;
+	let CLIENT_PORT;
+	let SERVER_PORT;
+
+	if (env)
+	{
+		CLIENT_PORT = env.CLIENT_PORT;
+		SERVER_PORT = env.SERVER_PORT;
+	}
 
 	return {
 		entry: ['@babel/polyfill', './src/entry.js'],
 		devServer: { hot: true, open: true, port: CLIENT_PORT },
-		devtool: "inline-cheap-module-source-map",
 		module: {
 			rules: [
 				{ test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" },
