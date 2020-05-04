@@ -1,10 +1,11 @@
 package com.tco.server;
 
+import com.tco.server.MicroServer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
-/** The server for the single page web application. */
 public class WebApplication {
 
   protected final static int DEFAULT_SERVER_PORT = 8088;
