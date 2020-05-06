@@ -18,7 +18,7 @@ fi
 
 # Build The Client
 
-if [ -z "$CS314_IN_TRAVIS" ]; then
+if [ -z "$TRAVIS" ]; then
   npm run test --prefix client
   check_error $?
 fi
@@ -28,7 +28,7 @@ check_error $?
 
 # Build and Package the JAVA Server
 
-if [ -z "$CS314_IN_TRAVIS" ]; then
+if [ -z "$TRAVIS" ]; then
 
   mvn -f server --global-settings server/.m2/settings.xml clean verify
   check_error $?
