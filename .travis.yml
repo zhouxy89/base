@@ -30,7 +30,7 @@ script:
   - npm test --prefix client || travis_terminate 2
 
   # Check Valid Code
-  - ./deploy.sh || travis_terminate 3
+  - ./bin/run.sh -d || travis_terminate 3
 
 after_script:
   # Send Coverage Information to Code Climate
